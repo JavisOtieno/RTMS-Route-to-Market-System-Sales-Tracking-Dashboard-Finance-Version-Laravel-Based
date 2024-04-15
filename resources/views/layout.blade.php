@@ -7,18 +7,17 @@
     <meta charset="UTF-8">
     <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Sash – Bootstrap 5  Admin & Dashboard Template">
-    <meta name="author" content="Spruko Technologies Private Limited">
-    <meta name="keywords"
-        content="admin,admin dashboard,admin panel,admin template,bootstrap,clean,dashboard,flat,jquery,modern,responsive,premium admin templates,responsive admin,ui,ui kit.">
+    <meta name="description" content="RTMS - Route to Market System">
+    <meta name="author" content="Stan Consulting Group">
+    <meta name="keywords" content="sales, sales force automation, route to market system, rtms, sfa">
 
     <!-- FAVICON -->
     <!--<link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/images/brand/favicon.ico')}}>-->
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/brand/favicon.ico')}}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/images/brand/favicon.png')}}">
     
 
     <!-- TITLE -->
-    <title>Sash – Bootstrap 5 Admin & Dashboard Template </title>
+    <title>SCG RTMS - Route to Market System</title>
 
     <!-- BOOTSTRAP CSS -->
     <link id="style" href="{{asset('assets/plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -39,7 +38,6 @@
 </head>
 
 <body class="app sidebar-mini ltr light-mode">
-
 
     <!-- GLOBAL-LOADER -->
     <div id="global-loader">
@@ -404,7 +402,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="dropdown-divider m-0"></div>
-                                                <a class="dropdown-item" href="/editprofile/{{ auth()->user() ? auth()->user()->id : '' }}">
+                                                <a class="dropdown-item" href="/editprofile">
                                                     <i class="dropdown-icon fe fe-user"></i> Profile
                                                 </a>
                                                 <!--
@@ -1148,6 +1146,10 @@
 <!-- SIDEBAR JS -->
 <script src="{{asset('assets/plugins/sidebar/sidebar.js')}}"></script>
 
+<script src="{{asset('assets/plugins/sumoselect/jquery.sumoselect.js')}}"></script>
+
+
+
 <!-- SIDE-MENU JS -->
 <script src="{{asset('assets/plugins/sidemenu/sidemenu.js')}}"></script>
 
@@ -1159,6 +1161,9 @@
 
 <!-- INTERNAL SELECT2 JS -->
 <script src="{{asset('assets/plugins/select2/select2.full.min.js')}}"></script>
+
+<!-- SELECT2 JS -->
+<script src="{{asset('/assets/js/select2.js')}}"></script>
 
 <!-- INTERNAL APEXCHART JS -->
 <script src="{{asset('assets/js/apexcharts.js')}}"></script>
@@ -1193,6 +1198,9 @@
 
 <!-- Switcher js -->
 <script src="{{asset('assets/switcher/js/switcher.js')}}"></script>
+<!-- FORMELEMENTS JS -->
+<script src="{{asset('assets/js/formelementadvnced.js')}}"></script>
+<script src="{{asset('assets/js/form-elements.js')}}"></script>
 
     <!-- DATA TABLE JS-->
     <script src="{{asset('assets/plugins/datatable/js/jquery.dataTables.min.js')}}"></script>

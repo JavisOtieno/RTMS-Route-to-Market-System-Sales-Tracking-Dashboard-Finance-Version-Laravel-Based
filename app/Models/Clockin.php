@@ -13,4 +13,12 @@ class Clockin extends Model
         //return $this->belongsTo(User::class);
         return $this->belongsTo(User::class,'user_id');
     }
+
+    protected $fillable = [
+        'user_id',
+        'time',
+        'lat',
+        'long',
+
+    ];
 }

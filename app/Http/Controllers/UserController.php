@@ -103,8 +103,12 @@ class UserController extends Controller
         
     }
 
-    public function showProfile($id){
-        $user = User::find($id);
+    public function showProfile(){
+        // if(Auth::check()) 
+        // {
+        // $user_id=Auth::user()->id;
+        // }
+        $user = User::find(auth()->user()->id);
         return view('edit-profile',['user'=>$user]);
     }
 

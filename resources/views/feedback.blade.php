@@ -33,8 +33,7 @@
                         <tr>
                             <th>ID</th>
                             <th>User Id</th>
-                            <th>Title</th>
-                            <th>Comments</th>
+                            <th>Feedback</th>
                             <th>Created</th>
                         </tr>
                     </thead>
@@ -44,8 +43,7 @@
 <tr>
 <td>{{$feed['id']}}</td>
 <td>{{$feed['user_id']}}</td>
-<td>{{$feed['title']}}</td>
-<td>{{$feed['comments']}}</td>
+<td>{{$feed['feedback']}}</td>
 <td>{{$feed['created_at']}}</td>
 </tr>
 @endforeach

@@ -8,10 +8,7 @@ use Illuminate\Http\Request;
 class OutletController extends Controller
 {
     //
-    public function apiindex(){
-        $outlets = Outlet::all();
-        return response()->json(['outlets'=>$outlets]);
-    }
+
     public function index() {
         $outlets = Outlet::all();
         return view('outlets', ['outlets'=>$outlets]);
@@ -50,7 +47,7 @@ class OutletController extends Controller
     }
     public function showEditOutlet($id){
         $outlet = Outlet::find($id);
-        return view('edit-outlet',['outlet'=>$outlet]);
+        return view('edit-outlet',compact('outlet'));
     }
     public function saveEditOutlet($id, Request $request){
         $incomingFields=$request->validate([

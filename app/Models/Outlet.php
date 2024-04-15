@@ -17,4 +17,9 @@ class Outlet extends Model
         'lat',
         'long'
     ];
+
+    public function user(){
+        //return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
+    }
 }

@@ -82,7 +82,7 @@ Route::get('/clockins', [ClockinController::class,'index']);
 
 Route::get('/clockouts', [ClockoutController::class,'index']);
 
-Route::get('/editprofile/{id}', [UserController::class,'showProfile']);
+Route::get('/editprofile', [UserController::class,'showProfile']);
 
 Route::get('/visits', [VisitController::class,'index']);
 

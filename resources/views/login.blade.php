@@ -7,15 +7,15 @@
     <meta charset="UTF-8">
     <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Sash – Bootstrap 5  Admin & Dashboard Template">
-    <meta name="author" content="Spruko Technologies Private Limited">
-    <meta name="keywords" content="admin,admin dashboard,admin panel,admin template,bootstrap,clean,dashboard,flat,jquery,modern,responsive,premium admin templates,responsive admin,ui,ui kit.">
+    <meta name="description" content="RTMS - Route to Market System">
+    <meta name="author" content="Stan Consulting Group">
+    <meta name="keywords" content="sales, sales force automation, route to market system, rtms, sfa">
 
     <!-- FAVICON -->
-    <link rel="shortcut icon" type="image/x-icon" href="../assets/images/brand/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="../assets/images/brand/favicon.png">
 
     <!-- TITLE -->
-    <title>Sash – Bootstrap 5 Admin & Dashboard Template</title>
+    <title>SCG RTMS - Route to Market System</title>
 
     <!-- BOOTSTRAP CSS -->
     <link id="style" href="../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -81,7 +81,7 @@
                                     </div>
                                 </div>
                                 @if ($errors->any())
-    <div class="alert alert-danger">
+    <div class="alert alert-danger alert-dismissible">
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         <ul>
             @foreach ($errors->all() as $error)

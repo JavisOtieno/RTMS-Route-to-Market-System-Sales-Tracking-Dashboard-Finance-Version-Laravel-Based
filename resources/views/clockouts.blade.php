@@ -40,6 +40,7 @@
                     </thead>
                     <tbody>
                         <tr>
+                            @if(count($clockouts)>0)
                             @foreach($clockouts as $clockout)
                             <td>{{$clockout['id']}}</td>
                             <td>{{$clockout['user']['name']}}</td>

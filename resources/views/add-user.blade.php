@@ -52,6 +52,7 @@
                                                     <option value="sales">Sales</option>
                                 </select>
                             </div>
+                            
                             <div class="form-group">
                                 <label for="targets" class="form-label">Targets</label>
                                 <input type="number" class="form-control" name="targets" id="targets" placeholder="Targets" autocomplete="targets">

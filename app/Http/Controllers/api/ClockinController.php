@@ -12,21 +12,27 @@ class ClockinController extends Controller
     public function saveClockin(Request $request){
 
        
-        $incomingFields=$request->validate([
-            'userId'=>'required',
-            'time'=>'required',
-            'lat'=>'required',
-            'long'=>'required'
-        ]);
-        
-        $incomingFields['user_id']=strip_tags($incomingFields['userId']);
-        $incomingFields['time']=strip_tags($incomingFields['time']);
-        $incomingFields['lat']=strip_tags($incomingFields['lat']);
-        $incomingFields['long']=strip_tags($incomingFields['long']);
+        // $incomingFields=$request->validate([
+        //     'userId'=>'required',
+        //     'time'=>'required',
+        //     'lat'=>'required',
+        //     'long'=>'required'
+        // ]);
+
+
+        $incomingFields=[];
+        $incomingFields['user_id']=strip_tags($request['userId']);
+        $incomingFields['time']=strip_tags($request['time']);
+        $incomingFields['lat']=strip_tags($request['lat']);
+        $incomingFields['long']=strip_tags($request['long']);
 
         Clockin::create($incomingFields);
 
-        return response()->json('Clockin Successful');
+        $clockinStatus=array(
+            "message" => "Clockin Successful",
+            "status" => "success");
+
+        return response()->json($clockinStatus);
         
     }
 }

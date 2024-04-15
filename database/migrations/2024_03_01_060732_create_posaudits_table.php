@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('user_id');
             $table->integer('outlet_id');
+            $table->integer('visit_id');
             $table->string('name');
             $table->string('sku');
             $table->string('pieces');
