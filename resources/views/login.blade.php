@@ -54,13 +54,19 @@
                 <!-- CONTAINER OPEN -->
                 <div class="col col-login mx-auto mt-7">
                     <div class="text-center">
-                        <a href="index.html"><img src="../assets/images/brand/logo-white.png" class="header-brand-img" alt=""></a>
+                        <a href="/"><img src="../assets/images/brand/logo-white.png" class="header-brand-img" alt=""></a>
                     </div>
                 </div>
 
                 <div class="container-login100">
                     <div class="wrap-login100 p-6">
-                        <form class="login100-form validate-form">
+                        
+                        @if(Session::has('email'))
+                        
+<p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('email') }}</p>
+@endif
+                        <form action="/attemptlogin" method="POST" class="login100-form validate-form">
+                            @csrf
                             <span class="login100-form-title pb-5">
                                 Login
                             </span>
@@ -74,6 +80,22 @@
                                         </ul>
                                     </div>
                                 </div>
+                                @if ($errors->any())
+    <div class="alert alert-danger">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>
+                    @if ($error == 'The phone number must be at least 12 characters.')
+                    The phone number must be at least 10 Numbers.
+                    @else
+                    {{ $error }}
+                    @endif
+                    </li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
                                 <div class="panel-body tabs-menu-body p-0 pt-5">
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="tab5">
@@ -81,26 +103,29 @@
                                                 <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
                                                     <i class="zmdi zmdi-email text-muted" aria-hidden="true"></i>
                                                 </a>
-                                                <input class="input100 border-start-0 form-control ms-0" type="email" placeholder="Email">
+                                                <input class="input100 border-start-0 form-control ms-0" type="email" value="{{old('email')}}" name="email" placeholder="Email">
                                             </div>
                                             <div class="wrap-input100 validate-input input-group" id="Password-toggle">
                                                 <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
                                                     <i class="zmdi zmdi-eye text-muted" aria-hidden="true"></i>
                                                 </a>
-                                                <input class="input100 border-start-0 form-control ms-0" type="password" placeholder="Password">
+                                                <input class="input100 border-start-0 form-control ms-0" type="password" name="password" placeholder="Password">
                                             </div>
                                             <div class="text-end pt-4">
                                                 <p class="mb-0"><a href="forgot-password.html" class="text-primary ms-1">Forgot Password?</a></p>
                                             </div>
                                             <div class="container-login100-form-btn">
-                                                <a href="/dashboard" class="login100-form-btn btn-primary">
+                                                <button type="submit" class="login100-form-btn btn-primary">
                                                         Login
-                                                </a>
+                                                </button>
                                             </div>
-                                            <!--
+                                            @if($usercount == 0)
                                             <div class="text-center pt-3">
-                                                <p class="text-dark mb-0">Not a member?<a href="register.html" class="text-primary ms-1">Sign UP</a></p>
+                                                <p class="text-dark mb-0">Initiate first admin signup?<a href="/signup" class="text-primary ms-1">Sign Up</a></p>
                                             </div>
+                                            @endif
+                                            
+                                            <!--
                                             <label class="login-social-icon"><span>Login with Social</span></label>
                                             <div class="d-flex justify-content-center">
                                                 <a href="javascript:void(0)">

@@ -46,9 +46,21 @@
                                 <input type="text" class="form-control" name="email" id="email" placeholder="Email" autocomplete="email">
                             </div>
                             <div class="form-group">
+                                <label for="admin" class="form-label">User Type</label>
+                                <select name="usertype" class="form-control form-select select2" data-bs-placeholder="Select User Type">
+                                                    <option value="admin">Admin</option>
+                                                    <option value="sales">Sales</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="targets" class="form-label">Targets</label>
+                                <input type="number" class="form-control" name="targets" id="targets" placeholder="Targets" autocomplete="targets">
+                            </div>
+                            <div class="form-group">
                                 <label for="password" class="form-label">Password</label>
                                 <input type="password" class="form-control" name="password" id="password" placeholder="Password" autocomplete="password">
                             </div>
+                            
                             
                         </div>
                         <button class="btn btn-primary mt-4 mb-0">Save</button>

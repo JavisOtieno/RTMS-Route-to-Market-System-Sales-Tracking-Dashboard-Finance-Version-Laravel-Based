@@ -123,6 +123,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @if(count($sales)>0)
                             @foreach($sales as $sale)
                             <tr>
                             <td>{{$sale['id']}}</td>
@@ -131,6 +132,13 @@
                             <td>{{$sale['pieces']}}</td>
                             </tr>
                             @endforeach
+                            @else
+                            <!--let datatables display no data available-->
+                            <tr>
+                                <td colspan="4" style="text-align: center">No sales so far</td>
+                            </tr>
+                            @endif
+
                             
                         </tbody>
                     </table>
@@ -156,14 +164,20 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @if(count($outlets)>0)
                             @foreach($outlets as $outlet)
                             <tr>
                             <td>{{$outlet['id']}}</td>
                             <td>{{$outlet['name']}}</td>
                             <td>{{$outlet['contact_person_name']}}</td>
-                            
                             </tr>
                             @endforeach
+                            @else
+                            <!--let datatables display no data available-->
+                            <tr>
+                                <td colspan="4" style="text-align: center">No outlets so far</td>
+                            </tr>
+                            @endif
                             
                         </tbody>
                     </table>

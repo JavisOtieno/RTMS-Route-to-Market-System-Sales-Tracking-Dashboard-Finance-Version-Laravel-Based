@@ -28,40 +28,52 @@ class UserController extends Controller
         $incomingFields=$request->validate([
             'name'=>'required',
             'phone'=>'required',
+            'usertype'=>'required',
             'email'=>'required',
-            'password'=>'required'
+            'password'=>'required',
+            'targets'=>''
         ]);
         //return $incomingFields;
         
+        
         $incomingFields['name']=strip_tags($incomingFields['name']);
         $incomingFields['phone']=strip_tags($incomingFields['phone']);
+        $incomingFields['usertype']=strip_tags($incomingFields['usertype']);
+        $incomingFields['targets']=strip_tags($incomingFields['targets']);
         $incomingFields['email']=strip_tags($incomingFields['email']);
         $incomingFields['password']=strip_tags($incomingFields['password']);
+
+        //return $incomingFields['usertype'];
 
         User::create($incomingFields);
 
         return redirect('/users');
         
     }
+
     public function addUser() {
         return view('add-user');
     }
+
     public function showEditUser($id){
         $user = User::find($id);
         return view('edit-user',['user'=>$user]);
     }
+
     public function saveEditUser($id, Request $request){
         $incomingFields=$request->validate([
             'name'=>'required',
+            'usertype'=>'required',
+            'targets'=>'',
             'phone'=>'required',
             'email'=>'required',
-            'password'=>'required'
         ]);
 
         $incomingFields['name']=strip_tags($incomingFields['name']);
+        $incomingFields['usertype']=strip_tags($incomingFields['usertype']);
         $incomingFields['email']=strip_tags($incomingFields['email']);
+        $incomingFields['targets']=strip_tags($incomingFields['targets']);
         $incomingFields['phone']=strip_tags($incomingFields['phone']);
-        $incomingFields['password']=strip_tags($incomingFields['password']);
 
         $user=User::find($id);
 
@@ -70,7 +82,32 @@ class UserController extends Controller
         return redirect('/users');
         
     }
-    public function displayLoginPage(){
-        return view('login');
+
+    public function showChangePassword($id){
+        $user = User::find($id);
+        return view('changepassword',['user'=>$user]);
     }
+
+    public function saveChangePassword($id, Request $request){
+        $incomingFields=$request->validate([
+            'password'=>'required|confirmed|min:6'
+        ]);
+
+        $incomingFields['password']=strip_tags($incomingFields['password']);
+
+        $user=User::find($id);
+
+        $user->update($incomingFields);
+
+        return redirect('/edituser/'.$id);
+        
+    }
+
+    public function showProfile($id){
+        $user = User::find($id);
+        return view('edit-profile',['user'=>$user]);
+    }
+
+    
+
 }

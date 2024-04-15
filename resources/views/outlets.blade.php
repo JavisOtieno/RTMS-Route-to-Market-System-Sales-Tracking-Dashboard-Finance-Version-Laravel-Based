@@ -41,8 +41,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        
+                            @if(count($outlets)>0)
                             @foreach($outlets as $outlet)
+                            <tr>
                             <td>{{$outlet['id']}}</td>
                             <td>{{$outlet['name']}}</td>
                             <td>{{$outlet['contact_person_name']}}</td>
@@ -53,8 +55,10 @@
                             </td>
                             <!--<a class="modal-effect btn btn-primary-light d-grid mb-3" data-bs-effect="effect-scale" >Scale</a>-->
                             </tr>
-                            
                             @endforeach
+                            @else
+                                <!--let datatables display no data available-->
+                            @endif
                         
                     </tbody>
                 </table>

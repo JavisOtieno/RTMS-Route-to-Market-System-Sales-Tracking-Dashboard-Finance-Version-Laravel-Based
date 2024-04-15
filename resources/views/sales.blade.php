@@ -44,8 +44,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        @foreach($sales as $sale)
+                                    @if(count($sales)>0)
+                                    @foreach($sales as $sale)
+                                    <tr>                                        
                                         <td>{{$sale['id']}}</td>
                                         <td>{{$sale['user']['name']}}</td>
                                         <td>{{$sale['product']['name']}}</td>
@@ -57,8 +58,13 @@
                                         </td>
                                         <!--<a class="modal-effect btn btn-primary-light d-grid mb-3" data-bs-effect="effect-scale" >Scale</a>-->
                                         </tr>
-                                        
                                         @endforeach
+                                    
+                                    @else
+                                    <!--<tr><td colspan="7" style="text-align: center">No sales so far</td></tr>-->
+                                    <!--let datatables display no data available-->
+                                    @endif
+                                        
                                     
                                 </tbody>
                             </table>
@@ -105,6 +111,8 @@
         confirmDeleteLink.href = "/deletesale/"+id;
     }
   </script>
+
+
 
 
 

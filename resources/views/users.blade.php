@@ -43,7 +43,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    
+                                        @if(count($users)>0)
+                                        <tr>
                                         @foreach($users as $user)
                                         <td>{{$user['id']}}</td>
                                         <td>{{$user['name']}}</td>
@@ -55,8 +57,11 @@
                                         </td>
                                         <!--<a class="modal-effect btn btn-primary-light d-grid mb-3" data-bs-effect="effect-scale" >Scale</a>-->
                                         </tr>
-                                        
                                         @endforeach
+                                        @else
+                                        <!--<tr><td colspan="7" style="text-align: center">No users so far</td></tr>-->
+                                        <!--let datatables display no data available-->
+                                        @endif
                                     
                                 </tbody>
                             </table>

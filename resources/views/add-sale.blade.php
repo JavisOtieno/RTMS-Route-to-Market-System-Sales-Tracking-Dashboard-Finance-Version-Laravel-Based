@@ -35,19 +35,19 @@
                         <div class="">
                             <div class="form-group">
                                 <label for="userId" class="form-label">User Id</label>
-                                <input type="userId" class="form-control" name="userId" id="userId" placeholder="User Id" autocomplete="userid">
+                                <input type="userId" class="form-control" name="userId" id="userId" placeholder="User Id" autocomplete="userid" value="{{old('userId')}}">
                             </div>
                             <div class="form-group">
                                 <label for="outletId" class="form-label">Outlet Id</label>
-                                <input type="text" class="form-control" name="outletId" id="outletId" placeholder="Outlet Id" autocomplete="outletid">
+                                <input type="text" class="form-control" name="outletId" id="outletId" placeholder="Outlet Id" autocomplete="outletid" value="{{old('outletId')}}">
                             </div>
                             <div class="form-group">
                                 <label for="productId" class="form-label">Product Id</label>
-                                <input type="text" class="form-control" name="productId" id="productId" placeholder="Product Id" autocomplete="productid">
+                                <input type="text" class="form-control" name="productId" id="productId" placeholder="Product Id" autocomplete="productid" value="{{old('productId')}}">
                             </div>
                             <div class="form-group">
                                 <label for="pieces" class="form-label">Pieces</label>
-                                <input type="text" class="form-control" name="pieces" id="pieces" placeholder="Pieces" autocomplete="pieces">
+                                <input type="text" class="form-control" name="pieces" id="pieces" placeholder="Pieces" autocomplete="pieces" value="{{old('pieces')}}">
                             </div>
                             
                         </div>

@@ -39,8 +39,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        
+                            @if(count($clockins)>0)
                             @foreach($clockins as $clockin)
+                            <tr>
                             <td>{{$clockin['id']}}</td>
                             <td>{{$clockin['user']['name']}}</td>
                             <td>{{$clockin['time']}}</td>
@@ -50,6 +52,11 @@
                             </tr>
                             
                             @endforeach
+                            @else
+                            <!--let datatables display no data available-->
+                            @endif
+
+                            <!--let datatables display no data available-->
                         
                     </tbody>
                 </table>

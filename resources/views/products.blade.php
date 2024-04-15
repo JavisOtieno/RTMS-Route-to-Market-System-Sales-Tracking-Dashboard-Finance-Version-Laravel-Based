@@ -42,8 +42,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    
+                                        @if(count($products)>0)
                                         @foreach($products as $product)
+                                        <tr>
                                         <td>{{$product['id']}}</td>
                                         <td>{{$product['name']}}</td>
                                         <td>{{$product['sku']}}</td>
@@ -55,6 +57,9 @@
                                         </tr>
                                         
                                         @endforeach
+                                        @else
+                                         <!--let datatables display no data available-->
+                                        @endif
                                     
                                 </tbody>
                             </table>

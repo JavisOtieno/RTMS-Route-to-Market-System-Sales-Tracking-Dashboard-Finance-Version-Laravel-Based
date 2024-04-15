@@ -7,7 +7,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GeoController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\VisitController;
 use App\Http\Controllers\OutletController;
+use App\Http\Controllers\SignupController;
 use App\Http\Controllers\CheckinController;
 use App\Http\Controllers\ClockinController;
 use App\Http\Controllers\ProductController;
@@ -28,16 +31,10 @@ use App\Http\Controllers\CompetitorController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::middleware(['auth'])->group(function(){
 Route::get('/', [DashboardController::class,'index']);
 
 Route::get('/dashboard', [DashboardController::class,'index']);
-
-Route::get('/users', function () {
-    return view('users');
-});
-
-Route::get('/geos', [GeoController::class,'index']);
 
 Route::get('/sales', [SaleController::class,'index']);
 
@@ -85,6 +82,10 @@ Route::get('/clockins', [ClockinController::class,'index']);
 
 Route::get('/clockouts', [ClockoutController::class,'index']);
 
+Route::get('/editprofile/{id}', [UserController::class,'showProfile']);
+
+Route::get('/visits', [VisitController::class,'index']);
+
 Route::get('/users', [UserController::class,'index']);
 
 Route::get('/deleteuser/{id}', [UserController::class,'deleteUser']);
@@ -97,8 +98,20 @@ Route::get('/edituser/{id}', [UserController::class,'showEditUser']);
 
 Route::put('/saveedituser/{id}',[UserController::class,'saveEditUser']);
 
-Route::get('/login', [UserController::class,'displayLoginPage']);
+Route::get('/changepassword/{id}', [UserController::class,'showChangePassword']);
 
-Route::get('/checkins', [CheckinController::class,'index']);
+Route::put('/savechangepassword/{id}',[UserController::class,'saveChangePassword']);
 
-Route::get('/checkouts', [CheckoutController::class,'index']);
+});
+
+
+
+Route::get('/login', [LoginController::class,'showLogin'])->name('login');
+
+Route::post('/attemptlogin', [LoginController::class,'doLogin']);
+
+Route::get('/logout', [LoginController::class,'logout']);
+
+Route::get('/signup', [SignupController::class,'showSignup']);
+
+Route::post('/attemptsignup', [SignupController::class,'doSignup']);

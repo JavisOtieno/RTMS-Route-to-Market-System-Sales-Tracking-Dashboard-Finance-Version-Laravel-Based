@@ -50,6 +50,9 @@
                             </tr>
                             
                             @endforeach
+                            @else
+                            <!--let datatables display no data available-->
+                            @endif
                         
                     </tbody>
                 </table>

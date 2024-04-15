@@ -57,7 +57,7 @@
                     <div class="d-flex">
                         <a aria-label="Hide Sidebar" class="app-sidebar__toggle" data-bs-toggle="sidebar" href="javascript:void(0)"></a>
                         <!-- sidebar-toggle-->
-                        <a class="logo-horizontal " href="index.html">
+                        <a class="logo-horizontal " href="/">
                             <img src="{{asset('assets/images/brand/logo-white.png')}}" class="header-brand-img desktop-logo" alt="logo">
                             <img src="{{asset('assets/images/brand/logo-dark.png')}}" class="header-brand-img light-logo1"
                                 alt="logo">
@@ -399,12 +399,12 @@
                                             <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                 <div class="drop-heading">
                                                     <div class="text-center">
-                                                        <h5 class="text-dark mb-0 fs-14 fw-semibold">Percy Kewshun</h5>
-                                                        <small class="text-muted">Senior Admin</small>
+                                                        <h5 class="text-dark mb-0 fs-14 fw-semibold">{{ auth()->user() ? auth()->user()->name : '' }}</h5>
+                                                        <small class="text-muted">{{ auth()->user() ? ucfirst(auth()->user()->usertype) : '' }}</small>
                                                     </div>
                                                 </div>
                                                 <div class="dropdown-divider m-0"></div>
-                                                <a class="dropdown-item" href="profile.html">
+                                                <a class="dropdown-item" href="/editprofile/{{ auth()->user() ? auth()->user()->id : '' }}">
                                                     <i class="dropdown-icon fe fe-user"></i> Profile
                                                 </a>
                                                 <!--
@@ -416,7 +416,7 @@
                                                     <i class="dropdown-icon fe fe-lock"></i> Lockscreen
                                                 </a>
                                               -->
-                                                <a class="dropdown-item" href="login.html">
+                                                <a class="dropdown-item" href="/logout">
                                                     <i class="dropdown-icon fe fe-alert-circle"></i> Sign out
                                                 </a>
                                             </div>
@@ -435,7 +435,7 @@
                 <div class="app-sidebar__overlay" data-bs-toggle="sidebar"></div>
                 <div class="app-sidebar">
                     <div class="side-header">
-                        <a class="header-brand1" href="index.html">
+                        <a class="header-brand1" href="/">
                             <img src="{{asset('assets/images/brand/logo-white.png')}}"" class="header-brand-img desktop-logo" alt="logo">
                             <img src="{{asset('assets/images/brand/icon-white.png')}}"" class="header-brand-img toggle-logo"
                                 alt="logo">
@@ -467,12 +467,17 @@
                             <li class="slide">
                               <a class="side-menu__item has-link" data-bs-toggle="slide" href="/clockins"><i
                                       class="side-menu__icon fe fe-arrow-right"></i><span
-                                      class="side-menu__label">User Clockins</span></a>
+                                      class="side-menu__label">Clockins</span></a>
                           </li>
                           <li class="slide">
                             <a class="side-menu__item has-link" data-bs-toggle="slide" href="/clockouts"><i
                                     class="side-menu__icon fe fe-arrow-left"></i><span
-                                    class="side-menu__label">User Clockouts</span></a>
+                                    class="side-menu__label">Clockouts</span></a>
+                        </li>
+                        <li class="slide">
+                            <a class="side-menu__item has-link" data-bs-toggle="slide" href="/visits"><i
+                                    class="side-menu__icon fe fe-clock"></i><span
+                                    class="side-menu__label">Outlet Visits</span></a>
                         </li>
                           <li class="slide">
                             <a class="side-menu__item has-link" data-bs-toggle="slide" href="/sales"><i
@@ -1203,6 +1208,9 @@
     <script src="{{asset('assets/plugins/datatable/dataTables.responsive.min.js')}}"></script>
     <script src="{{asset('assets/plugins/datatable/responsive.bootstrap5.min.js')}}"></script>
     <script src="{{asset('assets/js/table-data.js')}}"></script>
+
+
+
 
 
 
