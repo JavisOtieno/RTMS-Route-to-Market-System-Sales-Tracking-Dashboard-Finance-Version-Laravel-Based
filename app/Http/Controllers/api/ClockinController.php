@@ -19,6 +19,8 @@ class ClockinController extends Controller
         //     'long'=>'required'
         // ]);
 
+        //Test Git
+
 
         $incomingFields=[];
         $incomingFields['user_id']=strip_tags($request['userId']);

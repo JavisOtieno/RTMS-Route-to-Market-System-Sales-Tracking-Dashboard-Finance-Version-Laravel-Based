@@ -20,6 +20,8 @@ class CompetitorController extends Controller
         //     'long'=>'required'
         // ]);
 
+        //testt
+
 
         $incomingFields=[];
         $incomingFields['user_id']=strip_tags($request['userId']);

@@ -15,6 +15,7 @@ use App\Http\Controllers\api\DashboardController;
 use App\Http\Controllers\api\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\api\FeedbackController;
+use App\Http\Controllers\api\POSAuditController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +54,9 @@ Route::middleware(['auth:sanctum'])->group(function(){
 
     Route::post('addcompetitoranalysis',[CompetitorController::class,'saveCompetitorAnalysis']);
     Route::get('competitiveanalysis',[CompetitorController::class,'index']);
+
+    Route::post('addposaudit',[POSAuditController::class,'savePOSAudit']);
+    Route::get('posaudits',[POSAuditController::class,'index']);
 
 });
 
