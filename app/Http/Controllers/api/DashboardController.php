@@ -22,7 +22,7 @@ class DashboardController extends Controller
         $sales=Sale::all();
         $dailySalesTotal = 0;
         foreach($sales as $sale){
-            $dailySalesTotal=$dailySalesTotal+$sale['product']['price']*$sale['pieces'];
+            $dailySalesTotal=$dailySalesTotal+$sale['value'];
         }
 
         
@@ -30,17 +30,17 @@ class DashboardController extends Controller
         $clockout=Clockout::where('user_id',1)->orderBy('id', 'desc')->take(1)->get();
         $visit=Visit::where('user_id',1)->orderBy('id', 'desc')->take(1)->get();
         if(count($clockin)>0){
-        $clockinTime = $clockin[0]['time'];
+        $clockinTime = strtotime($clockin[0]['created_at']);
         }else{
         $clockinTime = 'undefined';
         }
         if(count($clockout)>0){
-            $clockoutTime = $clockout[0]['time'];
+            $clockoutTime = strtotime($clockout[0]['created_at']);
             }else{
             $clockoutTime = 'undefined';
             }
         if(count($visit)>0){
-        $checkinTime = $visit[0]['checkin_time'];
+        $checkinTime = strtotime($visit[0]['checkin_time']);
         $visitId = $visit[0]['id'];
         $outletId = $visit[0]['outlet_id'];
         $checkoutTime = $visit[0]['checkout_time'];

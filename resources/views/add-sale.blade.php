@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layout-form')
 
 @section('content')
 
@@ -33,122 +33,55 @@
                         @csrf
                         @method('POST')
                         <div class="">
-                            <div class="form-group">
-                                <label for="userId" class="form-label">User Id</label>
-                                <input type="userId" class="form-control" name="userId" id="userId" placeholder="User Id" autocomplete="userid" value="{{old('userId')}}">
-                                
+
+                            @if ($errors->any())
+                            <div class="alert alert-danger alert-dismissible">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>
+                                            @if ($error == 'Any special error')
+                                            Any special error
+                                            @else
+                                            {{ $error }}
+                                            @endif
+                                            </li>
+                                    @endforeach
+                                </ul>
                             </div>
+                            @endif
+                            
                             <div class="form-group">
-                                <label class="form-label">Basic</label>
-                                <select class="form-control select2 form-select" data-placeholder="Choose one">
-                                        <option label="Choose one">
-                                        </option>
-                                        <option value="1">Chuck Testa</option>
-                                        <option value="2">Sage Cattabriga-Alosa</option>
-                                        <option value="3">Nikola Tesla</option>
-                                        <option value="4">Cattabriga-Alosa</option>
-                                        <option value="5">Nikola Alosa</option>
-                                    </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Basic Select2</label>
-                                <select class="form-control select2" data-placeholder="Choose one (with optgroup)">
-                                        <optgroup label="Mountain Time Zone">
-                                            <option value="AZ">Arizona</option>
-                                            <option value="CO">Colorado</option>
-                                            <option value="ID">Idaho</option>
-                                            <option value="MT">Montana</option><option value="NE">Nebraska</option>
-                                            <option value="NM">New Mexico</option>
-                                            <option value="ND">North Dakota</option>
-                                            <option value="UT">Utah</option>
-                                            <option value="WY">Wyoming</option>
-                                        </optgroup>
-                                        <optgroup label="Central Time Zone">
-                                            <option value="AL">Alabama</option>
-                                            <option value="AR">Arkansas</option>
-                                            <option value="IL">Illinois</option>
-                                            <option value="IA">Iowa</option>
-                                            <option value="KS">Kansas</option>
-                                            <option value="KY">Kentucky</option>
-                                            <option value="LA">Louisiana</option>
-                                            <option value="MN">Minnesota</option>
-                                            <option value="MS">Mississippi</option>
-                                            <option value="MO">Missouri</option>
-                                            <option value="OK">Oklahoma</option>
-                                            <option value="SD">South Dakota</option>
-                                            <option value="TX">Texas</option>
-                                            <option value="TN">Tennessee</option>
-                                            <option value="WI">Wisconsin</option>
-                                        </optgroup>
-                                    </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label"> Select2 with search box</label>
-                                <select class="form-control select2-show-search form-select" data-placeholder="Choose one">
+                                <label class="form-label"> Users</label>
+                                <select class="form-control select2-show-search form-select" name="userId" id="userId" data-placeholder="Choose one">
                                         <option label="Choose one"></option>
-                                        <option value="AZ">Arizona</option>
-                                        <option value="CO">Colorado</option>
-                                        <option value="ID">Idaho</option>
-                                        <option value="MT">Montana</option>
-                                        <option value="NE">Nebraska</option>
-                                        <option value="NM">New Mexico</option>
-                                        <option value="ND">North Dakota</option>
-                                        <option value="UT">Utah</option>
-                                        <option value="WY">Wyoming</option>
-                                        <option value="AL">Alabama</option>
-                                        <option value="AR">Arkansas</option>
-                                        <option value="IL">Illinois</option>
-                                        <option value="IA">Iowa</option>
-                                        <option value="KS">Kansas</option>
-                                        <option value="KY">Kentucky</option>
-                                        <option value="LA">Louisiana</option>
-                                        <option value="MN">Minnesota</option>
-                                        <option value="MS">Mississippi</option>
-                                        <option value="MO">Missouri</option>
-                                        <option value="OK">Oklahoma</option>
-                                        <option value="SD">South Dakota</option>
-                                        <option value="TX">Texas</option>
-                                        <option value="TN">Tennessee</option>
-                                        <option value="WI">Wisconsin</option>
+                                        @foreach($users as $user)
+                                        <option value="{{$user['id']}}">{{$user['name']}}</option>
+                                        @endforeach
+                                        
                                     </select>
                             </div>
+                           
                             <div class="form-group">
-                                <label class="form-label"> Select2 with search box</label>
-                                <select class="form-control select2-show-search form-select" data-placeholder="Choose one">
+                                <label class="form-label"> Outlets</label>
+                                <select class="form-control select2-show-search form-select" name="outletId" id="outletId" data-placeholder="Choose one">
                                         <option label="Choose one"></option>
-                                        <option value="AZ">Arizona</option>
-                                        <option value="CO">Colorado</option>
-                                        <option value="ID">Idaho</option>
-                                        <option value="MT">Montana</option>
-                                        <option value="NE">Nebraska</option>
-                                        <option value="NM">New Mexico</option>
-                                        <option value="ND">North Dakota</option>
-                                        <option value="UT">Utah</option>
-                                        <option value="WY">Wyoming</option>
-                                        <option value="AL">Alabama</option>
-                                        <option value="AR">Arkansas</option>
-                                        <option value="IL">Illinois</option>
-                                        <option value="IA">Iowa</option>
-                                        <option value="KS">Kansas</option>
-                                        <option value="KY">Kentucky</option>
-                                        <option value="LA">Louisiana</option>
-                                        <option value="MN">Minnesota</option>
-                                        <option value="MS">Mississippi</option>
-                                        <option value="MO">Missouri</option>
-                                        <option value="OK">Oklahoma</option>
-                                        <option value="SD">South Dakota</option>
-                                        <option value="TX">Texas</option>
-                                        <option value="TN">Tennessee</option>
-                                        <option value="WI">Wisconsin</option>
+                                        @foreach($outlets as $outlet)
+                                        <option value="{{$outlet['id']}}">{{$outlet['name']}}</option>
+                                        @endforeach
+                                        
                                     </select>
                             </div>
+                            
                             <div class="form-group">
-                                <label for="outletId" class="form-label">Outlet Id</label>
-                                <input type="text" class="form-control" name="outletId" id="outletId" placeholder="Outlet Id" autocomplete="outletid" value="{{old('outletId')}}">
-                            </div>
-                            <div class="form-group">
-                                <label for="productId" class="form-label">Product Id</label>
-                                <input type="text" class="form-control" name="productId" id="productId" placeholder="Product Id" autocomplete="productid" value="{{old('productId')}}">
+                                <label class="form-label"> Products</label>
+                                <select class="form-control select2-show-search form-select" name="productId" id="productId" data-placeholder="Choose one">
+                                        <option label="Choose one"></option>
+                                        @foreach($products as $product)
+                                        <option value="{{$product['id']}}">{{$product['name']}}</option>
+                                        @endforeach
+                                        
+                                    </select>
                             </div>
                             <div class="form-group">
                                 <label for="pieces" class="form-label">Pieces</label>

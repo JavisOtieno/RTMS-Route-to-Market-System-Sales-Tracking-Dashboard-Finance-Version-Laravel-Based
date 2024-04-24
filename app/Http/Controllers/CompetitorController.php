@@ -16,5 +16,10 @@ class CompetitorController extends Controller
         $competitors = Competitor::all();
         return view('competitors', ['competitors'=>$competitors]);
     }
+    public function deleteCompetitiveanalysis($id){
+        $competitiveAnalysis = Competitor::find($id);
+        $competitiveAnalysis->delete();
+        return redirect('/competitors');
+    }
 
 }

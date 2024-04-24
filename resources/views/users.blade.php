@@ -27,7 +27,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Users</h3>
-                        <a type="button" href="/add-user" class="btn btn-success col-md-3" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;">Add User</a>
+                        <a type="button" href="/add-user" class="btn btn-danger col-md-3" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;">Add User</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -45,8 +45,9 @@
                                 <tbody>
                                     
                                         @if(count($users)>0)
-                                        <tr>
+                                        
                                         @foreach($users as $user)
+                                        <tr>
                                         <td>{{$user['id']}}</td>
                                         <td>{{$user['name']}}</td>
                                         <td>{{$user['phone']}}</td>

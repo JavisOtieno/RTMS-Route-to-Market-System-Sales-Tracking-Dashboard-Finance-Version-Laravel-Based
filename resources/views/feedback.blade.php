@@ -28,13 +28,15 @@
         <div class="card-body">
             <!--<p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p>-->
             <div class="table-responsive">
-                <table class="table border text-nowrap text-md-nowrap table-striped mb-0">
+                <table id="example2" class="table border text-nowrap text-md-nowrap table-striped mb-0">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>User Id</th>
+                            <th>Outlet Name</th>
+                            <th>User Name</th>
                             <th>Feedback</th>
                             <th>Created</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,9 +44,12 @@
                         @foreach($feedback as $feed)
 <tr>
 <td>{{$feed['id']}}</td>
-<td>{{$feed['user_id']}}</td>
+<td>{{$feed['outlet']['name']}}</td>
+<td>{{$feed['user']['name']}}</td>
 <td>{{$feed['feedback']}}</td>
 <td>{{$feed['created_at']}}</td>
+<td><a type="button" onclick="deleteItemDefault({{$feed['id']}},'{{$feed['outlet']['name']}}','{{$feed['user']['name']}}','feedback')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
+
 </tr>
 @endforeach
 
@@ -61,3 +66,4 @@
 </div>
 
 @endsection
+

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sale;
+use App\Models\User;
+use App\Models\Outlet;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
@@ -16,9 +19,15 @@ class SaleController extends Controller
         //dd($sales);
         return view('sales', ['sales'=>$sales]);
     }
+
     public function addSale() {
-        return view('add-sale');
+        $users = User::all();
+        $outlets = Outlet::all();
+        $products = Product::all();
+        //dd($sales);
+        return view('add-sale', compact('users','outlets','products'));
     }
+
     public function saveSale(Request $request){
        
         /*
@@ -53,7 +62,13 @@ class SaleController extends Controller
         $incomingFields['user_id']=strip_tags($request['userId']);
         $incomingFields['outlet_id']=strip_tags($request['outletId']);
         $incomingFields['product_id']=strip_tags($request['productId']);
+        $incomingFields['visit_id']='0';
         $incomingFields['pieces']=strip_tags($request['pieces']);
+
+        $price = Product::find($incomingFields['product_id'])['price'];
+        $incomingFields['value'] = $price * $incomingFields['pieces'];
+
+        //return $incomingFields;
 
         Sale::create($incomingFields);
 

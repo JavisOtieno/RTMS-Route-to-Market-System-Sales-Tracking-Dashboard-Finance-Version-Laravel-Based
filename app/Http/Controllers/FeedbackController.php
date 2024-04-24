@@ -16,4 +16,10 @@ class FeedbackController extends Controller
         $feedback = Feedback::all();
         return view('feedback', ['feedback'=>$feedback]);
     }
+
+    public function deleteFeedback($id){
+        $feedback = Feedback::find($id);
+        $feedback->delete();
+        return redirect('/feedback');
+    }
 }

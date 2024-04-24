@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layout-form')
 
 @section('content')
 
@@ -27,12 +27,8 @@
         </div>
         <div class="card-body">
             <!--<p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p>-->
-            
-                
-            <div class="card">
-                                    <div class="card-header">
-                                        <div class="card-title">Profile Details</div>
-                                    </div>
+        
+                                    
                                     <div class="card-body">
                                         <div class="text-center chat-image mb-5">
                                             <div class="avatar avatar-xxl chat-profile mb-3 brround">
@@ -74,7 +70,7 @@
                                         <a href="javascript:void(0)" class="btn btn-primary">Update</a>
                                         <a href="javascript:void(0)" class="btn btn-danger">Cancel</a>
                                     </div>
-                                </div>
+                                
                 
             </div>
 

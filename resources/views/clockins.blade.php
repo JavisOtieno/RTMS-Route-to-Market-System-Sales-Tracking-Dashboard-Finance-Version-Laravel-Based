@@ -33,9 +33,11 @@
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
+                            <th>Date</th>
                             <th>Time</th>
                             <th>Lat</th>
                             <th>Long</th>
+                            <th>View</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,9 +47,12 @@
                             <tr>
                             <td>{{$clockin['id']}}</td>
                             <td>{{$clockin['user']['name']}}</td>
-                            <td>{{$clockin['time']}}</td>
+                            <td>{{date('Y-m-d', strtotime($clockin['created_at']))}}</td>
+                            <td>{{date('H:i', strtotime($clockin['created_at']))}}</td>
                             <td>{{$clockin['lat']}}</td>
                             <td>{{$clockin['long']}}</td>
+                            <td><a type="button"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#largemodal">View</a>
+                            </td>
                             <!--<a class="modal-effect btn btn-primary-light d-grid mb-3" data-bs-effect="effect-scale" >Scale</a>-->
                             </tr>
                             
@@ -69,7 +74,7 @@
 </div>
 
     <!-- MODAL EFFECTS -->
-    <div class="modal fade" id="modalDelete">
+    <div class="modal fade" id="modalMap">
         <div class="modal-dialog modal-dialog-centered text-center" role="document">
             <div class="modal-content modal-content-demo">
                 <div class="modal-header">
@@ -86,5 +91,31 @@
         </div>
     </div>
 
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="largemodal">
+            <div class="modal-dialog modal-lg " role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Map</h5>
+                        <button class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="googleMap" style="width:100%;height:400px;"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
 @endsection
+
+
 

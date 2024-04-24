@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Outlet;
 use Illuminate\Http\Request;
 
@@ -19,7 +20,8 @@ class OutletController extends Controller
         return redirect('/outlets');
     }
     public function addOutlet() {
-        return view('add-outlet');
+        $users = User::all();
+        return view('add-outlet',['users'=>$users]);
     }
     public function saveOutlet(Request $request){
 

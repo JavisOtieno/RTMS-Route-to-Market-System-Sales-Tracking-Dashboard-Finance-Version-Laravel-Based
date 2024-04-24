@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layout-form')
 
 @section('content')
 
@@ -33,6 +33,23 @@
                         @csrf
                         @method('PUT')
                         <div class="">
+                            @if ($errors->any())
+                            <div class="alert alert-danger alert-dismissible">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>
+                                            @if ($error == 'Any special error')
+                                            Any special error
+                                            @else
+                                            {{ $error }}
+                                            @endif
+                                            </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
+
                             <div class="form-group">
                                 <label for="userId" class="form-label">User Id</label>
                                 <input type="userId" class="form-control" name="userId" id="userId" placeholder="User Id" value="{{$sale['user_id']}}" autocomplete="userid">

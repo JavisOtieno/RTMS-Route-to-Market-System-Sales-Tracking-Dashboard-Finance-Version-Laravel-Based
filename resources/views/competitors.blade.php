@@ -28,27 +28,31 @@
         <div class="card-body">
             <!--<p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p>-->
             <div class="table-responsive">
-                <table class="table border text-nowrap text-md-nowrap table-striped mb-0">
+                <table id="example2" class="table border text-nowrap text-md-nowrap table-striped mb-0">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>User Id</th>
-                            <th>Name</th>
-                            <th>Pieces</th>
-                            <th>Comments</th>
+                            <th>Outlet Name</th>
+                            <th>User Name</th>
+                            <th>Brand Visibility</th>
+                            <th>Pricing</th>
                             <th>Created</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                         
                         @foreach($competitors as $competitor)
+                        
 <tr>
 <td>{{$competitor['id']}}</td>
-<td>{{$competitor['user_id']}}</td>
-<td>{{$competitor['name']}}</td>
-<td>{{$competitor['pieces']}}</td>
-<td>{{$competitor['comments']}}</td>
+<td>{{$competitor['outlet']['name']}}</td>
+<td>{{$competitor['user']['name']}}</td>
+<td>{{$competitor['brand_visibility']}}</td>
+<td>{{$competitor['pricing']}}</td>
 <td>{{$competitor['created_at']}}</td>
+<td><a type="button" onclick="deleteItemDefault({{$competitor['id']}},'{{$competitor['outlet']['name']}}','{{$competitor['user']['name']}}','competitoranalysis')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
+
 </tr>
 @endforeach
 
@@ -65,3 +69,4 @@
 </div>
 
 @endsection
+

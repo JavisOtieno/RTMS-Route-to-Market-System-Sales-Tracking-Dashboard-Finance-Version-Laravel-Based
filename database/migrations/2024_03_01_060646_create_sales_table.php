@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('product_id');
             $table->integer('visit_id');
             $table->string('pieces');
+            $table->string('value');
             $table->timestamps();
         });
     }

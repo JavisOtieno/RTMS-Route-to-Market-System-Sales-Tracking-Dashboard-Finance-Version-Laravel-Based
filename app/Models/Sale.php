@@ -12,8 +12,10 @@ class Sale extends Model
     protected $fillable = [
         'user_id',
         'outlet_id',
+        'visit_id',
         'product_id',
-        'pieces',
+        'value',
+        'pieces'
 
     ];
     public function user(){

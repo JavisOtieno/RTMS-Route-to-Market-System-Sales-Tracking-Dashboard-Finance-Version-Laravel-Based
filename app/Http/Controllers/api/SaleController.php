@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Models\Sale;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -31,14 +32,15 @@ class SaleController extends Controller
         $incomingFields['user_id']=strip_tags($request['userId']);
         $incomingFields['pieces']=strip_tags($request['pieces']);
 
-        
+        $price = Product::find($incomingFields['product_id'])['price'];
+        $incomingFields['value'] = $price * $incomingFields['pieces'];
+
         Sale::create($incomingFields);
         
         $saleStatus=array(
                 "message" => "Sale Successful",
                 "status" => "success");
         
-
         return response()->json($saleStatus);
 
 }

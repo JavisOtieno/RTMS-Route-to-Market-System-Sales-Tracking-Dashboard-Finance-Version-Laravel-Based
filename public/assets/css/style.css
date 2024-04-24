@@ -200,9 +200,11 @@ body {
     line-height: 1.5;
     color: #282f53;
     text-align: start;
-    background-color: #f0f0f5;
+    background-color: #fce9ec;
 }
-
+/*
+background-color: #f0f0f5;
+*/
 .number-font {
     font-weight: 600 !important;
 }

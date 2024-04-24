@@ -40,9 +40,11 @@ class LoginController extends Controller
         
         if (Auth::attempt($credentials)) {
 
+          if(auth()->user()->usertype=='admin'){
             $request->session()->regenerate();
             return redirect()->intended('dashboard');
-            
+          }
+  
         }
         
  

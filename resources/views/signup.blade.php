@@ -1,53 +1,5 @@
-<!doctype html>
-<html lang="en" dir="ltr">
-
-<head>
-
-    <!-- META DATA -->
-    <meta charset="UTF-8">
-    <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="RTMS - Route to Market System">
-    <meta name="author" content="Stan Consulting Group">
-    <meta name="keywords" content="sales, sales force automation, route to market system, rtms, sfa">
-
-    <!-- FAVICON -->
-    <link rel="shortcut icon" type="image/x-icon" href="../assets/images/brand/favicon.ico">
-
-    <!-- TITLE -->
-    <title>SCG RTMS – Route to market system</title>
-
-    <!-- BOOTSTRAP CSS -->
-    <link id="style" href="../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- STYLE CSS -->
-     <link href="../assets/css/style.css" rel="stylesheet">
-
-	<!-- Plugins CSS -->
-    <link href="../assets/css/plugins.css" rel="stylesheet">
-
-    <!--- FONT-ICONS CSS -->
-    <link href="../assets/css/icons.css" rel="stylesheet">
-
-    <!-- INTERNAL Switcher css -->
-    <link href="../assets/switcher/css/switcher.css" rel="stylesheet">
-    <link href="../assets/switcher/demo.css" rel="stylesheet">
-
-</head>
-
-<body class="app sidebar-mini ltr login-img">
-
-    <!-- BACKGROUND-IMAGE -->
-    <div class="">
-
-        <!-- GLOABAL LOADER -->
-        <div id="global-loader">
-            <img src="../assets/images/loader.svg" class="loader-img" alt="Loader">
-        </div>
-        <!-- /GLOABAL LOADER -->
-
-        <!-- PAGE -->
-        <div class="page">
+@include('components/header')
+@include('components/header-extension-loginsignup')
             <div class="">
                 <!-- Theme-Layout -->
 
@@ -64,6 +16,22 @@
                             <span class="login100-form-title">
 									Registration
 								</span>
+                                @if ($errors->any())
+    <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>
+                    @if ($error == 'The phone number must be at least 12 characters.')
+                    The phone number must be at least 10 Numbers.
+                    @else
+                    {{ $error }}
+                    @endif
+                    </li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
                             <div class="wrap-input100 validate-input input-group" data-bs-validate="Valid email is required: ex@abc.xyz">
                                 <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
                                     <i class="mdi mdi-account" aria-hidden="true"></i>

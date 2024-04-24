@@ -36,21 +36,26 @@
                                         <th>ID</th>
                                         <th>Seller Name</th>
                                         <th>Outlet Name</th>
+                                        <th>Date</th>
                                         <th>Check In Time</th>
                                         <th>Check Out Time</th>
                                         <th>Duration</th>
+                                        <!--<th>Duration</th>-->
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    
                                         @if(count($visits)>0)
                                         @foreach($visits as $visit)
+                                        <tr>
                                         <td>{{$visit['id']}}</td>
                                         <td>{{$visit['user']['name']}}</td>
                                         <td>{{$visit['outlet']['name']}}</td>
-                                        <td>{{$visit['checkin_time']}}</td>
-                                        <td>{{$visit['checkout_time']}}</td>
-                                        <td>{{$visit['duration']}}</td>
+                                        <td>{{date('Y-m-d', strtotime($visit['created_at']))}}</td>
+                                        <td>{{date('H:i', strtotime($visit['created_at']))}}</td>
+                                        <td>{{date('H:i',$visit['checkout_time'])}}</td>
+                                        <td>{{gmdate("H:i", strtotime($visit['created_at'])-$visit['checkout_time'])}}</td>
+                                        <!--<td>$visit['duration']</td>-->
                                         <!--<a class="modal-effect btn btn-primary-light d-grid mb-3" data-bs-effect="effect-scale" >Scale</a>-->
                                         </tr>
                                         

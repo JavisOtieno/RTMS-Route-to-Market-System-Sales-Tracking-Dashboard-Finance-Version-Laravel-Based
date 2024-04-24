@@ -27,7 +27,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Products</h3>
-                        <a type="button" href="/add-product" class="btn btn-success col-md-3" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;">Add Product</a>
+                        <a type="button" href="/add-product" class="btn btn-danger col-md-3" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;">Add Product</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -37,6 +37,7 @@
                                         <th>ID</th>
                                         <th>Product Name</th>
                                         <th>SKU</th>
+                                        <th>Price</th>
                                         <th>View/Edit</th>
                                         <th>Delete</th>
                                     </tr>
@@ -49,6 +50,7 @@
                                         <td>{{$product['id']}}</td>
                                         <td>{{$product['name']}}</td>
                                         <td>{{$product['sku']}}</td>
+                                        <td>{{'KSh '.number_format($product['price'])}}</td>
                                         <td><a type="button" href="/editproduct/{{$product['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
                                         </td>
                                         <td><a type="button" onclick="deleteItem({{$product['id']}},'{{$product['name']}}','{{$product['sku']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>

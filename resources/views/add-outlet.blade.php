@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layout-form')
 
 @section('content')
 
@@ -33,10 +33,33 @@
                         @csrf
                         @method('POST')
                         <div class="">
+
+                            @if ($errors->any())
+                            <div class="alert alert-danger alert-dismissible">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>
+                                            @if ($error == 'Any special error')
+                                            Any special error
+                                            @else
+                                            {{ $error }}
+                                            @endif
+                                            </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
                             
                             <div class="form-group">
-                                <label for="userId" class="form-label">User Id</label>
-                                <input type="text" class="form-control" name="userId" id="userId" placeholder="User Id" autocomplete="userId">
+                                <label class="form-label"> Users</label>
+                                <select class="form-control select2-show-search form-select" name="userId" id="userId" data-placeholder="Choose one">
+                                        <option label="Choose one"></option>
+                                        @foreach($users as $user)
+                                        <option value="{{$user['id']}}">{{$user['name']}}</option>
+                                        @endforeach
+                                        
+                                    </select>
                             </div>
                             <div class="form-group">
                                 <label for="name" class="form-label">Name</label>
@@ -48,7 +71,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="phone" class="form-label">Phone</label>
-                                <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone" autocomplete="phone">
+                                <input type="text" class="form-control" name="phone"  placeholder="Phone" autocomplete="phone">
                             </div>
                             <div class="form-group">
                                 <label for="lat" class="form-label">Lat</label>

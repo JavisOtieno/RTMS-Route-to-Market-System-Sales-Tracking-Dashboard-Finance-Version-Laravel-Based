@@ -28,29 +28,40 @@
         <div class="card-body">
             <!--<p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p>-->
             <div class="table-responsive">
-                <table class="table border text-nowrap text-md-nowrap table-striped mb-0">
+                <table id="example2" class="table border text-nowrap text-md-nowrap table-striped mb-0">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>User Id</th>
-                            <th>Name</th>
-                            <th>SKU</th>
-                            <th>Pieces</th>
+                            <th>Outlet name</th>
+                            <th>User Name</th>
+                            <th>POS Audit Items</th>
                             <th>Created</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @if(count($posaudits)>0)
                         
                         @foreach($posaudits as $posaudit)
 <tr>
 <td>{{$posaudit['id']}}</td>
-<td>{{$posaudit['user_id']}}</td>
-<td>{{$posaudit['name']}}</td>
-<td>{{$posaudit['sku']}}</td>
-<td>{{$posaudit['pieces']}}</td>
+<td>{{$posaudit['outlet']['name']}}</td>
+<td>{{$posaudit['user']['name']}}</td>
+<?php $posaudititems=""?>
+@foreach($posaudit['posaudititems'] as $posaudititem)
+<?php $posaudititems=$posaudititems.$posaudititem['product']['name']." - ".$posaudititem['pieces']." | ";?>
+@endforeach
+<td>{{$posaudititems}}</td>
 <td>{{$posaudit['created_at']}}</td>
+<td><a type="button" onclick="deleteItemDefault({{$posaudit['id']}},'{{$posaudit['outlet']['name']}}','{{$posaudit['user']['name']}}','posaudits')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
+</td>
 </tr>
 @endforeach
+
+@else
+                                    <!--<tr><td colspan="7" style="text-align: center">No sales so far</td></tr>-->
+                                    <!--let datatables display no data available-->
+                                    @endif
 
                         
                            
@@ -65,3 +76,4 @@
 </div>
 
 @endsection
+

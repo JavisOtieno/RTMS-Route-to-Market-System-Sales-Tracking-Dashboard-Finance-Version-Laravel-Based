@@ -20,6 +20,7 @@ use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\PosauditController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CompetitorController;
+use App\Models\Posaudit;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,10 +46,13 @@ Route::get('/outlets', [OutletController::class,'index']);
 Route::get('/products', [ProductController::class,'index']);
 
 Route::get('/posaudits', [PosauditController::class,'index']);
+Route::get('/deleteposaudits/{id}', [PosauditController::class,'deletePosaudit']);
 
 Route::get('/competitors', [CompetitorController::class,'index']);
+Route::get('/deletecompetitiveanalysis/{id}', [CompetitorController::class,'deleteCompetitiveAnalysis']);
 
 Route::get('/feedback', [FeedbackController::class,'index']);
+Route::get('/deletefeedback/{id}', [FeedbackController::class,'deleteFeedback']);
 
 Route::post('/savesale', [SaleController::class,'saveSale']);
 

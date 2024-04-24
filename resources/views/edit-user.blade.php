@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layout-form')
 
 @section('content')
 
@@ -33,13 +33,29 @@
                         @csrf
                         @method('PUT')
                         <div class="">
+                            @if ($errors->any())
+                            <div class="alert alert-danger alert-dismissible">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>
+                                            @if ($error == 'Any special error')
+                                            Any special error
+                                            @else
+                                            {{ $error }}
+                                            @endif
+                                            </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
                             <div class="form-group">
                                 <label for="name" class="form-label">Name</label>
                                 <input type="name" class="form-control" name="name" id="name" placeholder="Name" value="{{$user['name']}}" autocomplete="name">
                             </div>
                             <div class="form-group">
                                 <label for="phone" class="form-label">Phone</label>
-                                <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone" value="{{$user['phone']}}" autocomplete="phone">
+                                <input type="text" class="form-control" name="phone"  placeholder="Phone" value="{{$user['phone']}}" autocomplete="phone">
                             </div>
                             <div class="form-group">
                                 <label for="email" class="form-label">Email</label>

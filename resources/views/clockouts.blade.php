@@ -33,18 +33,21 @@
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
+                            <th>Date</th>
                             <th>Time</th>
                             <th>Lat</th>
                             <th>Long</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        
                             @if(count($clockouts)>0)
                             @foreach($clockouts as $clockout)
+                            <tr>
                             <td>{{$clockout['id']}}</td>
                             <td>{{$clockout['user']['name']}}</td>
-                            <td>{{$clockout['time']}}</td>
+                            <td>{{date('Y-m-d', strtotime($clockout['created_at']))}}</td>
+                            <td>{{date('H:i', strtotime($clockout['created_at']))}}</td>
                             <td>{{$clockout['lat']}}</td>
                             <td>{{$clockout['long']}}</td>
                             <!--<a class="modal-effect btn btn-primary-light d-grid mb-3" data-bs-effect="effect-scale" >Scale</a>-->
