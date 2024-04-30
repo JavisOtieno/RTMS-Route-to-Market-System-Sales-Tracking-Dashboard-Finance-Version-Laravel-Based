@@ -58,6 +58,8 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::post('addposaudit',[POSAuditController::class,'savePOSAudit']);
     Route::get('posaudits',[POSAuditController::class,'index']);
 
+    Route::get('visits',[VisitController::class,'index']);
+
 });
 
 //Route::get('geos',[GeoController::class,'apiindex']);

@@ -12,12 +12,9 @@ class FeedbackController extends Controller
     public function saveFeedback(Request $request){
 
        
-        // $incomingFields=$request->validate([
-        //     'userId'=>'required',
-        //     'time'=>'required',
-        //     'lat'=>'required',
-        //     'long'=>'required'
-        // ]);
+        $incomingFields=$request->validate([
+            'feedback'=>'required',
+        ]);
 
 
         $incomingFields=[];

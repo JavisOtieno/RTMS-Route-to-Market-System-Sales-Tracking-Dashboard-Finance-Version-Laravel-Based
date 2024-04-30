@@ -12,14 +12,12 @@ class OutletController extends Controller
 {
     //
     public function addoutlet(Request $request){
-
-       
-        // $incomingFields=$request->validate([
-        //     'userId'=>'required',
-        //     'time'=>'required',
-        //     'lat'=>'required',
-        //     'long'=>'required'
-        // ]);
+ 
+        $incomingFields=$request->validate([
+            'outletName'=>'required',
+            'contactPersonName'=>'required',
+            'phone'=>'required'
+        ]);
 
         $outletStatus=DB::transaction(function () use($request) {
     

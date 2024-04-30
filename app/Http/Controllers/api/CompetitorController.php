@@ -13,12 +13,10 @@ class CompetitorController extends Controller
     public function saveCompetitorAnalysis(Request $request){
 
        
-        // $incomingFields=$request->validate([
-        //     'userId'=>'required',
-        //     'time'=>'required',
-        //     'lat'=>'required',
-        //     'long'=>'required'
-        // ]);
+         $incomingFields=$request->validate([
+            'pricing' => 'required_without:brandVisibility',
+            'brandVisibility' => 'required_without:pricing',
+         ]);
 
         //testt
 

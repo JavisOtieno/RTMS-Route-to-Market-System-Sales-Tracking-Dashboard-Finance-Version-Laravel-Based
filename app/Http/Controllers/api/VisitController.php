@@ -59,4 +59,9 @@ public function checkout($id,Request $request){
     return response()->json($checkoutStatus);
 
 }
+public function index(){
+    //$sales = Sale::all();
+    $visits = Visit::with('outlet')->get();
+    return response()->json(['visits'=>$visits]);
+}
 }

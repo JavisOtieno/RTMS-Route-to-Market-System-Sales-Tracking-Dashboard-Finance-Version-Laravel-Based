@@ -18,17 +18,15 @@ class SaleController extends Controller
     public function makesale(Request $request){
 
        
-        // $incomingFields=$request->validate([
-        //     'userId'=>'required',
-        //     'time'=>'required',
-        //     'lat'=>'required',
-        //     'long'=>'required'
-        // ]);
+        $incomingFields=$request->validate([
+            'pieces'=>'required',
+        ]);
 
         $incomingFields=[];
         $incomingFields['user_id']=strip_tags($request['userId']);
         $incomingFields['outlet_id']=strip_tags($request['outletId']);
         $incomingFields['product_id']=strip_tags($request['productId']);
+        $incomingFields['visit_id']=strip_tags($request['visitId']);
         $incomingFields['user_id']=strip_tags($request['userId']);
         $incomingFields['pieces']=strip_tags($request['pieces']);
 
