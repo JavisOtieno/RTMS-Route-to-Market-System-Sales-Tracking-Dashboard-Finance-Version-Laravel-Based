@@ -54,7 +54,8 @@
                             <td>{{$clockin['long']}}</td>
                             <td><a type="button" href="/clockin/{{$clockin['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View</a>
                             </td>
-                            <td><a type="button"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#largemodal">Map</a>
+                            <td><a type="button" onclick="embedMap('{{$clockin['lat']}}','{{$clockin['long']}}')"
+                                  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#largemodal">Map</a>
                             </td>
                             <!--<a class="modal-effect btn btn-primary-light d-grid mb-3" data-bs-effect="effect-scale" >Scale</a>-->
                             </tr>
@@ -107,18 +108,30 @@
                             </button>
                     </div>
                     <div class="modal-body">
-                        <div id="googleMap" style="width:100%;height:400px;"></div>
+                        <iframe id="mapEmbededForNow" style="width:100%;height:400px;" src = "https://maps.google.com/maps?q=10.305385,77.923029&hl=es;z=14&amp;output=embed"></iframe>
+                        <!--<div id="googleMap" style="width:100%;height:400px;"></div>-->
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button class="btn btn-primary">Save changes</button>
                     </div>
                 </div>
+                
             </div>
         </div>
 
 
 @endsection
+
+<script>
+    function embedMap(lat,long){
+        //alert(id);
+        var mapEmbedFrame = document.getElementById("mapEmbededForNow");
+        mapEmbedFrame.src = "https://maps.google.com/maps?q="+lat+","+long+"&hl=es;z=14&amp&output=embed";
+        //var confirmDeleteLink = document.getElementById('confirmDelete'); //or grab it by tagname etc
+        //confirmDeleteLink.href = "/deletesale/"+id;
+    }
+  </script>
 
 
 
