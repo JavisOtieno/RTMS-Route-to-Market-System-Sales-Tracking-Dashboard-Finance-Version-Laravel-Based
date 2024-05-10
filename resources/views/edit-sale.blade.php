@@ -23,7 +23,7 @@
 <div class="col-xl-12 row">
     <div class="card col-md-8">
         <div class="card-header">
-            <h3 class="card-title">Edit Sale</h3> 
+            <h3 class="card-title">View Sale</h3> 
         </div>
         <div class="card-body">
             <!--<p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p>-->
@@ -51,24 +51,44 @@
                             @endif
 
                             <div class="form-group">
-                                <label for="userId" class="form-label">User Id</label>
-                                <input type="userId" class="form-control" name="userId" id="userId" placeholder="User Id" value="{{$sale['user_id']}}" autocomplete="userid">
+                                <label for="userId" class="form-label">Seller Name</label>
+                                <input readonly name="sellerName" class="form-control" name="sellerName" id="sellerName" placeholder="Seller Name" value="{{$sale['user']['name']}}" autocomplete="sellerName">
                             </div>
                             <div class="form-group">
-                                <label for="outletId" class="form-label">Outlet Id</label>
-                                <input type="text" class="form-control" name="outletId" id="outletId" placeholder="Outlet Id" value="{{$sale['outlet_id']}}" autocomplete="outletid">
+                                
+                                <label for="outletName" class="form-label">Outlet Name</label>
+                                <input readonly type="text" class="form-control" name="outletName" id="outleName" placeholder="Outlet Name" value="{{$sale['outlet']['name']}}" autocomplete="outletname">
                             </div>
-                            <div class="form-group">
-                                <label for="productId" class="form-label">Product Id</label>
-                                <input type="text" class="form-control" name="productId" id="productId" placeholder="Product Id" value="{{$sale['product_id']}}" autocomplete="productId">
-                            </div>
+              
                             <div class="form-group">
                                 <label for="pieces" class="form-label">Pieces</label>
-                                <input type="text" class="form-control" name="pieces" id="pieces" placeholder="Pieces" value="{{$sale['pieces']}}" autocomplete="pieces">
+                                <input readonly type="text" class="form-control" name="pieces" id="pieces" placeholder="Pieces" value="{{$sale['pieces']}}" autocomplete="pieces">
+                            </div>
+                            <div class="form-group">
+                                <label for="value" class="form-label">Value</label>
+                                <input readonly type="text" class="form-control" name="value" id="value" placeholder="Value" value="{{"KSh ".number_format($sale['value'])}}" autocomplete="value">
+                            </div>
+                            <div class="form-group">
+                                <label for="dateTime" class="form-label">Date and Time</label>
+                                <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{$sale['created_at']}}" autocomplete="dateTime">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="productNames" class="form-label">Products</label>
+                                <!--<input readonly type="text" class="form-control" name="productNames" id="productNames" placeholder="Products" value="{{$sale['products']}}" autocomplete="products">-->
+                                @foreach($sale['saleitems'] as $saleitem)
+                                <div class=" row mb-4">
+                                    <label style="font-weight:400;" for="productPieces" class="col-md-6 form-label">{{$saleitem['product']['name']}}</label>
+                                    <div class="col-md-6">
+                                        <input readonly type="text" class="form-control" id="productPieces" placeholder="productPieces" autocomplete="productpieces" value="{{$saleitem['pieces']}}">
+                                    </div>
+                                </div>
+                                @endforeach
+
                             </div>
                             
                         </div>
-                        <button class="btn btn-primary mt-4 mb-0">Save</button>
+                        <!--<button class="btn btn-primary mt-4 mb-0">Save</button>-->
                     </form>
                 
             </div>

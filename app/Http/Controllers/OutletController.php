@@ -41,6 +41,7 @@ class OutletController extends Controller
         $incomingFields['phone']=strip_tags($incomingFields['phone']);
         $incomingFields['lat']=strip_tags($incomingFields['lat']);
         $incomingFields['long']=strip_tags($incomingFields['long']);
+        $incomingFields['image']='';
 
         Outlet::create($incomingFields);
 
@@ -67,6 +68,7 @@ class OutletController extends Controller
         $incomingFields['phone']=strip_tags($incomingFields['phone']);
         $incomingFields['lat']=strip_tags($incomingFields['lat']);
         $incomingFields['long']=strip_tags($incomingFields['long']);
+        
 
         $outlet=Outlet::find($id);
 

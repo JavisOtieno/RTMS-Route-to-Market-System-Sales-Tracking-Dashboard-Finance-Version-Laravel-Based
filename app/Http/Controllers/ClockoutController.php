@@ -18,4 +18,9 @@ class ClockoutController extends Controller
             return view('clockouts', ['clockouts'=>$clockouts]);
         }
 
+        public function showEditClockout($id){
+            $clockout = Clockout::find($id);
+            return view('edit-clockout',['clockout'=>$clockout]);
+        }
+
 }

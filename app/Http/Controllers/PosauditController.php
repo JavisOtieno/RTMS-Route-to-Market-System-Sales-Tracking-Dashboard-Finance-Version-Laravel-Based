@@ -21,4 +21,9 @@ class PosauditController extends Controller
         return redirect('/posaudits');
     }
 
+    public function showEditPOSAudit($id){
+        $posaudit = Posaudit::find($id);
+        return view('edit-posaudit',['posaudit'=>$posaudit]);
+    }
+
 }

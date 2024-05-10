@@ -28,7 +28,7 @@
         <div class="card-body">
             <!--<p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p>-->
             <div class="table-responsive">
-                <table id="example2" class="table border text-nowrap text-md-nowrap table-striped mb-0">
+                <table id="responsive-datatable" class="table border text-nowrap text-md-nowrap table-striped mb-0">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -37,6 +37,7 @@
                             <th>Brand Visibility</th>
                             <th>Pricing</th>
                             <th>Created</th>
+                            <th>View</th>
                             <th>Delete</th>
                         </tr>
                     </thead>
@@ -51,6 +52,8 @@
 <td>{{$competitor['brand_visibility']}}</td>
 <td>{{$competitor['pricing']}}</td>
 <td>{{$competitor['created_at']}}</td>
+<td><a type="button" href="/competitiveanalysis/{{$competitor['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View</a>
+</td>
 <td><a type="button" onclick="deleteItemDefault({{$competitor['id']}},'{{$competitor['outlet']['name']}}','{{$competitor['user']['name']}}','competitoranalysis')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
 
 </tr>

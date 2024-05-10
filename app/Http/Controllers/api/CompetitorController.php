@@ -40,7 +40,8 @@ class CompetitorController extends Controller
 
     public function index(){
         //$sales = Sale::all();
-        $competitors = Competitor::with('user','outlet')->get();
+        $userId = auth()->id();
+        $competitors = Competitor::where('user_id',$userId)->with('user','outlet')->get();
         return response()->json(['competitors'=>$competitors]);
     }
 }

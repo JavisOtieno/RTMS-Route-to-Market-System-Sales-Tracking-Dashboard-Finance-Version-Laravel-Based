@@ -28,6 +28,7 @@ class OutletController extends Controller
         $incomingFields['phone']=strip_tags($request['phone']);
         $incomingFields['lat']=strip_tags($request['lat']);
         $incomingFields['long']=strip_tags($request['long']);
+        $incomingFields['image']="";
 
         $outlet=Outlet::create($incomingFields);
 
@@ -60,7 +61,8 @@ class OutletController extends Controller
 }
     //
     public function index(){
-        $outlets = Outlet::with('user')->get();
+        $userId = auth()->id();
+        $outlets = Outlet::where('user_id',$userId)->with('user')->get();
         return response()->json(['outlets'=>$outlets]);
     }
 

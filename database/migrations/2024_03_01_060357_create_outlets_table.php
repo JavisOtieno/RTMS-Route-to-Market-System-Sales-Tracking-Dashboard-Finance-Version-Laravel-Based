@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('phone');
             $table->string('lat');
             $table->string('long');
+            $table->string('image');
             $table->timestamps();
         });
     }

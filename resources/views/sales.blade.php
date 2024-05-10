@@ -27,36 +27,47 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Sales Transactions</h3>
-                        <a type="button" href="/add-sale" class="btn btn-danger col-md-3" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;">Add Sale</a>
+                        <!--<a type="button" href="/add-sale" class="btn btn-danger col-md-3" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;">Add Sale</a>-->
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="example2" class="table table-bordered text-nowrap border-bottom">
+                            <table id="responsive-datatable" class="table table-bordered text-nowrap border-bottom">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
                                         <th>Seller Name</th>
-                                        <th>Product Name</th>
-                                        <th>SKU</th>
+                                        <th>Outlet Name</th>
+                                        <th>Products Sold</th>
                                         <th>Pieces</th>
-                                        <th>Value</th>
-                                        <th>View/Edit</th>
+                                        <th>Created</th>
+                                        <th>View</th>
+                                        <!--<th>View/Edit</th>-->
                                         <th>Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @if(count($sales)>0)
                                     @foreach($sales as $sale)
+                                    <?php $saleitems="";$i=1;
+                                        //print_r($sale['saleitems']);
+                                        ?>
+                                    @foreach($sale['saleitems'] as $saleitem)
+                                        <?php $saleitems=$saleitems.$saleitem['product']['name']." - ".$saleitem['pieces'];
+                                        if($i%2==0){$saleitems.="\n"; }else{$saleitems.="\n"; }$i++;
+                                        if($i>2){$saleitems.="...";break;}?>
+                                        @endforeach
                                     <tr>                                        
                                         <td>{{$sale['id']}}</td>
                                         <td>{{$sale['user']['name']}}</td>
-                                        <td>{{$sale['product']['name']}}</td>
-                                        <td>{{$sale['product']['sku']}}</td>
+                                        <td>{{$sale['outlet']['name']}}</td>
+                                        <td style="white-space: pre-line;">{{$saleitems}}</td>
                                         <td>{{$sale['pieces']}}</td>
                                         <td>{{'KSh '.number_format($sale['value'])}}</td>
-                                        <td><a type="button" href="/editsale/{{$sale['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
+                                        <!--<td><a type="button" href="/editsale/{{$sale['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
+                                        </td>-->
+                                        <td><a type="button" href="/sale/{{$sale['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View</a>
                                         </td>
-                                        <td><a type="button" onclick="deleteItem({{$sale['id']}},'{{$sale['product']['name']}}','{{$sale['product']['sku']}}',{{$sale['pieces']}})"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
+                                        <td><a type="button" onclick="deleteItem({{$sale['id']}},'{{$sale['outlet']['name']}}','{{$sale['user']['name']}}',{{$sale['pieces']}})"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
                                         </td>
                                         <!--<a class="modal-effect btn btn-primary-light d-grid mb-3" data-bs-effect="effect-scale" >Scale</a>-->
                                         </tr>
@@ -105,10 +116,10 @@
 @endsection
 
 <script>
-    function deleteItem(id,name,sku,pieces){
+    function deleteItem(id,name,sellerName,pieces){
         //alert(id);
         var itemDetails = document.getElementById("itemDetails");
-        itemDetails.innerHTML = "Sale Id: "+id+"<br/> Product Name: "+name+"<br/> SKU: "+sku+"<br/> Pieces: "+pieces;
+        itemDetails.innerHTML = "Sale Id: "+id+"<br/> Outlet Name: "+name+"<br/> Seller Name: "+sellerName+"<br/> Pieces: "+pieces;
         var confirmDeleteLink = document.getElementById('confirmDelete'); //or grab it by tagname etc
         confirmDeleteLink.href = "/deletesale/"+id;
     }

@@ -21,5 +21,9 @@ class CompetitorController extends Controller
         $competitiveAnalysis->delete();
         return redirect('/competitors');
     }
+    public function showEditCompetitiveAnalysis($id){
+        $competitiveanalysis = Competitor::find($id);
+        return view('edit-competitiveanalysis',['competitiveanalysis'=>$competitiveanalysis]);
+    }
 
 }

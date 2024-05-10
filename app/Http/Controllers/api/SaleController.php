@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Models\Sale;
 use App\Models\Product;
+use App\Models\SaleItem;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -12,7 +13,19 @@ class SaleController extends Controller
     //
     public function index(){
         //$sales = Sale::all();
-        $sales = Sale::with('user','outlet','product')->get();
+        $userId = auth()->id();
+        $sales = Sale::where('user_id',$userId)->with('user','visit','outlet','saleitems.product')->get();
+        return response()->json(['sales'=>$sales]);
+    }
+    public function visitSales(Request $request){
+        //$sales = Sale::all();
+        $incomingFields=$request->validate([
+            'visitId'=>'required',
+        ]);
+        $visitId=strip_tags($request['visitId']);
+
+        $userId = auth()->id();
+        $sales = Sale::where('visit_id', $visitId)->where('user_id',$userId)->with('user','visit','outlet','saleitems.product')->get();
         return response()->json(['sales'=>$sales]);
     }
     public function makesale(Request $request){
@@ -42,5 +55,83 @@ class SaleController extends Controller
         return response()->json($saleStatus);
 
 }
+
+//SAVE SALE PREVIOUS CODE
+
+    public function saveSale(Request $request){
+
+       
+        // $incomingFields=$request->validate([
+        //     'userId'=>'required',
+        //     'time'=>'required',
+        //     'lat'=>'required',
+        //     'long'=>'required'
+        // ]);
+
+        //Test Git
+
+
+        $incomingFields=[];
+        $incomingFields['products']=strip_tags($request['products']);
+        $incomingFieldsSale['user_id']=strip_tags($request['userId']);
+        $incomingFieldsSale['outlet_id']=strip_tags($request['outletId']);
+        $incomingFieldsSale['visit_id']=strip_tags($request['visitId']);
+        
+        $piecesTotal=0;
+        $valueTotal=0;
+        $incomingFieldsSale['pieces']=$piecesTotal;
+        $incomingFieldsSale['value']=$valueTotal;
+
+        if(strlen($incomingFields['products'])>0){
+
+        $sale=Sale::create($incomingFieldsSale);
+        $saleId=$sale->id;
+
+        $incomingFieldsSaleItem['sale_id']=$saleId;
+
+        
+        //return $incomingFields['products'];
+        $posAuditArray= explode('_',$incomingFields['products']);
+        //return json_encode($posAuditArray);
+
+        foreach ($posAuditArray as $productPiecesString) {
+            # code...
+            $productPiecesSplit=explode('-',$productPiecesString);
+            //return $productPiecesSplit;
+            $productId=$productPiecesSplit[0];
+            $pieces=$productPiecesSplit[1];
+            $piecesTotal=$piecesTotal+$pieces;
+            $productPrice=Product::find($productId)['price'];
+            $value=$pieces*$productPrice;
+            $valueTotal=$valueTotal+$value;
+            $incomingFieldsSaleItem['product_id']=$productId;
+            $incomingFieldsSaleItem['pieces']=$pieces;
+            $incomingFieldsSaleItem['price']=$productPrice;
+            $incomingFieldsSaleItem['value']=$pieces*$productPrice;
+            SaleItem::create($incomingFieldsSaleItem);
+
+        }
+
+        //Posaudit::create($incomingFields);
+        $incomingFieldsSaleUpdate['pieces']=$piecesTotal;
+        $incomingFieldsSaleUpdate['value']=$valueTotal;
+        $sale->update($incomingFieldsSaleUpdate);
+        
+
+        $saleStatus=array(
+            "message" => "Sale Added Successful",
+            "status" => "success");
+
+        }else{
+            $saletatus=array(
+                "message" => "Product Numbers Missing",
+                "status" => "failed");
+        }
+
+        return response()->json($saleStatus);
+        
+    }
+
+    //SAVE SALE PREVIOUS CODE
 
 }

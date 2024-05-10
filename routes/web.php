@@ -21,6 +21,7 @@ use App\Http\Controllers\PosauditController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CompetitorController;
 use App\Models\Posaudit;
+use App\Models\PosauditItem;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,19 +48,20 @@ Route::get('/products', [ProductController::class,'index']);
 
 Route::get('/posaudits', [PosauditController::class,'index']);
 Route::get('/deleteposaudits/{id}', [PosauditController::class,'deletePosaudit']);
+Route::get('/posaudit/{id}',[PosauditController::class,'showEditPOSAudit']);
 
 Route::get('/competitors', [CompetitorController::class,'index']);
 Route::get('/deletecompetitiveanalysis/{id}', [CompetitorController::class,'deleteCompetitiveAnalysis']);
+Route::get('/competitiveanalysis/{id}',[CompetitorController::class,'showEditCompetitiveAnalysis']);
 
 Route::get('/feedback', [FeedbackController::class,'index']);
 Route::get('/deletefeedback/{id}', [FeedbackController::class,'deleteFeedback']);
+Route::get('/feedback/{id}',[FeedbackController::class,'showEditFeedback']);
 
 Route::post('/savesale', [SaleController::class,'saveSale']);
-
 Route::get('/deletesale/{id}', [SaleController::class,'deleteSale']);
-
 Route::get('/editsale/{id}',[SaleController::class,'showEditSale']);
-
+Route::get('/sale/{id}',[SaleController::class,'showEditSale']);
 Route::put('/saveeditsale/{id}',[SaleController::class,'saveEditSale']);
 
 Route::get('/deleteproduct/{id}', [ProductController::class,'deleteProduct']);
@@ -83,12 +85,16 @@ Route::get('/editoutlet/{id}',[OutletController::class,'showEditOutlet']);
 Route::put('/saveeditoutlet/{id}',[OutletController::class,'saveEditOutlet']);
 
 Route::get('/clockins', [ClockinController::class,'index']);
+Route::get('/clockin/{id}',[ClockinController::class,'showEditClockin']);
 
 Route::get('/clockouts', [ClockoutController::class,'index']);
+Route::get('/clockout/{id}',[ClockoutController::class,'showEditClockout']);
 
-Route::get('/editprofile', [UserController::class,'showProfile']);
+Route::get('/profile', [UserController::class,'showProfile']);
 
 Route::get('/visits', [VisitController::class,'index']);
+Route::get('/visit/{id}',[VisitController::class,'showEditVisit']);
+
 
 Route::get('/users', [UserController::class,'index']);
 

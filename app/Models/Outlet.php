@@ -15,11 +15,18 @@ class Outlet extends Model
         'contact_person_name',
         'phone',
         'lat',
-        'long'
+        'long',
+        'image'
     ];
 
     public function user(){
         //return $this->belongsTo(User::class);
         return $this->belongsTo(User::class,'user_id');
     }
+
+    //meant for counting but found another way
+    // public function sales()
+    // {
+    //     return $this->belongsToMany(Sale::class, 'outlets', 'outlet_id', 'id');
+    // }
 }

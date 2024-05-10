@@ -70,7 +70,8 @@ class POSAuditController extends Controller
         
     }
     public function index(){
-        $posAudits = Posaudit::with('user','outlet','visit','posaudititems.product')->get();
+        $userId = auth()->id();
+        $posAudits = Posaudit::where('user_id',$userId)->with('user','outlet','visit','posaudititems.product')->get();
         return response()->json(['posAudits'=>$posAudits]);
     }
 }

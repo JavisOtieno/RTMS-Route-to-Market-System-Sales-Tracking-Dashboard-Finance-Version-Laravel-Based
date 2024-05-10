@@ -30,7 +30,7 @@
                    </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="example2" class="table table-bordered text-nowrap border-bottom">
+                            <table id="responsive-datatable" class="table table-bordered text-nowrap border-bottom">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
@@ -40,6 +40,7 @@
                                         <th>Check In Time</th>
                                         <th>Check Out Time</th>
                                         <th>Duration</th>
+                                        <th>View</th>
                                         <!--<th>Duration</th>-->
                                     </tr>
                                 </thead>
@@ -53,8 +54,18 @@
                                         <td>{{$visit['outlet']['name']}}</td>
                                         <td>{{date('Y-m-d', strtotime($visit['created_at']))}}</td>
                                         <td>{{date('H:i', strtotime($visit['created_at']))}}</td>
+                                        @if($visit['checkout_time']=="")
+                                        <td>{{$visit['checkout_time']}}</td>
+                                        @else
                                         <td>{{date('H:i',$visit['checkout_time'])}}</td>
-                                        <td>{{gmdate("H:i", strtotime($visit['created_at'])-$visit['checkout_time'])}}</td>
+                                        @endif
+                                        @if($visit['checkout_time']=="")
+                                        <td>{{gmdate("H:i", strtotime(0))}}</td>
+                                        @else
+                                        <td>{{gmdate("H:i", $visit['checkout_time']-strtotime($visit['created_at']))}}</td>
+                                        @endif
+                                        <td><a type="button" href="/visit/{{$visit['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View</a>
+                                        </td>
                                         <!--<td>$visit['duration']</td>-->
                                         <!--<a class="modal-effect btn btn-primary-light d-grid mb-3" data-bs-effect="effect-scale" >Scale</a>-->
                                         </tr>

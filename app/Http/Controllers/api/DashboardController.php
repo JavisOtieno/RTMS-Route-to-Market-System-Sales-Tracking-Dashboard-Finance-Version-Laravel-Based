@@ -2,33 +2,41 @@
 
 namespace App\Http\Controllers\api;
 
+use Carbon\Carbon;
 use App\Models\Sale;
 use App\Models\User;
+use App\Models\Visit;
 use App\Models\Outlet;
+use App\Models\Clockin;
+use App\Models\Clockout;
 use App\Models\Feedback;
 use App\Models\Posaudit;
+use App\Models\SaleItem;
 use App\Models\Competitor;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Clockin;
-use App\Models\Clockout;
-use App\Models\Visit;
 
 class DashboardController extends Controller
 {
     //
     public function index(){
         //$salesCount = Sale::where('user_id',1)->count();
-        $sales=Sale::all();
+        $userId = auth()->id();
+
+        //fetch today's sales
+        $sales=Sale::where('user_id',$userId)
+        ->whereDate('created_at',  Carbon::today()->toDateString())->get();
+
         $dailySalesTotal = 0;
         foreach($sales as $sale){
             $dailySalesTotal=$dailySalesTotal+$sale['value'];
         }
 
+
         
-        $clockin=Clockin::where('user_id',1)->orderBy('id', 'desc')->take(1)->get();
-        $clockout=Clockout::where('user_id',1)->orderBy('id', 'desc')->take(1)->get();
-        $visit=Visit::where('user_id',1)->orderBy('id', 'desc')->take(1)->get();
+        $clockin=Clockin::where('user_id',$userId)->orderBy('id', 'desc')->take(1)->get();
+        $clockout=Clockout::where('user_id',$userId)->orderBy('id', 'desc')->take(1)->get();
+        $visit=Visit::where('user_id',$userId)->with('outlet')->orderBy('id', 'desc')->take(1)->get();
         if(count($clockin)>0){
         $clockinTime = strtotime($clockin[0]['created_at']);
         }else{
@@ -44,29 +52,33 @@ class DashboardController extends Controller
         $visitId = $visit[0]['id'];
         $outletId = $visit[0]['outlet_id'];
         $checkoutTime = $visit[0]['checkout_time'];
+        $outletName = $visit[0]['outlet']['name'];
         }else{
         $checkinTime = 'undefined';
+        $outletId = 'undefined';
+        $outletName = 'undefined';
         $visitId = 'undefined';
         $checkoutTime = 'undefined';
         }
 
-        $user=User::where('id',1)->get();
+        $user=User::where('id',$userId)->get();
         $currentTargets=$user[0]['targets'];
-        $userId=$user[0]['id'];
-        $salesCount = Sale::all()->count();
-        $outletsCount = Outlet::all()->count();
-        $feedbackCount = Feedback::all()->count();
-        $posauditsCount = Posaudit::all()->count();
-        $competitorsCount = Competitor::all()->count();
 
-        $sales = Sale::orderBy('id', 'desc')->take(5)->get();
-        $outlets = Outlet::orderBy('id', 'desc')->take(5)->get();
-        $sales = Sale::with('user','outlet','product')->orderBy('id', 'desc')->take(5)->get();
+        $salesCount = Sale::where('user_id',$userId)->count();
+        $outletsCount = Outlet::where('user_id',$userId)->count();
+        $feedbackCount = Feedback::where('user_id',$userId)->count();
+        $posauditsCount = Posaudit::where('user_id',$userId)->count();
+        $competitorsCount = Competitor::where('user_id',$userId)->count();
+
+        $sales = Sale::where('user_id',$userId)->orderBy('id', 'desc')->take(5)->get();
+        $outlets = Outlet::where('user_id',$userId)->orderBy('id', 'desc')->take(5)->get();
+        $sales = Sale::where('user_id',$userId)->with('user','outlet','visit','saleitems.product')->orderBy('id', 'desc')->take(5)->get();
+        //$saleItems = SaleItem::where('user_id',$userId)->with('product')->orderBy('id', 'desc')->take(5)->get();
 
         return response()->json( compact('sales','outlets','salesCount','feedbackCount',
         'outletsCount','posauditsCount','competitorsCount','dailySalesTotal',
         'currentTargets','clockinTime','clockoutTime','checkinTime','checkoutTime',
-        'visitId','userId','outletId'));
+        'visitId','userId','outletId','outletName'));
 
     }
 }

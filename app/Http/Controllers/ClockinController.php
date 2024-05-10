@@ -16,4 +16,8 @@ class ClockinController extends Controller
         $clockins = Clockin::all();
         return view('clockins', ['clockins'=>$clockins]);
     }
+    public function showEditClockin($id){
+        $clockin = Clockin::find($id);
+        return view('edit-clockin',['clockin'=>$clockin]);
+    }
 }

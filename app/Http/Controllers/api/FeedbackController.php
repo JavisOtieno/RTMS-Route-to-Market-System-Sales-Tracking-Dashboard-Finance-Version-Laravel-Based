@@ -35,7 +35,8 @@ class FeedbackController extends Controller
 
     public function index(){
         //$sales = Sale::all();
-        $feedback = Feedback::with('user','outlet')->get();
+        $userId = auth()->id();
+        $feedback = Feedback::where('user_id',$userId)->with('user','outlet')->get();
         return response()->json(['feedback'=>$feedback]);
     }
 

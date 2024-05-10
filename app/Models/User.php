@@ -45,4 +45,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+//meant for counting but found another way
+    // public function sales()
+    // {
+    //     return $this->belongsToMany(Sale::class, 'users', 'id', 'user_id');
+    // }
 }

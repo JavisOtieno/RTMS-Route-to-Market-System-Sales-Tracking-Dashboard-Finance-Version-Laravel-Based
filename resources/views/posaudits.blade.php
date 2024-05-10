@@ -28,14 +28,15 @@
         <div class="card-body">
             <!--<p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p>-->
             <div class="table-responsive">
-                <table id="example2" class="table border text-nowrap text-md-nowrap table-striped mb-0">
+                <table id="responsive-datatable" class="table border text-nowrap text-md-nowrap table-striped mb-0">
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>Outlet name</th>
-                            <th>User Name</th>
-                            <th>POS Audit Items</th>
+                            <th>Seller Name</th>
+                            <th>Products Audited</th>
                             <th>Created</th>
+                            <th>View</th>
                             <th>Delete</th>
                         </tr>
                     </thead>
@@ -47,12 +48,17 @@
 <td>{{$posaudit['id']}}</td>
 <td>{{$posaudit['outlet']['name']}}</td>
 <td>{{$posaudit['user']['name']}}</td>
-<?php $posaudititems=""?>
+<?php $posaudititems="";$i=1;?>
 @foreach($posaudit['posaudititems'] as $posaudititem)
-<?php $posaudititems=$posaudititems.$posaudititem['product']['name']." - ".$posaudititem['pieces']." | ";?>
+<?php $posaudititems=$posaudititems.$posaudititem['product']['name']." - ".$posaudititem['pieces'];
+if($i%2==0){$posaudititems.="\n"; }else{$posaudititems.="\n"; }$i++;
+if($i>2){$posaudititems.="...";break;}
+?>
 @endforeach
-<td>{{$posaudititems}}</td>
+<td style="white-space: pre-line;">{{$posaudititems}}</td>
 <td>{{$posaudit['created_at']}}</td>
+<td><a type="button" href="/posaudit/{{$posaudit['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View</a>
+</td>
 <td><a type="button" onclick="deleteItemDefault({{$posaudit['id']}},'{{$posaudit['outlet']['name']}}','{{$posaudit['user']['name']}}','posaudits')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
 </td>
 </tr>

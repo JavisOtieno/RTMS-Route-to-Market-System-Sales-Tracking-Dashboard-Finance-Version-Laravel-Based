@@ -36,8 +36,8 @@
                         </div>
                     </div>
                     <span class="text-muted fs-12"><span class="text-secondary"><i
-                                class="fe fe-arrow-up-circle  text-secondary"></i> {{$salesCount}}</span>
-                        Today</span>
+                                class="fe fe-arrow-up-circle  text-secondary"></i> {{$salesWeekCount}}</span>
+                        This week</span>
                 </div>
             </div>
         </div>
@@ -57,7 +57,7 @@
                         </div>
                     </div>
                     <span class="text-muted fs-12"><span class="text-pink"><i
-                                class="fe fe-arrow-up-circle text-pink"></i>{{$visitsNumberCount}}</span>
+                                class="fe fe-arrow-up-circle text-pink"></i>{{$visitsWeekCount}}</span>
                         This Week</span>
                 </div>
             </div>
@@ -78,8 +78,8 @@
                         </div>
                     </div>
                     <span class="text-muted fs-12"><span class="text-green"><i
-                                class="fe fe-arrow-up-circle text-green"></i> {{$outletsCount}}</span>
-                        Today</span>
+                                class="fe fe-arrow-up-circle text-green"></i> {{$outletsWeekCount}}</span>
+                        This week</span>
                 </div>
             </div>
         </div>
@@ -99,7 +99,7 @@
                         </div>
                     </div>
                     <span class="text-muted fs-12"><span class="text-warning"><i
-                                class="fe fe-arrow-up-circle text-warning"></i>{{$productsNumberCount}}</span>
+                                class="fe fe-arrow-up-circle text-warning"></i>{{$productsWeekCount}}</span>
                         This Week</span>
                 </div>
             </div>
@@ -177,9 +177,10 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Product Name</th>
-                                <th>SKU </th>
+                                <th>Outlet Name</th>
+                                <th>User Name</th>
                                 <th>Pieces</th>
+                                <th>Value</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -187,9 +188,10 @@
                             @foreach($sales as $sale)
                             <tr>
                             <td>{{$sale['id']}}</td>
-                            <td>{{$sale['product']['name']}}</td>
-                            <td>{{$sale['product']['sku']}}</td>
+                            <td>{{$sale['outlet']['name']}}</td>
+                            <td>{{$sale['user']['name']}}</td>
                             <td>{{$sale['pieces']}}</td>
+                            <td>{{'KSh. '.number_format($sale['value'])}}</td>
                             </tr>
                             @endforeach
                             @else
@@ -247,203 +249,287 @@
     </div>
     </div>
 
-   
 
-    <!-- ROW-3 -->
     <div class="row">
- 
-        <div class="col-xl-12 col-lg-12 col-md-12">
-            <div class="card overflow-hidden">
+        <div class="col-xl-6">
+            <div class="card">
                 <div class="card-header">
-                    <div>
-                        <h3 class="card-title">Sales Report by Locations with Devices</h3>
-                    </div>
+                    <h3 class="card-title">Top Sellers</h3>
                 </div>
-                <div class="card-body p-0 mt-2">
-                    <div class="">
-                        <div id="world-map-markers1" class="worldh world-map h-250"></div>
-                    </div>
-                    <div class="table-responsive mt-2 text-center">
-                        <!--<table class="table text-nowrap border-dashed mb-0">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table border text-nowrap text-md-nowrap table-striped mb-0">
                             <thead>
                                 <tr>
-                                    <th class="text-start">Device</th>
-                                    <th class="">USA</th>
-                                    <th class="">India</th>
-                                    <th class="">Bahrain</th>
+                                    <th>ID</th>
+                                    <th>Seller Name</th>
+                                    <th>Sales Count</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @if(count($topSellers)>0)
+                                @foreach($topSellers as $topSeller)
                                 <tr>
-                                    <td class="text-start p-4"><span
-                                            class="sales-icon text-primary mx-2 brround bg-primary-transparent p-2"><svg
-                                                xmlns="http://www.w3.org/2000/svg" width="18"
-                                                height="18" fill="currentColor" class="bi
-                bi-phone" viewBox="0 0 16 16">
-                
-                                                <path
-                                                    d="M11 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h6zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H5z" />
-                                                <path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
-                                            </svg></span><span class="mobile">Mobiles</span>
-                                    </td>
-                                    <td class="p-4">17%</td>
-                                    <td class="p-4">22%</td>
-                                    <td class="p-4">11%</td>
+                                <td>{{$topSeller['user']['id']}}</td>
+                                <td>{{$topSeller['user']['name']}}</td>
+                                <td>{{$topSeller['count']}}</td>
                                 </tr>
+                                @endforeach
+                                @else
+                                <!--let datatables display no data available-->
                                 <tr>
-                                    <td class="text-start p-4"><span
-                                            class="sales-icon text-secondary mx-2 brround bg-secondary-transparent p-2"><svg
-                                                xmlns="http://www.w3.org/2000/svg" width="18"
-                                                height="18" fill="currentColor
-            " class="bi bi-display" viewBox="0 0 16 16">
-                                                <path d="M0 4s0-2 2-2h12s2 0 2 2v6s0 2-2 2h-4c0 .667.083 1.167.25 1.5H11a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1h.75c.167-.333.25-.833.25-1.5H2s-2 0-2-2V4zm1.398-.855a.758.758 0 0 0-.254.302A1.46 1.46
-                0 0 0 1 4.01V10c0 .325.078.502.145.602.07.105.17.188.302.254a1.464 1.464 0 0 0 .538.143L2.01 11H14c.325 0 .502-.078.602-.145a.758.758 0 0 0 .254-.302 1.464 1.464 0 0 0 .143-.538L15 9.99V4c0-.325-.078-.502-.145-.602a.757.757
-                0 0 0-.302-.254A1.46 1.46 0 0 0 13.99 3H2c-.325 0-.502.078-.602.145z" />
-                                            </svg></span>Desktops</td>
-                                    <td class="p-4">34%</td>
-                                    <td class="p-4">76%</td>
-                                    <td class="p-4">58%</td>
+                                    <td colspan="4" style="text-align: center">No sellers so far</td>
                                 </tr>
-                                <tr>
-                                    <td class="text-start p-4"><span
-                                            class="sales-icon text-danger mx-2 brround bg-danger-transparent p-2"><svg
-                                                xmlns="http://www.w3.org/2000/svg" width="18"
-                                                height="18" fill="currentColor" class="bi bi-tablet
-            " viewBox="0 0 16 16">
-                                                <path
-                                                    d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
-                                                <path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
-                                            </svg></span>Tablets</td>
-                                    <td class="p-4">56%</td>
-                                    <td class="p-4">83%</td>
-                                    <td class="p-4">66%</td>
-                                </tr>
+                                @endif
+    
+                                
                             </tbody>
-                        </table>-->
-                        <!--end /table-->
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-        <!--<div class="col-xl-6 col-lg-6 col-md-12">
+    
+        <div class="col-xl-6">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title fw-semibold">More Analytics</h4>
+                    <h3 class="card-title">Top Outlets</h3>
                 </div>
                 <div class="card-body">
-                    <div class="browser-stats">
-                        <div class="row mb-4">
-                            <div class="col-sm-2 col-lg-3 col-xl-3 col-xxl-2 mb-sm-0 mb-3">
-                                <img src="../assets/images/dashboard/document-icon.svg" class="img-fluid"
-                                    alt="img">
-                            </div>
-                            <div class="col-sm-10 col-lg-9 col-xl-9 col-xxl-10 ps-sm-0">
-                                <div class="d-flex align-items-end justify-content-between mb-1">
-                                    <h6 class="mb-1">POS Audits</h6>
-                                    <h6 class="fw-semibold mb-1">{{$posauditsCount}} <span
-                                            class="text-success fs-11">(<i
-                                                class="fe fe-arrow-up"></i>12.75%)</span></h6>
-                                </div>
-                                <div class="progress h-2 mb-3">
-                                    <div class="progress-bar bg-primary" style="width: 70%;"
-                                        role="progressbar"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-4">
-                            <div class="col-sm-2 col-lg-3 col-xl-3 col-xxl-2 mb-sm-0 mb-3">
-                                <img src="../assets/images/dashboard/people-icon.svg" class="img-fluid"
-                                    alt="img">
-                            </div>
-                            <div class="col-sm-10 col-lg-9 col-xl-9 col-xxl-10 ps-sm-0">
-                                <div class="d-flex align-items-end justify-content-between mb-1">
-                                    <h6 class="mb-1">Competitive Analysis</h6>
-                                    <h6 class="fw-semibold mb-1">{{$competitorsCount}} <span
-                                            class="text-danger fs-11">(<i
-                                                class="fe fe-arrow-down"></i>15.12%)</span></h6>
-                                </div>
-                                <div class="progress h-2 mb-3">
-                                    <div class="progress-bar bg-secondary" style="width: 40%;"
-                                        role="progressbar"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-4">
-                            <div class="col-sm-2 col-lg-3 col-xl-3 col-xxl-2 mb-sm-0 mb-3">
-                                <img src="../assets/images/dashboard/comment-icon.svg" class="img-fluid"
-                                    alt="img">
-                            </div>
-                            <div class="col-sm-10 col-lg-9 col-xl-9 col-xxl-10 ps-sm-0">
-                                <div class="d-flex align-items-end justify-content-between mb-1">
-                                    <h6 class="mb-1">Feedback</h6>
-                                    <h6 class="fw-semibold mb-1">{{$feedbackCount}} <span
-                                            class="text-success fs-11">(<i
-                                                class="fe fe-arrow-down"></i>24.37%)</span></h6>
-                                </div>
-                                <div class="progress h-2 mb-3">
-                                    <div class="progress-bar bg-success" style="width: 50%;"
-                                        role="progressbar"></div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="table-responsive">
+                        <table class="table border text-nowrap text-md-nowrap table-striped mb-0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Outlet Name</th>
+                                    <th>Sales Count</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if(count($topOutlets)>0)
+                                @foreach($topOutlets as $topOutlet)
+                                <tr>
+                                <td>{{$topOutlet['outlet']['id']}}</td>
+                                <td>{{$topOutlet['outlet']['name']}}</td>
+                                <td>{{$topOutlet['count']}}</td>
+                                </tr>
+                                @endforeach
+                                @else
+                                <!--let datatables display no data available-->
+                                <tr>
+                                    <td colspan="4" style="text-align: center">No customers so far</td>
+                                </tr>
+                                @endif
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+   
+
+    <!-- ROW-3 --><?php
+    //SALES REPORT BY LOCATION TEMPORARILY SUSPENDED
+    // <div class="row">
+ 
+    //     <div class="col-xl-12 col-lg-12 col-md-12">
+    //         <div class="card overflow-hidden">
+    //             <div class="card-header">
+    //                 <div>
+    //                     <h3 class="card-title">Sales Report by Locations</h3>
+    //                 </div>
+    //             </div>
+    //             <div class="card-body p-0 mt-2">
+    //                 <div class="">
+    //                     <div id="world-map-markers1" class="worldh world-map h-250"></div>
+    //                 </div>
+    //                 <div class="table-responsive mt-2 text-center">
+    //                     <!--<table class="table text-nowrap border-dashed mb-0">
+    //                         <thead>
+    //                             <tr>
+    //                                 <th class="text-start">Device</th>
+    //                                 <th class="">USA</th>
+    //                                 <th class="">India</th>
+    //                                 <th class="">Bahrain</th>
+    //                             </tr>
+    //                         </thead>
+    //                         <tbody>
+    //                             <tr>
+    //                                 <td class="text-start p-4"><span
+    //                                         class="sales-icon text-primary mx-2 brround bg-primary-transparent p-2"><svg
+    //                                             xmlns="http://www.w3.org/2000/svg" width="18"
+    //                                             height="18" fill="currentColor" class="bi
+    //             bi-phone" viewBox="0 0 16 16">
+                
+    //                                             <path
+    //                                                 d="M11 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h6zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H5z" />
+    //                                             <path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+    //                                         </svg></span><span class="mobile">Mobiles</span>
+    //                                 </td>
+    //                                 <td class="p-4">17%</td>
+    //                                 <td class="p-4">22%</td>
+    //                                 <td class="p-4">11%</td>
+    //                             </tr>
+    //                             <tr>
+    //                                 <td class="text-start p-4"><span
+    //                                         class="sales-icon text-secondary mx-2 brround bg-secondary-transparent p-2"><svg
+    //                                             xmlns="http://www.w3.org/2000/svg" width="18"
+    //                                             height="18" fill="currentColor
+    //         " class="bi bi-display" viewBox="0 0 16 16">
+    //                                             <path d="M0 4s0-2 2-2h12s2 0 2 2v6s0 2-2 2h-4c0 .667.083 1.167.25 1.5H11a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1h.75c.167-.333.25-.833.25-1.5H2s-2 0-2-2V4zm1.398-.855a.758.758 0 0 0-.254.302A1.46 1.46
+    //             0 0 0 1 4.01V10c0 .325.078.502.145.602.07.105.17.188.302.254a1.464 1.464 0 0 0 .538.143L2.01 11H14c.325 0 .502-.078.602-.145a.758.758 0 0 0 .254-.302 1.464 1.464 0 0 0 .143-.538L15 9.99V4c0-.325-.078-.502-.145-.602a.757.757
+    //             0 0 0-.302-.254A1.46 1.46 0 0 0 13.99 3H2c-.325 0-.502.078-.602.145z" />
+    //                                         </svg></span>Desktops</td>
+    //                                 <td class="p-4">34%</td>
+    //                                 <td class="p-4">76%</td>
+    //                                 <td class="p-4">58%</td>
+    //                             </tr>
+    //                             <tr>
+    //                                 <td class="text-start p-4"><span
+    //                                         class="sales-icon text-danger mx-2 brround bg-danger-transparent p-2"><svg
+    //                                             xmlns="http://www.w3.org/2000/svg" width="18"
+    //                                             height="18" fill="currentColor" class="bi bi-tablet
+    //         " viewBox="0 0 16 16">
+    //                                             <path
+    //                                                 d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+    //                                             <path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+    //                                         </svg></span>Tablets</td>
+    //                                 <td class="p-4">56%</td>
+    //                                 <td class="p-4">83%</td>
+    //                                 <td class="p-4">66%</td>
+    //                             </tr>
+    //                         </tbody>
+    //                     </table>-->
+    //                     <!--end /table-->
+    //                 </div>
+    //             </div>
+    //         </div>
+    //     </div>
+    //     <!--<div class="col-xl-6 col-lg-6 col-md-12">
+    //         <div class="card">
+    //             <div class="card-header">
+    //                 <h4 class="card-title fw-semibold">More Analytics</h4>
+    //             </div>
+    //             <div class="card-body">
+    //                 <div class="browser-stats">
+    //                     <div class="row mb-4">
+    //                         <div class="col-sm-2 col-lg-3 col-xl-3 col-xxl-2 mb-sm-0 mb-3">
+    //                             <img src="../assets/images/dashboard/document-icon.svg" class="img-fluid"
+    //                                 alt="img">
+    //                         </div>
+    //                         <div class="col-sm-10 col-lg-9 col-xl-9 col-xxl-10 ps-sm-0">
+    //                             <div class="d-flex align-items-end justify-content-between mb-1">
+    //                                 <h6 class="mb-1">POS Audits</h6>
+    //                                 <h6 class="fw-semibold mb-1">{{$posauditsCount}} <span
+    //                                         class="text-success fs-11">(<i
+    //                                             class="fe fe-arrow-up"></i>12.75%)</span></h6>
+    //                             </div>
+    //                             <div class="progress h-2 mb-3">
+    //                                 <div class="progress-bar bg-primary" style="width: 70%;"
+    //                                     role="progressbar"></div>
+    //                             </div>
+    //                         </div>
+    //                     </div>
+    //                     <div class="row mb-4">
+    //                         <div class="col-sm-2 col-lg-3 col-xl-3 col-xxl-2 mb-sm-0 mb-3">
+    //                             <img src="../assets/images/dashboard/people-icon.svg" class="img-fluid"
+    //                                 alt="img">
+    //                         </div>
+    //                         <div class="col-sm-10 col-lg-9 col-xl-9 col-xxl-10 ps-sm-0">
+    //                             <div class="d-flex align-items-end justify-content-between mb-1">
+    //                                 <h6 class="mb-1">Competitive Analysis</h6>
+    //                                 <h6 class="fw-semibold mb-1">{{$competitorsCount}} <span
+    //                                         class="text-danger fs-11">(<i
+    //                                             class="fe fe-arrow-down"></i>15.12%)</span></h6>
+    //                             </div>
+    //                             <div class="progress h-2 mb-3">
+    //                                 <div class="progress-bar bg-secondary" style="width: 40%;"
+    //                                     role="progressbar"></div>
+    //                             </div>
+    //                         </div>
+    //                     </div>
+    //                     <div class="row mb-4">
+    //                         <div class="col-sm-2 col-lg-3 col-xl-3 col-xxl-2 mb-sm-0 mb-3">
+    //                             <img src="../assets/images/dashboard/comment-icon.svg" class="img-fluid"
+    //                                 alt="img">
+    //                         </div>
+    //                         <div class="col-sm-10 col-lg-9 col-xl-9 col-xxl-10 ps-sm-0">
+    //                             <div class="d-flex align-items-end justify-content-between mb-1">
+    //                                 <h6 class="mb-1">Feedback</h6>
+    //                                 <h6 class="fw-semibold mb-1">{{$feedbackCount}} <span
+    //                                         class="text-success fs-11">(<i
+    //                                             class="fe fe-arrow-down"></i>24.37%)</span></h6>
+    //                             </div>
+    //                             <div class="progress h-2 mb-3">
+    //                                 <div class="progress-bar bg-success" style="width: 50%;"
+    //                                     role="progressbar"></div>
+    //                             </div>
+    //                         </div>
+    //                     </div>
                       
                       
                         
                      
-                    </div>
-                </div>
-            </div>
-        </div>-->
-    </div>
-    <!-- ROW-3 END -->
+    //                 </div>
+    //             </div>
+    //         </div>
+    //     </div>-->
+    // </div>
+    // <!-- ROW-3 END -->
+
+    ?>
 
     <?php
-    $string ='[';
+    // $string ='[';
     
-                foreach ($salesPerMonth as $sale){
-                    //echo $sale;
-                    if($string=='['){ $string =$string.=''.$sale.''; }
-                    else{
-                    $string =$string.=','.$sale.'';
-                    }
-                }
+    //             foreach ($salesPerMonth as $sale){
+    //                 //echo $sale;
+    //                 if($string=='['){ $string =$string.=''.$sale.''; }
+    //                 else{
+    //                 $string =$string.=','.$sale.'';
+    //                 }
+    //             }
                 
-                $string=$string.']';
+    //             $string=$string.']';
 
-                for ($i = 0; $i <= 11; $i++) {
-                $months[] = date("M", strtotime( date( 'Y-m-01' )." -$i months"));
-                }
-                //echo "Before";
-                //print_r($months);
-                //echo "After";
-                $months=array_reverse($months);
-                //print_r($months);
-                $stringMonths ='[';
-                foreach ($months as $month){
-                    //echo $sale;
-                    if($stringMonths=='['){ $stringMonths =$stringMonths.='"'.$month.'"'; }
-                    else{
-                        $stringMonths =$stringMonths.=',"'.$month.'"';
-                    }
+    //             for ($i = 0; $i <= 11; $i++) {
+    //             $months[] = date("M", strtotime( date( 'Y-m-01' )." -$i months"));
+    //             }
+    //             //echo "Before";
+    //             //print_r($months);
+    //             //echo "After";
+    //             $months=array_reverse($months);
+    //             //print_r($months);
+    //             $stringMonths ='[';
+    //             foreach ($months as $month){
+    //                 //echo $sale;
+    //                 if($stringMonths=='['){ $stringMonths =$stringMonths.='"'.$month.'"'; }
+    //                 else{
+    //                     $stringMonths =$stringMonths.=',"'.$month.'"';
+    //                 }
                     
-                }
-                $stringMonths=$stringMonths.']';
-                //echo $stringMonths;
+    //             }
+    //             $stringMonths=$stringMonths.']';
+    //             //echo $stringMonths;
                 
-                //echo $string;
-                //print_r($visitsCount);
-                $stringVisits ='[';
+    //             //echo $string;
+    //             //print_r($visitsCount);
+    //             $stringVisits ='[';
    
-                foreach ($visitsCount as $visit){
-                    //echo $sale;
-                    if($stringVisits=='['){ $stringVisits =$stringVisits.=''.$visit.''; }
-                    else{
-                    $stringVisits =$stringVisits.=','.$visit.'';
-                }
-                }
+    //             foreach ($visitsCount as $visit){
+    //                 //echo $sale;
+    //                 if($stringVisits=='['){ $stringVisits =$stringVisits.=''.$visit.''; }
+    //                 else{
+    //                 $stringVisits =$stringVisits.=','.$visit.'';
+    //             }
+    //             }
                 
-                $stringVisits=$stringVisits.']';
-                //echo $stringVisits;
+    //             $stringVisits=$stringVisits.']';
+    //             //echo $stringVisits;
                 ?>
 
     
@@ -472,12 +558,13 @@
     document.getElementById('transactions').innerHTML = '';
     var myChart;
     var dataSalesMonthGraph= @json($salesPerMonth);
+    var dataMonthLabels= @json($months);
     //alert(dataSalesMonthGraph);
     myChart = new Chart(myCanvas, {
     //#E82646 switched from #05c3fb
         type: 'line',
         data: {
-            labels: <?php echo $stringMonths; ?>,
+            labels: dataMonthLabels,
             type: 'line',
             datasets: [{
                 label: 'Total Sales',
@@ -566,7 +653,7 @@
     
         myChart.data.datasets[0] = {
             label: 'Total Sales',
-            data: <?php echo $string; ?>,
+            data: dataSalesMonthGraph,
             backgroundColor: gradientStroke,
             borderColor: `rgb(${myVarVal})`,
             pointBackgroundColor: '#fff',

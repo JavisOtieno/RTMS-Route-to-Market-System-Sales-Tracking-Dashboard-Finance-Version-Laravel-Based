@@ -13,7 +13,6 @@ class Sale extends Model
         'user_id',
         'outlet_id',
         'visit_id',
-        'product_id',
         'value',
         'pieces'
 
@@ -25,7 +24,14 @@ class Sale extends Model
     public function outlet(){
         return $this->belongsTo(Outlet::class,'outlet_id');
     }
-    public function product(){
-        return $this->belongsTo(Product::class,'product_id');
+    public function visit(){
+        return $this->belongsTo(Visit::class,'visit_id');
+    }
+    // public function product(){
+    //     return $this->belongsTo(Product::class,'product_id');
+    // }
+    public function saleitems()
+    {
+        return $this->hasMany(SaleItem::class);
     }
 }

@@ -61,7 +61,8 @@ public function checkout($id,Request $request){
 }
 public function index(){
     //$sales = Sale::all();
-    $visits = Visit::with('outlet')->get();
+    $userId = auth()->id();
+    $visits = Visit::where('user_id',$userId)->with('outlet')->get();
     return response()->json(['visits'=>$visits]);
 }
 }

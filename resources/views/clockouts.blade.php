@@ -28,7 +28,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table id="example2" class="table table-bordered text-nowrap border-bottom">
+                <table id="responsive-datatable" class="table table-bordered text-nowrap border-bottom">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -37,6 +37,7 @@
                             <th>Time</th>
                             <th>Lat</th>
                             <th>Long</th>
+                            <th>View</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -50,6 +51,8 @@
                             <td>{{date('H:i', strtotime($clockout['created_at']))}}</td>
                             <td>{{$clockout['lat']}}</td>
                             <td>{{$clockout['long']}}</td>
+                            <td><a type="button" href="/clockout/{{$clockout['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View</a>
+                            </td>
                             <!--<a class="modal-effect btn btn-primary-light d-grid mb-3" data-bs-effect="effect-scale" >Scale</a>-->
                             </tr>
                             

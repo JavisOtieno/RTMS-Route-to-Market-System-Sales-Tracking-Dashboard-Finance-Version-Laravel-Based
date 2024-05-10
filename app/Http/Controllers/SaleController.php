@@ -15,7 +15,7 @@ class SaleController extends Controller
     //
 
     public function index() {
-        $sales = Sale::with('user','outlet','product')->orderBy('id', 'DESC')->get();
+        $sales = Sale::with('user','visit','outlet','saleitems.product')->orderBy('id', 'DESC')->get();
         //dd($sales);
         return view('sales', ['sales'=>$sales]);
     }

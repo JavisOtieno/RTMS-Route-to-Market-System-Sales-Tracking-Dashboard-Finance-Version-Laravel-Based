@@ -65,7 +65,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="description" class="form-label">Description</label>
-                                <textarea type="text" class="form-control" name="description" id="description" placeholder="description" autocomplete="long">{{$product['description']}}</textarea>
+                                <textarea type="text" rows="6" class="form-control" name="description" id="description" placeholder="description" autocomplete="long">{{$product['description']}}</textarea>
                             </div>
                             
                         </div>

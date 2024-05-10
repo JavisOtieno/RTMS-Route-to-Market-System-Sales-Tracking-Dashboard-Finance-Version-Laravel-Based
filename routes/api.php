@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\ActivityController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GeoController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\api\DashboardController;
 use App\Http\Controllers\api\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\api\FeedbackController;
+use App\Http\Controllers\api\ImageController;
 use App\Http\Controllers\api\POSAuditController;
 
 /*
@@ -33,21 +35,24 @@ use App\Http\Controllers\api\POSAuditController;
 
 
 Route::middleware(['auth:sanctum'])->group(function(){
-    Route::get('sales',[SaleController::class,'index']);
     Route::get('dashboard',[DashboardController::class,'index']);
 
     Route::post('clockin',[ClockinController::class,'saveClockin']);
     Route::post('clockout',[ClockoutController::class,'saveClockout']);
 
     Route::post('checkin',[VisitController::class,'checkin']);
-    Route::put('/checkout/{id}',[VisitController::class,'checkout']);
+    Route::put('checkout/{id}',[VisitController::class,'checkout']);
 
+    Route::get('sales',[SaleController::class,'index']);
     Route::post('makesale',[SaleController::class,'makesale']);
+    Route::post('addsale',[SaleController::class,'saveSale']);
+    Route::post('visitsales',[SaleController::class,'visitSales']);
+
     Route::post('addoutlet',[OutletController::class,'addoutlet']);
     Route::get('outlets',[OutletController::class,'index']);
     Route::get('products',[ProductController::class,'index']);
 
-    Route::get('/profile/{id}', [ProfileController::class,'showProfile']);
+    Route::get('profile/{id}', [ProfileController::class,'showProfile']);
 
     Route::post('addfeedback',[FeedbackController::class,'saveFeedback']);
     Route::get('feedback',[FeedbackController::class,'index']);
@@ -59,6 +64,10 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::get('posaudits',[POSAuditController::class,'index']);
 
     Route::get('visits',[VisitController::class,'index']);
+    Route::post('/uploadimage', [ImageController::class,'upload']);
+
+    //post because it requires visit id as a parameter
+    Route::post('activitieslist',[ActivityController::class,'index']);
 
 });
 

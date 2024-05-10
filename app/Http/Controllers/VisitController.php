@@ -13,4 +13,9 @@ class VisitController extends Controller
             $visits = Visit::all();
             return view('visits', ['visits'=>$visits]);
         }
+
+        public function showEditVisit($id){
+            $visit = Visit::find($id);
+            return view('edit-visit',['visit'=>$visit]);
+        }
 }
