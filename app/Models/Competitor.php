@@ -25,4 +25,9 @@ class Competitor extends Model
         return $this->belongsTo(Outlet::class,'outlet_id');
     }
 
+    public function visit(){
+        return $this->belongsTo(Visit::class,'visit_id');
+    }
+
+
 }

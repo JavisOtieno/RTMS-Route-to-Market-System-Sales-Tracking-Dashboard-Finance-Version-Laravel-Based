@@ -29,7 +29,7 @@
             <!--<p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p>-->
             
                 
-                    <form action="/saveeditproduct/{{$product['id']}}" method="POST">
+                    <form action="/saveeditproduct/{{$product['id']}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="">
@@ -53,19 +53,38 @@
                            
                             <div class="form-group">
                                 <label for="name" class="form-label">Product Name</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Name" value="{{$product['name']}}" autocomplete="name">
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Name" value="{{old('name',$product['name'])}}" autocomplete="name">
                             </div>
                             <div class="form-group">
                                 <label for="price" class="form-label">Price</label>
-                                <input type="text" class="form-control" name="price" id="price" placeholder="Price" value="{{$product['price']}}" autocomplete="phone">
+                                <input type="text" class="form-control" name="price" id="price" placeholder="Price" value="{{old('price',$product['price'])}}" autocomplete="price">
                             </div>
                             <div class="form-group">
                                 <label for="sku" class="form-label">SKU</label>
-                                <input type="text" class="form-control" name="sku" id="sku" placeholder="Sku" value="{{$product['sku']}}" autocomplete="lat">
+                                <input type="text" class="form-control" name="sku" id="sku" placeholder="Sku" value="{{old('sku',$product['sku'])}}" autocomplete="lat">
+                            </div>
+                            <div class="form-group">
+                                <label for="stock" class="form-label">Stock</label>
+                                <input type="text" class="form-control" name="stock" id="stock" placeholder="Stock" autocomplete="stock" value="{{old('stock',$product['stock'])}}">
                             </div>
                             <div class="form-group">
                                 <label for="description" class="form-label">Description</label>
-                                <textarea type="text" rows="6" class="form-control" name="description" id="description" placeholder="description" autocomplete="long">{{$product['description']}}</textarea>
+                                <textarea type="text" rows="6" class="form-control" name="description" id="description" placeholder="Description" autocomplete="long">{{old('description',$product['description'])}}</textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="image" class="form-label">Image (Optional)</label>
+                                {{-- {{url('storage/'.old('image',$product['image']))}} --}}
+                                <div class="col-lg-12 col-sm-12 mb-4 mb-lg-0">
+                                    <input type="file" class="dropify" name="image" data-default-file="{{$product['image']==''?'':url('storage/'.$product['image'])}}" data-bs-height="180">
+                                    <input type="hidden" name="default_file_removed" id="default_file_removed" value="0">
+                                    <input type="hidden" name="existing_file" value="{{$product['image']==''?'':url('storage/'.$product['image'])}}">
+       
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="dateTime" class="form-label">Date and Time Added</label>
+                                <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{date('Y-M-d H:i', strtotime($product['created_at']))}}" autocomplete="dateTime">
                             </div>
                             
                         </div>
@@ -93,3 +112,30 @@
 </div>
 
 @endsection
+
+<!-- JQUERY JS -->
+<script src="{{asset('assets/js/jquery.min.js')}}"></script>
+
+<script>
+    $(document).ready(function() {
+        var drEvent = $('.dropify').dropify();
+
+        drEvent.on('dropify.beforeClear', function(event, element) {
+            $('#default_file_removed').val(1);
+        });
+
+        drEvent.on('dropify.afterClear', function(event, element) {
+            $('#default_file_removed').val(1);
+        });
+
+        drEvent.on('dropify.errors', function(event, element) {
+            $('#default_file_removed').val(0);
+        });
+
+        drEvent.on('change', function(event, element) {
+            if (element.files.length > 0) {
+                $('#default_file_removed').val(0);
+            }
+        });
+    });
+</script>

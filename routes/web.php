@@ -1,10 +1,14 @@
 <?php
 
+use App\Http\Controllers\ImageController;
 use App\Models\Geo;
 use App\Models\Sale;
 use App\Models\Outlet;
+use App\Models\Posaudit;
+use App\Models\PosauditItem;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GeoController;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
@@ -20,8 +24,7 @@ use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\PosauditController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CompetitorController;
-use App\Models\Posaudit;
-use App\Models\PosauditItem;
+use App\Http\Controllers\TargetGroupController;
 
 /*
 |--------------------------------------------------------------------------
@@ -95,8 +98,16 @@ Route::get('/profile', [UserController::class,'showProfile']);
 Route::get('/visits', [VisitController::class,'index']);
 Route::get('/visit/{id}',[VisitController::class,'showEditVisit']);
 
+Route::get('/targetgroups', [TargetGroupController::class,'index']);
+Route::get('/add-target-group', [TargetGroupController::class,'addTargetGroup']);
+Route::get('/deletetargetgroup/{id}', [TargetGroupController::class,'deleteTargetGroup']);
+Route::post('/savetargetgroup', [TargetGroupController::class,'saveTargetGroup']);
+Route::get('/edittargetgroup/{id}', [TargetGroupController::class,'showEditTargetGroup']);
+Route::put('/saveedittargetgroup/{id}',[TargetGroupController::class,'saveEditTargetGroup']);
 
 Route::get('/users', [UserController::class,'index']);
+Route::get('/adduserstotargetgroups', [UserController::class,'showAddUsersToTargetGroups']);
+Route::post('/pushuserstotargetgroup', [UserController::class,'addUsersToTargetGroup']);
 
 Route::get('/deleteuser/{id}', [UserController::class,'deleteUser']);
 
@@ -111,6 +122,14 @@ Route::put('/saveedituser/{id}',[UserController::class,'saveEditUser']);
 Route::get('/changepassword/{id}', [UserController::class,'showChangePassword']);
 
 Route::put('/savechangepassword/{id}',[UserController::class,'saveChangePassword']);
+
+Route::get('/showimage/{folder}/{image}', [ImageController::class,'showImage']);
+
+Route::get('/run-artisan-link', function () {
+    Artisan::call('storage:link');
+    return 'Artisan link command executed';
+});
+
 
 });
 

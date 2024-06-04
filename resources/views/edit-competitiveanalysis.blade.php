@@ -62,7 +62,7 @@
               
                             <div class="form-group">
                                 <label for="dateTime" class="form-label">Date and Time</label>
-                                <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{$competitiveanalysis['created_at']}}" autocomplete="dateTime">
+                                <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{date('Y-M-d H:i', strtotime($competitiveanalysis['created_at']))}}" autocomplete="dateTime">
                             </div>
 
                             <div class="form-group">

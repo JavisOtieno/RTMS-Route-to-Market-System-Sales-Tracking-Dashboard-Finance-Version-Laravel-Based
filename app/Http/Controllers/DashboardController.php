@@ -74,7 +74,7 @@ class DashboardController extends Controller
         $visitsWeekCount=$visitsWeekCount+$visitscountperday;
         $salesWeekCount=$salesWeekCount+$salescountperday;
         $outletsWeekCount=$outletsWeekCount+$outletscountperday;
-        $productsWeekCount=$productsWeekCount+$outletscountperday;
+        $productsWeekCount=$productsWeekCount+$productscountperday;
         array_push($visitsCount,$visitscountperday);
         array_push($salesGraphCount,$salescountperday);
         array_push($outletsGraphCount,$outletscountperday);

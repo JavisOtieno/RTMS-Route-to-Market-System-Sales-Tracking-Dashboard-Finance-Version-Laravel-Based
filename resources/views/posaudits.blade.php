@@ -56,7 +56,7 @@ if($i>2){$posaudititems.="...";break;}
 ?>
 @endforeach
 <td style="white-space: pre-line;">{{$posaudititems}}</td>
-<td>{{$posaudit['created_at']}}</td>
+<td>{{date('Y-M-d H:i', strtotime($posaudit['created_at']))}}</td>
 <td><a type="button" href="/posaudit/{{$posaudit['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View</a>
 </td>
 <td><a type="button" onclick="deleteItemDefault({{$posaudit['id']}},'{{$posaudit['outlet']['name']}}','{{$posaudit['user']['name']}}','posaudits')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>

@@ -38,6 +38,8 @@
                                         <th>Name</th>
                                         <th>Phone</th>
                                         <th>Email</th>
+                                        {{-- <th>Usertype</th> --}}
+                                        <th>Targets</th>
                                         <th>View/Edit</th>
                                         <th>Delete</th>
                                     </tr>
@@ -52,6 +54,8 @@
                                         <td>{{$user['name']}}</td>
                                         <td>{{$user['phone']}}</td>
                                         <td>{{$user['email']}}</td>
+                                        {{-- <td>{{ucfirst($user['usertype'])}}</td> --}}
+                                        <td>{{$user['targetgroup']==null?"None":'KSh '.number_format($user['targetgroup']['amount'])}}</td>
                                         <td><a type="button" href="/edituser/{{$user['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
                                         </td>
                                         <td><a type="button" onclick="deleteItem({{$user['id']}},'Id: '+{{$user['id']}}+'<br/> Name: '+'{{$user['name']}}'+'<br/> Phone: '+'{{$user['phone']}}'+'<br/> Email: '+'{{$user['email']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>

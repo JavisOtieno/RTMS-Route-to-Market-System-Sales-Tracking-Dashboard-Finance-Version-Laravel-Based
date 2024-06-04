@@ -56,30 +56,36 @@
                                 <select class="form-control select2-show-search form-select" name="userId" id="userId" data-placeholder="Choose one">
                                         <option label="Choose one"></option>
                                         @foreach($users as $user)
-                                        <option value="{{$user['id']}}">{{$user['name']}}</option>
+                                        <option {{old('userId','')==$user['id']? 'selected':''}} value="{{$user['id']}}">{{$user['name']}}</option>
                                         @endforeach
                                         
                                     </select>
                             </div>
                             <div class="form-group">
                                 <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Name" autocomplete="name">
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Name" autocomplete="name" value="{{ old('name', '') }}">
                             </div>
                             <div class="form-group">
                                 <label for="contactName" class="form-label">Contact Name</label>
-                                <input type="text" class="form-control" name="contactName" id="contactName" placeholder="Contact Name" autocomplete="contactName">
+                                <input type="text" class="form-control" name="contactName" id="contactName" placeholder="Contact Name" autocomplete="contactName" value="{{ old('contactName', '') }}">
                             </div>
                             <div class="form-group">
                                 <label for="phone" class="form-label">Phone</label>
-                                <input type="text" class="form-control" name="phone"  placeholder="Phone" autocomplete="phone">
+                                <input type="text" class="form-control" name="phone"  placeholder="Phone" autocomplete="phone" value="{{ old('phone', '') }}">
                             </div>
                             <div class="form-group">
                                 <label for="lat" class="form-label">Lat</label>
-                                <input type="text" class="form-control" name="lat" id="lat" placeholder="Lat" autocomplete="lat">
+                                <input type="text" class="form-control" name="lat" id="lat" placeholder="Lat" autocomplete="lat" value="{{ old('lat', '') }}">
                             </div>
                             <div class="form-group">
                                 <label for="long" class="form-label">Long</label>
-                                <input type="text" class="form-control" name="long" id="long" placeholder="Long" autocomplete="long">
+                                <input type="text" class="form-control" name="long" id="long" placeholder="Long" autocomplete="long" value="{{ old('long', '') }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="image" class="form-label">Image (Optional)</label>
+                                <div class="col-lg-4 col-sm-12 mb-4 mb-lg-0">
+                                    <input name="image" type="file" class="dropify" data-bs-height="180">
+                                </div>
                             </div>
                             
                         </div>

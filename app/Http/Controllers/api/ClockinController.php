@@ -11,13 +11,17 @@ class ClockinController extends Controller
     //
     public function saveClockin(Request $request){
 
-       
-        // $incomingFields=$request->validate([
-        //     'userId'=>'required',
-        //     'time'=>'required',
-        //     'lat'=>'required',
-        //     'long'=>'required'
-        // ]);
+       // $incomingFields=
+        $incomingFields=$request->validate([
+            //'userId'=>'required',
+            //'time'=>'required',
+            // 'lat'=>'required',
+            // 'long'=>'required'
+            'userId'=>'required|numeric|digits_between:1,11',
+            'time'=>'required|string|max:255',
+            'lat'=>'required|between:-90.000000000,90.000000000',
+            'long'=>'required|between:-180.000000000,180.000000000'
+        ]);
 
         //Test Git
 

@@ -12,7 +12,8 @@ class Posaudit extends Model
     protected $fillable = [
         'user_id',
         'outlet_id',
-        'visit_id'
+        'visit_id',
+        'image'
 
     ];
     public function user(){

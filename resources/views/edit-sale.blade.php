@@ -65,25 +65,54 @@
                                 <input readonly type="text" class="form-control" name="pieces" id="pieces" placeholder="Pieces" value="{{$sale['pieces']}}" autocomplete="pieces">
                             </div>
                             <div class="form-group">
-                                <label for="value" class="form-label">Value</label>
+                                <label for="value" class="form-label">Total Value</label>
                                 <input readonly type="text" class="form-control" name="value" id="value" placeholder="Value" value="{{"KSh ".number_format($sale['value'])}}" autocomplete="value">
                             </div>
                             <div class="form-group">
                                 <label for="dateTime" class="form-label">Date and Time</label>
-                                <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{$sale['created_at']}}" autocomplete="dateTime">
+                                <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{date('Y-M-d H:i', strtotime($sale['created_at']))}}" autocomplete="dateTime">
                             </div>
 
                             <div class="form-group">
-                                <label for="productNames" class="form-label">Products</label>
+                                <label style="font-weight:bold;margin-bottom: 1.5rem;" for="productNames" class="form-label">Products</label>
+                                <div class="row mb-4">
+                                    <label style="font-weight:bold;" for="productName" class="col-md-4 form-label">Product Name</label>
+                                    <label style="font-weight:bold;" for="productValue" class="col-md-3 form-label">Product Price</label>
+                                    <label style="font-weight:bold;" for="productPieces" class="col-md-2 form-label">Pieces</label>
+                                    <label style="font-weight:bold;" for="productPieces" class="col-md-3 form-label">Value</label>
+                                    
+                                </div>
                                 <!--<input readonly type="text" class="form-control" name="productNames" id="productNames" placeholder="Products" value="{{$sale['products']}}" autocomplete="products">-->
                                 @foreach($sale['saleitems'] as $saleitem)
                                 <div class=" row mb-4">
-                                    <label style="font-weight:400;" for="productPieces" class="col-md-6 form-label">{{$saleitem['product']['name']}}</label>
-                                    <div class="col-md-6">
+                                    <label style="font-weight:400;" for="productPieces" class="col-md-4 form-label">{{$saleitem['product']['name']}}</label>
+                                    <div class="col-md-3">
+                                        <input readonly type="text" class="form-control" id="productPieces" placeholder="productPieces" autocomplete="productpieces" value="{{'KSh. '.number_format($saleitem['price'])}}">
+                                    </div>
+                                    <div class="col-md-2">
                                         <input readonly type="text" class="form-control" id="productPieces" placeholder="productPieces" autocomplete="productpieces" value="{{$saleitem['pieces']}}">
+                                    </div>
+                                    
+                                    <div class="col-md-3">
+                                        <input readonly type="text" class="form-control" id="productValue" placeholder="productValue" autocomplete="productvalue" value="{{'KSh. '.number_format($saleitem['value'])}}">
                                     </div>
                                 </div>
                                 @endforeach
+
+                                <div class=" row mb-4">
+                                    <label style="font-weight:bold;" for="productValue" class="col-md-4 form-label">Total</label>
+
+                                    
+                                    <div class="col-md-3">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input style="font-weight:bold;" readonly type="text" class="form-control" id="productPieces" placeholder="salePieces" autocomplete="salepieces" value="{{$sale['pieces']}}">
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <input style="font-weight:bold;" readonly type="text" class="form-control" id="productValue" placeholder="productValue" autocomplete="productvalue" value="{{'KSh. '.number_format($sale['value'])}}">
+                                    </div>
+                                </div>
 
                             </div>
                             

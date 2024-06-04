@@ -14,9 +14,13 @@ class OutletController extends Controller
     public function addoutlet(Request $request){
  
         $incomingFields=$request->validate([
-            'outletName'=>'required',
-            'contactPersonName'=>'required',
-            'phone'=>'required'
+            'userId'=>'required|numeric|digits_between:1,11',
+            'outletName'=>'required|string|max:255',
+            'contactPersonName'=>'required|string|max:255',
+            'phone'=>'required|string|max:255',
+            'lat'=>'required|between:-90.000000000,90.000000000',
+            'long'=>'required|between:-180.000000000,180.000000000',
+            'time'=>'required|string|max:255'
         ]);
 
         $outletStatus=DB::transaction(function () use($request) {
@@ -62,7 +66,7 @@ class OutletController extends Controller
     //
     public function index(){
         $userId = auth()->id();
-        $outlets = Outlet::where('user_id',$userId)->with('user')->get();
+        $outlets = Outlet::where('user_id',$userId)->orderBy('id', 'DESC')->with('user')->get();
         return response()->json(['outlets'=>$outlets]);
     }
 

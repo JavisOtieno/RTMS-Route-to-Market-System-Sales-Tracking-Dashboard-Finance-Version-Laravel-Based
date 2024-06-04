@@ -39,7 +39,7 @@
                                         <th>Outlet Name</th>
                                         <th>Products Sold</th>
                                         <th>Pieces</th>
-                                        <th>Created</th>
+                                        <th>Value</th>
                                         <th>View</th>
                                         <!--<th>View/Edit</th>-->
                                         <th>Delete</th>

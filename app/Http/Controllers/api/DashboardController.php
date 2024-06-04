@@ -47,13 +47,16 @@ class DashboardController extends Controller
             }else{
             $clockoutTime = 'undefined';
             }
-        if(count($visit)>0){
+        if(count($visit)>0)
+        {
         $checkinTime = strtotime($visit[0]['checkin_time']);
         $visitId = $visit[0]['id'];
         $outletId = $visit[0]['outlet_id'];
         $checkoutTime = $visit[0]['checkout_time'];
         $outletName = $visit[0]['outlet']['name'];
-        }else{
+        }
+        else
+        {
         $checkinTime = 'undefined';
         $outletId = 'undefined';
         $outletName = 'undefined';
@@ -62,13 +65,21 @@ class DashboardController extends Controller
         }
 
         $user=User::where('id',$userId)->get();
-        $currentTargets=$user[0]['targets'];
+        if($user[0]['target_group_id']==0){
+            $currentTargets=0;
+        }else{
+            $user=User::where('id',$userId)->with('targetgroup')->get();
+            $currentTargets=$user[0]['targetgroup']['amount'];
+        }
+
+        
 
         $salesCount = Sale::where('user_id',$userId)->count();
         $outletsCount = Outlet::where('user_id',$userId)->count();
         $feedbackCount = Feedback::where('user_id',$userId)->count();
         $posauditsCount = Posaudit::where('user_id',$userId)->count();
         $competitorsCount = Competitor::where('user_id',$userId)->count();
+        $visitsCount = Visit::where('user_id',$userId)->count();
 
         $sales = Sale::where('user_id',$userId)->orderBy('id', 'desc')->take(5)->get();
         $outlets = Outlet::where('user_id',$userId)->orderBy('id', 'desc')->take(5)->get();
@@ -76,7 +87,7 @@ class DashboardController extends Controller
         //$saleItems = SaleItem::where('user_id',$userId)->with('product')->orderBy('id', 'desc')->take(5)->get();
 
         return response()->json( compact('sales','outlets','salesCount','feedbackCount',
-        'outletsCount','posauditsCount','competitorsCount','dailySalesTotal',
+        'outletsCount','posauditsCount','visitsCount','competitorsCount','dailySalesTotal',
         'currentTargets','clockinTime','clockoutTime','checkinTime','checkoutTime',
         'visitId','userId','outletId','outletName'));
 

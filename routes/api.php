@@ -1,23 +1,24 @@
 <?php
 
-use App\Http\Controllers\api\ActivityController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GeoController;
-use App\Http\Controllers\api\ProfileController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\api\LogController;
 use App\Http\Controllers\api\SaleController;
+use App\Http\Controllers\api\ImageController;
+use App\Http\Controllers\api\LoginController;
 use App\Http\Controllers\api\VisitController;
 use App\Http\Controllers\api\OutletController;
 use App\Http\Controllers\api\ClockinController;
 use App\Http\Controllers\api\ProductController;
+use App\Http\Controllers\api\ProfileController;
+use App\Http\Controllers\api\ActivityController;
 use App\Http\Controllers\api\ClockoutController;
-use App\Http\Controllers\api\CompetitorController;
-use App\Http\Controllers\api\DashboardController;
-use App\Http\Controllers\api\LoginController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\api\FeedbackController;
-use App\Http\Controllers\api\ImageController;
 use App\Http\Controllers\api\POSAuditController;
+use App\Http\Controllers\api\DashboardController;
+use App\Http\Controllers\api\CompetitorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::post('clockout',[ClockoutController::class,'saveClockout']);
 
     Route::post('checkin',[VisitController::class,'checkin']);
+    Route::post('logcheckin',[LogController::class,'addlog']);
     Route::put('checkout/{id}',[VisitController::class,'checkout']);
 
     Route::get('sales',[SaleController::class,'index']);
@@ -51,17 +53,21 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::post('addoutlet',[OutletController::class,'addoutlet']);
     Route::get('outlets',[OutletController::class,'index']);
     Route::get('products',[ProductController::class,'index']);
+    Route::get('productsinstock',[ProductController::class,'productsInStock']);
 
     Route::get('profile/{id}', [ProfileController::class,'showProfile']);
 
     Route::post('addfeedback',[FeedbackController::class,'saveFeedback']);
     Route::get('feedback',[FeedbackController::class,'index']);
+    Route::post('visitfeedback',[FeedbackController::class,'visitFeedback']);
 
     Route::post('addcompetitoranalysis',[CompetitorController::class,'saveCompetitorAnalysis']);
     Route::get('competitiveanalysis',[CompetitorController::class,'index']);
+    Route::post('visitcompetitiveanalysis',[CompetitorController::class,'visitCompetitiveAnalysis']);
 
     Route::post('addposaudit',[POSAuditController::class,'savePOSAudit']);
     Route::get('posaudits',[POSAuditController::class,'index']);
+    Route::post('visitposaudits',[POSAuditController::class,'visitPOSAudits']);
 
     Route::get('visits',[VisitController::class,'index']);
     Route::post('/uploadimage', [ImageController::class,'upload']);

@@ -51,15 +51,15 @@
                             @endif
                             <div class="form-group">
                                 <label for="name" class="form-label">Name</label>
-                                <input type="name" class="form-control" name="name" id="name" placeholder="Name" value="{{$user['name']}}" autocomplete="name">
+                                <input type="name" class="form-control" name="name" id="name" placeholder="Name" value="{{old('name',$user['name'])}}" autocomplete="name">
                             </div>
                             <div class="form-group">
                                 <label for="phone" class="form-label">Phone</label>
-                                <input type="text" class="form-control" name="phone"  placeholder="Phone" value="{{$user['phone']}}" autocomplete="phone">
+                                <input type="text" class="form-control" name="phone"  placeholder="Phone" value="{{old('phone',$user['phone'])}}" autocomplete="phone">
                             </div>
                             <div class="form-group">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="text" class="form-control" name="email" id="email" placeholder="Email" value="{{$user['email']}}" autocomplete="email">
+                                <input type="text" class="form-control" name="email" id="email" placeholder="Email" value="{{old('email',$user['email'])}}" autocomplete="email">
                             </div>
                             <div class="form-group">
                                 <label for="admin" class="form-label">User Type</label>
@@ -69,8 +69,18 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="targets" class="form-label">Targets</label>
-                                <input type="targets" class="form-control" value="{{$user['targets']}}" name="targets" id="targets" placeholder="Targets" autocomplete="targets">
+                                <label for="target_group_id" class="form-label">Targets</label>
+                                <select name="target_group_id" class="form-control form-select select2" data-bs-placeholder="Select User Type">
+                                    <option {{old('target_group_id',$user['target_group_id'])=="0"? 'selected':''}} value="0">None</option>
+                                    @foreach($targetgroups as $targetgroup)
+                                        <option {{old('target_group_id',$user['target_group_id'])==$targetgroup['id']? 'selected':''}} value="{{$targetgroup['id']}}">{{$targetgroup['name']." - KSh ".number_format($targetgroup['amount'])}}</option>
+
+                                        @endforeach
+                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="dateTime" class="form-label">Date and Time Added</label>
+                                <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{date('Y-M-d H:i', strtotime($user['created_at']))}}" autocomplete="dateTime">
                             </div>
                             <div class="form-group">
                                 <label for="password" class="form-label">Password</label>

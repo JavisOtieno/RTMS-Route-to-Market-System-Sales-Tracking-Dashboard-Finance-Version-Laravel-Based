@@ -38,6 +38,7 @@
                                         <th>Product Name</th>
                                         <th>SKU</th>
                                         <th>Price</th>
+                                        <th>Stock</th>
                                         <th>View/Edit</th>
                                         <th>Delete</th>
                                     </tr>
@@ -51,6 +52,7 @@
                                         <td>{{$product['name']}}</td>
                                         <td>{{$product['sku']}}</td>
                                         <td>{{'KSh '.number_format($product['price'])}}</td>
+                                        <td>{{number_format($product['stock'])}}</td>
                                         <td><a type="button" href="/editproduct/{{$product['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
                                         </td>
                                         <td><a type="button" onclick="deleteItem({{$product['id']}},'{{$product['name']}}','{{$product['sku']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>

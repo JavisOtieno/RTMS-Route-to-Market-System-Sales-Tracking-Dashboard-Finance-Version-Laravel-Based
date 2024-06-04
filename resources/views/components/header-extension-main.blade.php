@@ -65,7 +65,7 @@
                                 </a>
                             </div>
                             <!-- Theme-Layout -->
-                            <div class="dropdown  d-flex shopping-cart">
+                            {{-- <div class="dropdown  d-flex shopping-cart">
                                 <!--<a class="nav-link icon text-center" data-bs-toggle="dropdown">
                                     <i class="fe fe-shopping-cart"></i><span class="badge bg-secondary header-badge">4</span>
                                 </a>-->
@@ -181,15 +181,15 @@
                                         <span class="float-end p-2 fs-17 fw-semibold">Total: $6789</span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <!-- CART -->
                             <div class="dropdown d-flex">
                                 <a class="nav-link icon full-screen-link nav-link-bg">
                                     <i class="fe fe-minimize fullscreen-button"></i>
                                 </a>
                             </div>
-                            <!-- FULL-SCREEN -->
-                            <!--<div class="dropdown  d-flex notifications">
+                            {{-- <!-- FULL-SCREEN -->
+                            <div class="dropdown  d-flex notifications">
                                 <a class="nav-link icon" data-bs-toggle="dropdown"><i
                                         class="fe fe-bell"></i><span class=" pulse"></span>
                                 </a>
@@ -246,9 +246,8 @@
                                         class="dropdown-item text-center p-3 text-muted">View all
                                         Notification</a>
                                 </div>
-                            </div>-->
+                            </div>
                             <!-- NOTIFICATIONS -->
-                            <!--
                             <div class="dropdown  d-flex message">
                                 <a class="nav-link icon text-center" data-bs-toggle="dropdown">
                                     <i class="fe fe-message-square"></i><span class="pulse-danger"></span>
@@ -340,15 +339,15 @@
                                     <a href="javascript:void(0)" class="dropdown-item text-center p-3 text-muted">See all
                                         Messages</a>
                                 </div>
-                            </div>-->
+                            </div>
                             <!-- MESSAGE-BOX -->
-                            <!--<div class="dropdown d-flex header-settings">
+                            <div class="dropdown d-flex header-settings">
                                 <a href="javascript:void(0);" class="nav-link icon"
                                     data-bs-toggle="sidebar-right" data-target=".sidebar-right">
                                     <i class="fe fe-align-right"></i>
                                 </a>
-                            </div>-->
-                            <!-- SIDE-MENU -->
+                            </div>
+                            <!-- SIDE-MENU --> --}}
                             <div class="dropdown d-flex profile-1">
                                 <a href="javascript:void(0)" data-bs-toggle="dropdown" class="nav-link leading-none d-flex">
                                     <img src="{{asset('assets/images/users/21.jpg')}}" alt="profile-user"
@@ -417,11 +416,54 @@
                             class="side-menu__icon fe fe-home"></i><span
                             class="side-menu__label">Dashboard</span></a>
                 </li>
-                <li class="slide">
+                {{-- <li class="slide">
                   <a class="side-menu__item has-link" data-bs-toggle="slide" href="/users"><i
                           class="side-menu__icon fe fe-user"></i><span
                           class="side-menu__label">Users</span></a>
-              </li>
+              </li> --}}
+              <li class="slide">
+                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
+                        class="side-menu__icon fe fe-user"></i><span
+                        class="side-menu__label">Users</span><i
+                        class="angle fe fe-chevron-right"></i>
+                </a>
+                <ul class="slide-menu">
+                    <li class="panel sidetab-menu">
+                        <div class="tab-menu-heading p-0 pb-2 border-0">
+                            <div class="tabs-menu ">
+                                <!-- Tabs -->
+                                <ul class="nav panel-tabs">
+                                    <li><a href="#side1" class="d-flex active" data-bs-toggle="tab"><i class="fe fe-monitor me-2"></i><p>Home</p></a></li>
+                                    <li><a href="#side2" data-bs-toggle="tab" class="d-flex"><i class="fe fe-message-square me-2"></i><p>Chat</p></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="panel-body tabs-menu-body p-0 border-0">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="side1">
+                                    <ul class="sidemenu-list">
+                                        <li class="side-menu-label1"><a href="javascript:void(0)">Users</a></li>
+                                        <li><a href="/users" class="slide-item"> Users</a></li>
+                                        <li><a href="/adduserstotargetgroups" class="slide-item"> Add Users to Target Groups</a></li>
+                                        
+                                        
+                                    </ul>
+
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+
+            
+            
+              <li class="slide">
+                <a class="side-menu__item has-link" data-bs-toggle="slide" href="/targetgroups"><i
+                        class="side-menu__icon fe fe-bar-chart"></i><span
+                        class="side-menu__label">Target Groups</span></a>
+            </li>
                 <li class="slide">
                   <a class="side-menu__item has-link" data-bs-toggle="slide" href="/clockins"><i
                           class="side-menu__icon fe fe-arrow-right"></i><span

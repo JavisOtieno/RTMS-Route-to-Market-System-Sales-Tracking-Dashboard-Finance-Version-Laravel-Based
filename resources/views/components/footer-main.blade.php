@@ -207,7 +207,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane" id="sidebar-side2">
+                {{-- <div class="tab-pane" id="sidebar-side2">
                     <div class="list-group list-group-flush">
                         <div class="pt-3 fw-semibold ps-5">Today</div>
                         <div class="list-group-item d-flex align-items-center">
@@ -485,7 +485,7 @@
                             </div>
                         </li>
                     </ul>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
@@ -493,7 +493,7 @@
 <!--/Sidebar-right-->
 
 <!-- Country-selector modal-->
-<div class="modal fade" id="country-selector">
+{{-- <div class="modal fade" id="country-selector">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content country-select-modal">
             <div class="modal-header">
@@ -573,7 +573,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 <!-- Country-selector modal-->
 
 <!-- FOOTER -->

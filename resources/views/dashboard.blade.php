@@ -176,10 +176,10 @@
                     <table class="table border text-nowrap text-md-nowrap table-striped mb-0">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                {{-- <th>ID</th> --}}
                                 <th>Outlet Name</th>
-                                <th>User Name</th>
-                                <th>Pieces</th>
+                                <th>Seller Name</th>
+                                {{-- <th>Pieces</th> --}}
                                 <th>Value</th>
                             </tr>
                         </thead>
@@ -187,10 +187,10 @@
                             @if(count($sales)>0)
                             @foreach($sales as $sale)
                             <tr>
-                            <td>{{$sale['id']}}</td>
+                            {{-- <td>{{$sale['id']}}</td> --}}
                             <td>{{$sale['outlet']['name']}}</td>
                             <td>{{$sale['user']['name']}}</td>
-                            <td>{{$sale['pieces']}}</td>
+                            {{-- <td>{{$sale['pieces']}}</td> --}}
                             <td>{{'KSh. '.number_format($sale['value'])}}</td>
                             </tr>
                             @endforeach
@@ -219,7 +219,7 @@
                     <table class="table border text-nowrap text-md-nowrap table-striped mb-0">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                {{-- <th>ID</th> --}}
                                 <th>Name</th>
                                 <th>Contact Name</th>
                                 
@@ -229,7 +229,7 @@
                             @if(count($outlets)>0)
                             @foreach($outlets as $outlet)
                             <tr>
-                            <td>{{$outlet['id']}}</td>
+                            {{-- <td>{{$outlet['id']}}</td> --}}
                             <td>{{$outlet['name']}}</td>
                             <td>{{$outlet['contact_person_name']}}</td>
                             </tr>
@@ -261,7 +261,7 @@
                         <table class="table border text-nowrap text-md-nowrap table-striped mb-0">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    {{-- <th>ID</th> --}}
                                     <th>Seller Name</th>
                                     <th>Sales Count</th>
                                 </tr>
@@ -270,7 +270,7 @@
                                 @if(count($topSellers)>0)
                                 @foreach($topSellers as $topSeller)
                                 <tr>
-                                <td>{{$topSeller['user']['id']}}</td>
+                                {{-- <td>{{$topSeller['user']['id']}}</td> --}}
                                 <td>{{$topSeller['user']['name']}}</td>
                                 <td>{{$topSeller['count']}}</td>
                                 </tr>
@@ -300,7 +300,7 @@
                         <table class="table border text-nowrap text-md-nowrap table-striped mb-0">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    {{-- <th>ID</th> --}}
                                     <th>Outlet Name</th>
                                     <th>Sales Count</th>
                                     
@@ -310,7 +310,7 @@
                                 @if(count($topOutlets)>0)
                                 @foreach($topOutlets as $topOutlet)
                                 <tr>
-                                <td>{{$topOutlet['outlet']['id']}}</td>
+                                {{-- <td>{{$topOutlet['outlet']['id']}}</td> --}}
                                 <td>{{$topOutlet['outlet']['name']}}</td>
                                 <td>{{$topOutlet['count']}}</td>
                                 </tr>

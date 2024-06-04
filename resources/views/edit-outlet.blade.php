@@ -50,28 +50,82 @@
                             </div>
                             @endif
                             <div class="form-group">
-                                <label for="userId" class="form-label">User Id</label>
-                                <input type="userId" class="form-control" name="userId" id="userId" placeholder="User Id" value="{{$outlet['user_id']}}" autocomplete="userid">
+                                <label for="userId" class="form-label">Seller Name</label>
+                                <input type="userName" readonly class="form-control" name="userName" id="userName" placeholder="User Name" value="{{$outlet['user']['name']}}" autocomplete="username">
+                                <input type="hidden" readonly class="form-control" name="userId" id="userId" placeholder="User Id" value="{{$outlet['user']['id']}}" autocomplete="userid">
                             </div>
                             <div class="form-group">
                                 <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Name" value="{{$outlet['name']}}" autocomplete="name">
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Name" value="{{old('name',$outlet['name'])}}" autocomplete="name">
                             </div>
                             <div class="form-group">
                                 <label for="contactPersonName" class="form-label">Contact Person Name</label>
-                                <input type="text" class="form-control" name="contactPersonName" id="contactPersonName" placeholder="Contact Person Name" value="{{$outlet['contact_person_name']}}" autocomplete="contactPersonNmae">
+                                <input type="text" class="form-control" name="contactPersonName" id="contactPersonName" placeholder="Contact Person Name" value="{{old('contact_person_name',$outlet['contact_person_name'])}}"  autocomplete="contactPersonNmae">
                             </div>
                             <div class="form-group">
                                 <label for="phone" class="form-label">Phone</label>
-                                <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone" value="{{$outlet['phone']}}" autocomplete="phone">
+                                <input type="text" class="form-control" name="phone" placeholder="Phone" value="{{old('phone',$outlet['phone'])}}"  autocomplete="phone">
                             </div>
                             <div class="form-group">
                                 <label for="lat" class="form-label">Lat</label>
-                                <input type="text" class="form-control" name="lat" id="lat" placeholder="Lat" value="{{$outlet['lat']}}" autocomplete="lat">
+                                <input type="text" readonly class="form-control" name="lat" id="lat" placeholder="Lat" value="{{old('lat',$outlet['lat'])}}"  autocomplete="lat">
                             </div>
                             <div class="form-group">
                                 <label for="long" class="form-label">Long</label>
-                                <input type="text" class="form-control" name="long" id="long" placeholder="long" value="{{$outlet['long']}}" autocomplete="long">
+                                <input type="text" readonly class="form-control" name="long" id="long" placeholder="long" value="{{old('long',$outlet['long'])}}"  autocomplete="long">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="dateTime" class="form-label">Date and Time Added</label>
+                                <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{date('Y-M-d H:i', strtotime($outlet['created_at']))}}" autocomplete="dateTime">
+                            </div>
+
+                            <div class="form-group">
+
+                                <label for="image" class="form-label">Image (Optional)</label>
+
+                                {{-- <div style="margin: auto;" class="col-xl-6 col-lg-3 col-md-4 col-sm-4 col-xxl-2">
+                                    <div class="card overflow-hidden">
+                                        <a href="#"><img style="width: 100%;" src="{{url('storage/'.$outlet['image'])}}" alt="img" class="file-manager-list w-100"></a>
+                                        <div class="card-footer">
+                                            <div class="d-flex">
+                                                <div class="">
+                                                    <h5 class="mb-0 fw-semibold text-break">{{$outlet['name']}}</h5>
+                                                </div>
+                                                <div class="ms-auto my-auto">
+                                                    <!--<span class="text-muted mb-0">66 KB</span>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> --}}
+
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xxl-12">
+                                    <div class="card overflow-hidden" style="background: #fce9ec;">
+                                        <a class="col-xl-7" style="margin: 20px auto">
+                                            @if($outlet['image'])
+                                            <a href="{{url('showimage/'.$outlet['image'])}}">
+                                            <img style="width: 100%;" src="{{url('storage/'.$outlet['image'])}}" alt="img">
+                                            </a>
+                                            @else
+                                            <img style="width: 100%;" src="{{asset('assets/images/new-images/no-image-available.jpg')}}" alt="img">
+                                            
+                                            @endif
+                                        </a>
+
+                                        <div class="card-footer">
+                                            <div class="d-flex">
+                                                <div class="" style="margin: auto">
+                                                    <h5 style="text-align: center" class="mb-0 fw-semibold text-break">{{$outlet['name']}}</h5>
+                                                </div>
+                                                {{-- <div class="ms-auto my-auto">
+                                                    <span class="text-muted mb-0">67 KB</span>
+                                                </div> --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                             
                         </div>

@@ -27,13 +27,15 @@ class OutletController extends Controller
 
        
         $incomingFields=$request->validate([
-            'userId'=>'required',
-            'name'=>'required',
-            'contactName'=>'required',
-            'phone'=>'required',
-            'lat'=>'required',
-            'long'=>'required'
+            'userId'=>'required|numeric|digits_between:1,11',
+            'name'=>'required|string|max:255',
+            'contactName'=>'required|string|max:255',
+            'phone'=>'required|string|max:255',
+            'lat'=>'required|between:-90.000000000,90.000000000',
+            'long'=>'required|between:-180.000000000,180.000000000',
+            
         ]);
+        //'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         
         $incomingFields['user_id']=strip_tags($incomingFields['userId']);
         $incomingFields['name']=strip_tags($incomingFields['name']);
@@ -41,7 +43,36 @@ class OutletController extends Controller
         $incomingFields['phone']=strip_tags($incomingFields['phone']);
         $incomingFields['lat']=strip_tags($incomingFields['lat']);
         $incomingFields['long']=strip_tags($incomingFields['long']);
-        $incomingFields['image']='';
+        //$incomingFields['image']='';
+
+        if($request['image']){
+
+            $imageName = time().'.'.$request->image->extension();
+
+            $request->validate([
+                'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            ]);
+
+            // Save image to public/images directory
+            //$request->image->move(public_path('images'), $imageName);
+    
+            //code from android version
+            $folder="outlets";
+            $imagePath=$folder."/".$imageName;
+            //Storage::disk('public')->put($imagePath, $imageData);
+            $incomingFields['image']=$imagePath;
+    
+            //store using the storage facade
+            //stores to images/folder in this case images/products/
+            //$path = $request->file('image')->storeAs('images', $imagePath, 'public');
+            //$path = $request->file('image')->storeAs('images', $imagePath, 'public');
+    
+            //store to products
+            $path = $request->file('image')->storeAs($folder, $imageName, 'public');
+            
+        }else{
+            $incomingFields['image']='';   
+        }
 
         Outlet::create($incomingFields);
 
@@ -54,12 +85,12 @@ class OutletController extends Controller
     }
     public function saveEditOutlet($id, Request $request){
         $incomingFields=$request->validate([
-            'userId'=>'required',
-            'name'=>'required',
-            'contactPersonName'=>'required',
-            'phone'=>'required',
-            'lat'=>'required',
-            'long'=>'required'
+            'userId'=>'required|numeric|digits_between:1,11',
+            'name'=>'required|string|max:255',
+            'contactPersonName'=>'required|string|max:255',
+            'phone'=>'required|string|max:255',
+            'lat'=>'required|between:-90.000000000,90.000000000',
+            'long'=>'required|between:-180.000000000,180.000000000'
         ]);
 
         $incomingFields['user_id']=strip_tags($incomingFields['userId']);

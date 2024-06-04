@@ -53,31 +53,38 @@
 
                             <div class="form-group">
                                 <label for="name" class="form-label">Name</label>
-                                <input type="name" class="form-control" name="name" id="name" placeholder="Name" autocomplete="name">
+                                <input type="name" class="form-control" value="{{ old('name', '') }}" name="name" id="name" placeholder="Name" autocomplete="name">
                             </div>
                             <div class="form-group">
                                 <label for="phone" class="form-label">Phone</label>
-                                <input type="text" class="form-control" name="phone"  placeholder="Phone" autocomplete="phone">
+                                <input type="text" class="form-control" value="{{ old('phone', '') }}" name="phone"  placeholder="Phone" autocomplete="phone">
                             </div>
                             <div class="form-group">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="text" class="form-control" name="email" id="email" placeholder="Email" autocomplete="email">
+                                <input type="text" class="form-control" name="email" value="{{ old('email', '') }}" id="email" placeholder="Email" autocomplete="email">
                             </div>
                             <div class="form-group">
                                 <label for="admin" class="form-label">User Type</label>
                                 <select name="usertype" class="form-control form-select select2" data-bs-placeholder="Select User Type">
-                                                    <option value="admin">Admin</option>
-                                                    <option value="sales">Sales</option>
+                                                    <option {{old('usertype','')=="admin"? 'selected':''}} value="admin">Admin</option>
+                                                    <option {{old('usertype','')=="sales"? 'selected':''}} value="sales">Sales</option>
                                 </select>
                             </div>
-                            
                             <div class="form-group">
-                                <label for="targets" class="form-label">Targets</label>
-                                <input type="number" class="form-control" name="targets" id="targets" placeholder="Targets" autocomplete="targets">
-                            </div>
+                                <label for="target_group_id" class="form-label">Target Group</label>
+                                <select name="target_group_id" class="form-control form-select select2" data-bs-placeholder="Select Target Group">
+                                    <option value="0">None</option>
+                                        @foreach($targetgroups as $targetgroup)
+                                        <option {{old('target_group_id','')==$targetgroup['id']? 'selected':''}} value="{{$targetgroup['id']}}">{{$targetgroup['name']." - KSh ".number_format($targetgroup['amount'])}}</option>
+                                        @endforeach
+                </select></div>
                             <div class="form-group">
                                 <label for="password" class="form-label">Password</label>
                                 <input type="password" class="form-control" name="password" id="password" placeholder="Password" autocomplete="password">
+                            </div>
+                            <div class="form-group">
+                                <label for="password_confirmation" class="form-label">Confirm Password</label>
+                                <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Confirm Password"  autocomplete="password_confirmation">
                             </div>
                             
                             

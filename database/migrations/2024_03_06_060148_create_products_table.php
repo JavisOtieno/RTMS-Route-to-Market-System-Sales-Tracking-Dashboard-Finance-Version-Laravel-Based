@@ -11,12 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
+        //switch price to integer instead of strings
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('sku');
             $table->longText('description');
-            $table->integer('price');
+            $table->string('price');
+            $table->integer('stock');
+            $table->string('image');
             $table->timestamps();
         });
     }

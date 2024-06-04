@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('user_id');
             $table->integer('outlet_id');
             $table->integer('visit_id');
-            $table->string('brand_visibility');
-            $table->string('pricing');
+            $table->longText('brand_visibility');
+            $table->longText('pricing');
             $table->timestamps();
         });
     }

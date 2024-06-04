@@ -38,6 +38,7 @@
                             <th>Lat</th>
                             <th>Long</th>
                             <th>View</th>
+                            <th>Map</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,6 +54,9 @@
                             <td>{{$clockout['long']}}</td>
                             <td><a type="button" href="/clockout/{{$clockout['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View</a>
                             </td>
+                            <td><a type="button" onclick="embedMap('{{$clockout['lat']}}','{{$clockout['long']}}')"
+                                class="btn btn-success" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#largemodal">Map</a>
+                          </td>
                             <!--<a class="modal-effect btn btn-primary-light d-grid mb-3" data-bs-effect="effect-scale" >Scale</a>-->
                             </tr>
                             
@@ -89,5 +93,37 @@
         </div>
     </div>
 
+    <div class="modal fade" id="largemodal">
+        <div class="modal-dialog modal-lg " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Map</h5>
+                    <button class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                    <iframe id="mapEmbededForNow" style="width:100%;height:400px;" src = "https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d4084493.7307095355!2d36.50569875426991!3d-1.3175850003645804!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2ske!4v1715327211380!5m2!1sen!2ske"></iframe>
+                    <!--<div id="googleMap" style="width:100%;height:400px;"></div>-->
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
 @endsection
+
+<script>
+    function embedMap(lat,long){
+        //alert(id);
+        var mapEmbedFrame = document.getElementById("mapEmbededForNow");
+        mapEmbedFrame.src = "https://maps.google.com/maps?q="+lat+","+long+"&hl=es;z=14&amp&output=embed";
+        //var confirmDeleteLink = document.getElementById('confirmDelete'); //or grab it by tagname etc
+        //confirmDeleteLink.href = "/deletesale/"+id;
+    }
+  </script>
 

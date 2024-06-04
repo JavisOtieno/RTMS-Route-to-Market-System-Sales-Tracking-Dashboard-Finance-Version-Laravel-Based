@@ -62,12 +62,16 @@
               
                             <div class="form-group">
                                 <label for="dateTime" class="form-label">Date and Time</label>
-                                <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{$posaudit['created_at']}}" autocomplete="dateTime">
+                                <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{date('Y-M-d H:i', strtotime($posaudit['created_at']))}}" autocomplete="dateTime">
                             </div>
 
                             <div class="form-group">
-                                <label for="productNames" class="form-label">Products</label>
+                                <label for="productNames" style="font-weight:bold;margin-bottom: 1.5rem;"  class="form-label">Products</label>
                                 <!--<input readonly type="text" class="form-control" name="productNames" id="productNames" placeholder="Products"  autocomplete="products">-->
+                                <div class="row mb-4">
+                                    <label style="font-weight:bold;" for="productName" class="col-md-6 form-label">Product Name</label>
+                                    <label style="font-weight:bold;" for="productPieces" class="col-md-6 form-label">Pieces</label>                                    
+                                </div>
                                 @foreach($posaudit['posaudititems'] as $posaudititem)
                                 <div class=" row mb-4">
                                     <label style="font-weight:400;" for="productPieces" class="col-md-6 form-label">{{$posaudititem['product']['name']}}</label>
@@ -76,6 +80,53 @@
                                     </div>
                                 </div>
                                 @endforeach
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label for="image" class="form-label">Image</label>
+
+                                {{-- <div style="margin: auto;" class="col-xl-6 col-lg-3 col-md-4 col-sm-4 col-xxl-2">
+                                    <div class="card overflow-hidden">
+                                        <a href="#"><img style="width: 100%;" src="{{url('storage/'.$outlet['image'])}}" alt="img" class="file-manager-list w-100"></a>
+                                        <div class="card-footer">
+                                            <div class="d-flex">
+                                                <div class="">
+                                                    <h5 class="mb-0 fw-semibold text-break">{{$outlet['name']}}</h5>
+                                                </div>
+                                                <div class="ms-auto my-auto">
+                                                    <!--<span class="text-muted mb-0">66 KB</span>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> --}}
+
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xxl-12">
+                                    <div class="card overflow-hidden" style="background: #fce9ec;">
+                                        <a class="col-xl-7" style="margin: 20px auto">
+                                            @if($posaudit['image'])
+                                            <a href="{{url('showimage/'.$posaudit['image'])}}">
+                                            <img style="width: 100%;" src="{{url('storage/'.$posaudit['image'])}}" alt="img">
+                                            </a>
+                                            @else
+                                            <img style="width: 100%;" src="{{asset('assets/images/new-images/no-image-available.jpg')}}" alt="img">
+                                            @endif
+                                        </a>
+
+                                        <div class="card-footer">
+                                            <div class="d-flex">
+                                                <div class="" style="margin: auto">
+                                                    <h5 style="text-align: center" class="mb-0 fw-semibold text-break">{{$posaudit['outlet']['name']}}</h5>
+                                                </div>
+                                                {{-- <div class="ms-auto my-auto">
+                                                    <span class="text-muted mb-0">67 KB</span>
+                                                </div> --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                             </div>
                             

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('user_id');
             $table->integer('outlet_id');
             $table->integer('visit_id');
-            $table->string('feedback');
+            $table->longText('feedback');
             $table->timestamps();
         });
     }

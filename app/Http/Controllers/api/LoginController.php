@@ -14,8 +14,8 @@ class LoginController extends Controller
         
         //if email is not valid it returns null json object
         $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
+            'email'=>'required|email|max:255',
+            'password'=>'required|string|max:255|min:8'
         ]);
         //return 'test';
         
@@ -37,11 +37,12 @@ class LoginController extends Controller
     
             return response()->json($loginStatus);
             
+        }else{
+            $loginStatus=array(
+                "message" => "Invalid Login Details",
+                "status" => "failed");
         }
 
-        $loginStatus=array(
-            "message" => "Login Failed",
-            "status" => "failed");
 
         return response()->json($loginStatus);
         

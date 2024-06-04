@@ -12,12 +12,18 @@ class VisitController extends Controller
     public function checkin(Request $request){
 
        
-        // $incomingFields=$request->validate([
+        // $incomingFields=
+        $request->validate([
         //     'userId'=>'required',
         //     'time'=>'required',
         //     'lat'=>'required',
         //     'long'=>'required'
-        // ]);
+        'userId'=>'required|numeric|digits_between:1,11',
+        'time'=>'required|string|max:255',
+        'lat'=>'required|between:-90.000000000,90.000000000',
+        'long'=>'required|between:-180.000000000,180.000000000',
+        'outletId'=>'required|numeric|digits_between:1,11',
+        ]);
 
         $incomingFields=[];
         $incomingFields['user_id']=strip_tags($request['userId']);
@@ -46,6 +52,16 @@ public function checkout($id,Request $request){
 
     $visit=Visit::find($id);
     
+    $request->validate([
+        //     'userId'=>'required',
+        //     'time'=>'required',
+        //     'lat'=>'required',
+        //     'long'=>'required'
+        'checkout_time'=>'required|string|max:255',
+        'checkout_latitude'=>'required|between:-90.000000000,90.000000000',
+        'checkout_longitude'=>'required|between:-180.000000000,180.000000000',
+        ]);
+    
     $incomingFields['checkout_time']=strip_tags($request['checkout_time']);
     $incomingFields['checkout_latitude']=strip_tags($request['checkout_latitude']);
     $incomingFields['checkout_longitude']=strip_tags($request['checkout_longitude']);
@@ -62,7 +78,7 @@ public function checkout($id,Request $request){
 public function index(){
     //$sales = Sale::all();
     $userId = auth()->id();
-    $visits = Visit::where('user_id',$userId)->with('outlet')->get();
+    $visits = Visit::where('user_id',$userId)->with('outlet')->orderBy('id', 'DESC')->get();
     return response()->json(['visits'=>$visits]);
 }
 }

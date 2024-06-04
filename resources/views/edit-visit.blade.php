@@ -77,12 +77,12 @@
                                 @if($visit['checkout_time']=="")
                                         <input readonly type="text" class="form-control" name="duration" id="duration" placeholder="Duration" value="{{gmdate("H:i", strtotime(0))}}" autocomplete="value">
                                         @else
-                                        <input readonly type="text" class="form-control" name="duration" id="duration" placeholder="Duration" value="{{gmdate("H:i", $visit['checkout_time'])-strtotime($visit['created_at'])}}" autocomplete="value">
+                                        <input readonly type="text" class="form-control" name="duration" id="duration" placeholder="Duration" value="{{gmdate("H:i", $visit['checkout_time']-strtotime($visit['created_at']))}}" autocomplete="value">
                                         @endif
                             </div>
                             <div class="form-group">
                                 <label for="dateTime" class="form-label">Date and Time</label>
-                                <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{$visit['created_at']}}" autocomplete="dateTime">
+                                <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{date('Y-M-d H:i', strtotime($visit['created_at']))}}" autocomplete="dateTime">
                             </div>
                             
                         </div>

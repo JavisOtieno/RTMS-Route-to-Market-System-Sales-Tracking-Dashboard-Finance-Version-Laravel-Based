@@ -20,7 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'phone',
-        'targets',
+        'target_group_id',
         'usertype',
         'email',
         'password',
@@ -50,4 +50,9 @@ class User extends Authenticatable
     // {
     //     return $this->belongsToMany(Sale::class, 'users', 'id', 'user_id');
     // }
+    public function targetgroup(){
+        return $this->belongsTo(TargetGroup::class,'target_group_id');
+    }
+
+    
 }

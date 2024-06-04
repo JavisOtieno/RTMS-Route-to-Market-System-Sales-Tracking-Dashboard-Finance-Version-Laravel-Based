@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('user_id');
             $table->integer('outlet_id');
             $table->integer('visit_id');
+            $table->string('image');
             $table->timestamps();
         });
     }

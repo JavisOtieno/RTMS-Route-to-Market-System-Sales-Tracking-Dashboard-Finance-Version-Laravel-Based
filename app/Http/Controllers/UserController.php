@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\TargetGroup;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -14,10 +15,43 @@ class UserController extends Controller
         return response()->json(['users'=>$users]);
     }
     public function index() {
-        $users = User::all();
+        $users = User::with('targetgroup')->get();
+
+        //return $users;
         //dd($sales);
         return view('users', ['users'=>$users]);
     }
+    public function showAddUsersToTargetGroups() {
+        $users = User::all();
+        $targetgroups = TargetGroup::all();
+        //dd($sales);
+        return view('add-users-to-target-group', compact('users','targetgroups') );
+    }
+    public function addUsersToTargetGroup(Request $request) {
+
+        //return $request;
+       
+        $incomingFields=$request->validate([
+            'target_group_id'=>'required|numeric|digits_between:1,11'
+        ]);
+    
+        $selectedUsers = $request->input('users', []);
+        
+
+        // Process the selected items
+        foreach ($selectedUsers as $selectedUserId) {
+            $user = User::find($selectedUserId);
+            $user->update($incomingFields);
+           
+            // Perform your processing here
+            // For example, you can mark the item as processed, delete it, etc.
+        }
+        
+        return redirect('/users');
+        //dd($sales);
+        //return view('add-users-to-target-group', compact('users','targetgroups') );
+    }
+    
     public function deleteUser($id){
         $user = User::find($id);
         $user->delete();
@@ -26,12 +60,12 @@ class UserController extends Controller
     public function saveUser(Request $request){
        
         $incomingFields=$request->validate([
-            'name'=>'required',
-            'phone'=>'required',
-            'usertype'=>'required',
-            'email'=>'required',
-            'password'=>'required',
-            'targets'=>''
+            'name'=>'required|string|max:255',
+            'phone'=>'required|string|max:255',
+            'usertype'=>'required|string|max:255',
+            'email'=>'required|email|unique:users|max:255',
+            'password'=>'required|string|max:255|min:8|confirmed',
+            'target_group_id'=>'required|numeric|digits_between:1,11'
         ]);
         //return $incomingFields;
         
@@ -39,7 +73,7 @@ class UserController extends Controller
         $incomingFields['name']=strip_tags($incomingFields['name']);
         $incomingFields['phone']=strip_tags($incomingFields['phone']);
         $incomingFields['usertype']=strip_tags($incomingFields['usertype']);
-        $incomingFields['targets']=strip_tags($incomingFields['targets']);
+        $incomingFields['target_group_id']=strip_tags($incomingFields['target_group_id']);
         $incomingFields['email']=strip_tags($incomingFields['email']);
         $incomingFields['password']=strip_tags($incomingFields['password']);
 
@@ -52,27 +86,29 @@ class UserController extends Controller
     }
 
     public function addUser() {
-        return view('add-user');
+        $targetgroups = TargetGroup::all();
+        return view('add-user',['targetgroups'=>$targetgroups]);
     }
 
     public function showEditUser($id){
         $user = User::find($id);
-        return view('edit-user',['user'=>$user]);
+        $targetgroups = TargetGroup::all();
+        return view('edit-user',compact('user','targetgroups'));
     }
 
     public function saveEditUser($id, Request $request){
         $incomingFields=$request->validate([
-            'name'=>'required',
-            'usertype'=>'required',
-            'targets'=>'',
-            'phone'=>'required',
-            'email'=>'required',
+            'name'=>'required|string|max:255',
+            'phone'=>'required|string|max:255',
+            'usertype'=>'required|string|max:255',
+            'email'=>'required|email|unique:users|max:255',
+            'target_group_id'=>'required|numeric|digits_between:1,11'
         ]);
 
         $incomingFields['name']=strip_tags($incomingFields['name']);
         $incomingFields['usertype']=strip_tags($incomingFields['usertype']);
         $incomingFields['email']=strip_tags($incomingFields['email']);
-        $incomingFields['targets']=strip_tags($incomingFields['targets']);
+        $incomingFields['target_group_id']=strip_tags($incomingFields['target_group_id']);
         $incomingFields['phone']=strip_tags($incomingFields['phone']);
 
         $user=User::find($id);
@@ -90,7 +126,7 @@ class UserController extends Controller
 
     public function saveChangePassword($id, Request $request){
         $incomingFields=$request->validate([
-            'password'=>'required|confirmed|min:6'
+            'password'=>'required|confirmed|min:8'
         ]);
 
         $incomingFields['password']=strip_tags($incomingFields['password']);

@@ -14,7 +14,7 @@ class SaleController extends Controller
     public function index(){
         //$sales = Sale::all();
         $userId = auth()->id();
-        $sales = Sale::where('user_id',$userId)->with('user','visit','outlet','saleitems.product')->get();
+        $sales = Sale::where('user_id',$userId)->with('user','visit','outlet','saleitems.product')->orderBy('id', 'DESC')->get();
         return response()->json(['sales'=>$sales]);
     }
     public function visitSales(Request $request){
@@ -61,12 +61,17 @@ class SaleController extends Controller
     public function saveSale(Request $request){
 
        
-        // $incomingFields=$request->validate([
+        // $incomingFields=
+        $request->validate([
         //     'userId'=>'required',
         //     'time'=>'required',
         //     'lat'=>'required',
         //     'long'=>'required'
-        // ]);
+            'userId'=>'required|numeric|digits_between:1,11',
+            'outletId'=>'required|numeric|digits_between:1,11',
+            'visitId'=>'required|numeric|digits_between:1,11',
+            'products'=>'required'
+        ]);
 
         //Test Git
 
@@ -101,7 +106,12 @@ class SaleController extends Controller
             $productId=$productPiecesSplit[0];
             $pieces=$productPiecesSplit[1];
             $piecesTotal=$piecesTotal+$pieces;
-            $productPrice=Product::find($productId)['price'];
+
+            $product=Product::find($productId);
+            $productPrice=$product['price'];
+            $incomingFieldsStock['stock']=$product['stock']-$pieces;
+            $product->update($incomingFieldsStock);
+
             $value=$pieces*$productPrice;
             $valueTotal=$valueTotal+$value;
             $incomingFieldsSaleItem['product_id']=$productId;

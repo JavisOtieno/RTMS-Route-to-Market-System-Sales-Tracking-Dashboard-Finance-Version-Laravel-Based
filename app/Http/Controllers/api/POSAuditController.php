@@ -14,12 +14,17 @@ class POSAuditController extends Controller
     public function savePOSAudit(Request $request){
 
        
-        // $incomingFields=$request->validate([
+        // $incomingFields=
+        $request->validate([
+            'userId'=>'required|numeric|digits_between:1,11',
+            'outletId'=>'required|numeric|digits_between:1,11',
+            'visitId'=>'required|numeric|digits_between:1,11',
+            'products'=>'required'
         //     'userId'=>'required',
         //     'time'=>'required',
         //     'lat'=>'required',
         //     'long'=>'required'
-        // ]);
+        ]);
 
         //Test Git
 
@@ -29,6 +34,7 @@ class POSAuditController extends Controller
         $incomingFieldsPOSAudit['user_id']=strip_tags($request['userId']);
         $incomingFieldsPOSAudit['outlet_id']=strip_tags($request['outletId']);
         $incomingFieldsPOSAudit['visit_id']=strip_tags($request['visitId']);
+        $incomingFieldsPOSAudit['image']="";
 
         if(strlen($incomingFields['products'])>0){
 
@@ -50,7 +56,7 @@ class POSAuditController extends Controller
             $pieces=$productPiecesSplit[1];
             $incomingFieldsPOSAuditItem['product_id']=$productId;
             $incomingFieldsPOSAuditItem['pieces']=$pieces;
-            PosauditItem::create($incomingFieldsPOSAuditItem);
+            $posAudit=PosauditItem::create($incomingFieldsPOSAuditItem);
 
         }
 
@@ -58,7 +64,9 @@ class POSAuditController extends Controller
 
         $posAuditStatus=array(
             "message" => "POSAudit Added Successful",
-            "status" => "success");
+            "posAuditId" => $posAuditId,
+            "status" => "success"
+        );
 
         }else{
             $posAuditStatus=array(
@@ -68,10 +76,22 @@ class POSAuditController extends Controller
 
         return response()->json($posAuditStatus);
         
+
     }
     public function index(){
         $userId = auth()->id();
-        $posAudits = Posaudit::where('user_id',$userId)->with('user','outlet','visit','posaudititems.product')->get();
+        $posAudits = Posaudit::where('user_id',$userId)->orderBy('id', 'DESC')->with('user','outlet','visit','posaudititems.product')->get();
         return response()->json(['posAudits'=>$posAudits]);
+    }
+    public function visitPOSAudits(Request $request){
+        //$sales = Sale::all();
+        $incomingFields=$request->validate([
+            'visitId'=>'required',
+        ]);
+        $visitId=strip_tags($request['visitId']);
+
+        $userId = auth()->id();
+        $posaudits = Posaudit::where('visit_id', $visitId)->where('user_id',$userId)->with('user','visit','outlet','posaudititems.product')->get();
+        return response()->json(['posaudits'=>$posaudits]);
     }
 }

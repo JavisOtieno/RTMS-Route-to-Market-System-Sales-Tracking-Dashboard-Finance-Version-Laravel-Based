@@ -12,7 +12,11 @@ class FeedbackController extends Controller
     public function saveFeedback(Request $request){
 
        
-        $incomingFields=$request->validate([
+        //$incomingFields=
+        $request->validate([
+            'userId'=>'required|numeric|digits_between:1,11',
+            'visitId'=>'required|numeric|digits_between:1,11',
+            'outletId'=>'required|numeric|digits_between:1,11',
             'feedback'=>'required',
         ]);
 
@@ -36,7 +40,19 @@ class FeedbackController extends Controller
     public function index(){
         //$sales = Sale::all();
         $userId = auth()->id();
-        $feedback = Feedback::where('user_id',$userId)->with('user','outlet')->get();
+        $feedback = Feedback::where('user_id',$userId)->orderBy('id', 'DESC')->with('user','outlet')->get();
+        return response()->json(['feedback'=>$feedback]);
+    }
+
+    public function visitFeedback(Request $request){
+        //$sales = Sale::all();
+        $incomingFields=$request->validate([
+            'visitId'=>'required',
+        ]);
+        $visitId=strip_tags($request['visitId']);
+
+        $userId = auth()->id();
+        $feedback = Feedback::where('visit_id', $visitId)->where('user_id',$userId)->with('user','visit','outlet')->get();
         return response()->json(['feedback'=>$feedback]);
     }
 

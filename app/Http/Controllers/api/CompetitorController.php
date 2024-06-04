@@ -13,7 +13,11 @@ class CompetitorController extends Controller
     public function saveCompetitorAnalysis(Request $request){
 
        
-         $incomingFields=$request->validate([
+        // $incomingFields=
+         $request->validate([
+            'userId'=>'required|numeric|digits_between:1,11',
+            'visitId'=>'required|numeric|digits_between:1,11',
+            'outletId'=>'required|numeric|digits_between:1,11',
             'pricing' => 'required_without:brandVisibility',
             'brandVisibility' => 'required_without:pricing',
          ]);
@@ -41,7 +45,18 @@ class CompetitorController extends Controller
     public function index(){
         //$sales = Sale::all();
         $userId = auth()->id();
-        $competitors = Competitor::where('user_id',$userId)->with('user','outlet')->get();
+        $competitors = Competitor::where('user_id',$userId)->orderBy('id', 'DESC')->with('user','outlet')->get();
+        return response()->json(['competitors'=>$competitors]);
+    }
+    public function visitCompetitiveAnalysis(Request $request){
+        //$sales = Sale::all();
+        $incomingFields=$request->validate([
+            'visitId'=>'required',
+        ]);
+        $visitId=strip_tags($request['visitId']);
+
+        $userId = auth()->id();
+        $competitors = Competitor::where('visit_id', $visitId)->where('user_id',$userId)->with('user','visit','outlet')->get();
         return response()->json(['competitors'=>$competitors]);
     }
 }

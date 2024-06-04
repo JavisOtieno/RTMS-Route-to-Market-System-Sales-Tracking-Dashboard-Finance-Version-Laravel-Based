@@ -9,11 +9,11 @@
 
   <!-- PAGE-HEADER -->
   <div class="page-header">
-    <h1 class="page-title">Visits</h1>
+    <h1 class="page-title">Clockins</h1>
     <div>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)">RTMS</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Visits</li>
+            <li class="breadcrumb-item active" aria-current="page">Clockins</li>
         </ol>
     </div>
 </div>
@@ -67,7 +67,7 @@
 
                             <div class="form-group">
                                 <label for="dateTime" class="form-label">Date and Time</label>
-                                <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{$clockin['created_at']}}" autocomplete="dateTime">
+                                <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{date('Y-M-d H:i', strtotime($clockin['created_at']))}}" autocomplete="dateTime">
                             </div>
                             
                         </div>

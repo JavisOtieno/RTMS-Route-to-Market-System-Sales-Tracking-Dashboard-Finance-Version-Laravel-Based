@@ -12,6 +12,8 @@ $(function(e) {
 
     //______Basic Data Table
     $('#responsive-datatable').DataTable({
+        "order": [0, 'desc'],
+        'ordering': true,
         language: {
             searchPlaceholder: 'Search...',
             scrollX: "100%",

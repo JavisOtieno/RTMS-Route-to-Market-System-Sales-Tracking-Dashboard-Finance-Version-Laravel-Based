@@ -29,7 +29,7 @@
             <!--<p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p>-->
             
                 
-                    <form action="/saveproduct" method="POST">
+                    <form action="/saveproduct" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('POST')
                         <div class="">
@@ -53,20 +53,31 @@
                             
                             <div class="form-group">
                                 <label for="name" class="form-label">Product Name</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Name" autocomplete="name">
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Name" autocomplete="name" value="{{ old('name', '') }}">
                             </div>
                             <div class="form-group">
                                 <label for="sku" class="form-label">SKU</label>
-                                <input type="text" class="form-control" name="sku" id="sku" placeholder="SKU" autocomplete="sku">
+                                <input type="text" class="form-control" name="sku" id="sku" placeholder="SKU" autocomplete="sku" value="{{ old('sku', '') }}">
                             </div>
                             <div class="form-group">
                                 <label for="price" class="form-label">Price</label>
-                                <input type="text" class="form-control" name="price" id="price" placeholder="Price" autocomplete="price">
+                                <input type="number" class="form-control" name="price" id="price" placeholder="Price" autocomplete="price" value="{{ old('price', '') }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="stock" class="form-label">Stock</label>
+                                <input type="text" class="form-control" name="stock" id="stock" placeholder="Stock" autocomplete="stock" value="{{ old('stock', '') }}">
                             </div>
                             <div class="form-group">
                                 <label for="description" class="form-label">Description</label>
-                                <textarea type="text" class="form-control" name="description" id="description" placeholder="Description" autocomplete="description"></textarea>
+                                <textarea type="text" class="form-control" name="description" id="description" placeholder="Description" autocomplete="description" value="{{ old('description', '') }}"></textarea>
                             </div>
+                            <div class="form-group">
+                                <label for="image" class="form-label">Image (Optional)</label>
+                                <div class="col-lg-4 col-sm-12 mb-4 mb-lg-0">
+                                    <input name="image" type="file" class="dropify" data-bs-height="180">
+                                </div>
+                            </div>
+                            
                             
                         </div>
                         <button class="btn btn-primary mt-4 mb-0">Save</button>
