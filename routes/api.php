@@ -70,7 +70,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::post('visitposaudits',[POSAuditController::class,'visitPOSAudits']);
 
     Route::get('visits',[VisitController::class,'index']);
-    Route::post('/uploadimage', [ImageController::class,'upload']);
+    Route::post('uploadimage', [ImageController::class,'upload']);
 
     //post because it requires visit id as a parameter
     Route::post('activitieslist',[ActivityController::class,'index']);

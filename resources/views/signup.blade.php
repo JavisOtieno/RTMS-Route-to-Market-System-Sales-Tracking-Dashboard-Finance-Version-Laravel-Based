@@ -56,6 +56,12 @@
                                 </a>
                                 <input class="input100 border-start-0 ms-0 form-control" name="password" type="password" placeholder="Password">
                             </div>
+                            <div class="wrap-input100 validate-input input-group" id="Password-toggle">
+                                <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
+                                    <i class="zmdi zmdi-eye" aria-hidden="true"></i>
+                                </a>
+                                <input class="input100 border-start-0 ms-0 form-control" name="password_confirmation" type="password" placeholder="Confirm Password">
+                            </div>
                             <label class="custom-control custom-checkbox mt-4">
 									<!--<input type="checkbox" class="custom-control-input">
 									<span class="custom-control-label">Agree the <a href="terms.html">terms and policy</a></span>-->

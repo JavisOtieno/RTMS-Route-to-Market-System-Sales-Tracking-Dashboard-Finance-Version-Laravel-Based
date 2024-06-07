@@ -69,7 +69,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="description" class="form-label">Description</label>
-                                <textarea type="text" class="form-control" name="description" id="description" placeholder="Description" autocomplete="description" value="{{ old('description', '') }}"></textarea>
+                                <textarea type="text" class="form-control" name="description" id="description" placeholder="Description" autocomplete="description" value="">{{ old('description', '') }}</textarea>
                             </div>
                             <div class="form-group">
                                 <label for="image" class="form-label">Image (Optional)</label>

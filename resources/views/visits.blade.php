@@ -39,7 +39,7 @@
                                         <th>Date</th>
                                         <th>Check In Time</th>
                                         <th>Check Out Time</th>
-                                        <th>Duration</th>
+                                        <th>Duration<br/>(HH:mm:ss)</th>
                                         <th>View</th>
                                         <th>Map</th>
                                         <!--<th>Duration</th>-->
@@ -61,9 +61,9 @@
                                         <td>{{date('H:i',$visit['checkout_time'])}}</td>
                                         @endif
                                         @if($visit['checkout_time']=="")
-                                        <td>{{gmdate("H:i", strtotime(0))}}</td>
+                                        <td>{{gmdate("H:i:s", strtotime(0))}}</td>
                                         @else
-                                        <td>{{gmdate("H:i", $visit['checkout_time']-strtotime($visit['created_at']))}}</td>
+                                        <td>{{gmdate("H:i:s", $visit['checkout_time']-strtotime($visit['created_at']))}}</td>
                                         @endif
                                         <td><a type="button" href="/visit/{{$visit['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View</a>
                                         </td>

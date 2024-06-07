@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,10 +17,10 @@ class SignupController extends Controller
     public function doSignup(Request $request){
         
         $credentials = $request->validate([
-            'name' => ['required'],
-            'phone' => ['required'],
-            'email' => ['required', 'email'],
-            'password' => ['required'],
+            'name'=>'required|string|max:255',
+            'phone'=>['required','string','max:255', new PhoneNumber],
+            'email'=>'required|email|unique:users|max:255',
+            'password'=>'required|string|max:255|min:8|confirmed',
         ]);
         //return 'test';
         $incomingFields['name']=strip_tags($credentials['name']);

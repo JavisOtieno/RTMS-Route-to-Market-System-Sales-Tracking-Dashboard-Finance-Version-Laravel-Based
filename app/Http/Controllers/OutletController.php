@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Outlet;
+use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
 
 class OutletController extends Controller
@@ -30,7 +31,7 @@ class OutletController extends Controller
             'userId'=>'required|numeric|digits_between:1,11',
             'name'=>'required|string|max:255',
             'contactName'=>'required|string|max:255',
-            'phone'=>'required|string|max:255',
+            'phone'=>['required','string','max:255', new PhoneNumber],
             'lat'=>'required|between:-90.000000000,90.000000000',
             'long'=>'required|between:-180.000000000,180.000000000',
             
@@ -45,7 +46,10 @@ class OutletController extends Controller
         $incomingFields['long']=strip_tags($incomingFields['long']);
         //$incomingFields['image']='';
 
-        if($request['image']){
+        //return $request['image'];
+        
+
+        if($request->hasFile('image')){
 
             $imageName = time().'.'.$request->image->extension();
 
@@ -88,7 +92,7 @@ class OutletController extends Controller
             'userId'=>'required|numeric|digits_between:1,11',
             'name'=>'required|string|max:255',
             'contactPersonName'=>'required|string|max:255',
-            'phone'=>'required|string|max:255',
+            'phone'=>['required','string','max:255', new PhoneNumber],
             'lat'=>'required|between:-90.000000000,90.000000000',
             'long'=>'required|between:-180.000000000,180.000000000'
         ]);

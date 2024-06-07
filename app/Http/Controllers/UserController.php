@@ -101,7 +101,7 @@ class UserController extends Controller
             'name'=>'required|string|max:255',
             'phone'=>'required|string|max:255',
             'usertype'=>'required|string|max:255',
-            'email'=>'required|email|unique:users|max:255',
+            'email'=>'required|email|max:255',
             'target_group_id'=>'required|numeric|digits_between:1,11'
         ]);
 

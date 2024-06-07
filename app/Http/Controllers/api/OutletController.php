@@ -4,9 +4,10 @@ namespace App\Http\Controllers\api;
 
 use App\Models\Visit;
 use App\Models\Outlet;
+use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class OutletController extends Controller
 {
@@ -17,7 +18,7 @@ class OutletController extends Controller
             'userId'=>'required|numeric|digits_between:1,11',
             'outletName'=>'required|string|max:255',
             'contactPersonName'=>'required|string|max:255',
-            'phone'=>'required|string|max:255',
+            'phone'=>['required','string','max:255', new PhoneNumber],
             'lat'=>'required|between:-90.000000000,90.000000000',
             'long'=>'required|between:-180.000000000,180.000000000',
             'time'=>'required|string|max:255'

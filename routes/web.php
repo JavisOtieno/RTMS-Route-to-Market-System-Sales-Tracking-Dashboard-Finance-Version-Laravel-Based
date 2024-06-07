@@ -130,6 +130,14 @@ Route::get('/run-artisan-link', function () {
     return 'Artisan link command executed';
 });
 
+Route::get('/check-storage-link', function () {
+    if (is_link(public_path('storage')) && readlink(public_path('storage')) == realpath(storage_path('app/public'))) {
+        return 'The storage link is correctly set up.';
+    } else {
+        return 'The storage link is not correctly set up.';
+    }
+});
+
 
 });
 

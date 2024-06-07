@@ -27,12 +27,14 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Sales Transactions</h3>
+                        
                         <!--<a type="button" href="/add-sale" class="btn btn-danger col-md-3" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;">Add Sale</a>-->
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="responsive-datatable" class="table table-bordered text-nowrap border-bottom">
                                 <thead>
+                                    
                                     <tr>
                                         <th>ID</th>
                                         <th>Seller Name</th>
@@ -123,6 +125,7 @@
         var confirmDeleteLink = document.getElementById('confirmDelete'); //or grab it by tagname etc
         confirmDeleteLink.href = "/deletesale/"+id;
     }
+    
   </script>
 
 

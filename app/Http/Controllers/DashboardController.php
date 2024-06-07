@@ -9,6 +9,7 @@ use App\Models\Outlet;
 use App\Models\Product;
 use App\Models\Feedback;
 use App\Models\Posaudit;
+use App\Models\SaleItem;
 use Carbon\CarbonPeriod;
 use App\Models\Competitor;
 use Illuminate\Http\Request;
@@ -35,6 +36,37 @@ class DashboardController extends Controller
         ->groupBy('user_id')
         ->orderBy('count', 'desc')
         ->take(5)->get();
+
+        $topProducts=SaleItem::with('product')->select('product_id', DB::raw('COUNT(product_id) as count'))
+        ->groupBy('product_id')
+        ->orderBy('count', 'desc')
+        ->take(5)->get();
+
+        $topSellerUserNames=[];
+        $topSellerSalesCount=[];
+
+        $topSellersGraph=Sale::with('user')->select('user_id', DB::raw('COUNT(user_id) as count'))
+        ->groupBy('user_id')
+        ->orderBy('count', 'desc')
+        ->take(10)->get();
+
+        foreach($topSellersGraph as $topSeller){
+            
+            $sellerName=$topSeller['user']['name'];
+            $sellerNames=explode(' ',$sellerName);
+            if(count($sellerNames)==1){
+                array_push($topSellerUserNames,$sellerNames[0]);
+            }else{
+                array_push($topSellerUserNames,$sellerNames[0]."\n".$sellerNames[1]);
+            }
+            
+            $salesCount=$topSeller['count'];
+            array_push($topSellerSalesCount,$salesCount);
+
+        }
+                                
+        
+                             
         
         //$topSellers = User::withCount('sales')->orderBy('sales_count', 'desc')->take(5)->get();
         //return $topSellers;
@@ -79,6 +111,8 @@ class DashboardController extends Controller
         array_push($salesGraphCount,$salescountperday);
         array_push($outletsGraphCount,$outletscountperday);
         array_push($productsGraphCount,$productscountperday);
+
+
         }
 
         //get months Jan Feb Mar...Dec
@@ -92,12 +126,14 @@ class DashboardController extends Controller
         //return $visitsCount;
 
             //return $salesGraphCount;
+            //return $topSellerUserNames;
 
         return view('dashboard', compact('sales','outlets','salesCount','outletsCount',
         'posauditsCount','competitorsCount','salesPerMonth', 'visitsCount','salesGraphCount',
         'visitsWeekCount','salesWeekCount','visitsNumberCount','productsNumberCount',
         'feedbackCount','outletsGraphCount','productsGraphCount','outletsWeekCount',
-        'productsWeekCount','months','topOutlets','topSellers'
+        'productsWeekCount','months','topOutlets','topSellers','topSellerUserNames',
+        'topSellerSalesCount','topProducts'
     ));
 
     }

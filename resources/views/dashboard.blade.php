@@ -165,6 +165,23 @@
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Top Sellers</h3>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="chartBar1" class="h-275"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
 <div class="row">
     <div class="col-xl-6">
         <div class="card">
@@ -250,11 +267,13 @@
     </div>
 
 
+
+
     <div class="row">
         <div class="col-xl-6">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Top Sellers</h3>
+                    <h3 class="card-title">Top Products</h3>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -262,17 +281,17 @@
                             <thead>
                                 <tr>
                                     {{-- <th>ID</th> --}}
-                                    <th>Seller Name</th>
+                                    <th>Product Name</th>
                                     <th>Sales Count</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @if(count($topSellers)>0)
-                                @foreach($topSellers as $topSeller)
+                                @if(count($topProducts)>0)
+                                @foreach($topProducts as $topProduct)
                                 <tr>
                                 {{-- <td>{{$topSeller['user']['id']}}</td> --}}
-                                <td>{{$topSeller['user']['name']}}</td>
-                                <td>{{$topSeller['count']}}</td>
+                                <td>{{$topProduct['product']['name']}}</td>
+                                <td>{{$topProduct['count']}}</td>
                                 </tr>
                                 @endforeach
                                 @else
@@ -329,6 +348,8 @@
             </div>
         </div>
         </div>
+
+        
 
    
 
@@ -1085,5 +1106,127 @@
     });
     // COST CHART CLOSED
 </script>
+
+
+<script>
+        var ctx = document.getElementById("chartBar1").getContext('2d');
+        var topSellerUserNames= @json($topSellerUserNames);
+        var topSellerSalesCount= @json($topSellerSalesCount);
+
+       // alert($topSellerUserNames);
+        
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: topSellerUserNames,
+            datasets: [{
+                label: 'Sales',
+
+                data: topSellerSalesCount,
+                borderWidth: 2,
+                backgroundColor: '#E04D53',
+                borderColor: '#E04D53',
+                borderWidth: 2.0,
+                pointBackgroundColor: '#ffffff',
+
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                display: true
+            },
+            scales: {
+                y: {
+                    ticks: {
+                        beginAtZero: true,
+                        stepSize: 150,
+                        color: "#9ba6b5",
+                    },
+                    grid: {
+                        color: 'rgba(119, 119, 142, 0.2)'
+                    }
+                },
+                x: {
+                    barPercentage: 0.4,
+                    barValueSpacing: 0,
+                    barDatasetSpacing: 0,
+                    barRadius: 0,
+                    ticks: {
+                        display: true,
+                        color: "#9ba6b5",
+                    },
+                    grid: {
+                        display: false,
+                        color: 'rgba(119, 119, 142, 0.2)'
+                    }
+                }
+            },
+            legend: {
+                labels: {
+                    fontColor: "#9ba6b5"
+                },
+            },
+        }
+    });
+    </script>
+
+    <script>
+    /* Bar-Chart2*/
+    var ctx = document.getElementById("chartBar2");
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+            datasets: [{
+                label: "Data1",
+                data: [65, 59, 80, 81, 56, 55, 40],
+                borderColor: "#6c5ffc",
+                borderWidth: "0",
+                backgroundColor: "#6c5ffc"
+            }, {
+                label: "Data2",
+                data: [28, 48, 40, 19, 86, 27, 90],
+                borderColor: "#05c3fb",
+                borderWidth: "0",
+                backgroundColor: "#05c3fb"
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    barPercentage: 0.4,
+                    barValueSpacing: 0,
+                    barDatasetSpacing: 0,
+                    barRadius: 0,
+                    ticks: {
+                        color: "#9ba6b5",
+                    },
+                    grid: {
+                        color: 'rgba(119, 119, 142, 0.2)'
+                    }
+                },
+                y: {
+                    ticks: {
+                        beginAtZero: true,
+                        color: "#9ba6b5",
+                    },
+                    grid: {
+                        color: 'rgba(119, 119, 142, 0.2)'
+                    },
+                }
+            },
+            legend: {
+                labels: {
+                    color: "#9ba6b5"
+                },
+            },
+        }
+    });
+
+    </script>
 
     @endsection

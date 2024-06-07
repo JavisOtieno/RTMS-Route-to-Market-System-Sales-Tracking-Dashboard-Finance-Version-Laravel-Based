@@ -43,14 +43,26 @@ class LoginController extends Controller
           if(auth()->user()->usertype=='admin'){
             $request->session()->regenerate();
             return redirect()->intended('dashboard');
+          }else{
+
+            return back()->withErrors([
+              'email' => 'The provided credentials do not match our records.',
+              ])->onlyInput('email');
+
           }
   
+        }else if(User::count()==0){
+          return back()->withErrors([
+            'email' => 'No account detected. Initiate first admin signup',
+            ])->onlyInput('email');
+        }else{
+          return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+            ])->onlyInput('email');
         }
         
  
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
+        
 
     }
     /*
