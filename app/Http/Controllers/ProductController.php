@@ -93,7 +93,8 @@ class ProductController extends Controller
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
             'price'=>'required|numeric|digits_between:1,11',
-            'sku'=>'required|string|unique:products|max:255',
+//            'sku'=>'required|string|unique:products|max:255',
+            'sku' => 'required|string|max:255|unique:products,sku,' . $id,
             'stock'=>'required|numeric|digits_between:1,11',
             'description'=>'required|string',
             'image' => ''
