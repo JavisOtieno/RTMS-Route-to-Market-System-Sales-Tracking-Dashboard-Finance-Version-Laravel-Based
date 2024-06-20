@@ -54,6 +54,8 @@ class DashboardController extends Controller
         $outletId = $visit[0]['outlet_id'];
         $checkoutTime = $visit[0]['checkout_time'];
         $outletName = $visit[0]['outlet']['name'];
+        $outletLat = $visit[0]['outlet']['lat'];
+        $outletLong = $visit[0]['outlet']['long'];
         }
         else
         {
@@ -89,7 +91,7 @@ class DashboardController extends Controller
         return response()->json( compact('sales','outlets','salesCount','feedbackCount',
         'outletsCount','posauditsCount','visitsCount','competitorsCount','dailySalesTotal',
         'currentTargets','clockinTime','clockoutTime','checkinTime','checkoutTime',
-        'visitId','userId','outletId','outletName'));
+        'visitId','userId','outletId','outletName','outletLat','outletLong'));
 
     }
 }
