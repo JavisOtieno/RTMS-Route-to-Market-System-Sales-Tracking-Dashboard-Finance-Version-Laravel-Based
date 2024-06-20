@@ -100,7 +100,15 @@
             <div class="card" style="width: 18rem;height:95%;background-color:#F7F7F9">
           <div class="card-body">
             <h5 class="card-title">Quick Tips</h5>
-            <p class="card-text">This is the quick tips section. Expect highlights on how best to use the system.</p>
+            <ol class="card-text">
+            <li style="margin-bottom: 10px;"><strong>Name </strong>: Enter the user's name. Use letters and spaces only</li>
+            <li style="margin-bottom: 10px;"><strong>Phone </strong>: Enter the user's phone number. Either format 0712345678 or +25471234678 is valid.</li>
+            <li style="margin-bottom: 10px;"><strong>Email </strong>: Enter the user's email address. Use a valid email format (e.g., example@example.com).</li>
+            <li style="margin-bottom: 10px;"><strong>User Type </strong>: Select the user type from the dropdown list. Choose between "Admin" or "Sales".</li>
+            <li style="margin-bottom: 10px;"><strong>Target Group </strong>: Select the target group from the dropdown list. Choose between various options, or select "None" if not applicable.</li>
+            <li style="margin-bottom: 10px;"><strong>Password </strong>: Enter the desired password. Use a combination of letters, numbers, and special characters for security.</li>
+            <li style="margin-bottom: 10px;"><strong>Confirm Password </strong>: Re-enter your password to confirm it matches the one entered above.</li>
+            </ol>
           </div>
         </div>
         

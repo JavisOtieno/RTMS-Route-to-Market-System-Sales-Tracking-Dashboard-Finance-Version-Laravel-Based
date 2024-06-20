@@ -26,6 +26,33 @@
         <div class="card-header">
             <h3 class="card-title">Clock Outs</h3>
         </div>
+        <div class="row" style="margin: 0 10px;">
+            <input type="hidden" id="tableLoaded" value="clockouts"/>
+            <h3 class="card-title" style="margin-top:20px;margin-block-end: 0rem;">Search by :</h3>
+            <div class="col-md-3 mb-3">
+                <label for="name" class="form-label">Seller Name</label>
+                <input type="text" class="form-control" id="nameInput" placeholder="Name">
+            </div>
+            {{-- <div class="col-md-3 mb-3">
+                <label for="date" class="form-label">Date</label>
+                <input type="date" class="form-control" id="dateInput" placeholder="Date">
+            </div>
+            <div class="col-md-3 mb-3">
+                <label for="time" class="form-label">Clockin After</label>
+                <input type="time" class="form-control" id="timeInput" placeholder="Time">
+            </div> --}}
+            {{-- <div class="col-md-3 mb-3">
+                <label for="targets" class="form-label">Targets</label>
+                <select class="form-select form-select select2" id="targetsInput">
+                    <option value="None">None</option>
+                    @foreach($targetgroups as $targetgroup)
+                    <option value="{{number_format($targetgroup['amount'])}}">{{$targetgroup['name']." - KSh ".number_format($targetgroup['amount'])}}</option>
+                    @endforeach
+                </select>
+
+            </div> --}}
+            
+        </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table id="responsive-datatable" class="table table-bordered text-nowrap border-bottom">
@@ -37,8 +64,8 @@
                             <th>Time</th>
                             <th>Lat</th>
                             <th>Long</th>
-                            <th>View</th>
-                            <th>Map</th>
+                            <th id="view-column">View</th>
+                            <th id="map-column">Map</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -48,7 +75,7 @@
                             <tr>
                             <td>{{$clockout['id']}}</td>
                             <td>{{$clockout['user']['name']}}</td>
-                            <td>{{date('Y-m-d', strtotime($clockout['created_at']))}}</td>
+                            <td>{{date('d-M-Y', strtotime($clockout['created_at']))}}</td>
                             <td>{{date('H:i', strtotime($clockout['created_at']))}}</td>
                             <td>{{$clockout['lat']}}</td>
                             <td>{{$clockout['long']}}</td>

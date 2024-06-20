@@ -29,6 +29,24 @@
                         <h3 class="card-title">Products</h3>
                         <a type="button" href="/add-product" class="btn btn-danger col-md-3" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;">Add Product</a>
                     </div>
+                    <div class="row" style="margin: 0 10px;">
+                        <input type="hidden" id="tableLoaded" value="products"/>
+                        <h3 class="card-title" style="margin-top:20px;margin-block-end: 0rem;">Search by :</h3>
+                        <div class="col-md-3 mb-3">
+                            <label for="nameInput" class="form-label">Product Name</label>
+                            <input type="text" class="form-control" id="nameInput" placeholder="Product Name">
+                        </div>
+                        
+                        <div class="col-md-3 mb-3">
+                            <label for="skuInput" class="form-label">SKU</label>
+                            <input type="text" class="form-control" id="skuInput" placeholder="SKU">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="priceInput" class="form-label">Price</label>
+                            <input type="tel" class="form-control" id="priceInput" placeholder="Price">
+                        </div>
+                       
+                    </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="responsive-datatable" class="table table-bordered text-nowrap border-bottom">
@@ -39,8 +57,8 @@
                                         <th>SKU</th>
                                         <th>Price</th>
                                         <th>Stock</th>
-                                        <th>View/Edit</th>
-                                        <th>Delete</th>
+                                        <th id="edit-column">View/Edit</th>
+                                        <th id="delete-column">Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody>

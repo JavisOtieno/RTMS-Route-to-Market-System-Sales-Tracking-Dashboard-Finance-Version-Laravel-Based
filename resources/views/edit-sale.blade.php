@@ -70,7 +70,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="dateTime" class="form-label">Date and Time</label>
-                                <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{date('Y-M-d H:i', strtotime($sale['created_at']))}}" autocomplete="dateTime">
+                                <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{date('d-M-Y H:i', strtotime($sale['created_at']))}}" autocomplete="dateTime">
                             </div>
 
                             <div class="form-group">
@@ -129,7 +129,14 @@
         <div class="card" style="width: 18rem;height:95%;background-color:#F7F7F9">
       <div class="card-body">
         <h5 class="card-title">Quick Tips</h5>
-        <p class="card-text">This is the quick tips section. Expect highlights on how best to use the system.</p>
+        <ol class="card-text">
+        <li style="margin-bottom: 10px;"><strong>Seller Name</strong> :This field displays the name of the seller associated with the sale.</li>
+        <li style="margin-bottom: 10px;"><strong>Outlet Name</strong> : This field displays the name of the outlet where the sale took place.</li>
+        <li style="margin-bottom: 10px;"><strong>Pieces</strong> : This field displays the total number of pieces sold in the transaction.</li>
+        <li style="margin-bottom: 10px;"><strong>Total Value</strong> : This field displays the total value of the sale.</li>
+        <li style="margin-bottom: 10px;"><strong>Date and Time</strong> : This field displays the date and time when the sale occurred.</li>
+        <li style="margin-bottom: 10px;"><strong>Products</strong> : This section displays details about the products sold in the transaction, including their names, prices, pieces sold, and total value. Each product entry is displayed in a separate row and is disabled, showing only the information relevant to the product. The total pieces and total value of all products are also displayed at the end of the section.</li>
+        </ol>
       </div>
     </div>
     

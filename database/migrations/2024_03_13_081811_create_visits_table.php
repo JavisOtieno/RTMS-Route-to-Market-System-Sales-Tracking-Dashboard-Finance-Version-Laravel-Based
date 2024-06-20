@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->integer('outlet_id');
             $table->integer('user_id');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            // $table->foreign('user_id')->constrained();
             $table->string('checkin_time');
             $table->string('checkin_latitude');
             $table->string('checkin_longitude');

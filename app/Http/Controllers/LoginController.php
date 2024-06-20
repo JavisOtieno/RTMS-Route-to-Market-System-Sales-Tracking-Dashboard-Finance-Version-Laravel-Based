@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use function Laravel\Prompts\password;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\Password;
 use Symfony\Component\Console\Input\Input;
 
 class LoginController extends Controller
@@ -34,7 +35,7 @@ class LoginController extends Controller
         
         $credentials = $request->validate([
             'email'=>'required|email|max:255',
-            'password'=>'required|string|max:255|min:8',
+            'password' => 'required|max:255|min:8|string',
         ]);
         //return 'test';
         

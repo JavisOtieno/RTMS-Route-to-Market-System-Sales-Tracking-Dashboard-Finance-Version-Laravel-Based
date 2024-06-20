@@ -27,6 +27,24 @@
             <h3 class="card-title">Outlets</h3>
             <a type="button" href="/add-outlet" class="btn btn-danger col-md-3" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;">Add Outlet</a>
         </div>
+        <div class="row" style="margin: 0 10px;">
+            <input type="hidden" id="tableLoaded" value="outlets"/>
+            <h3 class="card-title" style="margin-top:20px;margin-block-end: 0rem;">Search by :</h3>
+            <div class="col-md-3 mb-3">
+                <label for="nameInput" class="form-label">Outlet Name</label>
+                <input type="text" class="form-control" id="nameInput" placeholder="Name">
+            </div>
+            
+            <div class="col-md-3 mb-3">
+                <label for="contactNameInput" class="form-label">Contact Name</label>
+                <input type="text" class="form-control" id="contactNameInput" placeholder="Contact Name">
+            </div>
+            <div class="col-md-3 mb-3">
+                <label for="phone" class="form-label">Phone</label>
+                <input type="tel" class="form-control" id="phoneInput" placeholder="Phone">
+            </div>
+           
+        </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table id="responsive-datatable" class="table table-bordered text-nowrap border-bottom">
@@ -37,8 +55,8 @@
                             <th>Contact Name</th>
                             <th>Phone</th>
                             <th>View/Edit</th>
-                            <th>Map</th>
-                            <th>Delete</th>
+                            <th id="map-column">Map</th>
+                            <th id="delete-column">Delete</th>
                         </tr>
                     </thead>
                     <tbody>

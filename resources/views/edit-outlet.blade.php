@@ -77,7 +77,7 @@
 
                             <div class="form-group">
                                 <label for="dateTime" class="form-label">Date and Time Added</label>
-                                <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{date('Y-M-d H:i', strtotime($outlet['created_at']))}}" autocomplete="dateTime">
+                                <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{date('d-M-Y H:i', strtotime($outlet['created_at']))}}" autocomplete="dateTime">
                             </div>
 
                             <div class="form-group">
@@ -141,7 +141,17 @@
         <div class="card" style="width: 18rem;height:95%;background-color:#F7F7F9">
       <div class="card-body">
         <h5 class="card-title">Quick Tips</h5>
-        <p class="card-text">This is the quick tips section. Expect highlights on how best to use the system.</p>
+        <ol class="card-text">
+            {{-- It is readonly and cannot be modified. --}}
+            <li style="margin-bottom: 10px;"><strong>Seller Name</strong>: This field displays the name of the seller</li>
+            <li style="margin-bottom: 10px;"><strong>Name</strong>: This field displays the name of the outlet. It can be edited to update the outlet's name.</li>
+            <li style="margin-bottom: 10px;"><strong>Contact Person Name</strong>: This field displays the name of the contact person at the outlet. It can be edited to update the contact person's name.</li>
+            <li style="margin-bottom: 10px;"><strong>Phone</strong>: This field displays the phone number of the outlet. It can be edited to update the phone number.</li>
+            <li style="margin-bottom: 10px;"><strong>Lat</strong>: This field displays the latitude of the outlet's location.</li>
+            <li style="margin-bottom: 10px;"><strong>Long</strong>: This field displays the longitude of the outlet's location.</li>
+            <li style="margin-bottom: 10px;"><strong>Date and Time Added</strong>: This field displays the date and time when the outlet was added.</li>
+            <li style="margin-bottom: 10px;"><strong>Image (Optional)</strong>: This field displays an image of the outlet. </li>
+        </ol>
       </div>
     </div>
     

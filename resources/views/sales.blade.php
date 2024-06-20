@@ -30,6 +30,33 @@
                         
                         <!--<a type="button" href="/add-sale" class="btn btn-danger col-md-3" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;">Add Sale</a>-->
                     </div>
+                    <div class="row" style="margin: 0 10px;">
+                        <input type="hidden" id="tableLoaded" value="sales"/>
+                        <h3 class="card-title" style="margin-top:20px;margin-block-end: 0rem;">Search by :</h3>
+                        <div class="col-md-3 mb-3">
+                            <label for="name" class="form-label">Seller Name</label>
+                            <input type="text" class="form-control" id="nameInput" placeholder="Name">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="outletName" class="form-label">Outlet Name</label>
+                            <input type="text" class="form-control" id="outletNameInput" placeholder="Outlet Name">
+                        </div>
+                        {{-- <div class="col-md-3 mb-3">
+                            <label for="time" class="form-label">Clockin After</label>
+                            <input type="time" class="form-control" id="timeInput" placeholder="Time">
+                        </div> --}}
+                        {{-- <div class="col-md-3 mb-3">
+                            <label for="targets" class="form-label">Targets</label>
+                            <select class="form-select form-select select2" id="targetsInput">
+                                <option value="None">None</option>
+                                @foreach($targetgroups as $targetgroup)
+                                <option value="{{number_format($targetgroup['amount'])}}">{{$targetgroup['name']." - KSh ".number_format($targetgroup['amount'])}}</option>
+                                @endforeach
+                            </select>
+            
+                        </div> --}}
+                        
+                    </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="responsive-datatable" class="table table-bordered text-nowrap border-bottom">
@@ -42,9 +69,10 @@
                                         <th>Products Sold</th>
                                         <th>Pieces</th>
                                         <th>Value</th>
-                                        <th>View</th>
+                                        {{-- <th>Added</th> --}}
                                         <!--<th>View/Edit</th>-->
-                                        <th>Delete</th>
+                                        <th id="view-column">View</th>
+                                        <th id="delete-column">Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -65,8 +93,9 @@
                                         <td style="white-space: pre-line;">{{$saleitems}}</td>
                                         <td>{{$sale['pieces']}}</td>
                                         <td>{{'KSh '.number_format($sale['value'])}}</td>
-                                        <!--<td><a type="button" href="/editsale/{{$sale['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
-                                        </td>-->
+                                        {{-- <td>{{date('d-M-Y H:i', strtotime($sale['created_at']))}}</td> --}}
+                                        {{-- <td><a type="button" href="/editsale/{{$sale['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
+                                        </td> --}}
                                         <td><a type="button" href="/sale/{{$sale['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View</a>
                                         </td>
                                         <td><a type="button" onclick="deleteItem({{$sale['id']}},'{{$sale['outlet']['name']}}','{{$sale['user']['name']}}',{{$sale['pieces']}})"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
@@ -125,7 +154,7 @@
         var confirmDeleteLink = document.getElementById('confirmDelete'); //or grab it by tagname etc
         confirmDeleteLink.href = "/deletesale/"+id;
     }
-    
+
   </script>
 
 

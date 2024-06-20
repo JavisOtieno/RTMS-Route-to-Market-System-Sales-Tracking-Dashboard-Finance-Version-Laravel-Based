@@ -33,6 +33,11 @@
                                         </ul>
                                     </div>
                                 </div>
+                                @if (Session::has('message'))
+                         <div class="alert alert-success" role="alert">
+                            {{ Session::get('message') }}
+                        </div>
+                        @endif
                                 @if ($errors->any())
     <div class="alert alert-danger alert-dismissible">
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -65,7 +70,8 @@
                                                 <input class="input100 border-start-0 form-control ms-0" type="password" name="password" placeholder="Password">
                                             </div>
                                             <div class="text-end pt-4">
-                                                {{-- <p class="mb-0"><a href="forgot-password.html" class="text-primary ms-1">Forgot Password?</a></p> --}}
+                                                <p class="mb-0"><a href="{{ route('forgot.password.get') }}" class="text-primary ms-1">Forgot Password?</a></p>
+                                                
                                             </div>
                                             <div class="container-login100-form-btn">
                                                 <button type="submit" class="login100-form-btn btn-primary">
@@ -128,40 +134,5 @@
                 </div>
                 <!-- CONTAINER CLOSED -->
             </div>
-        </div>
-        <!-- End PAGE -->
 
-    </div>
-    <!-- BACKGROUND-IMAGE CLOSED -->
-
-    <!-- JQUERY JS -->
-    <script src="../assets/js/jquery.min.js"></script>
-
-    <!-- BOOTSTRAP JS -->
-    <script src="../assets/plugins/bootstrap/js/popper.min.js"></script>
-    <script src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-
-    <!-- SHOW PASSWORD JS -->
-    <script src="../assets/js/show-password.min.js"></script>
-
-    <!-- GENERATE OTP JS -->
-    <script src="../assets/js/generate-otp.js"></script>
-
-    <!-- Perfect SCROLLBAR JS-->
-    <script src="../assets/plugins/p-scroll/perfect-scrollbar.js"></script>
-
-    <!-- Color Theme js -->
-    <script src="../assets/js/themeColors.js"></script>
-
-    <!-- CUSTOM JS -->
-    <script src="../assets/js/custom.js"></script>
-
-    <!-- Custom-switcher -->
-    <script src="../assets/js/custom-swicher.js"></script>
-
-    <!-- Switcher js -->
-    <script src="../assets/switcher/js/switcher.js"></script>
-
-</body>
-
-</html>
+            @include('components/footer-loginsignup');

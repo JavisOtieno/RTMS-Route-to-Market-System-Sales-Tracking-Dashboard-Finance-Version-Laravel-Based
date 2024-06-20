@@ -18,4 +18,9 @@ class Product extends Model
         'sku',
 
     ];
+    
+    public function saleitems()
+    {
+        return $this->hasMany(SaleItem::class);
+    }
 }

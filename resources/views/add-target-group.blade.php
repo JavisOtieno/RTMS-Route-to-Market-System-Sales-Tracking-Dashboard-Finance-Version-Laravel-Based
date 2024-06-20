@@ -71,8 +71,12 @@
 
             <div class="card" style="width: 18rem;height:95%;background-color:#F7F7F9">
           <div class="card-body">
+             
             <h5 class="card-title">Quick Tips</h5>
-            <p class="card-text">This is the quick tips section. Expect highlights on how best to use the system.</p>
+           <ol class="card-text">
+                <li style="margin-bottom: 10px;"><strong>Name </strong>: Enter of the target group. For instance, based on location, Ruaraka Group </li>
+                <li style="margin-bottom: 10px;"><strong>Target Amount </strong>: Enter the target amount for this entry. Numbers only.</li>    
+            </ol>
           </div>
         </div>
         

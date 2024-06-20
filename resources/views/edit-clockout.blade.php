@@ -67,7 +67,7 @@
 
                             <div class="form-group">
                                 <label for="dateTime" class="form-label">Date and Time</label>
-                                <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{date('Y-M-d H:i', strtotime($clockout['created_at']))}}" autocomplete="dateTime">
+                                <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{date('d-M-Y H:i', strtotime($clockout['created_at']))}}" autocomplete="dateTime">
                             </div>
                             
                         </div>
@@ -81,10 +81,17 @@
     <div class="col-md-3">
 
         <div class="card" style="width: 18rem;height:95%;background-color:#F7F7F9">
-      <div class="card-body">
-        <h5 class="card-title">Quick Tips</h5>
-        <p class="card-text">This is the quick tips section. Expect highlights on how best to use the system.</p>
-      </div>
+            <div class="card-body">
+                <h5 class="card-title">Quick Tips</h5>
+                <ol class="card-text">
+                    <li style="margin-bottom: 10px;"><strong>Seller Name</strong> : This field displays the name of the seller.</li>
+                    <li style="margin-bottom: 10px;"><strong>Latitude</strong> : This field displays the latitude of the location.</li>
+                    <li style="margin-bottom: 10px;"><strong>Longitude</strong> : This field displays the longitude of the location.</li>
+                    <li style="margin-bottom: 10px;"><strong>Date and Time</strong>: This field displays the date and time of the clock-out.</li>
+                </ol>
+        
+                    
+        </div>
     </div>
     
         </div>

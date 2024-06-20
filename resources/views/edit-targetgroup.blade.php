@@ -55,7 +55,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="amount" class="form-label">Target Amount</label>
-                                <input type="text" class="form-control" name="amount"  placeholder="Amount" value="{{old('amount',$targetgroup['amount'])}}"  autocomplete="amount">
+                                <input type="number" class="form-control" name="amount"  placeholder="Amount" value="{{old('amount',$targetgroup['amount'])}}"  autocomplete="amount">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="dateTime" class="form-label">Date and Time</label>
+                                <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{date('d-M-Y H:i', strtotime($targetgroup['created_at']))}}" autocomplete="dateTime">
                             </div>
                             
                             
@@ -73,7 +78,11 @@
         <div class="card" style="width: 18rem;height:95%;background-color:#F7F7F9">
       <div class="card-body">
         <h5 class="card-title">Quick Tips</h5>
-        <p class="card-text">This is the quick tips section. Expect highlights on how best to use the system.</p>
+        <ol class="card-text">
+        <li style="margin-bottom: 10px;"><strong>Name</strong>: This field displays the name of the target group. It is editable and pre-filled with the existing value.</li>
+        <li style="margin-bottom: 10px;"><strong>Target Amount</strong>: This field displays the target amount associated with the target group. It is editable and pre-filled with the existing value.</li>
+        <li style="margin-bottom: 10px;"><strong>Date and Time</strong>: This field displays the date and time when the target group was created. It is disabled and cannot be modified.</li>
+        </ol>
       </div>
     </div>
     

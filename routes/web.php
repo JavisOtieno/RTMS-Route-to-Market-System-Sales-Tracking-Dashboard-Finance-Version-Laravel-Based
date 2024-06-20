@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\ImageController;
 use App\Models\Geo;
 use App\Models\Sale;
 use App\Models\Outlet;
@@ -11,6 +10,7 @@ use App\Http\Controllers\GeoController;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\VisitController;
 use App\Http\Controllers\OutletController;
@@ -25,6 +25,7 @@ use App\Http\Controllers\PosauditController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CompetitorController;
 use App\Http\Controllers\TargetGroupController;
+use App\Http\Controllers\ForgotPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,7 @@ use App\Http\Controllers\TargetGroupController;
 |
 */
 Route::middleware(['auth'])->group(function(){
+
 Route::get('/', [DashboardController::class,'index']);
 
 Route::get('/dashboard', [DashboardController::class,'index']);
@@ -126,8 +128,8 @@ Route::put('/savechangepassword/{id}',[UserController::class,'saveChangePassword
 Route::get('/showimage/{folder}/{image}', [ImageController::class,'showImage']);
 
 Route::get('/run-artisan-link', function () {
-    Artisan::call('storage:link');
-    return 'Artisan link command executed';
+    $exitCode =Artisan::call('storage:link');
+    return $exitCode;
 });
 
 Route::get('/check-storage-link', function () {
@@ -140,6 +142,11 @@ Route::get('/check-storage-link', function () {
 
 
 });
+
+Route::get('forgot-password', [ForgotPasswordController::class, 'showForgotPasswordForm'])->name('forgot.password.get');
+Route::post('forgot-password', [ForgotPasswordController::class, 'submitForgotPasswordForm'])->name('forgot.password.post'); 
+Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
 
 

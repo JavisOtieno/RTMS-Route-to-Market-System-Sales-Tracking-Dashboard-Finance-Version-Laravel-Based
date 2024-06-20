@@ -98,11 +98,21 @@
         <div class="col-md-3">
 
             <div class="card" style="width: 18rem;height:95%;background-color:#F7F7F9">
-          <div class="card-body">
-            <h5 class="card-title">Quick Tips</h5>
-            <p class="card-text">This is the quick tips section. Expect highlights on how best to use the system.</p>
-          </div>
-        </div>
+                <div class="card-body">
+                   
+                  <h5 class="card-title">Quick Tips</h5>
+                  <p class="card-text">This is the quick tips section. Expect highlights on how best to use the system.</p>
+                  <ol class="card-text">
+                    
+                      <li style="margin-bottom: 10px;"><strong>Product Name</strong> : Please enter a descriptive yet concise name for your product.</li>
+                      <li style="margin-bottom: 10px;"><strong>SKU</strong> : Provide a unique SKU (Stock Keeping Unit) for your product to help with inventory management.</li>
+                      <li style="margin-bottom: 10px;"><strong>Price</strong> : Enter the price of your product, ensuring it reflects its value and is competitive in the market.</li>
+                      <li style="margin-bottom: 10px;"><strong>Stock</strong> : Specify the available quantity of your product to prevent overselling.</li>
+                      <li style="margin-bottom: 10px;"><strong>Description</strong> : Describe your product in detail, highlighting its features, benefits, and unique selling points.</li>
+                      <li style="margin-bottom: 10px;"><strong>Image</strong> : Upload high-quality images of your product to showcase it from various angles and contexts.</li>
+                  </ol>
+                </div>
+              </div>
         
             </div>
     </div>

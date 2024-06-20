@@ -32,10 +32,10 @@
                                     <div class="card-body">
                                         <div class="text-center chat-image mb-5">
                                             <div class="avatar avatar-xxl chat-profile mb-3 brround">
-                                                <a class="" href="profile.html"><img alt="avatar" src="../assets/images/users/7.jpg" class="brround"></a>
+                                                <a class="" href="#"><img alt="avatar" src="../assets/images/users/7.jpg" class="brround"></a>
                                             </div>
                                             <div class="main-chat-msg-name">
-                                                <a href="profile.html">
+                                                <a href="#">
                                                     <h5 class="mb-1 text-dark fw-semibold">{{ auth()->user() ? ucfirst(auth()->user()->name) : '' }}</h5>
                                                 </a>
                                                 <p class="text-muted mt-0 mb-0 pt-0 fs-13">{{ auth()->user() ? ucfirst(auth()->user()->usertype) : '' }}</p>
@@ -81,7 +81,7 @@
         <div class="card" style="width: 18rem;height:95%;background-color:#F7F7F9">
       <div class="card-body">
         <h5 class="card-title">Quick Tips</h5>
-        <p class="card-text">This is the quick tips section. Expect highlights on how best to use the system.</p>
+        <p class="card-text">This is the profile page and displays the name, usertype, phone and email of the user</p>
       </div>
     </div>
     

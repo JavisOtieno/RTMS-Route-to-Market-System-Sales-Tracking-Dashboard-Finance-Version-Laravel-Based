@@ -35,7 +35,7 @@ class ProductController extends Controller
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
             'price'=>'required|numeric|digits_between:1,11',
-            'sku'=>'required|string|max:255',
+            'sku'=>'required|string|unique:products|max:255',
             'stock'=>'required|numeric|digits_between:1,11',
             'description'=>'required|string',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
@@ -93,7 +93,7 @@ class ProductController extends Controller
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
             'price'=>'required|numeric|digits_between:1,11',
-            'sku'=>'required|string|max:255',
+            'sku'=>'required|string|unique:products|max:255',
             'stock'=>'required|numeric|digits_between:1,11',
             'description'=>'required|string',
             'image' => ''

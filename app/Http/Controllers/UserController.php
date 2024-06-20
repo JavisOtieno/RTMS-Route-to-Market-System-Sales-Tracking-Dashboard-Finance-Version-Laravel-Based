@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Rules\PhoneNumber;
 use App\Models\TargetGroup;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
@@ -19,7 +21,8 @@ class UserController extends Controller
 
         //return $users;
         //dd($sales);
-        return view('users', ['users'=>$users]);
+        $targetgroups = TargetGroup::all();
+        return view('users', ['users'=>$users, 'targetgroups'=>$targetgroups]);
     }
     public function showAddUsersToTargetGroups() {
         $users = User::all();
@@ -47,7 +50,7 @@ class UserController extends Controller
             // For example, you can mark the item as processed, delete it, etc.
         }
         
-        return redirect('/users');
+        return redirect('/adduserstotargetgroups');
         //dd($sales);
         //return view('add-users-to-target-group', compact('users','targetgroups') );
     }
@@ -61,10 +64,11 @@ class UserController extends Controller
        
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
-            'phone'=>'required|string|max:255',
+            'phone'=>['required','min:10','string','max:255', new PhoneNumber],
             'usertype'=>'required|string|max:255',
             'email'=>'required|email|unique:users|max:255',
-            'password'=>'required|string|max:255|min:8|confirmed',
+            //'password'=>'required|string|max:255|min:8|confirmed',
+            'password' => ['required','string','max:255','min:8','confirmed',Password::min(8)->letters()->numbers()],
             'target_group_id'=>'required|numeric|digits_between:1,11'
         ]);
         //return $incomingFields;
@@ -99,7 +103,7 @@ class UserController extends Controller
     public function saveEditUser($id, Request $request){
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
-            'phone'=>'required|string|max:255',
+            'phone'=>['required','min:10','string','max:255', new PhoneNumber],
             'usertype'=>'required|string|max:255',
             'email'=>'required|email|max:255',
             'target_group_id'=>'required|numeric|digits_between:1,11'

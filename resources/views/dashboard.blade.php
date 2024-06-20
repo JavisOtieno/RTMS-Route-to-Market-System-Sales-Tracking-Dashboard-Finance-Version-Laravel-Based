@@ -181,7 +181,7 @@
         </div>
         
     </div>
-    
+
 <div class="row">
     <div class="col-xl-6">
         <div class="card">
@@ -239,6 +239,7 @@
                                 {{-- <th>ID</th> --}}
                                 <th>Name</th>
                                 <th>Contact Name</th>
+                                <th>Contact Phone</th>
                                 
                             </tr>
                         </thead>
@@ -249,6 +250,7 @@
                             {{-- <td>{{$outlet['id']}}</td> --}}
                             <td>{{$outlet['name']}}</td>
                             <td>{{$outlet['contact_person_name']}}</td>
+                            <td>{{$outlet['phone']}}</td>
                             </tr>
                             @endforeach
                             @else
@@ -282,7 +284,8 @@
                                 <tr>
                                     {{-- <th>ID</th> --}}
                                     <th>Product Name</th>
-                                    <th>Sales Count</th>
+                                    <th>SKU</th>
+                                    <th>Sales</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -290,8 +293,9 @@
                                 @foreach($topProducts as $topProduct)
                                 <tr>
                                 {{-- <td>{{$topSeller['user']['id']}}</td> --}}
-                                <td>{{$topProduct['product']['name']}}</td>
-                                <td>{{$topProduct['count']}}</td>
+                                <td>{{$topProduct['name']}}</td>
+                                <td>{{$topProduct['sku']}}</td>
+                                <td>{{number_format($topProduct['total_quantity'])}}</td>
                                 </tr>
                                 @endforeach
                                 @else
@@ -321,7 +325,8 @@
                                 <tr>
                                     {{-- <th>ID</th> --}}
                                     <th>Outlet Name</th>
-                                    <th>Sales Count</th>
+                                    <th>Contact Person</th>
+                                    <th>Sales</th>
                                     
                                 </tr>
                             </thead>
@@ -331,6 +336,7 @@
                                 <tr>
                                 {{-- <td>{{$topOutlet['outlet']['id']}}</td> --}}
                                 <td>{{$topOutlet['outlet']['name']}}</td>
+                                <td>{{$topOutlet['outlet']['contact_person_name']}}</td>
                                 <td>{{$topOutlet['count']}}</td>
                                 </tr>
                                 @endforeach
@@ -1173,6 +1179,8 @@
     </script>
 
     <script>
+
+        
     /* Bar-Chart2*/
     var ctx = document.getElementById("chartBar2");
     var myChart = new Chart(ctx, {

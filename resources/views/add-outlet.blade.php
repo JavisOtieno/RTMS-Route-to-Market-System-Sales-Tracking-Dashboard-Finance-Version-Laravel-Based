@@ -98,10 +98,20 @@
         <div class="col-md-3">
 
             <div class="card" style="width: 18rem;height:95%;background-color:#F7F7F9">
-          <div class="card-body">
-            <h5 class="card-title">Quick Tips</h5>
-            <p class="card-text">This is the quick tips section. Expect highlights on how best to use the system.</p>
-          </div>
+                <div class="card-body">
+             
+                    <h5 class="card-title">Quick Tips</h5>
+                    <ol class="card-text">
+                        <li style="margin-bottom: 10px;"><strong>Users</strong> : Select a user from the dropdown list</li>
+                        <li style="margin-bottom: 10px;"><strong>Name</strong> : Enter the name of the outlet</li>
+                        <li style="margin-bottom: 10px;"><strong>Contact Name</strong> : Enter the name of the outlet's contact Person</li>
+                        <li style="margin-bottom: 10px;"><strong>Phone</strong> : Enter the phone number of the outlet's contact person, ensuring it is at least 10 characters long </li>
+                        <li style="margin-bottom: 10px;"><strong>Lat</strong> : Enter the latitude value of the outlet's location, ensuring it falls between -90 and 90.</li>
+                        <li style="margin-bottom: 10px;"><strong>Long</strong> : Enter the longitude value of the outlet's location, ensuring it falls between -180 and 180.</li>
+                        <li style="margin-bottom: 10px;"><strong>Image (Optional)</strong> : Optionally, upload an image of the outlet.</li>
+                      
+                    </ol>
+                  </div>
         </div>
         
             </div>

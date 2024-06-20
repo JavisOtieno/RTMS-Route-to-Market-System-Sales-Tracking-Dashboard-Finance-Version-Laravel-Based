@@ -31,9 +31,9 @@ class OutletController extends Controller
             'userId'=>'required|numeric|digits_between:1,11',
             'name'=>'required|string|max:255',
             'contactName'=>'required|string|max:255',
-            'phone'=>['required','string','max:255', new PhoneNumber],
-            'lat'=>'required|between:-90.000000000,90.000000000',
-            'long'=>'required|between:-180.000000000,180.000000000',
+            'phone'=>['required','string','min:10','max:255', new PhoneNumber],
+            'lat' => 'required|numeric|between:-90,90',
+            'long' => 'required|numeric|between:-180,180',
             
         ]);
         //'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
@@ -92,9 +92,9 @@ class OutletController extends Controller
             'userId'=>'required|numeric|digits_between:1,11',
             'name'=>'required|string|max:255',
             'contactPersonName'=>'required|string|max:255',
-            'phone'=>['required','string','max:255', new PhoneNumber],
-            'lat'=>'required|between:-90.000000000,90.000000000',
-            'long'=>'required|between:-180.000000000,180.000000000'
+            'phone'=>['required','min:10','string','max:255', new PhoneNumber],
+            'lat' => 'required|numeric|between:-90,90',
+            'long' => 'required|numeric|between:-180,180',
         ]);
 
         $incomingFields['user_id']=strip_tags($incomingFields['userId']);

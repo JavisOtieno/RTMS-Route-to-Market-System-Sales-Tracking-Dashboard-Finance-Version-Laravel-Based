@@ -663,8 +663,7 @@
 <script src="{{asset('assets/plugins/bootstrap5-typehead/autocomplete.js')}}"></script>
 <script src="{{asset('assets/js/typehead.js')}}"></script>
 
-<!-- INTERNAL INDEX JS -->
-<script src="{{asset('assets/js/index1.js')}}"></script>
+
 
 <!-- Color Theme js -->
 <script src="{{asset('assets/js/themeColors.js')}}"></script>
@@ -694,6 +693,9 @@
     <script src="{{asset('assets/plugins/datatable/dataTables.responsive.min.js')}}"></script>
     <script src="{{asset('assets/plugins/datatable/responsive.bootstrap5.min.js')}}"></script>
     <script src="{{asset('assets/js/table-data.js')}}"></script>
+
+    <!-- INTERNAL INDEX JS -->
+<script src="{{asset('assets/js/index1.js')}}"></script>
 
         <!-- MODAL EFFECTS -->
         <div class="modal fade" id="modalDelete">

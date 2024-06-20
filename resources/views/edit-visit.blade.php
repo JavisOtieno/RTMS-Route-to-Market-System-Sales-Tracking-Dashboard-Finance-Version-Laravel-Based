@@ -82,7 +82,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="dateTime" class="form-label">Date and Time</label>
-                                <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{date('Y-M-d H:i', strtotime($visit['created_at']))}}" autocomplete="dateTime">
+                                <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{date('d-M-Y H:i', strtotime($visit['created_at']))}}" autocomplete="dateTime">
                             </div>
                             
                         </div>
@@ -98,7 +98,15 @@
         <div class="card" style="width: 18rem;height:95%;background-color:#F7F7F9">
       <div class="card-body">
         <h5 class="card-title">Quick Tips</h5>
-        <p class="card-text">This is the quick tips section. Expect highlights on how best to use the system.</p>
+        <ol class="card-text"> 
+            <li style="margin-bottom: 10px;"><strong>Seller Name</strong> : Displays the name of the seller.</li>
+            <li style="margin-bottom: 10px;"><strong>Outlet Name</strong> : Diplays the name of the outlet. </li>
+            <li style="margin-bottom: 10px;"><strong>Checkin Time</strong> :Shows the checkin time of the visit. </li>
+            <li style="margin-bottom: 10px;"><strong>Checkout Time</strong> :Shows the checkout time of the visit. </li>
+            <li style="margin-bottom: 10px;"><strong>Duration</strong> : Displays the duration of the visit calculated from checkin to checkout time. If there is no checkout time, the duration is set to zero.</li>
+            <li style="margin-bottom: 10px;"><strong>Date and Time</strong> : Displays the date and time when the visit was created. </li>
+            
+</ol>
       </div>
     </div>
     

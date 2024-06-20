@@ -42,6 +42,13 @@ class DashboardController extends Controller
         ->orderBy('count', 'desc')
         ->take(5)->get();
 
+        $topProducts = Product::with('saleitems')
+        ->select('products.id', 'products.name', 'products.description','products.sku', DB::raw('SUM(sale_items.pieces) as total_quantity'))
+        ->join('sale_items', 'products.id', '=', 'sale_items.product_id')
+        ->groupBy('products.id', 'products.name', 'products.description','products.sku',)
+        ->orderByDesc('total_quantity')
+        ->take(5)->get();
+
         $topSellerUserNames=[];
         $topSellerSalesCount=[];
 
@@ -60,8 +67,8 @@ class DashboardController extends Controller
                 array_push($topSellerUserNames,$sellerNames[0]."\n".$sellerNames[1]);
             }
             
-            $salesCount=$topSeller['count'];
-            array_push($topSellerSalesCount,$salesCount);
+            $sellerSalesCount=$topSeller['count'];
+            array_push($topSellerSalesCount,$sellerSalesCount);
 
         }
                                 

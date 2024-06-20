@@ -80,7 +80,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="dateTime" class="form-label">Date and Time Added</label>
-                                <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{date('Y-M-d H:i', strtotime($user['created_at']))}}" autocomplete="dateTime">
+                                <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{date('d-M-Y H:i', strtotime($user['created_at']))}}" autocomplete="dateTime">
                             </div>
                             <div class="form-group">
                                 <label for="password" class="form-label">Password</label>
@@ -100,8 +100,16 @@
         <div class="card" style="width: 18rem;height:95%;background-color:#F7F7F9">
       <div class="card-body">
         <h5 class="card-title">Quick Tips</h5>
-        <p class="card-text">This is the quick tips section. Expect highlights on how best to use the system.</p>
-      </div>
+        <ol class="card-text">
+        <li style="margin-bottom: 10px;"><strong>Name</strong> : This field displays the name of the user and is editable.</li>
+        <li style="margin-bottom: 10px;"><strong>Phone</strong> :This field displays the phone number of the user and is editable.</li>
+        <li style="margin-bottom: 10px;"><strong>Email</strong> : This field displays the email address of the user and is editable.</li>
+        <li style="margin-bottom: 10px;"><strong>User Type</strong> : This field displays the type of user (Admin or Sales). It is a dropdown menu where you can select the user type.</li>
+        <li style="margin-bottom: 10px;"><strong>Targets</strong> : This field displays the target group associated with the user. It is a dropdown menu where you can select the target group. </li>
+        <li style="margin-bottom: 10px;"><strong>Date and Time Added</strong> : This field displays the date and time when the user was added. It is disabled and cannot be modified.</li>
+        <li style="margin-bottom: 10px;"><strong>Password</strong> : This field provides a button to change the user's password. Clicking on the button will redirect you to a page where you can change the password for the user.</li>
+        </ol>
+    </div>
     </div>
     
         </div>
