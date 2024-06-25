@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('posaudits', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id');
+            $table->integer('user_id');
             $table->integer('outlet_id');
             $table->integer('visit_id');
             $table->string('image');
+            $table->integer('organization_id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

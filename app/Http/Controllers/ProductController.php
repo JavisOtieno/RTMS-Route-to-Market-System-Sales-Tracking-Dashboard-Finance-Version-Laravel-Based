@@ -38,16 +38,17 @@ class ProductController extends Controller
             'sku'=>'required|string|unique:products|max:255',
             'stock'=>'required|numeric|digits_between:1,11',
             'description'=>'required|string',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'image' => 'image|mimes:jpeg,webp,png,jpg,gif,svg|max:2048'
         ]);
 
         
-        
+        $organization_id=auth()->user()->organization_id;
         $incomingFields['name']=strip_tags($incomingFields['name']);
         $incomingFields['price']=strip_tags($incomingFields['price']);
         $incomingFields['sku']=strip_tags($incomingFields['sku']);
         $incomingFields['stock']=strip_tags($incomingFields['stock']);
         $incomingFields['description']=strip_tags($incomingFields['description']);
+        $incomingFields['organization_id']=$organization_id;
         //$incomingFields['image']=strip_tags($incomingFields['image']);
 
 
@@ -90,6 +91,7 @@ class ProductController extends Controller
     }
     public function saveEditProduct($id, Request $request){
         //return $request;
+        $organization_id=auth()->user()->organization_id;
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
             'price'=>'required|numeric|digits_between:1,11',
@@ -107,6 +109,7 @@ class ProductController extends Controller
         $incomingFields['sku']=strip_tags($incomingFields['sku']);
         $incomingFields['stock']=strip_tags($incomingFields['stock']);
         $incomingFields['description']=strip_tags($incomingFields['description']);
+        $incomingFields['organization_id']=$organization_id;
 
         $product=Product::find($id);
 
@@ -134,7 +137,7 @@ class ProductController extends Controller
             // $path = $file->store('uploads', 'public');
 
             $request->validate([
-                'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+                'image' => 'image|mimes:jpeg,webp,png,jpg,gif,svg|max:2048'
             ]);
 
 

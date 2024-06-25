@@ -2,18 +2,22 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Scopes\OrganizationScope;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Posaudit extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'user_id',
         'outlet_id',
         'visit_id',
-        'image'
+        'image',
+        'organization_id'
 
     ];
     public function user(){
@@ -29,5 +33,9 @@ class Posaudit extends Model
     public function posaudititems()
     {
         return $this->hasMany(PosauditItem::class);
+    }
+    protected static function booted()
+    {
+        static::addGlobalScope(new OrganizationScope);
     }
 }

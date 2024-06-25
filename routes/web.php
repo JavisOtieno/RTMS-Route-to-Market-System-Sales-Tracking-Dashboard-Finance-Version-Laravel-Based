@@ -48,6 +48,9 @@ Route::get('/sales', [SaleController::class,'index']);
 Route::get('/add-sale', [SaleController::class,'addSale']);
 
 Route::get('/outlets', [OutletController::class,'index']);
+Route::get('/allocateoutletstousers', [OutletController::class,'showAddOutletsToUsers']);
+Route::post('/pushoutletstouser', [OutletController::class,'pushOutletsToUser']);
+
 
 Route::get('/products', [ProductController::class,'index']);
 
@@ -107,9 +110,11 @@ Route::post('/savetargetgroup', [TargetGroupController::class,'saveTargetGroup']
 Route::get('/edittargetgroup/{id}', [TargetGroupController::class,'showEditTargetGroup']);
 Route::put('/saveedittargetgroup/{id}',[TargetGroupController::class,'saveEditTargetGroup']);
 
-Route::get('/users', [UserController::class,'index']);
+Route::get('/admins', [UserController::class,'index']);
+Route::get('/sellers', [UserController::class,'sellers']);
 Route::get('/adduserstotargetgroups', [UserController::class,'showAddUsersToTargetGroups']);
 Route::post('/pushuserstotargetgroup', [UserController::class,'addUsersToTargetGroup']);
+
 
 Route::get('/deleteuser/{id}', [UserController::class,'deleteUser']);
 
@@ -117,7 +122,7 @@ Route::post('/saveuser', [UserController::class,'saveUser']);
 
 Route::get('/add-user', [UserController::class,'addUser']);
 
-Route::get('/edituser/{id}', [UserController::class,'showEditUser']);
+Route::post('/edituser', [UserController::class,'showEditUser'])->name('edituser');
 
 Route::put('/saveedituser/{id}',[UserController::class,'saveEditUser']);
 

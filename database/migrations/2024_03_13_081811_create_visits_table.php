@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('visits', function (Blueprint $table) {
             $table->id();
             $table->integer('outlet_id');
+            //$table->foreign('outlet_id')->constrained();
             //$table->integer('user_id');
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            // $table->foreign('user_id')->references('id')->on('users');
             // $table->foreign('user_id')->constrained();
             $table->string('checkin_time');
             $table->string('checkin_latitude');
@@ -25,6 +26,8 @@ return new class extends Migration
             $table->string('checkout_latitude');
             $table->string('checkout_longitude');
             $table->string('duration');
+            $table->integer('organization_id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

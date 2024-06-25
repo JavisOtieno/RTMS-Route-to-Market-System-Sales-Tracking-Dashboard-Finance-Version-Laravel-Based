@@ -18,6 +18,7 @@
         <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY&callback=myMap"></script>
 
 <script>
+  
   //var table = $('#responsive-datatable').DataTable();
 // $('#nameInput').on('keyup', function() {
 //         table.column(1).search(this.value).draw(); // Column index 0 for 'Name'

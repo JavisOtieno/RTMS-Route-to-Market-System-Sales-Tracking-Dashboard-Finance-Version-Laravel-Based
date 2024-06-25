@@ -35,6 +35,7 @@ class POSAuditController extends Controller
         $incomingFieldsPOSAudit['outlet_id']=strip_tags($request['outletId']);
         $incomingFieldsPOSAudit['visit_id']=strip_tags($request['visitId']);
         $incomingFieldsPOSAudit['image']="";
+        $incomingFieldsPOSAudit['organization_id']=auth()->user()->organization_id;
 
         if(strlen($incomingFields['products'])>0){
 
@@ -56,6 +57,8 @@ class POSAuditController extends Controller
             $pieces=$productPiecesSplit[1];
             $incomingFieldsPOSAuditItem['product_id']=$productId;
             $incomingFieldsPOSAuditItem['pieces']=$pieces;
+            $incomingFieldsPOSAuditItem['organization_id']=auth()->user()->organization_id;
+
             $posAudit=PosauditItem::create($incomingFieldsPOSAuditItem);
 
         }

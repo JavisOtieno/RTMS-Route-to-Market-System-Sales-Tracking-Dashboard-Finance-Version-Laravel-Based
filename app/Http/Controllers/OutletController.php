@@ -21,12 +21,13 @@ class OutletController extends Controller
         return redirect('/outlets');
     }
     public function addOutlet() {
-        $users = User::all();
+        $users = User::inOrganization()->where('usertype','sales')->get();
         return view('add-outlet',['users'=>$users]);
     }
     public function saveOutlet(Request $request){
 
-       
+        $organization_id=auth()->user()->organization_id;
+        
         $incomingFields=$request->validate([
             'userId'=>'required|numeric|digits_between:1,11',
             'name'=>'required|string|max:255',
@@ -44,6 +45,7 @@ class OutletController extends Controller
         $incomingFields['phone']=strip_tags($incomingFields['phone']);
         $incomingFields['lat']=strip_tags($incomingFields['lat']);
         $incomingFields['long']=strip_tags($incomingFields['long']);
+        $incomingFields['organization_id']=$organization_id;
         //$incomingFields['image']='';
 
         //return $request['image'];
@@ -54,7 +56,7 @@ class OutletController extends Controller
             $imageName = time().'.'.$request->image->extension();
 
             $request->validate([
-                'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+                'image' => 'image|mimes:jpeg,webp,png,jpg,gif,svg|max:2048'
             ]);
 
             // Save image to public/images directory
@@ -88,6 +90,7 @@ class OutletController extends Controller
         return view('edit-outlet',compact('outlet'));
     }
     public function saveEditOutlet($id, Request $request){
+        $organization_id=auth()->user()->organization_id;
         $incomingFields=$request->validate([
             'userId'=>'required|numeric|digits_between:1,11',
             'name'=>'required|string|max:255',
@@ -103,6 +106,8 @@ class OutletController extends Controller
         $incomingFields['phone']=strip_tags($incomingFields['phone']);
         $incomingFields['lat']=strip_tags($incomingFields['lat']);
         $incomingFields['long']=strip_tags($incomingFields['long']);
+        $incomingFields['organization_id']=$organization_id;
+        
         
 
         $outlet=Outlet::find($id);
@@ -112,4 +117,39 @@ class OutletController extends Controller
         return redirect('/outlets');
         
     }
+
+    public function showAddOutletsToUsers() {
+        $outlets = Outlet::all();
+        $users = User::inOrganization()->where('usertype','sales')->get();
+        //dd($sales);
+        //return 'heh';
+        return view('add-outlets-to-user', compact('outlets','users') );
+    }
+
+    public function pushOutletsToUser(Request $request) {
+
+        //return $request->input('checkboxes',[]);
+       
+        $incomingFields=$request->validate([
+            'user_id'=>'required|numeric|digits_between:1,11'
+        ]);
+    
+        //$selectedOutlets = $request->input('outlets', []);
+        $selectedOutlets = $request->input('outletcheckboxes', []);
+        
+
+        // Process the selected items
+        foreach ($selectedOutlets as $selectedOutletId) {
+            $outlet = Outlet::find($selectedOutletId);
+            $outlet->update($incomingFields);
+           
+            // Perform your processing here
+            // For example, you can mark the item as processed, delete it, etc.
+        }
+        
+        return redirect('/allocateoutletstousers');
+        //dd($sales);
+        //return view('add-users-to-target-group', compact('users','targetgroups') );
+    }
+
 }

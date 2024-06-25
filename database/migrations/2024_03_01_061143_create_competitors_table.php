@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('competitors', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id');
+            $table->integer('user_id');
             $table->integer('outlet_id');
             $table->integer('visit_id');
             $table->longText('brand_visibility');
             $table->longText('pricing');
+            $table->integer('organization_id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

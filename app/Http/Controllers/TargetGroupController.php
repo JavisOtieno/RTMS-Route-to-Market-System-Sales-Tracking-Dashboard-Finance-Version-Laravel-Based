@@ -17,16 +17,18 @@ class TargetGroupController extends Controller
     }
 
     public function saveTargetGroup(Request $request){
+        $organization_id=auth()->user()->organization_id;
        
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
-            'amount'=>'required|numeric|digits_between:1,11'
+            'amount'=>'required|numeric|digits_between:1,11',
         ]);
         //return $incomingFields;
         
         
         $incomingFields['name']=strip_tags($incomingFields['name']);
         $incomingFields['amount']=strip_tags($incomingFields['amount']);
+        $incomingFields['organization_id']=$organization_id;
         //return $incomingFields['usertype'];
 
         TargetGroup::create($incomingFields);
@@ -46,6 +48,7 @@ class TargetGroupController extends Controller
     }
 
     public function saveEditTargetGroup($id, Request $request){
+        $organization_id=auth()->user()->organization_id;
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
             'amount'=>'required|numeric|digits_between:1,11'
@@ -53,6 +56,7 @@ class TargetGroupController extends Controller
 
         $incomingFields['name']=strip_tags($incomingFields['name']);
         $incomingFields['amount']=strip_tags($incomingFields['amount']);
+        $incomingFields['organization_id']=$organization_id;
 
         $targetgroup=TargetGroup::find($id);
 

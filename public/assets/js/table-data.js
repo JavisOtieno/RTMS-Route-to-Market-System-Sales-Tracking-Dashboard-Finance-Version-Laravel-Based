@@ -6,8 +6,11 @@ $(function(e) {
         language: {
             searchPlaceholder: 'Search...',
             sSearch: '',
-        }
+        },
+        "order": [0, 'desc'],
+        'ordering': true,
     });
+
 
 
     //______Basic Data Table
@@ -72,6 +75,110 @@ $(function(e) {
     });
     table2.buttons().container()
         .appendTo('#responsive-datatable_wrapper .col-md-6:eq(0)');
+
+//OUTLETS ALLOCATE TO USERS TABLE FORM
+
+        // Handle 'select all' checkbox
+        $('#selectalloutlets').on('click', function() {
+            var rows = table2.rows({ 'search': 'applied' }).nodes();
+            $('input[type="checkbox"]', rows).prop('checked', this.checked);
+        });
+    
+        // Handle form submission
+        $('#Outletstouser').on('submit', function(event) {
+
+            $('#Outletstouser input[type="hidden"][name="outletcheckboxes[]"]').remove();
+
+            event.preventDefault(); // Prevent the default form submission;
+            
+    
+            // Gather all checkboxes (including those not in view)
+            var allCheckboxes = table2.$('input[type="checkbox"]');
+    
+            // Iterate through all checkboxes to collect their values
+            var selectedCheckboxes = [];
+            allCheckboxes.each(function() {
+                if (this.checked) {
+                    selectedCheckboxes.push($(this).val());
+                }
+            });
+    
+            // Log the selected checkboxes or send them to the server
+            console.log(selectedCheckboxes);
+    
+            // Optionally, you can add the selected checkboxes to the form as hidden inputs
+            selectedCheckboxes.forEach(function(value) {
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: 'outletcheckboxes[]',
+                    value: value
+                }).appendTo('#Outletstouser');
+            });
+    
+            // Submit the form
+            
+            this.submit();
+            
+            
+        });
+
+    //OUTLETS ALLOCATE TO USERS TABLE FORM
+
+    //OUTLETS ALLOCATE TO USERS TABLE FORM
+
+//        Handle 'select all' checkbox
+        $('#selectallusers').on('click', function() {
+            var rows = table2.rows({ 'search': 'applied' }).nodes();
+            $('input[type="checkbox"]', rows).prop('checked', this.checked);
+        });
+    
+        // Handle form submission
+        $('#Userstotargetgroup').on('submit', function(event) {
+
+            $('#Userstotargetgroup input[type="hidden"][name="usercheckboxes[]"]').remove();
+
+            event.preventDefault(); // Prevent the default form submission;
+            
+    
+            // Gather all checkboxes (including those not in view)
+            var allCheckboxes = table2.$('input[type="checkbox"]');
+    
+            // Iterate through all checkboxes to collect their values
+            var selectedCheckboxes = [];
+            allCheckboxes.each(function() {
+                if (this.checked) {
+                    selectedCheckboxes.push($(this).val());
+                }
+            });
+    
+            // Log the selected checkboxes or send them to the server
+            console.log(selectedCheckboxes);
+    
+            // Optionally, you can add the selected checkboxes to the form as hidden inputs
+            selectedCheckboxes.forEach(function(value) {
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: 'usercheckboxes[]',
+                    value: value
+                }).appendTo('#Userstotargetgroup');
+            });
+    
+            // Submit the form
+            
+            this.submit();
+            
+            
+        });
+
+    //OUTLETS ALLOCATE TO USERS TABLE FORM
+
+
+    
+
+    
+
+
+
     // $('#responsive-datatable tbody').on('click', 'tr', function () {
     //     var data = table2.row(this).data();
     //     alert('You clicked on ' + data[0] + '\'s row');
@@ -183,6 +290,25 @@ $(function(e) {
         $('#phoneInput').on('keyup', function() {
             //alert(this.value);
             table2.column(3).search(this.value).draw(); // Column index 3 for 'Phone'
+        });
+
+    }
+    else if(tableLoaded=="outletstouser"){
+        $('#nameInput').on('keyup', function() {
+            //alert(this.value);
+            table2.column(1).search(this.value).draw(); // Column index 1 for 'Name'
+        });
+        $('#currentSellerInput').on('keyup', function() {
+            //alert(this.value);
+            table2.column(2).search(this.value).draw(); // Column index 1 for 'Name'
+        });
+        $('#contactNameInput').on('keyup', function() {
+            //alert(this.value);
+            table2.column(3).search(this.value).draw(); // Column index 2 for 'Contact Name'
+        });
+        $('#phoneInput').on('keyup', function() {
+            //alert(this.value);
+            table2.column(4).search(this.value).draw(); // Column index 3 for 'Phone'
         });
 
     }

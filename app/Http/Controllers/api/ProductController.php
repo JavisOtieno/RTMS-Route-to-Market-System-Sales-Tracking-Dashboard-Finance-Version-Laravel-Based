@@ -19,6 +19,7 @@ class ProductController extends Controller
             $products = Product::orderBy('id', 'DESC')
             ->where('stock', '>', '0')->get();
             return response()->json(['products'=>$products]);
+            
         }
 
 }

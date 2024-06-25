@@ -18,6 +18,8 @@ return new class extends Migration
             $table->integer('visit_id');
             $table->string('pieces');
             $table->string('value');
+            $table->integer('organization_id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

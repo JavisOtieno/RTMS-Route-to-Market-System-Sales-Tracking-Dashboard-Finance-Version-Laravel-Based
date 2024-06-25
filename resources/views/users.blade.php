@@ -86,7 +86,14 @@
                                         <td>{{$user['email']}}</td>
                                         {{-- <td>{{ucfirst($user['usertype'])}}</td> --}}
                                         <td>{{$user['targetgroup']==null?"None":'KSh '.number_format($user['targetgroup']['amount'])}}</td>
-                                        <td><a type="button" href="/edituser/{{$user['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
+                                        <td>
+                                            {{-- <a type="button" href="/edituser/{{$user['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a> --}}
+                                            <form method="POST" action="{{ route('edituser') }}">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{ $user->id }}">
+                                                <!-- Other form fields -->
+                                                <button type="submit" class="btn btn-info">View/Edit</button>
+                                            </form>
                                         </td>
                                         <td><a type="button" onclick="deleteItem({{$user['id']}},'Id: '+{{$user['id']}}+'<br/> Name: '+'{{$user['name']}}'+'<br/> Phone: '+'{{$user['phone']}}'+'<br/> Email: '+'{{$user['email']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
                                         </td>

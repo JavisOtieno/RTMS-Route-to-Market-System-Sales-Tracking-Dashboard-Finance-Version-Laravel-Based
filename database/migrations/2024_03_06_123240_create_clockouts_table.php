@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('time');
             $table->string('lat');
             $table->string('long');
+            $table->integer('organization_id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -42,6 +42,7 @@ class SaleController extends Controller
         $incomingFields['visit_id']=strip_tags($request['visitId']);
         $incomingFields['user_id']=strip_tags($request['userId']);
         $incomingFields['pieces']=strip_tags($request['pieces']);
+        $incomingFields['organization_id']=auth()->user()->organization_id;
 
         $price = Product::find($incomingFields['product_id'])['price'];
         $incomingFields['value'] = $price * $incomingFields['pieces'];

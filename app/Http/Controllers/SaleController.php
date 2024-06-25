@@ -21,7 +21,7 @@ class SaleController extends Controller
     }
 
     public function addSale() {
-        $users = User::all();
+        $users = User::inOrganization()->get();
         $outlets = Outlet::all();
         $products = Product::all();
         //dd($sales);
@@ -58,12 +58,15 @@ class SaleController extends Controller
         // else {
         //     return view('view_name');
         // }
+        
+        
         $incomingFields=[];
         $incomingFields['user_id']=strip_tags($request['userId']);
         $incomingFields['outlet_id']=strip_tags($request['outletId']);
         $incomingFields['product_id']=strip_tags($request['productId']);
         $incomingFields['visit_id']='0';
         $incomingFields['pieces']=strip_tags($request['pieces']);
+        $incomingFields['organization_id']=auth()->user()->organization_id;
 
         $price = Product::find($incomingFields['product_id'])['price'];
         $incomingFields['value'] = $price * $incomingFields['pieces'];
@@ -88,6 +91,8 @@ class SaleController extends Controller
     }
 
     public function saveEditSale($id, Request $request){
+        $organization_id=auth()->user()->organization_id;
+        
         $incomingFields=$request->validate([
             'userId'=>'required',
             'outletId'=>'required',
@@ -95,6 +100,7 @@ class SaleController extends Controller
             'pieces'=>'required'
         ]);
 
+        $incomingFields['organization_id']=$organization_id;
         $incomingFields['user_id']=strip_tags($incomingFields['userId']);
         $incomingFields['outlet_id']=strip_tags($incomingFields['outletId']);
         $incomingFields['product_id']=strip_tags($incomingFields['productId']);

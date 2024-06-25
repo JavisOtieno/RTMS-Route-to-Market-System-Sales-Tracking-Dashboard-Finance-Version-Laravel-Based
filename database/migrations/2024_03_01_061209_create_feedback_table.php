@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('feedback', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id');
+            $table->integer('user_id');
             $table->integer('outlet_id');
             $table->integer('visit_id');
             $table->longText('feedback');
+            $table->integer('organization_id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

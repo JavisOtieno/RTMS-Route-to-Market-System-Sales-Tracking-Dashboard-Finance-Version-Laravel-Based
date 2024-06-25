@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Scopes\OrganizationScope;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Outlet extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'user_id',
@@ -16,7 +19,8 @@ class Outlet extends Model
         'phone',
         'lat',
         'long',
-        'image'
+        'image',
+        'organization_id'
     ];
 
     public function user(){
@@ -29,4 +33,9 @@ class Outlet extends Model
     // {
     //     return $this->belongsToMany(Sale::class, 'outlets', 'outlet_id', 'id');
     // }
+
+    protected static function booted()
+    {
+        static::addGlobalScope(new OrganizationScope);
+    }
 }

@@ -41,7 +41,9 @@ class ClockoutController extends Controller
                 'user_id' => $request['userId'],
                 'time' => $request['time'],
                 'lat' => $request['lat'],
-                'long' => $request['long']
+                'long' => $request['long'],
+                'organization_id' => auth()->user()->organization_id
+
             ]);
 
             DB::commit();

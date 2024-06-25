@@ -10,7 +10,7 @@
                     </div>
                 </div>
                 <div class="container-login100">
-                    <div class="wrap-login100 p-6">
+                    <div class="wrap-login100 p-6" style="width:50%;">
                         <form class="login100-form validate-form" action="/attemptsignup" method="POST">
                             @csrf
                             <span class="login100-form-title">
@@ -32,23 +32,59 @@
         </ul>
     </div>
     @endif
+                            <div class="wrap-input100 validate-input input-group" data-bs-validate="Valid name is required: ">
+                                <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
+                                    <i class="mdi mdi-domain" aria-hidden="true"></i>
+                                </a>
+                                <input class="input100 border-start-0 ms-0 form-control" value="{{old('organizationName')}}" name="organizationName" type="text" placeholder="Organization Name" autocomplete="organizationname">
+                            </div>
+                            <div class="wrap-input100 validate-input input-group" data-bs-validate="Valid name is required: ">
+                                <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
+                                    <i class="zmdi zmdi-phone" aria-hidden="true"></i>
+                                </a>
+                                <input class="input100 border-start-0 ms-0 form-control" value="{{old('organizationPhone')}}" name="organizationPhone" type="text" placeholder="Organization Phone" autocomplete="organizationphone">
+                            </div>
+                            <div class="wrap-input100 validate-input input-group" data-bs-validate="Valid email is required: ">
+                                <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
+                                    <i class="zmdi zmdi-email" aria-hidden="true"></i>
+                                </a>
+                                <input class="input100 border-start-0 ms-0 form-control" value="{{old('organizationEmail')}}" name="organizationEmail" type="text" placeholder="Organization Email" autocomplete="organizationemail">
+                            </div>
+                            {{-- <div class="wrap-input100 validate-input input-group" data-bs-validate="Valid phone is required: ">
+                                <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
+                                    <i class="mdi mdi-account" aria-hidden="true"></i>
+                                </a>
+                                <input class="input100 border-start-0 ms-0 form-control" value="{{old('organizationEmail')}}" name="organizationEmail" type="email" placeholder="Organization Email" autocomplete="organizationemail">
+                            </div> --}}
+                            <div class="wrap-input100 validate-input input-group" data-bs-validate="Valid Reg Number is required">
+                                <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
+                                    <i class="mdi mdi-file-document" aria-hidden="true"></i>
+                                </a>
+                                <input class="input100 border-start-0 ms-0 form-control" value="{{old('organizationRegNo')}}" name="organizationRegNo" type="text" placeholder="Organization Registration Number" autocomplete="organizationregno">
+                            </div>
+                            <div class="wrap-input100 validate-input input-group" data-bs-validate="Valid KRA Pin is required">
+                                <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
+                                    <i class="mdi mdi-file-document" aria-hidden="true"></i>
+                                </a>
+                                <input class="input100 border-start-0 ms-0 form-control" value="{{old('organizationKRAPin')}}" name="organizationKRAPin" type="text" placeholder="Organization KRA Pin" autocomplete="organizationkrapin">
+                            </div>
                             <div class="wrap-input100 validate-input input-group" data-bs-validate="Valid email is required: ex@abc.xyz">
                                 <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
                                     <i class="mdi mdi-account" aria-hidden="true"></i>
                                 </a>
-                                <input class="input100 border-start-0 ms-0 form-control" value="{{old('name')}}" name="name" type="text" placeholder="Name" autocomplete="name">
+                                <input class="input100 border-start-0 ms-0 form-control" value="{{old('name')}}" name="name" type="text" placeholder="Admin Name" autocomplete="name">
                             </div>
                             <div class="wrap-input100 validate-input input-group" data-bs-validate="Valid phone number is required">
                                 <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
                                     <i class="zmdi zmdi-phone" aria-hidden="true"></i>
                                 </a>
-                                <input class="input100 border-start-0 ms-0 form-control" value="{{old('phone')}}" name="phone" type="text" placeholder="Phone" autocomplete="phone">
+                                <input class="input100 border-start-0 ms-0 form-control" value="{{old('phone')}}" name="phone" type="text" placeholder="Admin Phone" autocomplete="phone">
                             </div>
                             <div class="wrap-input100 validate-input input-group" data-bs-validate="Valid email is required: ex@abc.xyz">
                                 <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
                                     <i class="zmdi zmdi-email" aria-hidden="true"></i>
                                 </a>
-                                <input class="input100 border-start-0 ms-0 form-control" value="{{old('email')}}" name="email" type="email" placeholder="Email" autocomplete="email">
+                                <input class="input100 border-start-0 ms-0 form-control" value="{{old('email')}}" name="email" type="email" placeholder="Admin Email" autocomplete="email">
                             </div>
                             <div class="wrap-input100 validate-input input-group" id="Password-toggle">
                                 <a href="javascript:void(0)" class="input-group-text bg-white text-muted">

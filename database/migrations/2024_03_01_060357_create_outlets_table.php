@@ -20,7 +20,11 @@ return new class extends Migration
             $table->string('lat');
             $table->string('long');
             $table->string('image');
+            $table->integer('organization_id');
+            $table->softDeletes();
             $table->timestamps();
+            
+            
         });
     }
 

@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('amount');
+            $table->integer('organization_id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

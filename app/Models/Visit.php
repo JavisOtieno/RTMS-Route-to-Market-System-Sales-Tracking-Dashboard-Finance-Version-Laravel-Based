@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Scopes\OrganizationScope;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Visit extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'user_id',
@@ -20,7 +23,8 @@ class Visit extends Model
         'checkout_time',
         'checkout_latitude',
         'checkout_longitude',
-        'duration'
+        'duration',
+        'organization_id'
 
     ];
 
@@ -30,5 +34,9 @@ class Visit extends Model
     }
     public function outlet(){
         return $this->belongsTo(Outlet::class,'outlet_id');
+    }
+    protected static function booted()
+    {
+        static::addGlobalScope(new OrganizationScope);
     }
 }

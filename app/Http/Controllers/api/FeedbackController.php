@@ -26,6 +26,8 @@ class FeedbackController extends Controller
         $incomingFields['visit_id']=strip_tags($request['visitId']);
         $incomingFields['outlet_id']=strip_tags($request['outletId']);
         $incomingFields['feedback']=strip_tags($request['feedback']);
+        $incomingFields['organization_id']=auth()->user()->organization_id;
+
 
         Feedback::create($incomingFields);
 

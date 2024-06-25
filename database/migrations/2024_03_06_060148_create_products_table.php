@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('price');
             $table->integer('stock');
             $table->string('image');
+            $table->integer('organization_id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

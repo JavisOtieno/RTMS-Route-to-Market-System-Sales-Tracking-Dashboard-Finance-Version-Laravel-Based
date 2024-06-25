@@ -2,19 +2,23 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Scopes\OrganizationScope;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Competitor extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'user_id',
         'outlet_id',
         'visit_id',
         'brand_visibility',
-        'pricing'
+        'pricing',
+        'organization_id'
 
     ];
     public function user(){
@@ -27,6 +31,10 @@ class Competitor extends Model
 
     public function visit(){
         return $this->belongsTo(Visit::class,'visit_id');
+    }
+    protected static function booted()
+    {
+        static::addGlobalScope(new OrganizationScope);
     }
 
 

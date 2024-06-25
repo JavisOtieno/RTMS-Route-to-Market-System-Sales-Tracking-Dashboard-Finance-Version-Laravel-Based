@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Scopes\OrganizationScope;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Clockin extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     public function user(){
         //return $this->belongsTo(User::class);
@@ -19,6 +22,12 @@ class Clockin extends Model
         'time',
         'lat',
         'long',
+        'organization_id'
 
     ];
+
+        protected static function booted()
+    {
+        static::addGlobalScope(new OrganizationScope);
+    }
 }

@@ -25,7 +25,7 @@
         {{-- action="{{ route('pushuserstotargetgroup') }}" --}}
             {{-- Then the route needs to have a name
             Route::post('/checkboxes', [CheckboxController::class, 'process'])->name('processCheckboxes'); --}}
-        <form action="pushuserstotargetgroup" method="POST">
+        <form action="pushuserstotargetgroup" id="Userstotargetgroup" method="POST">
             @csrf
         
             <div class="col-lg-12">
@@ -65,12 +65,20 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="responsive-datatable" class="table table-bordered text-nowrap border-bottom">
+                            <table id="basic-datatable" class="table table-bordered text-nowrap border-bottom">
                                 <thead>
                                     <tr>
                                         
                                         <th>ID</th>
-                                        <th>Select - Name</th>
+                                        {{-- <th>Select - Seller Name</th> --}}
+                                        <th>Sellers
+                                            <div class="form-group" style="margin-top:10px;" >
+                                                <label class="custom-control custom-checkbox mb-0" >
+                                            <input type="checkbox" id="selectallusers" class="custom-control-input" name="users[]" value="">
+                                                        <span class="custom-control-label"> Select All</span>
+                                                </label>
+                                            </div>
+                                        </th>
                                         {{-- <th>Name</th> --}}
                                         <th>Targets</th>
                                         <th>Phone</th>

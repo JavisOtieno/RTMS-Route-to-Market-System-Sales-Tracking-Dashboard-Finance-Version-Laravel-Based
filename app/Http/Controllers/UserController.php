@@ -13,11 +13,19 @@ class UserController extends Controller
     //
     public function apiindex(){
         //$sales = Sale::all();
-        $users = User::all();
+        $users = User::inOrganization()->get();
         return response()->json(['users'=>$users]);
     }
     public function index() {
-        $users = User::with('targetgroup')->get();
+        $users = User::with('targetgroup')->inOrganization()->where('usertype','admin')->get();
+
+        //return $users;
+        //dd($sales);
+        $targetgroups = TargetGroup::all();
+        return view('users', ['users'=>$users, 'targetgroups'=>$targetgroups]);
+    }
+    public function sellers() {
+        $users = User::with('targetgroup')->inOrganization()->where('usertype','sales')->get();
 
         //return $users;
         //dd($sales);
@@ -25,7 +33,7 @@ class UserController extends Controller
         return view('users', ['users'=>$users, 'targetgroups'=>$targetgroups]);
     }
     public function showAddUsersToTargetGroups() {
-        $users = User::all();
+        $users = User::inOrganization()->where('usertype','sales')->get();
         $targetgroups = TargetGroup::all();
         //dd($sales);
         return view('add-users-to-target-group', compact('users','targetgroups') );
@@ -38,7 +46,9 @@ class UserController extends Controller
             'target_group_id'=>'required|numeric|digits_between:1,11'
         ]);
     
-        $selectedUsers = $request->input('users', []);
+    //    $selectedUsers = $request->input('users', []);
+                
+        $selectedUsers = $request->input('usercheckboxes', []);
         
 
         // Process the selected items
@@ -61,6 +71,7 @@ class UserController extends Controller
         return redirect('/users');
     }
     public function saveUser(Request $request){
+        $organizationId=auth()->user()->organization_id;
        
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
@@ -80,6 +91,7 @@ class UserController extends Controller
         $incomingFields['target_group_id']=strip_tags($incomingFields['target_group_id']);
         $incomingFields['email']=strip_tags($incomingFields['email']);
         $incomingFields['password']=strip_tags($incomingFields['password']);
+        $incomingFields['organization_id']=$organizationId;
 
         //return $incomingFields['usertype'];
 
@@ -94,13 +106,18 @@ class UserController extends Controller
         return view('add-user',['targetgroups'=>$targetgroups]);
     }
 
-    public function showEditUser($id){
-        $user = User::find($id);
+    public function showEditUser(Request $request){
+        //$user = User::find($id);
+        $incomingFields=$request->validate([
+            'id'=>'required|numeric|digits_between:1,11'
+        ]);
+        $user = User::find($incomingFields['id']);
         $targetgroups = TargetGroup::all();
         return view('edit-user',compact('user','targetgroups'));
     }
 
     public function saveEditUser($id, Request $request){
+        $organizationId=auth()->user()->organization_id;
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
             'phone'=>['required','min:10','string','max:255', new PhoneNumber],
@@ -116,6 +133,7 @@ class UserController extends Controller
         $incomingFields['email']=strip_tags($incomingFields['email']);
         $incomingFields['target_group_id']=strip_tags($incomingFields['target_group_id']);
         $incomingFields['phone']=strip_tags($incomingFields['phone']);
+        $incomingFields['organization_id']=$organizationId;
 
         $user=User::find($id);
 

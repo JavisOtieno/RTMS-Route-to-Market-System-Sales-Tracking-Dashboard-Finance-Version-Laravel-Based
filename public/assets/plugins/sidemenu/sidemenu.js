@@ -363,16 +363,25 @@ function ActiveSubmenu() {
 
     var position = window.location.pathname.split('/');
     position = position[position.length - 1];
+
+    //prevented position from splitting the url and access as is for 
+    //laravel absolute urls eg /users instead of users
+    //this allows the slider to work without needing to remove the / in the urls
+    //remember this, you might come back here
+    position = window.location.pathname;
+    //to go back to default - remove this line
+    
     $(".app-sidebar li a").each(function () {
         var $this = $(this);
         var pageUrl = $this.attr("href");
+    
         let prevValue = [window.innerWidth];
         if (prevValue.length > 1) {
             prevValue = prevWidth[prevWidth.length - 2];
         }
 
-
         if (pageUrl === position) {
+            
             setTimeout(() => {
                 if ($this.closest('.sub-slide-menu2')) {
                     $this.closest('.sub-slide-menu2').addClass('open');

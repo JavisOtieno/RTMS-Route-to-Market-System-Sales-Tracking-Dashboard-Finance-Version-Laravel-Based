@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Scopes\OrganizationScope;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -16,11 +19,17 @@ class Product extends Model
         'stock',
         'image',
         'sku',
+        'organization_id'
 
     ];
     
     public function saleitems()
     {
         return $this->hasMany(SaleItem::class);
+    }
+
+    protected static function booted()
+    {
+        static::addGlobalScope(new OrganizationScope);
     }
 }
