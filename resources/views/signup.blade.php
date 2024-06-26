@@ -10,7 +10,7 @@
                     </div>
                 </div>
                 <div class="container-login100">
-                    <div class="wrap-login100 p-6 col-8" >
+                    <div class="wrap-login100 p-6" >
                         <form class="login100-form validate-form" action="/attemptsignup" method="POST">
                             @csrf
                             <span class="login100-form-title">
