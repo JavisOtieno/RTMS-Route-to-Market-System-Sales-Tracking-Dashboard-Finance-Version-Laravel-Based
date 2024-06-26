@@ -60,7 +60,7 @@
                                 <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
                                     <i class="mdi mdi-file-document" aria-hidden="true"></i>
                                 </a>
-                                <input class="input100 border-start-0 ms-0 form-control" value="{{old('organizationRegNo')}}" name="organizationRegNo" type="text" placeholder="Organization Reg Number" autocomplete="organizationregno">
+                                <input class="input100 border-start-0 ms-0 form-control" value="{{old('organizationRegNo')}}" name="organizationRegNo" type="text" placeholder="Organization Reg No" autocomplete="organizationregno">
                             </div>
                             <div class="wrap-input100 validate-input input-group" data-bs-validate="Valid KRA Pin is required">
                                 <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
