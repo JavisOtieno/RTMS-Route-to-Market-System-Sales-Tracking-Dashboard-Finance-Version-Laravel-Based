@@ -9,8 +9,9 @@ use App\Http\Controllers\Controller;
 class ProfileController extends Controller
 {
     //
-    public function showProfile($id){
-        $user = User::find($id);
+    public function showProfile(){
+        $id=auth()->user()->id;
+        $user = User::inOrganization()->find($id);
         return response()->json(['user'=>$user]);
     }
 }

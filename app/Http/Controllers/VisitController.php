@@ -18,4 +18,13 @@ class VisitController extends Controller
             $visit = Visit::find($id);
             return view('edit-visit',['visit'=>$visit]);
         }
+
+        // public function showEditVisit(Request $request){
+        //     $incomingFields=$request->validate([
+        //         'id'=>'required|numeric|digits_between:1,11'
+        //     ]);
+        //     $visit = Visit::find($incomingFields['id']);
+        //     return view('edit-visit',['visit'=>$visit]);
+        // }
+
 }

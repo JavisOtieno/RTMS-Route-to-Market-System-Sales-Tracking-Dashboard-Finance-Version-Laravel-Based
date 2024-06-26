@@ -37,18 +37,18 @@ class DashboardController extends Controller
         ->orderBy('count', 'desc')
         ->take(5)->get();
 
-        $topProducts=SaleItem::with('product')->select('product_id', DB::raw('COUNT(product_id) as count'))
-        ->groupBy('product_id')
-        ->orderBy('count', 'desc')
-        ->take(5)->get();
+        // $topProducts=SaleItem::with('product')->select('product_id', DB::raw('COUNT(product_id) as count'))
+        // ->groupBy('product_id')
+        // ->orderBy('count', 'desc')
+        // ->take(5)->get();
 
-        // $topProducts = Product::with('saleitems')
-        // ->select('products.id', 'products.name', 'products.description', 'products.sku', 'products.organization_id AS product_organization_id', DB::raw('SUM(sale_items.pieces) as total_quantity'))
-        // ->join('sale_items', 'products.id', '=', 'sale_items.product_id')
-        // ->groupBy('products.id', 'products.name', 'products.description', 'products.sku', 'products.product_organization_id')
-        // ->orderByDesc('total_quantity')
-        // ->take(5)
-        // ->get();
+        $topProducts = Product::with('saleitems')
+        ->select('products.id', 'products.name', 'products.description', 'products.sku', DB::raw('SUM(sale_items.pieces) as total_quantity'))
+        ->join('sale_items', 'products.id', '=', 'sale_items.product_id')
+        ->groupBy('products.id', 'products.name', 'products.description', 'products.sku')
+        ->orderByDesc('total_quantity')
+        ->take(5)
+        ->get();
 
 
         $topSellerUserNames=[];
@@ -77,7 +77,7 @@ class DashboardController extends Controller
         
                              
         
-        //$topSellers = User::withCount('sales')->orderBy('sales_count', 'desc')->take(5)->get();
+        //$topSellers = User::inOrganization()::withCount('sales')->orderBy('sales_count', 'desc')->take(5)->get();
         //return $topSellers;
 
         $topOutlets=Sale::with('user')->select('outlet_id', DB::raw('COUNT(outlet_id) as count'))

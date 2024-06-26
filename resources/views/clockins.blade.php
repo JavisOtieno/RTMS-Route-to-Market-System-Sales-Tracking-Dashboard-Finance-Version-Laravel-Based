@@ -79,9 +79,17 @@
                             <td>{{date('H:i', strtotime($clockin['created_at']))}}</td>
                             <td>{{$clockin['lat']}}</td>
                             <td>{{$clockin['long']}}</td>
-                            <td id="view-column"><a type="button" href="/clockin/{{$clockin['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View</a>
+                            <td><a type="button" href="/clockin/{{$clockin['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View</a>
                             </td>
-                            <td id="map-column"><a type="button" onclick="embedMap('{{$clockin['lat']}}','{{$clockin['long']}}')"
+                            {{-- <td>
+                                <form method="POST" action="{{ route('editclockin') }}">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{ $clockin->id }}">
+                                    <!-- Other form fields -->
+                                    <button type="submit" class="btn btn-info">View</button>
+                                </form>
+                            </td> --}}
+                            <td><a type="button" onclick="embedMap('{{$clockin['lat']}}','{{$clockin['long']}}')"
                                   class="btn btn-success" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#largemodal">Map</a>
                             </td>
                             <!--<a class="modal-effect btn btn-primary-light d-grid mb-3" data-bs-effect="effect-scale" >Scale</a>-->

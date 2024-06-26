@@ -90,6 +90,15 @@ class SaleController extends Controller
         return view('edit-sale',['sale'=>$sale]);
     }
 
+    // public function showEditSale(Request $request){
+    //     $incomingFields=$request->validate([
+    //         'id'=>'required|numeric|digits_between:1,11'
+    //     ]);
+    //     $sale = Sale::find($incomingFields['id']);
+    //     return view('edit-sale',['sale'=>$sale]);
+    // }
+
+
     public function saveEditSale($id, Request $request){
         $organization_id=auth()->user()->organization_id;
         

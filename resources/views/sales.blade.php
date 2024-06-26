@@ -98,6 +98,14 @@
                                         </td> --}}
                                         <td><a type="button" href="/sale/{{$sale['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View</a>
                                         </td>
+                                        {{-- <td>
+                                            <form method="POST" action="{{ route('editsale') }}">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{ $sale->id }}">
+                                                <!-- Other form fields -->
+                                                <button type="submit" class="btn btn-info">View</button>
+                                            </form>
+                                        </td> --}}
                                         <td><a type="button" onclick="deleteItem({{$sale['id']}},'{{$sale['outlet']['name']}}','{{$sale['user']['name']}}',{{$sale['pieces']}})"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
                                         </td>
                                         <!--<a class="modal-effect btn btn-primary-light d-grid mb-3" data-bs-effect="effect-scale" >Scale</a>-->

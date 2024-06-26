@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('posaudit_id');
             $table->string('product_id');
             $table->string('pieces');
-            $table->integer('organization_id');
+            // $table->integer('organization_id');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -55,7 +55,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::get('products',[ProductController::class,'index']);
     Route::get('productsinstock',[ProductController::class,'productsInStock']);
 
-    Route::get('profile/{id}', [ProfileController::class,'showProfile']);
+    Route::get('profile', [ProfileController::class,'showProfile']);
 
     Route::post('addfeedback',[FeedbackController::class,'saveFeedback']);
     Route::get('feedback',[FeedbackController::class,'index']);

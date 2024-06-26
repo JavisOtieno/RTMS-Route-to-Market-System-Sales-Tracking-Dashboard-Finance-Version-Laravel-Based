@@ -89,6 +89,15 @@ class ProductController extends Controller
         $product = Product::find($id);
         return view('edit-product',['product'=>$product]);
     }
+
+    // public function showEditProduct(Request $request){
+    //     $incomingFields=$request->validate([
+    //         'id'=>'required|numeric|digits_between:1,11'
+    //     ]);
+    //     $product = Product::find($incomingFields['id']);
+    //     return view('edit-product',['product'=>$product]);
+    // }
+
     public function saveEditProduct($id, Request $request){
         //return $request;
         $organization_id=auth()->user()->organization_id;

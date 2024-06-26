@@ -57,7 +57,7 @@ class POSAuditController extends Controller
             $pieces=$productPiecesSplit[1];
             $incomingFieldsPOSAuditItem['product_id']=$productId;
             $incomingFieldsPOSAuditItem['pieces']=$pieces;
-            $incomingFieldsPOSAuditItem['organization_id']=auth()->user()->organization_id;
+
 
             $posAudit=PosauditItem::create($incomingFieldsPOSAuditItem);
 

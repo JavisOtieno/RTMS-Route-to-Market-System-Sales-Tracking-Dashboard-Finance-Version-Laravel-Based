@@ -94,6 +94,14 @@
                                         @endif
                                         <td><a type="button" href="/visit/{{$visit['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View</a>
                                         </td>
+                                        {{-- <td>
+                                            <form method="POST" action="{{ route('editclockout') }}">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{ $clockout->id }}">
+                                                <!-- Other form fields -->
+                                                <button type="submit" class="btn btn-info">View/Edit</button>
+                                            </form>
+                                        </td> --}}
                                         <td><a type="button" onclick="embedMap('{{$visit['outlet']['lat']}}','{{$visit['outlet']['long']}}')"
                                             class="btn btn-success" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#largemodal">Map</a>
                                       </td>

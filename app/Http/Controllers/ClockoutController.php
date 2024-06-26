@@ -23,4 +23,12 @@ class ClockoutController extends Controller
             return view('edit-clockout',['clockout'=>$clockout]);
         }
 
+        // public function showEditClockout(Request $request){
+        //     $incomingFields=$request->validate([
+        //         'id'=>'required|numeric|digits_between:1,11'
+        //     ]);
+        //     $clockout = Clockout::find($incomingFields['id']);
+        //     return view('edit-clockout',['clockout'=>$clockout]);
+        // }
+
 }

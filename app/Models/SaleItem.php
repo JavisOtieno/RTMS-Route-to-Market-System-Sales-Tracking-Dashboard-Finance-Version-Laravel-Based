@@ -18,7 +18,7 @@ class SaleItem extends Model
         'pieces',
         'price',
         'value',
-        'organization_id'
+        // 'organization_id'
 
     ];
 
@@ -30,8 +30,8 @@ class SaleItem extends Model
         return $this->belongsTo(Product::class,'product_id');
     }
 
-    protected static function booted()
-    {
-        static::addGlobalScope(new OrganizationScope);
-    }
+    // protected static function booted()
+    // {
+    //     static::addGlobalScope(new OrganizationScope);
+    // }
 }

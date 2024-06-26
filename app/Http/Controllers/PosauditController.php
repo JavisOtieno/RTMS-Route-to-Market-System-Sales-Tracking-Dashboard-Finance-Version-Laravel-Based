@@ -26,4 +26,13 @@ class PosauditController extends Controller
         return view('edit-posaudit',['posaudit'=>$posaudit]);
     }
 
+    // public function showEditPOSAudit(Request $request){
+    //     $incomingFields=$request->validate([
+    //         'id'=>'required|numeric|digits_between:1,11'
+    //     ]);
+    //     $posaudit = Posaudit::find($incomingFields['id']);
+    //     return view('edit-posaudit',['posaudit'=>$posaudit]);
+    // }
+
+
 }

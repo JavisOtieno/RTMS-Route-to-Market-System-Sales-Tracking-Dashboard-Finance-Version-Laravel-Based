@@ -68,6 +68,14 @@
                                     
                                         <td><a type="button" href="/edittargetgroup/{{$targetgroup['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
                                         </td>
+                                        {{-- <td>
+                                            <form method="POST" action="{{ route('edittargetgroup') }}">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{ $targetgroup->id }}">
+                                                <!-- Other form fields -->
+                                                <button type="submit" class="btn btn-info">View/Edit</button>
+                                            </form>
+                                        </td> --}}
                                         <td><a type="button" onclick="deleteItem({{$targetgroup['id']}},'Id: '+{{$targetgroup['id']}}+'<br/> Name: '+'{{$targetgroup['name']}}'+'<br/> Amount: '+'{{$targetgroup['amount']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
                                         </td>
                                         <!--<a class="modal-effect btn btn-primary-light d-grid mb-3" data-bs-effect="effect-scale" >Scale</a>-->

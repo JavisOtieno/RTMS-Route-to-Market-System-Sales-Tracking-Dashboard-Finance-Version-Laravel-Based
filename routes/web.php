@@ -57,10 +57,13 @@ Route::get('/products', [ProductController::class,'index']);
 Route::get('/posaudits', [PosauditController::class,'index']);
 Route::get('/deleteposaudits/{id}', [PosauditController::class,'deletePosaudit']);
 Route::get('/posaudit/{id}',[PosauditController::class,'showEditPOSAudit']);
+//Route::post('/posaudit',[PosauditController::class,'showEditPOSAudit'])->name('editposaudit');
+
 
 Route::get('/competitors', [CompetitorController::class,'index']);
 Route::get('/deletecompetitiveanalysis/{id}', [CompetitorController::class,'deleteCompetitiveAnalysis']);
 Route::get('/competitiveanalysis/{id}',[CompetitorController::class,'showEditCompetitiveAnalysis']);
+
 
 Route::get('/feedback', [FeedbackController::class,'index']);
 Route::get('/deletefeedback/{id}', [FeedbackController::class,'deleteFeedback']);
@@ -110,23 +113,29 @@ Route::post('/savetargetgroup', [TargetGroupController::class,'saveTargetGroup']
 Route::get('/edittargetgroup/{id}', [TargetGroupController::class,'showEditTargetGroup']);
 Route::put('/saveedittargetgroup/{id}',[TargetGroupController::class,'saveEditTargetGroup']);
 
-Route::get('/admins', [UserController::class,'index']);
+Route::get('/admins', [UserController::class,'admins']);
 Route::get('/sellers', [UserController::class,'sellers']);
 Route::get('/adduserstotargetgroups', [UserController::class,'showAddUsersToTargetGroups']);
 Route::post('/pushuserstotargetgroup', [UserController::class,'addUsersToTargetGroup']);
 
 
-Route::get('/deleteuser/{id}', [UserController::class,'deleteUser']);
+Route::get('/deleteadmin/{id}', [UserController::class,'deleteAdmin']);
+Route::get('/deleteseller/{id}', [UserController::class,'deleteSeller']);
 
-Route::post('/saveuser', [UserController::class,'saveUser']);
+Route::post('/saveadmin', [UserController::class,'saveAdmin']);
+Route::post('/saveseller', [UserController::class,'saveSeller']);
 
-Route::get('/add-user', [UserController::class,'addUser']);
+Route::get('/add-admin', [UserController::class,'addAdmin']);
+Route::get('/add-seller', [UserController::class,'addSeller']);
 
-Route::post('/edituser', [UserController::class,'showEditUser'])->name('edituser');
+Route::get('/editseller/{id}', [UserController::class,'showEditSeller']);
+Route::get('/editadmin/{id}', [UserController::class,'showEditAdmin']);
+//Route::post('/edituser', [UserController::class,'showEditUser'])->name('edituser');
 
-Route::put('/saveedituser/{id}',[UserController::class,'saveEditUser']);
+Route::put('/saveeditseller/{id}',[UserController::class,'saveEditSeller']);
+Route::put('/saveeditadmin/{id}',[UserController::class,'saveEditAdmin']);
 
-Route::get('/changepassword/{id}', [UserController::class,'showChangePassword']);
+Route::get('/changepassword/{usertype}/{id}', [UserController::class,'showChangePassword']);
 
 Route::put('/savechangepassword/{id}',[UserController::class,'saveChangePassword']);
 

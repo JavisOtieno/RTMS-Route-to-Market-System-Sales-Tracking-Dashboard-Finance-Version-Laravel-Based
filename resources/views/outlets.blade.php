@@ -70,6 +70,14 @@
                             <td>{{$outlet['phone']}}</td>
                             <td><a type="button" href="/editoutlet/{{$outlet['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
                             </td>
+                            {{-- <td>
+                                <form method="POST" action="{{ route('editoutlet') }}">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{ $outlet->id }}">
+                                    <!-- Other form fields -->
+                                    <button type="submit" class="btn btn-info">View/Edit</button>
+                                </form>
+                            </td> --}}
                             <td><a type="button" onclick="embedMap('{{$outlet['lat']}}','{{$outlet['long']}}')"
                                 class="btn btn-success" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#largemodal">Map</a>
                           </td>

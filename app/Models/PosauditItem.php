@@ -16,7 +16,7 @@ class PosauditItem extends Model
         'posaudit_id',
         'product_id',
         'pieces',
-        'organization_id'
+        // 'organization_id'
 
     ];
 
@@ -27,8 +27,8 @@ class PosauditItem extends Model
     public function product(){
         return $this->belongsTo(Product::class,'product_id');
     }
-    protected static function booted()
-    {
-        static::addGlobalScope(new OrganizationScope);
-    }
+    // protected static function booted()
+    // {
+    //     static::addGlobalScope(new OrganizationScope);
+    // }
 }

@@ -10,11 +10,11 @@
 
   <!-- PAGE-HEADER -->
   <div class="page-header">
-    <h1 class="page-title">Users</h1>
+    <h1 class="page-title">Sellers</h1>
     <div>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)">RTMS</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Users</li>
+            <li class="breadcrumb-item active" aria-current="page">Sellers</li>
         </ol>
     </div>
 </div>
@@ -27,8 +27,8 @@
                 <div class="card">
                     <div class="card-header">
                     
-                        <h3 class="card-title">Users</h3>
-                        <a type="button" href="/add-user" class="btn btn-danger col-md-3" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;">Add User</a>
+                        <h3 class="card-title">Sellers</h3>
+                        <a type="button" href="/add-seller" class="btn btn-danger col-md-3" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;">Add Seller</a>
                     
                         
                     </div>
@@ -87,13 +87,13 @@
                                         {{-- <td>{{ucfirst($user['usertype'])}}</td> --}}
                                         <td>{{$user['targetgroup']==null?"None":'KSh '.number_format($user['targetgroup']['amount'])}}</td>
                                         <td>
-                                            {{-- <a type="button" href="/edituser/{{$user['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a> --}}
-                                            <form method="POST" action="{{ route('edituser') }}">
+                                            <a type="button" href="/editseller/{{$user['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
+                                            {{-- <form method="POST" action="{{ route('edituser') }}">
                                                 @csrf
                                                 <input type="hidden" name="id" value="{{ $user->id }}">
                                                 <!-- Other form fields -->
                                                 <button type="submit" class="btn btn-info">View/Edit</button>
-                                            </form>
+                                            </form> --}}
                                         </td>
                                         <td><a type="button" onclick="deleteItem({{$user['id']}},'Id: '+{{$user['id']}}+'<br/> Name: '+'{{$user['name']}}'+'<br/> Phone: '+'{{$user['phone']}}'+'<br/> Email: '+'{{$user['email']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
                                         </td>
@@ -158,7 +158,7 @@
         var itemDetails = document.getElementById("itemDetails");
         itemDetails.innerHTML = message;
         var confirmDeleteLink = document.getElementById('confirmDelete'); //or grab it by tagname etc
-        confirmDeleteLink.href = "/deleteuser/"+id;
+        confirmDeleteLink.href = "/deleteseller/"+id;
     }
   </script>
 

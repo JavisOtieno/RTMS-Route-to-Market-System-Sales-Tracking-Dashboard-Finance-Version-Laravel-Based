@@ -16,8 +16,9 @@ class LoginController extends Controller
 
     public function showLogin(){
 
-        $usercount=User::count();
-        return view('login',['usercount'=>$usercount]);
+        //$usercount=User::inOrganization()->count();
+        // return view('login',['usercount'=>$usercount]);
+        return view('login');
 
     }
     public function logout(){
@@ -52,11 +53,13 @@ class LoginController extends Controller
 
           }
   
-        }else if(User::count()==0){
-          return back()->withErrors([
-            'email' => 'No account detected. Initiate first admin signup',
-            ])->onlyInput('email');
-        }else{
+        }
+        // else if(User::inOrganization()->count()==0){
+        //   return back()->withErrors([
+        //     'email' => 'No account detected. Initiate first admin signup',
+        //     ])->onlyInput('email');
+        // }
+        else{
           return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
             ])->onlyInput('email');

@@ -9,7 +9,7 @@
 
   <!-- PAGE-HEADER -->
   <div class="page-header">
-    <h1 class="page-title">Users</h1>
+    <h1 class="page-title">Change Password</h1>
     <div>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)">RTMS</a></li>
@@ -51,6 +51,11 @@
                             </div>
                             @endif
 
+                        <div class="form-group">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="name" readonly class="form-control" name="name" id="name" placeholder="Name" value="{{$user['name']}}" autocomplete="name">
+                        </div>
+
                             <div class="form-group">
                                 <label for="password" class="form-label">Password</label>
                                 <input type="password" class="form-control" name="password" id="password" placeholder="Password" autocomplete="password">
@@ -59,6 +64,8 @@
                                 <label for="password_confirmation" class="form-label">Confirm Password</label>
                                 <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Confirm Password"  autocomplete="password_confirmation">
                             </div>
+                            <input type="hidden" class="form-control" name="usertype" id="usertype" placeholder="Usertype" autocomplete="usertype" value="{{$usertype}}">
+
                             
                         </div>
                         <button class="btn btn-primary mt-4 mb-0">Save</button>

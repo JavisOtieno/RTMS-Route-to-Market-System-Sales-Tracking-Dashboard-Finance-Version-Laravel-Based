@@ -47,6 +47,14 @@ class TargetGroupController extends Controller
         return view('edit-targetgroup',['targetgroup'=>$targetgroup]);
     }
 
+    // public function showEditTargetGroup(Request $request){
+    //     $incomingFields=$request->validate([
+    //         'id'=>'required|numeric|digits_between:1,11'
+    //     ]);
+    //     $targetgroup = TargetGroup::find($incomingFields['id']);
+    //     return view('edit-targetgroup',['targetgroup'=>$targetgroup]);
+    // }
+
     public function saveEditTargetGroup($id, Request $request){
         $organization_id=auth()->user()->organization_id;
         $incomingFields=$request->validate([

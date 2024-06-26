@@ -25,5 +25,12 @@ class CompetitorController extends Controller
         $competitiveanalysis = Competitor::find($id);
         return view('edit-competitiveanalysis',['competitiveanalysis'=>$competitiveanalysis]);
     }
+    // public function showEditCompetitiveAnalysis(Request $request){
+    //     $incomingFields=$request->validate([
+    //         'id'=>'required|numeric|digits_between:1,11'
+    //     ]);
+    //     $competitiveanalysis = Competitor::find($incomingFields['id']);
+    //     return view('edit-competitiveanalysis',['competitiveanalysis'=>$competitiveanalysis]);
+    // }
 
 }

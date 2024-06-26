@@ -82,6 +82,7 @@ class SaleController extends Controller
         $incomingFieldsSale['user_id']=strip_tags($request['userId']);
         $incomingFieldsSale['outlet_id']=strip_tags($request['outletId']);
         $incomingFieldsSale['visit_id']=strip_tags($request['visitId']);
+        $incomingFieldsSale['organization_id']=auth()->user()->organization_id;
         
         $piecesTotal=0;
         $valueTotal=0;

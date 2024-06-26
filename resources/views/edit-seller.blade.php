@@ -9,11 +9,11 @@
 
   <!-- PAGE-HEADER -->
   <div class="page-header">
-    <h1 class="page-title">Users</h1>
+    <h1 class="page-title">Sellers</h1>
     <div>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)">RTMS</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Edit User</li>
+            <li class="breadcrumb-item active" aria-current="page">Edit Seller</li>
         </ol>
     </div>
 </div>
@@ -23,13 +23,13 @@
 <div class="col-xl-12 row">
     <div class="card col-md-8">
         <div class="card-header">
-            <h3 class="card-title">Edit User</h3> 
+            <h3 class="card-title">Edit Seller</h3> 
         </div>
         <div class="card-body">
             <!--<p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p>-->
             
                 
-                    <form action="/saveedituser/{{$user['id']}}" method="POST">
+                    <form action="/saveeditseller/{{$user['id']}}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="">
@@ -61,13 +61,13 @@
                                 <label for="email" class="form-label">Email</label>
                                 <input type="text" class="form-control" name="email" id="email" placeholder="Email" value="{{old('email',$user['email'])}}" autocomplete="email">
                             </div>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label for="admin" class="form-label">User Type</label>
                                 <select name="usertype" class="form-control form-select select2" data-bs-placeholder="Select User Type">
                                                     <option {{old('usertype',$user['usertype'])=="admin"? 'selected':''}} value="admin">Admin</option>
                                                     <option {{old('usertype',$user['usertype'])=="sales"? 'selected':''}} value="sales">Sales</option>
                                 </select>
-                            </div>
+                            </div> --}}
                             <div class="form-group">
                                 <label for="target_group_id" class="form-label">Targets</label>
                                 <select name="target_group_id" class="form-control form-select select2" data-bs-placeholder="Select User Type">
@@ -84,12 +84,21 @@
                             </div>
                             <div class="form-group">
                                 <label for="password" class="form-label">Password</label>
-                                <a href="/changepassword/{{$user['id']}}" class="btn btn-info mb-0">Change Password</a>                            
+                                <a href="/changepassword/seller/{{$user['id']}}" class="btn btn-info mb-0">Change Password</a>                            
                             </div>
                             
                         </div>
                         <button class="btn btn-primary mt-4 mb-0">Save</button>
                     </form>
+
+                    {{-- <div class="form-group" style="margin-top:20px;">
+                        // <label for="password" class="form-label">Password</label> 
+                        <form method="POST" action="{{ route('changepassword') }}">
+                            @csrf
+                            <input type="hidden" name="id" value="{{ $user->id }}">
+                            <!-- Other form fields -->
+                            <button type="submit" class="btn btn-info">Change Password</button>
+                        </form> --}}
                 
             </div>
 
@@ -104,7 +113,7 @@
         <li style="margin-bottom: 10px;"><strong>Name</strong> : This field displays the name of the user and is editable.</li>
         <li style="margin-bottom: 10px;"><strong>Phone</strong> :This field displays the phone number of the user and is editable.</li>
         <li style="margin-bottom: 10px;"><strong>Email</strong> : This field displays the email address of the user and is editable.</li>
-        <li style="margin-bottom: 10px;"><strong>User Type</strong> : This field displays the type of user (Admin or Sales). It is a dropdown menu where you can select the user type.</li>
+        {{-- <li style="margin-bottom: 10px;"><strong>User Type</strong> : This field displays the type of user (Admin or Sales). It is a dropdown menu where you can select the user type.</li> --}}
         <li style="margin-bottom: 10px;"><strong>Targets</strong> : This field displays the target group associated with the user. It is a dropdown menu where you can select the target group. </li>
         <li style="margin-bottom: 10px;"><strong>Date and Time Added</strong> : This field displays the date and time when the user was added. It is disabled and cannot be modified.</li>
         <li style="margin-bottom: 10px;"><strong>Password</strong> : This field provides a button to change the user's password. Clicking on the button will redirect you to a page where you can change the password for the user.</li>

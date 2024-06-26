@@ -64,13 +64,15 @@ class DashboardController extends Controller
         $outletName = 'undefined';
         $visitId = 'undefined';
         $checkoutTime = 'undefined';
+        $outletLat = 'undefined';
+        $outletLong = 'undefined';
         }
 
-        $user=User::where('id',$userId)->get();
+        $user=User::inOrganization()->where('id',$userId)->get();
         if($user[0]['target_group_id']==0){
             $currentTargets=0;
         }else{
-            $user=User::where('id',$userId)->with('targetgroup')->get();
+            $user=User::inOrganization()->where('id',$userId)->with('targetgroup')->get();
             $currentTargets=$user[0]['targetgroup']['amount'];
         }
 

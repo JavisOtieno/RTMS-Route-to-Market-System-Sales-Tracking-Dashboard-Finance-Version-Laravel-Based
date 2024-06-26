@@ -26,4 +26,12 @@ class FeedbackController extends Controller
         $feedback = Feedback::find($id);
         return view('edit-feedback',['feedback'=>$feedback]);
     }
+    // public function showEditFeedback(Request $request){
+    //     $incomingFields=$request->validate([
+    //         'id'=>'required|numeric|digits_between:1,11'
+    //     ]);
+    //     $feedback = Feedback::find($incomingFields['id']);
+    //     return view('edit-feedback',['feedback'=>$feedback]);
+    // }
+
 }

@@ -73,6 +73,14 @@
                                         <td>{{number_format($product['stock'])}}</td>
                                         <td><a type="button" href="/editproduct/{{$product['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
                                         </td>
+                                        {{-- <td>
+                                            <form method="POST" action="{{ route('editproduct') }}">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{ $product->id }}">
+                                                <!-- Other form fields -->
+                                                <button type="submit" class="btn btn-info">View/Edit</button>
+                                            </form>
+                                        </td> --}}
                                         <td><a type="button" onclick="deleteItem({{$product['id']}},'{{$product['name']}}','{{$product['sku']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
                                         </td>
                                         <!--<a class="modal-effect btn btn-primary-light d-grid mb-3" data-bs-effect="effect-scale" >Scale</a>-->

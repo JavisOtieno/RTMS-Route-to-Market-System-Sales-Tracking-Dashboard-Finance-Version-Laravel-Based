@@ -42,7 +42,7 @@
         <div class="card-body">
             <!--<p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p>-->
             <div class="table-responsive">
-                <table id="responsive-datatable" class="table border text-nowrap text-md-nowrap table-striped mb-0">
+                <table id="responsive-datatable" class="table table-bordered text-nowrap border-bottom">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -68,6 +68,14 @@
 <td>{{date('d-M-Y H:i', strtotime($competitor['created_at']))}}</td>
 <td><a type="button" href="/competitiveanalysis/{{$competitor['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View</a>
 </td>
+{{-- <td>
+    <form method="POST" action="{{ route('editcompetitiveanalysis') }}">
+        @csrf
+        <input type="hidden" name="id" value="{{ $competitor->id }}">
+        <!-- Other form fields -->
+        <button type="submit" class="btn btn-info">View</button>
+    </form>
+</td> --}}
 <td><a type="button" onclick="deleteItemDefault({{$competitor['id']}},'{{$competitor['outlet']['name']}}','{{$competitor['user']['name']}}','competitoranalysis')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
 
 </tr>

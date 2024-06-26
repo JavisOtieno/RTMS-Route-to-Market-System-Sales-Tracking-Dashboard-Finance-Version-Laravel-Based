@@ -78,11 +78,11 @@
                                                         Login
                                                 </button>
                                             </div>
-                                            @if($usercount == 0)
-                                            <div class="text-center pt-3">
+                                            {{-- @if($usercount == 0) --}}
+                                            {{-- <div class="text-center pt-3">
                                                 <p class="text-dark mb-0">Initiate first admin signup?<a href="/signup" class="text-primary ms-1">Sign Up</a></p>
-                                            </div>
-                                            @endif
+                                            </div> --}}
+                                            {{-- @endif --}}
                                             
                                             <!--
                                             <label class="login-social-icon"><span>Login with Social</span></label>

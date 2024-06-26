@@ -89,6 +89,13 @@ class OutletController extends Controller
         $outlet = Outlet::find($id);
         return view('edit-outlet',compact('outlet'));
     }
+    // public function showEditOutlet(Request $request){
+    //     $incomingFields=$request->validate([
+    //         'id'=>'required|numeric|digits_between:1,11'
+    //     ]);
+    //     $outlet = Outlet::find($incomingFields['id']);
+    //     return view('edit-outlet',compact('outlet'));
+    // }
     public function saveEditOutlet($id, Request $request){
         $organization_id=auth()->user()->organization_id;
         $incomingFields=$request->validate([
