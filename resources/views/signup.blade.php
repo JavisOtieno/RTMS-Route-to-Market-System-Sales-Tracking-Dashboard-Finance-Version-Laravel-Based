@@ -42,13 +42,13 @@
                                 <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
                                     <i class="zmdi zmdi-phone" aria-hidden="true"></i>
                                 </a>
-                                <input class="input100 border-start-0 ms-0 form-control" value="{{old('organizationPhone')}}" name="organizationPhone" type="text" placeholder="Org Phone" autocomplete="organizationphone">
+                                <input class="input100 border-start-0 ms-0 form-control" value="{{old('organizationPhone')}}" name="organizationPhone" type="text" placeholder="Organization Phone" autocomplete="organizationphone">
                             </div>
                             <div class="wrap-input100 validate-input input-group" data-bs-validate="Valid email is required: ">
                                 <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
                                     <i class="zmdi zmdi-email" aria-hidden="true"></i>
                                 </a>
-                                <input class="input100 border-start-0 ms-0 form-control" value="{{old('organizationEmail')}}" name="organizationEmail" type="text" placeholder="Org Email" autocomplete="organizationemail">
+                                <input class="input100 border-start-0 ms-0 form-control" value="{{old('organizationEmail')}}" name="organizationEmail" type="text" placeholder="Organization Email" autocomplete="organizationemail">
                             </div>
                             {{-- <div class="wrap-input100 validate-input input-group" data-bs-validate="Valid phone is required: ">
                                 <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
@@ -60,13 +60,13 @@
                                 <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
                                     <i class="mdi mdi-file-document" aria-hidden="true"></i>
                                 </a>
-                                <input class="input100 border-start-0 ms-0 form-control" value="{{old('organizationRegNo')}}" name="organizationRegNo" type="text" placeholder="Org Reg Number" autocomplete="organizationregno">
+                                <input class="input100 border-start-0 ms-0 form-control" value="{{old('organizationRegNo')}}" name="organizationRegNo" type="text" placeholder="Organization Reg Number" autocomplete="organizationregno">
                             </div>
                             <div class="wrap-input100 validate-input input-group" data-bs-validate="Valid KRA Pin is required">
                                 <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
                                     <i class="mdi mdi-file-document" aria-hidden="true"></i>
                                 </a>
-                                <input class="input100 border-start-0 ms-0 form-control" value="{{old('organizationKRAPin')}}" name="organizationKRAPin" type="text" placeholder="Org KRA Pin" autocomplete="organizationkrapin">
+                                <input class="input100 border-start-0 ms-0 form-control" value="{{old('organizationKRAPin')}}" name="organizationKRAPin" type="text" placeholder="Organization KRA Pin" autocomplete="organizationkrapin">
                             </div>
                             <div class="wrap-input100 validate-input input-group" data-bs-validate="Valid email is required: ex@abc.xyz">
                                 <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
