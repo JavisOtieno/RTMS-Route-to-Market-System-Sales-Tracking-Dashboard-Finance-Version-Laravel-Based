@@ -15,7 +15,7 @@ class OutletController extends Controller
     public function addoutlet(Request $request){
  
         $incomingFields=$request->validate([
-            'userId'=>'required|numeric|digits_between:1,11',
+            'userId'=>'required|numeric|digits_between:1,20|exists:users,id',
             'outletName'=>'required|string|max:255',
             'contactPersonName'=>'required|string|max:255',
             'phone'=>['required','string','min:10','max:255', new PhoneNumber],

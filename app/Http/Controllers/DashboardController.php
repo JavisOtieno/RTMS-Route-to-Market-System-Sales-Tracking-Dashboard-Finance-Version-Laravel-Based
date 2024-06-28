@@ -85,6 +85,12 @@ class DashboardController extends Controller
         ->orderBy('count', 'desc')
         ->take(5)->get();
 
+        $recentVisits=Visit::with('user','outlet')
+        ->orderBy('id', 'desc')
+        ->take(200)->get();
+
+        // return $recentVisits;
+
         //$topOutlets = Outlet::withCount('sales')->orderBy('sales_count', 'desc')->take(5)->get();
 
         $salesPerMonth= array();
@@ -142,7 +148,7 @@ class DashboardController extends Controller
         'visitsWeekCount','salesWeekCount','visitsNumberCount','productsNumberCount',
         'feedbackCount','outletsGraphCount','productsGraphCount','outletsWeekCount',
         'productsWeekCount','months','topOutlets','topSellers','topSellerUserNames',
-        'topSellerSalesCount','topProducts'
+        'topSellerSalesCount','topProducts','recentVisits'
     ));
 
     }

@@ -68,9 +68,9 @@ class SaleController extends Controller
         //     'time'=>'required',
         //     'lat'=>'required',
         //     'long'=>'required'
-            'userId'=>'required|numeric|digits_between:1,11',
-            'outletId'=>'required|numeric|digits_between:1,11',
-            'visitId'=>'required|numeric|digits_between:1,11',
+            'userId'=>'required|numeric|digits_between:1,20|exists:users,id',
+            'outletId'=>'required|numeric|digits_between:1,11||exists:outlets,id',
+            'visitId'=>'required|numeric|digits_between:1,11||exists:visits,id',
             'products'=>'required'
         ]);
 
@@ -98,10 +98,10 @@ class SaleController extends Controller
 
         
         //return $incomingFields['products'];
-        $posAuditArray= explode('_',$incomingFields['products']);
+        $saleArray= explode('_',$incomingFields['products']);
         //return json_encode($posAuditArray);
 
-        foreach ($posAuditArray as $productPiecesString) {
+        foreach ($saleArray as $productPiecesString) {
             # code...
             $productPiecesSplit=explode('-',$productPiecesString);
             //return $productPiecesSplit;

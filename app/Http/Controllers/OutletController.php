@@ -29,7 +29,7 @@ class OutletController extends Controller
         $organization_id=auth()->user()->organization_id;
         
         $incomingFields=$request->validate([
-            'userId'=>'required|numeric|digits_between:1,11',
+            'userId'=>'required|numeric|digits_between:1,20|exists:users,id',
             'name'=>'required|string|max:255',
             'contactName'=>'required|string|max:255',
             'phone'=>['required','string','min:10','max:255', new PhoneNumber],
@@ -99,7 +99,7 @@ class OutletController extends Controller
     public function saveEditOutlet($id, Request $request){
         $organization_id=auth()->user()->organization_id;
         $incomingFields=$request->validate([
-            'userId'=>'required|numeric|digits_between:1,11',
+            'userId'=>'required|numeric|digits_between:1,20|exists:users,id',
             'name'=>'required|string|max:255',
             'contactPersonName'=>'required|string|max:255',
             'phone'=>['required','min:10','string','max:255', new PhoneNumber],

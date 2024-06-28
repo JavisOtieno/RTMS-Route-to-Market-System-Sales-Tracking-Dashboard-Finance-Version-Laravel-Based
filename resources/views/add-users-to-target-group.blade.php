@@ -72,12 +72,12 @@
                                         <th>ID</th>
                                         {{-- <th>Select - Seller Name</th> --}}
                                         <th>Sellers
-                                            <div class="form-group" style="margin-top:10px;" >
+                                            {{-- <div class="form-group" style="margin-top:10px;" >
                                                 <label class="custom-control custom-checkbox mb-0" >
                                             <input type="checkbox" id="selectallusers" class="custom-control-input" name="users[]" value="">
                                                         <span class="custom-control-label"> Select All</span>
                                                 </label>
-                                            </div>
+                                            </div> --}}
                                         </th>
                                         {{-- <th>Name</th> --}}
                                         <th>Targets</th>

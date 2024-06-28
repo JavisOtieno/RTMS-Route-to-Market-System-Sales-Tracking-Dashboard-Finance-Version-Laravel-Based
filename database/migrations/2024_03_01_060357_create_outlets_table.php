@@ -13,14 +13,18 @@ return new class extends Migration
     {
         Schema::create('outlets', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
+            // $table->integer('user_id');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('name');
             $table->string('contact_person_name');
             $table->string('phone');
             $table->string('lat');
             $table->string('long');
             $table->string('image');
-            $table->integer('organization_id');
+            // $table->integer('organization_id');
+            $table->unsignedBigInteger('organization_id');
+            $table->foreign('organization_id')->references('id')->on('organizations');
             $table->softDeletes();
             $table->timestamps();
             

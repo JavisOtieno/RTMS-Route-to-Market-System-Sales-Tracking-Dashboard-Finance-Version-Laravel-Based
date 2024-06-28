@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('amount');
-            $table->integer('organization_id');
+            //$table->integer('organization_id');
+            $table->unsignedBigInteger('organization_id');
+            $table->foreign('organization_id')->references('id')->on('organizations');
             $table->softDeletes();
             $table->timestamps();
         });

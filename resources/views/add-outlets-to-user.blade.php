@@ -103,12 +103,12 @@
                                         <th>ID</th>
                                         {{-- <th>Select - Outlet Name</th> --}}
                                         <th>Outlets
-                                            <div class="form-group" style="margin-top:10px;" >
+                                            {{-- <div class="form-group" style="margin-top:10px;" >
                                                 <label class="custom-control custom-checkbox mb-0" >
                                             <input type="checkbox" id="selectalloutlets" class="custom-control-input" name="users[]" value="">
                                                         <span class="custom-control-label"> Select All</span>
                                                 </label>
-                                            </div>
+                                            </div> --}}
                                         </th>
                                         <th>Current Seller</th>
                                         {{-- <th>Name</th> --}}
@@ -128,7 +128,7 @@
                                             <td>
                                                 <div class="form-group" >
                                                     <label class="custom-control custom-checkbox mb-0" >
-                                                        <input style="margin: 0 auto" type="checkbox" id="outlets" class="custom-control-input" name="outlets[]" value="{{$outlet['id']}}">
+                                                        <input style="margin: 0 auto" type="checkbox"  class="custom-control-input" name="outlets[]" value="{{$outlet['id']}}">
                                                         <span class="custom-control-label"> {{$outlet['name']}}</span>
                                                     </label>
                                                 </div>

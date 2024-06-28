@@ -43,7 +43,7 @@ class UserController extends Controller
         //return $request;
        
         $incomingFields=$request->validate([
-            'target_group_id'=>'required|numeric|digits_between:1,11'
+            'target_group_id'=>'required|numeric|digits_between:1,20'
         ]);
     
     //    $selectedUsers = $request->input('users', []);
@@ -116,7 +116,7 @@ class UserController extends Controller
             'email'=>'required|email|unique:users|max:255',
             //'password'=>'required|string|max:255|min:8|confirmed',
             'password' => ['required','string','max:255','min:8','confirmed',Password::min(8)->letters()->numbers()],
-            'target_group_id'=>'required|numeric|digits_between:1,11'
+            'target_group_id'=>'required|numeric|digits_between:1,20'
         ]);
         //return $incomingFields;
         
@@ -175,7 +175,7 @@ class UserController extends Controller
             // 'email'=>'required|email|max:255',
             // 'email'=>'required|email|unique:users|max:255',
             'email' => 'required|email|max:255|unique:users,email,' . $id,
-            'target_group_id'=>'required|numeric|digits_between:1,11'
+            'target_group_id'=>'required|numeric|digits_between:1,20'
         ]);
 
         $incomingFields['name']=strip_tags($incomingFields['name']);

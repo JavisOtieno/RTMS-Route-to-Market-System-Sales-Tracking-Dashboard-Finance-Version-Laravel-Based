@@ -20,7 +20,9 @@ return new class extends Migration
             $table->string('price');
             $table->integer('stock');
             $table->string('image');
-            $table->integer('organization_id');
+           // $table->integer('organization_id');
+            $table->unsignedBigInteger('organization_id');
+            $table->foreign('organization_id')->references('id')->on('organizations');
             $table->softDeletes();
             $table->timestamps();
         });

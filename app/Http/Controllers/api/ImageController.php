@@ -17,9 +17,20 @@ class ImageController extends Controller
             $request->validate([
                 'base64' => 'required|string',
                 'ImageName' => 'required|string|max:255',
-                'outletPOSAuditId' => 'required|numeric|digits_between:1,11',
+                'outletPOSAuditId' => 'required|numeric|digits_between:1,20',
                 'folder' => 'required|string|max:255'
             ]);
+            $imageName=$request->input('ImageName');
+            $folder=$request->input('folder');
+            if($folder=="posaudits"){
+                $request->validate([
+                    'outletPOSAuditId' => 'exists:posaudits,id',
+                ]);
+            }else{
+                $request->validate([
+                    'outletPOSAuditId' => 'exists:oulets,id',
+                ]);
+            }
     
             // Decode the base64 image string
             $base64Image = $request->input('base64');
@@ -30,8 +41,7 @@ class ImageController extends Controller
     
             // Store the image file
             //$imageName = time() . '.jpg'; // You can generate a unique name here
-            $imageName=$request->input('ImageName');
-            $folder=$request->input('folder');
+            
             $imagePath=$folder."/".$imageName;
             Storage::disk('public')->put($imagePath, $imageData);
     

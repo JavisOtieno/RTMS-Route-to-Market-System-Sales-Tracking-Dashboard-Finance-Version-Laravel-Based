@@ -13,8 +13,12 @@ return new class extends Migration
     {
         Schema::create('posaudit_items', function (Blueprint $table) {
             $table->id();
-            $table->string('posaudit_id');
-            $table->string('product_id');
+            //$table->string('posaudit_id');
+            $table->unsignedBigInteger('posaudit_id'); 
+            $table->foreign('posaudit_id')->references('id')->on('posaudits')->onDelete('cascade');
+            // $table->string('product_id');
+            $table->unsignedBigInteger('product_id'); 
+            $table->foreign('product_id')->references('id')->on('products');
             $table->string('pieces');
             // $table->integer('organization_id');
             $table->softDeletes();

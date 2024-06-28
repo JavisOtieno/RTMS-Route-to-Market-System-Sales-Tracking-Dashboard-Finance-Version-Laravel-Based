@@ -80,6 +80,7 @@ $(function(e) {
 
         // Handle 'select all' checkbox
         $('#selectalloutlets').on('click', function() {
+            alert('clicked');
             var rows = table2.rows({ 'search': 'applied' }).nodes();
             $('input[type="checkbox"]', rows).prop('checked', this.checked);
         });

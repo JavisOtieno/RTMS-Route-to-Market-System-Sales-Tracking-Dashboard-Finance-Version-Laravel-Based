@@ -13,11 +13,19 @@ return new class extends Migration
     {
         Schema::create('feedback', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->integer('outlet_id');
-            $table->integer('visit_id');
+            // $table->integer('user_id');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            //$table->integer('outlet_id');
+            $table->unsignedBigInteger('outlet_id'); 
+            $table->foreign('outlet_id')->references('id')->on('outlets');
+            //$table->integer('visit_id');
+            $table->unsignedBigInteger('visit_id'); 
+            $table->foreign('visit_id')->references('id')->on('visits')->onDelete('cascade');
             $table->longText('feedback');
-            $table->integer('organization_id');
+            // $table->integer('organization_id');
+            $table->unsignedBigInteger('organization_id');
+            $table->foreign('organization_id')->references('id')->on('organizations');
             $table->softDeletes();
             $table->timestamps();
         });

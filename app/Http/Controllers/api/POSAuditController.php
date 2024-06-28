@@ -16,9 +16,9 @@ class POSAuditController extends Controller
        
         // $incomingFields=
         $request->validate([
-            'userId'=>'required|numeric|digits_between:1,11',
-            'outletId'=>'required|numeric|digits_between:1,11',
-            'visitId'=>'required|numeric|digits_between:1,11',
+            'userId'=>'required|numeric|digits_between:1,20|exists:users,id',
+            'outletId'=>'required|numeric|digits_between:1,20|exists:outlets,id',
+            'visitId'=>'required|numeric|digits_between:1,20|exists:visits,id',
             'products'=>'required'
         //     'userId'=>'required',
         //     'time'=>'required',
