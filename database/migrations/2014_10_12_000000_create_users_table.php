@@ -18,10 +18,10 @@ return new class extends Migration
             $table->string('usertype');
             // $table->integer('target_group_id');
             $table->unsignedBigInteger('target_group_id');
-            $table->foreign('target_group_id')->references('id')->on('target_groups');
+            //$table->foreign('target_group_id')->references('id')->on('target_groups');
             // $table->integer('organization_id');
             $table->unsignedBigInteger('organization_id');
-            $table->foreign('organization_id')->references('id')->on('organizations');
+            //$table->foreign('organization_id')->references('id')->on('organizations');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
