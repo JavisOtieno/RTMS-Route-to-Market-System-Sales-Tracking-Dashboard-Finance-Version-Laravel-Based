@@ -13,7 +13,10 @@ class FeedbackController extends Controller
         return response()->json(['feedback'=>$feedback]);
     }
     public function index() {
-        $feedback = Feedback::all();
+        //$feedback = Feedback::all();
+        $feedback = Feedback::with(['user' => function ($query) {
+            $query->withTrashed();
+        }])->get();
         return view('feedback', ['feedback'=>$feedback]);
     }
 
@@ -23,7 +26,10 @@ class FeedbackController extends Controller
         return redirect('/feedback');
     }
     public function showEditFeedback($id){
-        $feedback = Feedback::find($id);
+        //$feedback = Feedback::find($id);
+        $feedback = Feedback::with(['user' => function ($query) {
+            $query->withTrashed();
+        }])->get()->find($id);
         return view('edit-feedback',['feedback'=>$feedback]);
     }
     // public function showEditFeedback(Request $request){

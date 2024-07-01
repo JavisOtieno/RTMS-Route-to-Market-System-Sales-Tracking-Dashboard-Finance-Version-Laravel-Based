@@ -61,7 +61,8 @@
                         
 <tr>
 <td>{{$competitor['id']}}</td>
-<td>{{$competitor['user']['name']}}</td>
+{{-- <td>{{$competitor['user']['name']}}</td> --}}
+<td>{{$competitor['user'] ? $competitor['user']['name']  . ($competitor['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}
 <td>{{$competitor['outlet']['name']}}</td>
 <td  style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{$competitor['brand_visibility']}}</td>
 <td  style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{$competitor['pricing']}}</td>

@@ -74,7 +74,8 @@
                             @foreach($clockouts as $clockout)
                             <tr>
                             <td>{{$clockout['id']}}</td>
-                            <td>{{$clockout['user']['name']}}</td>
+                            <td>{{ $clockout['user'] ? $clockout['user']['name']  . ($clockout['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}
+                            </td>
                             <td>{{date('d-M-Y', strtotime($clockout['created_at']))}}</td>
                             <td>{{date('H:i', strtotime($clockout['created_at']))}}</td>
                             <td>{{$clockout['lat']}}</td>

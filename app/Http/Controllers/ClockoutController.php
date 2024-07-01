@@ -14,12 +14,18 @@ class ClockoutController extends Controller
             return response()->json(['clockouts'=>$clockouts]);
         }
         public function index() {
-            $clockouts = Clockout::all();
+            //$clockouts = Clockout::all();
+            $clockouts = Clockout::with(['user' => function ($query) {
+                $query->withTrashed();
+            }])->get();
             return view('clockouts', ['clockouts'=>$clockouts]);
         }
 
         public function showEditClockout($id){
-            $clockout = Clockout::find($id);
+            //$clockout = Clockout::find($id);
+            $clockout = Clockout::with(['user' => function ($query) {
+                $query->withTrashed();
+            }])->get()->find($id);
             return view('edit-clockout',['clockout'=>$clockout]);
         }
 

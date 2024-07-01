@@ -78,7 +78,7 @@
                                         @foreach($visits as $visit)
                                         <tr>
                                         <td>{{$visit['id']}}</td>
-                                        <td>{{$visit['user']['name']}}</td>
+                                        <td>{{ $visit['user'] ? $visit['user']['name']  . ($visit['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}</td>
                                         <td>{{$visit['outlet']['name']}}</td>
                                         <td>{{date('d-M-Y', strtotime($visit['created_at']))}}</td>
                                         <td>{{date('H:i', strtotime($visit['created_at']))}}</td>

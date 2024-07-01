@@ -60,7 +60,8 @@
                         @foreach($posaudits as $posaudit)
 <tr>
 <td>{{$posaudit['id']}}</td>
-<td>{{$posaudit['user']['name']}}</td>
+{{-- <td>{{$posaudit['user']['name']}}</td> --}}
+<td>{{ $posaudit['user'] ? $posaudit['user']['name']  . ($posaudit['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}
 <td>{{$posaudit['outlet']['name']}}</td>
 <?php $posaudititems="";$i=1;?>
 @foreach($posaudit['posaudititems'] as $posaudititem)

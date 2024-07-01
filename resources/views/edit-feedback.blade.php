@@ -52,7 +52,10 @@
 
                             <div class="form-group">
                                 <label for="userId" class="form-label">Seller Name</label>
-                                <input readonly name="sellerName" class="form-control" name="sellerName" id="sellerName" placeholder="Seller Name" value="{{$feedback['user']['name']}}" autocomplete="sellerName">
+                                <input readonly name="sellerName" class="form-control" name="sellerName" id="sellerName" placeholder="Seller Name" 
+                                {{-- value="{{$feedback['user']['name']}}" --}}
+                                value="{{ $feedback['user'] ? $feedback['user']['name']  . ($feedback['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}" 
+                                 autocomplete="sellerName">
                             </div>
                             <div class="form-group">
                                 

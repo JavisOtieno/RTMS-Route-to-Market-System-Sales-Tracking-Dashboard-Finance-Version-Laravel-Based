@@ -59,7 +59,7 @@
                         @foreach($feedback as $feed)
 <tr>
 <td>{{$feed['id']}}</td>
-<td>{{$feed['user']['name']}}</td>
+<td>{{$feed['user'] ? $feed['user']['name']  . ($feed['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}
 <td>{{$feed['outlet']['name']}}</td>
 <td style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{$feed['feedback']}}</td>
 <td>{{date('d-M-Y H:i', strtotime($feed['created_at']))}}</td>

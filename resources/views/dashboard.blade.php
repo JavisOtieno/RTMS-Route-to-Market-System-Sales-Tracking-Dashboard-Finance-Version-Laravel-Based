@@ -207,6 +207,8 @@
                             {{-- <td>{{$sale['id']}}</td> --}}
                             <td>{{$sale['outlet']['name']}}</td>
                             <td>{{$sale['user']['name']}}</td>
+                            <td>{{ $sale['user'] ? $sale['user']['name']  . ($sale['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}</td>
+
                             {{-- <td>{{$sale['pieces']}}</td> --}}
                             <td>{{'KSh. '.number_format($sale['value'])}}</td>
                             </tr>
@@ -562,19 +564,20 @@
                 // Extend the bounds to include this marker's position
                 bounds.extend(myPosition);
 
-                var infoContent = "<div><h3>"+visit['outlet']['name']+"</h3>"+
-                    "<p>Latitude: "+lat1+"</p>"+
-                    "<p>Longitude: "+long1+"</p>"+
-                    "<p>Seller: "+visit['user']['name']+"</p>"+
-                "</div>";
+                // var infoContent = "<div><h3>"+visit['outlet']['name']+"</h3>"+
+                //     "<p>Latitude: "+lat1+"</p>"+
+                //     "<p>Longitude: "+long1+"</p>"+
+                //     "<p>Seller: "+visit['user']['name']+"</p>"+
+                // "</div>";
 
                 // Create an InfoWindow
                 // var infoWindow = new google.maps.InfoWindow({
                 //     content: infoContent
                 // });
+                //
                 var infowindow = new google.maps.InfoWindow({
                     content: "<div><h3>"+visit['outlet']['name']+"</h3>"+
-                        "<p>Seller: "+visit['user']['name']+"</p>"+
+                        "<p>Seller: "+( visit['user']===null ? 'Deleted User': visit['user']['name'])+"</p>"+
                         "<p>Latitude: "+lat1+"</p>"+
                         "<p>Longitude: "+long1+"</p>"+
                         "</div>"

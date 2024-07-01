@@ -15,8 +15,16 @@ class SaleController extends Controller
     //
 
     public function index() {
-        $sales = Sale::with('user','visit','outlet','saleitems.product')->orderBy('id', 'DESC')->get();
+        //$sales = Sale::with('user','visit','outlet','saleitems.product')->orderBy('id', 'DESC')->get();
         //dd($sales);
+        $sales = Sale::with(['user' => function ($query) {
+            $query->withTrashed();
+        }, 'visit','outlet','saleitems' => function ($query) {
+        $query->with(['product' => function ($query) {
+            $query->withTrashed();
+        }]);
+    }
+    ])->get();
         return view('sales', ['sales'=>$sales]);
     }
 
@@ -86,7 +94,16 @@ class SaleController extends Controller
     }
 
     public function showEditSale($id){
-        $sale = Sale::find($id);
+        $sale = Sale::with(['user' => function ($query) {
+            $query->withTrashed();
+        },
+        'saleitems' => function ($query) {
+        $query->with(['product' => function ($query) {
+            $query->withTrashed();
+        }]);
+        }
+        ])->get()->find($id);
+        //$sale = Sale::find($id);
         return view('edit-sale',['sale'=>$sale]);
     }
 

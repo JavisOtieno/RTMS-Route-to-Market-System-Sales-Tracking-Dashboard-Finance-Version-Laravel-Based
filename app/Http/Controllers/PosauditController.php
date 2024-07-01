@@ -11,7 +11,10 @@ class PosauditController extends Controller
 
     public function index() {
         //$posaudits = Posaudit::all();
-        $posaudits = Posaudit::with('user','outlet','visit','posaudititems.product')->get();
+        //$posaudits = Posaudit::with('user','outlet','visit','posaudititems.product')->get();
+        $posaudits = Posaudit::with(['user' => function ($query) {
+            $query->withTrashed();
+        }, 'visit','outlet','posaudititems.product'])->get();
         return view('posaudits', ['posaudits'=>$posaudits]);
     }
 
@@ -22,7 +25,10 @@ class PosauditController extends Controller
     }
 
     public function showEditPOSAudit($id){
-        $posaudit = Posaudit::find($id);
+        //$posaudit = Posaudit::find($id);
+        $posaudit = Posaudit::with(['user' => function ($query) {
+            $query->withTrashed();
+        }])->get()->find($id);
         return view('edit-posaudit',['posaudit'=>$posaudit]);
     }
 

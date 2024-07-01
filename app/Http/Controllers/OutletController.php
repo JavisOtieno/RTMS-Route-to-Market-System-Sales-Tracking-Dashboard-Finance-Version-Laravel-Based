@@ -12,7 +12,10 @@ class OutletController extends Controller
     //
 
     public function index() {
-        $outlets = Outlet::all();
+        // $outlets = Outlet::all();
+        $outlets = Outlet::with(['user' => function ($query) {
+            $query->withTrashed();
+        }])->get();
         return view('outlets', ['outlets'=>$outlets]);
     }
     public function deleteOutlet($id){
@@ -21,7 +24,7 @@ class OutletController extends Controller
         return redirect('/outlets');
     }
     public function addOutlet() {
-        $users = User::inOrganization()->where('usertype','sales')->get();
+        $users = User::inOrganization()->where('usertype','seller')->get();
         return view('add-outlet',['users'=>$users]);
     }
     public function saveOutlet(Request $request){
@@ -86,7 +89,9 @@ class OutletController extends Controller
         
     }
     public function showEditOutlet($id){
-        $outlet = Outlet::find($id);
+        $outlet = Outlet::with(['user' => function ($query) {
+            $query->withTrashed();
+        }])->get()->find($id);
         return view('edit-outlet',compact('outlet'));
     }
     // public function showEditOutlet(Request $request){
@@ -126,7 +131,10 @@ class OutletController extends Controller
     }
 
     public function showAddOutletsToUsers() {
-        $outlets = Outlet::all();
+        //$outlets = Outlet::all();
+        $outlets = Outlet::with(['user' => function ($query) {
+            $query->withTrashed();
+        }])->get();
         $users = User::inOrganization()->where('usertype','sales')->get();
         //dd($sales);
         //return 'heh';

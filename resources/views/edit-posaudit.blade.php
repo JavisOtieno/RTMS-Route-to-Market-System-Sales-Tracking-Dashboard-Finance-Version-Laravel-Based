@@ -52,7 +52,9 @@
 
                             <div class="form-group">
                                 <label for="userId" class="form-label">Seller Name</label>
-                                <input readonly name="sellerName" class="form-control" name="sellerName" id="sellerName" placeholder="Seller Name" value="{{$posaudit['user']['name']}}" autocomplete="sellerName">
+                                <input readonly name="sellerName" class="form-control" name="sellerName" id="sellerName" placeholder="Seller Name" 
+                                value="{{ $posaudit['user'] ? $posaudit['user']['name']  . ($posaudit['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}" 
+                                autocomplete="sellerName">
                             </div>
                             <div class="form-group">
                                 

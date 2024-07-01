@@ -52,7 +52,10 @@
 
                             <div class="form-group">
                                 <label for="userId" class="form-label">Seller Name</label>
-                                <input readonly name="sellerName" class="form-control" name="sellerName" id="sellerName" placeholder="Seller Name" value="{{$clockout['user']['name']}}" autocomplete="sellerName">
+                                <input readonly name="sellerName" class="form-control" name="sellerName" id="sellerName" placeholder="Seller Name" 
+                                {{-- value="{{$clockout['user']['name']}}" --}}
+                                value="{{ $clockout['user'] ? $clockout['user']['name']  . ($clockout['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}" 
+                                 autocomplete="sellerName">
                             </div>
 
                             <div class="form-group">

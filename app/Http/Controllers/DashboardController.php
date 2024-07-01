@@ -28,7 +28,9 @@ class DashboardController extends Controller
         $outletsCount = Outlet::all()->count();
         $posauditsCount = Posaudit::all()->count();
         $competitorsCount = Competitor::all()->count();
-        $sales = Sale::orderBy('id', 'desc')->take(5)->get();
+        $sales = Sale::with(['user' => function ($query) {
+            $query->withTrashed();
+        }])->orderBy('id', 'desc')->take(5)->get();
         $outlets = Outlet::orderBy('id', 'desc')->take(5)->get();
         $month=Carbon::now()->format('M');
 
@@ -60,8 +62,10 @@ class DashboardController extends Controller
         ->take(10)->get();
 
         foreach($topSellersGraph as $topSeller){
+
             
-            $sellerName=$topSeller['user']['name'];
+            // $sellerName=$topSeller['user']['name'];
+            $sellerName=$topSeller['user'] ? $topSeller['user']['id']  . ($topSeller['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User';
             $sellerNames=explode(' ',$sellerName);
             if(count($sellerNames)==1){
                 array_push($topSellerUserNames,$sellerNames[0]);

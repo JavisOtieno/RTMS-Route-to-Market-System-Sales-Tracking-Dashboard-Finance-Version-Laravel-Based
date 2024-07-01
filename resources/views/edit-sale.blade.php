@@ -52,7 +52,10 @@
 
                             <div class="form-group">
                                 <label for="userId" class="form-label">Seller Name</label>
-                                <input readonly name="sellerName" class="form-control" name="sellerName" id="sellerName" placeholder="Seller Name" value="{{$sale['user']['name']}}" autocomplete="sellerName">
+                                <input readonly name="sellerName" class="form-control" name="sellerName" id="sellerName" placeholder="Seller Name" 
+                                {{-- value="{{$sale['user']['name']}}"  --}}
+                                value="{{ $sale['user'] ? $sale['user']['name']  . ($sale['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}" 
+                                autocomplete="sellerName">
                             </div>
                             <div class="form-group">
                                 
@@ -85,7 +88,11 @@
                                 <!--<input readonly type="text" class="form-control" name="productNames" id="productNames" placeholder="Products" value="{{$sale['products']}}" autocomplete="products">-->
                                 @foreach($sale['saleitems'] as $saleitem)
                                 <div class=" row mb-4">
-                                    <label style="font-weight:400;" for="productPieces" class="col-md-4 form-label">{{$saleitem['product']['name']}}</label>
+                                    <label style="font-weight:400;" for="productPieces" class="col-md-4 form-label">
+                                        {{-- {{$saleitem['product']['name']}} --}}
+                                        {{ $saleitem['product'] ? $saleitem['product']['name']  . ($saleitem['product']->trashed() ? ' (Deleted Product)' : '') : 'Deleted Product'}}
+
+                                    </label>
                                     <div class="col-md-3">
                                         <input readonly type="text" class="form-control" id="productPieces" placeholder="productPieces" autocomplete="productpieces" value="{{'KSh. '.number_format($saleitem['price'])}}">
                                     </div>

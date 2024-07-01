@@ -135,7 +135,10 @@
                                             </td>
                                         
                                         {{-- <td>{{$user['name']}}</td> --}}
-                                        <td>{{$outlet['user']['name']}}</td>
+                                        <td>
+                                            {{-- {{$outlet['user']['name']}} --}}
+                                            {{ $outlet['user'] ? $outlet['user']['name']  . ($outlet['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}
+                                        </td>
                                         <td>{{$outlet['contact_person_name']}}</td>
                                         <td>{{$outlet['phone']}}</td>
                                         

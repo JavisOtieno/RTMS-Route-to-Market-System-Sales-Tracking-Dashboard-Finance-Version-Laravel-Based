@@ -13,11 +13,18 @@ class ClockinController extends Controller
         return response()->json(['clockins'=>$clockins]);
     }
     public function index() {
-        $clockins = Clockin::all();
+        //$clockins = Clockin::all();
+        $clockins = Clockin::with(['user' => function ($query) {
+            $query->withTrashed();
+        }])->get();
+
         return view('clockins', ['clockins'=>$clockins]);
     }
     public function showEditClockin($id){
-        $clockin = Clockin::find($id);
+        // $clockin = Clockin::find($id);
+        $clockin = Clockin::with(['user' => function ($query) {
+            $query->withTrashed();
+        }])->get()->find($id);
         return view('edit-clockin',['clockin'=>$clockin]);
     }
     // public function showEditClockin(Request $request){

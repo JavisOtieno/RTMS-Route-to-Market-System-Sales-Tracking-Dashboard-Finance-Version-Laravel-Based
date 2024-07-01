@@ -82,13 +82,17 @@
                                         //print_r($sale['saleitems']);
                                         ?>
                                     @foreach($sale['saleitems'] as $saleitem)
-                                        <?php $saleitems=$saleitems.$saleitem['product']['name']." - ".$saleitem['pieces'];
+                                        <?php 
+                                        //$saleitemname=$saleitem['product']['name'];
+                                        $saleitemname=$saleitem['product'] ? $saleitem['product']['name']  . ($saleitem['product']->trashed() ? ' (Deleted Product)' : '') : 'Deleted Product';
+                                        $saleitems=$saleitems.$saleitemname." - ".$saleitem['pieces'];
                                         if($i%2==0){$saleitems.="\n"; }else{$saleitems.="\n"; }$i++;
                                         if($i>2){$saleitems.="...";break;}?>
                                         @endforeach
                                     <tr>                                        
                                         <td>{{$sale['id']}}</td>
-                                        <td>{{$sale['user']['name']}}</td>
+                                        <td>{{ $sale['user'] ? $sale['user']['name']  . ($sale['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}
+                                        </td>
                                         <td>{{$sale['outlet']['name']}}</td>
                                         <td style="white-space: pre-line;">{{$saleitems}}</td>
                                         <td>{{$sale['pieces']}}</td>

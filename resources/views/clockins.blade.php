@@ -74,7 +74,7 @@
                             @foreach($clockins as $clockin)
                             <tr>
                             <td>{{$clockin['id']}}</td>
-                            <td>{{$clockin['user']['name']}}</td>
+                            <td>{{ $clockin['user'] ? $clockin['user']['name']  . ($clockin['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}</td>
                             <td>{{date('d-M-Y', strtotime($clockin['created_at']))}}</td>
                             <td>{{date('H:i', strtotime($clockin['created_at']))}}</td>
                             <td>{{$clockin['lat']}}</td>

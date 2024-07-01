@@ -13,7 +13,10 @@ class CompetitorController extends Controller
         return response()->json(['competitors'=>$competitors]);
     }
     public function index() {
-        $competitors = Competitor::all();
+        //$competitors = Competitor::all();
+        $competitors = Competitor::with(['user' => function ($query) {
+            $query->withTrashed();
+        }])->get();
         return view('competitors', ['competitors'=>$competitors]);
     }
     public function deleteCompetitiveanalysis($id){
@@ -22,7 +25,10 @@ class CompetitorController extends Controller
         return redirect('/competitors');
     }
     public function showEditCompetitiveAnalysis($id){
-        $competitiveanalysis = Competitor::find($id);
+        //$competitiveanalysis = Competitor::find($id);
+        $competitiveanalysis = Competitor::with(['user' => function ($query) {
+            $query->withTrashed();
+        }])->get()->find($id);
         return view('edit-competitiveanalysis',['competitiveanalysis'=>$competitiveanalysis]);
     }
     // public function showEditCompetitiveAnalysis(Request $request){
