@@ -29,7 +29,7 @@ class UserController extends Controller
 
         //return $users;
         //dd($sales);
-        $targetgroups = TargetGroup::all();
+        $targetgroups = TargetGroup::withTrashed();
         return view('sellers', ['users'=>$users, 'targetgroups'=>$targetgroups]);
     }
     public function showAddUsersToTargetGroups() {

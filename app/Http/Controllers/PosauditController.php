@@ -14,7 +14,11 @@ class PosauditController extends Controller
         //$posaudits = Posaudit::with('user','outlet','visit','posaudititems.product')->get();
         $posaudits = Posaudit::with(['user' => function ($query) {
             $query->withTrashed();
-        }, 'visit','outlet','posaudititems.product'])->get();
+        }, 'visit','outlet','posaudititems' => function ($query) {
+        $query->with(['product' => function ($query) {
+            $query->withTrashed();
+        }]);
+    }])->get();
         return view('posaudits', ['posaudits'=>$posaudits]);
     }
 
@@ -28,7 +32,13 @@ class PosauditController extends Controller
         //$posaudit = Posaudit::find($id);
         $posaudit = Posaudit::with(['user' => function ($query) {
             $query->withTrashed();
-        }])->get()->find($id);
+        },
+        'posaudititems' => function ($query) {
+        $query->with(['product' => function ($query) {
+            $query->withTrashed();
+        }]);
+        }
+        ])->get()->find($id);
         return view('edit-posaudit',['posaudit'=>$posaudit]);
     }
 

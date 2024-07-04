@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('visits', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('outlet_id'); 
-            $table->foreign('outlet_id')->references('id')->on('outlets')->onDelete('cascade');
+            $table->foreign('outlet_id')->references('id')->on('outlets');
+            //->onDelete('cascade')
             //$table->foreign('outlet_id')->constrained();
             //$table->integer('user_id');
             $table->unsignedBigInteger('user_id');

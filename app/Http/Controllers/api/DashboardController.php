@@ -69,7 +69,7 @@ class DashboardController extends Controller
         }
 
         $user=User::inOrganization()->where('id',$userId)->get();
-        if($user[0]['target_group_id']==0){
+        if($user[0]['target_group_id']==0 || $user[0]['targetgroup']==null){
             $currentTargets=0;
         }else{
             $user=User::inOrganization()->where('id',$userId)->with('targetgroup')->get();

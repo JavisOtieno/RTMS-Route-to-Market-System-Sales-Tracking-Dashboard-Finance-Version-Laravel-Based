@@ -85,7 +85,7 @@
                                         <td>{{$user['phone']}}</td>
                                         <td>{{$user['email']}}</td>
                                         {{-- <td>{{ucfirst($user['usertype'])}}</td> --}}
-                                        <td>{{$user['targetgroup']==null?"None":'KSh '.number_format($user['targetgroup']['amount'])}}</td>
+                                        <td>{{$user['targetgroup']==null?"None":'KSh '.number_format($user['targetgroup']['amount']) }}</td>
                                         <td>
                                             <a type="button" href="/editseller/{{$user['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
                                             {{-- <form method="POST" action="{{ route('edituser') }}">

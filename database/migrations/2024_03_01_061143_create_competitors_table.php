@@ -21,7 +21,8 @@ return new class extends Migration
             $table->foreign('outlet_id')->references('id')->on('outlets');
             //$table->integer('visit_id');
             $table->unsignedBigInteger('visit_id'); 
-            $table->foreign('visit_id')->references('id')->on('visits')->onDelete('cascade');
+            $table->foreign('visit_id')->references('id')->on('visits');
+            //->onDelete('cascade')
             $table->longText('brand_visibility');
             $table->longText('pricing');
             // $table->integer('organization_id');

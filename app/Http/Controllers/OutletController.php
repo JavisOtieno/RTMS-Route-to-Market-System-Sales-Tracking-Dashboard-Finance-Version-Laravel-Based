@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Visit;
 use App\Models\Outlet;
 use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
@@ -18,11 +19,12 @@ class OutletController extends Controller
         }])->get();
         return view('outlets', ['outlets'=>$outlets]);
     }
-    public function deleteOutlet($id){
-        $outlet = Outlet::find($id);
-        $outlet->delete();
-        return redirect('/outlets');
-    }
+    //delete outlet not allowed
+    // public function deleteOutlet($id){
+    //     $outlet = Outlet::find($id);
+    //     $outlet->delete();
+    //     return redirect('/outlets');
+    // }
     public function addOutlet() {
         $users = User::inOrganization()->where('usertype','seller')->get();
         return view('add-outlet',['users'=>$users]);
@@ -139,6 +141,17 @@ class OutletController extends Controller
         //dd($sales);
         //return 'heh';
         return view('add-outlets-to-user', compact('outlets','users') );
+    }
+
+    public function showOutletsMap(){
+        $outlets = Outlet::with(['user' => function ($query) {
+            $query->withTrashed();
+        }])->get();
+        $recentVisits=Visit::with('user','outlet')
+        ->orderBy('id', 'desc')
+        ->take(200)->get();
+        $users = User::inOrganization()->where('usertype','sales')->get();
+        return view('outletsmap', compact('outlets','users','recentVisits') );
     }
 
     public function pushOutletsToUser(Request $request) {

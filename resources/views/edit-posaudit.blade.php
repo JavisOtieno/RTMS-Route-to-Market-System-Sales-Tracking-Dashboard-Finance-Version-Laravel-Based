@@ -76,7 +76,11 @@
                                 </div>
                                 @foreach($posaudit['posaudititems'] as $posaudititem)
                                 <div class=" row mb-4">
-                                    <label style="font-weight:400;" for="productPieces" class="col-md-6 form-label">{{$posaudititem['product']['name']}}</label>
+                                    <label style="font-weight:400;" for="productPieces" class="col-md-6 form-label">
+                                        {{-- {{$posaudititem['product']['name']}} --}}
+                                        {{ $posaudititem['product'] ? $posaudititem['product']['name']  . ($posaudititem['product']->trashed() ? ' (Deleted Product)' : '') : 'Deleted Product'}}
+
+                                    </label>
                                     <div class="col-md-6">
                                         <input readonly type="text" class="form-control" id="productPieces" placeholder="productPieces" autocomplete="productpieces" value="{{$posaudititem['pieces']}}">
                                     </div>
@@ -133,7 +137,7 @@
                             </div>
                             
                         </div>
-                        <!--<button class="btn btn-primary mt-4 mb-0">Save</button>-->
+                        {{-- <button class="btn btn-primary mt-4 mb-0">Save</button> --}}
                     </form>
                 
             </div>

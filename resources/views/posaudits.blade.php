@@ -65,7 +65,9 @@
 <td>{{$posaudit['outlet']['name']}}</td>
 <?php $posaudititems="";$i=1;?>
 @foreach($posaudit['posaudititems'] as $posaudititem)
-<?php $posaudititems=$posaudititems.$posaudititem['product']['name']." - ".$posaudititem['pieces'];
+<?php 
+$posaudititemname=$posaudititem['product'] ? $posaudititem['product']['name']  . ($posaudititem['product']->trashed() ? ' (Deleted Product)' : '') : 'Deleted Product';
+$posaudititems=$posaudititems.$posaudititemname." - ".$posaudititem['pieces'];
 if($i%2==0){$posaudititems.="\n"; }else{$posaudititems.="\n"; }$i++;
 if($i>2){$posaudititems.="...";break;}
 ?>

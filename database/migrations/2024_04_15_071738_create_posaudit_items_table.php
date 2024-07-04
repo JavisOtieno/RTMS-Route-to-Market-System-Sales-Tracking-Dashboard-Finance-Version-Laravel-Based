@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             //$table->string('posaudit_id');
             $table->unsignedBigInteger('posaudit_id'); 
-            $table->foreign('posaudit_id')->references('id')->on('posaudits')->onDelete('cascade');
+            $table->foreign('posaudit_id')->references('id')->on('posaudits');
+            //->onDelete('cascade')
             // $table->string('product_id');
             $table->unsignedBigInteger('product_id'); 
             $table->foreign('product_id')->references('id')->on('products');

@@ -26,6 +26,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CompetitorController;
 use App\Http\Controllers\TargetGroupController;
 use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\RouteplanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,14 +87,20 @@ Route::get('/editproduct/{id}', [ProductController::class,'showEditProduct']);
 Route::put('/saveeditproduct/{id}',[ProductController::class,'saveEditProduct']);
 
 Route::get('/deleteoutlet/{id}', [OutletController::class,'deleteOutlet']);
-
 Route::get('/add-outlet', [OutletController::class,'addOutlet']);
-
 Route::post('/saveoutlet', [OutletController::class,'saveOutlet']);
-
 Route::get('/editoutlet/{id}',[OutletController::class,'showEditOutlet']);
-
 Route::put('/saveeditoutlet/{id}',[OutletController::class,'saveEditOutlet']);
+Route::get('/showoutletsmap',[OutletController::class,'showOutletsMap']);
+
+Route::get('/routeplans', [RouteplanController::class,'index']);
+Route::get('/createrouteplan', [RouteplanController::class,'createRoutePlan']);
+Route::post('/saverouteplan', [RouteplanController::class,'saveRoutePlan']);
+Route::post('/pushoutletstorouteplan', [RouteplanController::class,'pushOutletsToRoutePlan']);
+Route::get('/pushoutletstorouteplan', [RouteplanController::class,'debugToRoutePlan']);
+Route::get('/deleterouteplan/{id}', [RouteplanController::class,'deleteRoutePlan']);
+Route::get('/routeplan/{id}',[RouteplanController::class,'showEditRoutePlan']);
+
 
 Route::get('/clockins', [ClockinController::class,'index']);
 Route::get('/clockin/{id}',[ClockinController::class,'showEditClockin']);

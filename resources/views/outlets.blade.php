@@ -56,7 +56,7 @@
                             <th>Phone</th>
                             <th>View/Edit</th>
                             <th id="map-column">Map</th>
-                            <th id="delete-column">Delete</th>
+                            {{-- <th id="delete-column">Delete</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -81,8 +81,8 @@
                             <td><a type="button" onclick="embedMap('{{$outlet['lat']}}','{{$outlet['long']}}')"
                                 class="btn btn-success" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#largemodal">Map</a>
                           </td>
-                            <td><a type="button" onclick="deleteItem({{$outlet['id']}},'{{$outlet['name']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
-                            </td>
+                            {{-- <td><a type="button" onclick="deleteItem({{$outlet['id']}},'{{$outlet['name']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
+                            </td> --}}
                             
                             <!--<a class="modal-effect btn btn-primary-light d-grid mb-3" data-bs-effect="effect-scale" >Scale</a>-->
                             </tr>

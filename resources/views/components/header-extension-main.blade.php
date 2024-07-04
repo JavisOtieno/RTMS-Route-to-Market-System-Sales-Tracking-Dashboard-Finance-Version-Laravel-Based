@@ -487,10 +487,44 @@
                         class="side-menu__label">Sales</span></a>
             </li>
             <li class="slide">
-              <a class="side-menu__item has-link" data-bs-toggle="slide" href="/outlets"><i
-                      class="side-menu__icon fe fe-map-pin"></i><span
-                      class="side-menu__label">Outlets</span></a>
+              <a class="side-menu__item has-link" data-bs-toggle="slide" href="/routeplans"><i
+                      class="side-menu__icon fe fe-map"></i><span
+                      class="side-menu__label">Route Plans</span></a>
           </li>
+          <li class="slide">
+            <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
+                    class="side-menu__icon fe fe-map-pin"></i><span
+                    class="side-menu__label">Outlets</span><i
+                    class="angle fe fe-chevron-right"></i>
+            </a>
+            <ul class="slide-menu">
+                <li class="panel sidetab-menu">
+                    <div class="tab-menu-heading p-0 pb-2 border-0">
+                        <div class="tabs-menu ">
+                            <!-- Tabs -->
+                            <ul class="nav panel-tabs">
+                                <li><a href="#side1" class="d-flex active" data-bs-toggle="tab"><i class="fe fe-monitor me-2"></i><p>Home</p></a></li>
+                                <li><a href="#side2" data-bs-toggle="tab" class="d-flex"><i class="fe fe-message-square me-2"></i><p>Chat</p></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="panel-body tabs-menu-body p-0 border-0">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="side1">
+                                <ul class="sidemenu-list">
+                                    <li class="side-menu-label1"><a href="javascript:void(0)">Outlets</a></li>
+                                    <li><a href="/outlets" class="slide-item">Outlets List</a></li>
+                                    <li><a href="/showoutletsmap" class="slide-item">Outlets Map</a></li>
+                                    
+                                </ul>
+
+                            </div>
+                            
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </li>
           <li class="slide">
             <a class="side-menu__item has-link" data-bs-toggle="slide" href="/products"><i
                     class="side-menu__icon fe fe-shopping-bag"></i><span
