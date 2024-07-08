@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Models\Visit;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\RouteplanItem;
 
 class VisitController extends Controller
 {
@@ -24,6 +25,7 @@ class VisitController extends Controller
         'long'=>'required|between:-180.000000000,180.000000000',
         'outletId'=>'required|numeric|digits_between:1,20|exists:outlets,id',
         'userId' => 'required|numeric|digits_between:1,20|exists:users,id',
+        'routePlanItemId' => 'required|numeric|digits_between:1,20',
         
         ]);
 
@@ -42,6 +44,11 @@ class VisitController extends Controller
 
         $visit=Visit::create($incomingFields);
 
+        $routePlanItemId=strip_tags($request['routePlanItemId']);
+        $routeplan=RouteplanItem::find($routePlanItemId);
+        $incomingFieldsRoutePlanItem['visit_id']=$visit->id;
+        $routeplan->update($incomingFieldsRoutePlanItem);
+        
         $checkinStatus=array(
             "message" => "Checkin Successful",
             "status" => "success",
