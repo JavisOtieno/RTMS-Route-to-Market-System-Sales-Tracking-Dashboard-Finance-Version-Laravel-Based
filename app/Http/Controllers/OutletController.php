@@ -34,7 +34,7 @@ class OutletController extends Controller
         $organization_id=auth()->user()->organization_id;
         
         $incomingFields=$request->validate([
-            'userId'=>'required|numeric|digits_between:1,20|exists:users,id',
+            'userId'=>'required|numeric|digits_between:1,20',
             'name'=>'required|string|max:255',
             'contactName'=>'required|string|max:255',
             'phone'=>['required','string','min:10','max:255', new PhoneNumber],
