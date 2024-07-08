@@ -28,7 +28,7 @@ class ImageController extends Controller
                 ]);
             }else{
                 $request->validate([
-                    'outletPOSAuditId' => 'exists:oulets,id',
+                    'outletPOSAuditId' => 'exists:outlets,id',
                 ]);
             }
     
