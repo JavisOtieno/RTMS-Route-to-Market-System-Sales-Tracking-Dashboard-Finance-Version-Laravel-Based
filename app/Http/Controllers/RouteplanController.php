@@ -94,6 +94,7 @@ class RouteplanController extends Controller
        
         $incomingFields=$request->validate([
             'name'=>'nullable|string|max:255',
+            'date'=>'required|string|max:255',
             'outletIds'=>'required|string',
         ]);
 
@@ -104,6 +105,7 @@ class RouteplanController extends Controller
         
         $organization_id=auth()->user()->organization_id;
         $incomingFields['name']=strip_tags($incomingFields['name']);
+        $incomingFields['date']=strip_tags($incomingFields['date']);
         $incomingFields['user_id']=1;
         $incomingFields['organization_id']=$organization_id;
         //$incomingFields['image']=strip_tags($incomingFields['image']);
@@ -157,6 +159,8 @@ class RouteplanController extends Controller
         $routeplan->delete();
         return redirect('/routeplans');
     }
+
+
 
     
 

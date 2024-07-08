@@ -96,11 +96,22 @@
                             </ul>
                         </div>
 
+                        <button type="button" 
+                        onclick="displayCurrentRouteMap()"
+                        class="btn btn-info ml-2 mr-2 mt-2 mb-2 col-12" 
+                        data-bs-toggle="modal" href="#largemodal"
+                        >Preview Route Plan</button>
 
                             <div class="form-group">
                                 <label for="password" class="form-label">Hidden</label>
                                 {{-- <input  name="order" id="order"> --}}
                                 <input type="text" class="form-control" name="outletIds" id="outletIds" placeholder="outletIds" autocomplete="outletIds" value="{{$outletString}}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="date" class="form-label">Date</label>
+                                {{-- <input  name="order" id="order"> --}}
+                                <input type="date" class="form-control" name="date" id="date" placeholder="date" autocomplete="date" value="{{old('date')}}"/>
                             </div>
                             
                             
@@ -128,9 +139,48 @@
     </div>
 </div>
 
+<div class="modal fade" id="largemodal">
+    <div class="modal-dialog modal-lg " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Map</h5>
+                <button class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <div id="googleMapRouteplans" class="worldh world-map h-500" ></div>
+                {{-- <iframe id="mapEmbededForNow" style="width:100%;height:400px;" src = "https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d4084493.7307095355!2d36.50569875426991!3d-1.3175850003645804!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2ske!4v1715327211380!5m2!1sen!2ske"></iframe> --}}
+                <!--<div id="googleMap" style="width:100%;height:400px;"></div>-->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
 @endsection
 
 <script>
+
+document.addEventListener('DOMContentLoaded', function() {
+        // Get today's date
+        let today = new Date();
+        
+        // Set tomorrow's date
+        let tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        
+        // Format date as YYYY-MM-DD (required by input type=date)
+        let tomorrowFormatted = tomorrow.toISOString().split('T')[0];
+        
+        // Set the input value to tomorrow's date
+        document.getElementById('date').value = tomorrowFormatted;
+    });
+
     document.addEventListener("DOMContentLoaded", function() {
         $(function() {
             $("#sortable").sortable({
@@ -239,3 +289,299 @@ const getDragAfterElement = (
 };
     });
     </script>
+
+
+
+<script>
+    var map;
+    var outlets
+    
+    function myMap2() {
+    outlets= @json($outletArray);
+
+    if(outlets[0]){
+    var mapProp= {
+      center:new google.maps.LatLng(Number(outlets[0].lat),
+      Number(outlets[0].long)),
+      zoom:10,
+    };
+    // alert("working well");
+    }else{
+        var mapProp= {
+      center:new google.maps.LatLng(-1.286389,
+      36.817223),
+      zoom:10,
+    };
+    //alert("we are here");
+
+    }
+    document.addEventListener("DOMContentLoaded", function() {
+      
+    
+   var googleMapsDiv= document.getElementById("googleMapRouteplans");
+
+
+    
+    map = new google.maps.Map(googleMapsDiv,mapProp);
+    directionsService = new google.maps.DirectionsService();
+    directionsRenderer = new google.maps.DirectionsRenderer();
+    directionsRenderer.setMap(map);
+    var waypoints = [];
+ 
+    // if(routeplans.length>0){
+    // var bounds = new google.maps.LatLngBounds();
+    
+    // routeplans[0]['routeplanitems'].forEach(routeplanitem => {
+    //     var lat1 = Number(routeplanitem['outlet']['lat']);
+    //     var long1 = Number(routeplanitem['outlet']['long']);
+    
+    //     waypoints.push({ location: { lat: lat1, lng: long1 }, stopover: true });
+
+    //     const myPosition = { lat: lat1, lng: long1 };
+    //     console.log(myPosition);
+
+    //     // var markerElement = new google.maps.marker.AdvancedMarkerElement({
+    //     //         position: myPosition,
+    //     //         map: map,
+    //     //         title: 'Visit Marker', // Add a title if needed
+    //     //     });
+
+    //         // Extend the bounds to include this marker's position
+    //         bounds.extend(myPosition);
+
+    //         // var infoContent = "<div><h3>"+visit['outlet']['name']+"</h3>"+
+    //         //     "<p>Latitude: "+lat1+"</p>"+
+    //         //     "<p>Longitude: "+long1+"</p>"+
+    //         //     "<p>Seller: "+visit['user']['name']+"</p>"+
+    //         // "</div>";
+
+    //         // Create an InfoWindow
+    //         // var infoWindow = new google.maps.InfoWindow({
+    //         //     content: infoContent
+    //         // });
+    //         //
+    //         var infowindow = new google.maps.InfoWindow({
+    //             content: "<div><h3>"+routeplanitem['outlet']['name']+"</h3>"+
+    //                 // "<p>Seller: "+( routeplanitem['outlet']['user']===null ? 'Deleted User': routeplanitem['outlet']['user']['name'])+"</p>"+
+    //                 "<p>Latitude: "+lat1+"</p>"+
+    //                 "<p>Longitude: "+long1+"</p>"+
+    //                 "</div>"
+    //         });
+
+    //         // Add a click event listener to the marker to open the InfoWindow
+    //         // marker.addListener('click', function() {
+    //         //     infoWindow.open(map, marker);
+    //         // });
+            
+        
+       
+    //     // var marker = new google.maps.Marker({position: myPosition,
+    //     //     title: routeplanitem['outlet']['name'],
+    //     // });
+    //     // google.maps.event.addListener(marker, 'click', function() {
+    //     //         infowindow.open(map,marker);
+    //     //     });
+    //     // marker.setMap(map);
+        
+    // });
+    // map.fitBounds(bounds);
+    
+    //             const origin = waypoints.shift().location;
+    //             const destination = waypoints.pop().location;
+
+    //             const request = {
+    //                 origin: origin,
+    //                 destination: destination,
+    //                 waypoints: waypoints,
+    //                 optimizeWaypoints: true,
+    //                 travelMode: 'DRIVING'
+    //             };
+
+    //             directionsService.route(request, function(result, status) {
+    //                 if (status == 'OK') {
+    //                     directionsRenderer.setDirections(result);
+    //                     console.log('Route drawn with result:', result);
+                       
+    //                 } else {
+    //                     console.error('Directions request failed due to ' + status);
+    //                 }
+    //             });
+
+
+
+
+
+
+
+
+
+    // var lat1 = routeplans[0]['routeplanitems'][0]['outlet']['lat'];
+    // var long1 = routeplans[0]['routeplanitems'][0]['outlet']['long'];
+    // }
+
+});
+   // console.log(recentVisits);
+    
+    // const myPosition = { lat: -25.344, lng: 131.031 };
+    // //console.log(myPosition);
+    // const myPosition2 = { lat: Number(lat1), lng: Number(long1) };
+    // //console.log(myPosition2);
+    // var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+    // var marker = new google.maps.Marker({position: myPosition});
+    // marker.setMap(map);
+    // var marker2 = new google.maps.Marker({position: myPosition2});
+    // marker2.setMap(map);
+    }
+
+    var markers = [];
+
+    function displayCurrentRouteMap(){
+        console.log(outlets);
+        
+        //alert('we get here');
+        //alert (routeplan['routeplanitems'][0]['outlet']['lat']);
+        
+        //console.log(routeplan);
+        waypoints=[];
+        if(markers==undefined){
+            // console.log(markers);
+            //  alert("undefined");
+        }else{
+            // alert("defined");
+            // console.log(markers);
+            markers.forEach(marker => {
+                marker.setMap(null);
+            });
+            if (directionsRenderer.getMap()) {
+            directionsRenderer.set('directions', null); // Clear previous route
+            }
+        }
+
+        var order = document.getElementById('outletIds').value;
+
+        //alert(order);
+        let orderArray = order.split(",");
+        //console.log("Outlets");
+        //console.log(outlets);
+        //console.log("Outlets");
+        var newOutletsOrderedArray=[]
+
+        orderArray.forEach(orderItem => {
+            var orderItemNumber=Number(orderItem);
+            var outlet = outlets.find(outlet => outlet.id === orderItemNumber);
+            // console.log("OutletTest");
+            // console.log(outlet);
+            // console.log("OutletTest");
+            // alert(outlet.name)
+            newOutletsOrderedArray.push(outlet);
+            waypoints.push({ location: { lat: Number(outlet.lat), 
+                lng: Number(outlet.long) }, stopover: true });
+
+
+        }
+        );
+
+
+        
+ 
+        
+        //waypoints.push({ location: { lat: -1.244, lng: 36.8 }, stopover: true });
+        console.log('Map instance:', map);
+        // const myPosition = { lat: -25.344, lng: 131.031 };
+        // var marker = new google.maps.Marker({position: myPosition});
+        // marker.setMap(map);
+
+        const origin = waypoints.shift().location;
+        const destination = waypoints.pop().location;
+
+        const request = {
+            origin: origin,
+            destination: destination,
+            waypoints: waypoints,
+            optimizeWaypoints: true,
+            travelMode: 'DRIVING'
+        };
+
+        
+
+        directionsService.route(request, function(result, status) {
+            if (status == 'OK') {
+                directionsRenderer.setDirections(result);
+                console.log('Route drawn with result:', result);
+                addMarkers(map,newOutletsOrderedArray);
+            } else {
+                console.error('Directions request failed due to ' + status);
+                 var bounds = new google.maps.LatLngBounds();
+                addMarkers(map,newOutletsOrderedArray,bounds);
+                map.fitBounds(bounds);
+            }
+        });
+
+        
+
+        function addMarkers(map, outlets,bounds) {
+            var itemNumber = 1;
+            outlets.forEach(outlet => {
+                //alert('adding marker');
+                var marker = new google.maps.Marker({
+                    position: { lat: parseFloat(outlet.lat), lng: parseFloat(outlet.long) },
+                    map: map,
+                    label: String(itemNumber),
+                    title: outlet.name,
+                    zIndex: google.maps.Marker.MAX_ZINDEX + 1 
+                });
+                itemNumber++;
+
+                if(bounds!=undefined){
+                const outletPosition = { lat: parseFloat(outlet.lat), lng: parseFloat(outlet.long) };
+                console.log(outletPosition);
+                // Extend the bounds to include this marker's position
+                bounds.extend(outletPosition);
+                }
+
+                //marker.setMap(map);
+
+                var infoWindow = new google.maps.InfoWindow({
+                    content: `
+                        <div>
+                            <h3>${outlet.name}</h3>
+                            <p><strong>Contact Person:</strong> ${outlet.contact_person_name}</p>
+                            <p><strong>Phone:</strong> ${outlet.phone}</p>
+                            <p><strong>Latitude:</strong> ${outlet.lat}</p>
+                            <p><strong>Longitude:</strong> ${outlet.long}</p>
+                            <img src="${outlet.image}" alt="${outlet.name}" style="width:100px;height:auto;"/>
+                        </div>
+                    `
+                });
+
+                marker.addListener('click', function () {
+                    infoWindow.open(map, marker);
+                });
+
+                markers.push(marker);
+
+               
+            });
+            
+        }
+
+
+        
+
+
+    // document.addEventListener("DOMContentLoaded", function() {
+    //     console.log('Map instance:', map);
+    //     alert('we get here too');
+
+    // // function rewriteMap(){
+        
+    // // }
+    
+    // });
+    
+    }
+    
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=
+    AIzaSyALLsNWwOC09xsRAqrK0S7dINi6BpNc7iw&callback=myMap2"></script>

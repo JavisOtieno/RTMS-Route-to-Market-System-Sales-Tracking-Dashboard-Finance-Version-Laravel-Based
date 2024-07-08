@@ -26,6 +26,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CompetitorController;
 use App\Http\Controllers\TargetGroupController;
 use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\OrderNoteController;
 use App\Http\Controllers\RouteplanController;
 
 /*
@@ -112,6 +113,9 @@ Route::get('/profile', [UserController::class,'showProfile']);
 
 Route::get('/visits', [VisitController::class,'index']);
 Route::get('/visit/{id}',[VisitController::class,'showEditVisit']);
+
+Route::get('/ordernote/{id}',[OrderNoteController::class,'index']);
+Route::get('/download-pdf/{id}', [OrderNoteController::class, 'downloadPdf']);
 
 Route::get('/targetgroups', [TargetGroupController::class,'index']);
 Route::get('/add-target-group', [TargetGroupController::class,'addTargetGroup']);

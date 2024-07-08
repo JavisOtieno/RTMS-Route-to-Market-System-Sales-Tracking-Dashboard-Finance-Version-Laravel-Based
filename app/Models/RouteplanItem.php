@@ -13,7 +13,8 @@ class RouteplanItem extends Model
 
     protected $fillable = [
         'routeplan_id',
-        'outlet_id'
+        'outlet_id',
+        'visit_id'
     ];
 
     public function routeplan()

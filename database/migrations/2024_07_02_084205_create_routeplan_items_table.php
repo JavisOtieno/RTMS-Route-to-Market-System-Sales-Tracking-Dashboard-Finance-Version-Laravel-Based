@@ -18,6 +18,8 @@ return new class extends Migration
             //->onDelete('cascade')
             $table->unsignedBigInteger('outlet_id'); 
             $table->foreign('outlet_id')->references('id')->on('outlets');
+            $table->unsignedBigInteger('visit_id')->nullable(); 
+            $table->foreign('visit_id')->references('id')->on('visits');
             $table->softDeletes();
             $table->timestamps();
         });

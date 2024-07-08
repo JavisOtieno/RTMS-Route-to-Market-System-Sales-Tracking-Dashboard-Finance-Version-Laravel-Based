@@ -19,6 +19,7 @@ use App\Http\Controllers\api\FeedbackController;
 use App\Http\Controllers\api\POSAuditController;
 use App\Http\Controllers\api\DashboardController;
 use App\Http\Controllers\api\CompetitorController;
+use App\Http\Controllers\api\RoutePlanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,6 +75,8 @@ Route::middleware(['auth:sanctum'])->group(function(){
 
     //post because it requires visit id as a parameter
     Route::post('activitieslist',[ActivityController::class,'index']);
+
+    Route::get('userhasrouteplan', [RoutePlanController::class,'checkIfUserHasRoutePlanToday']);
 
 });
 
