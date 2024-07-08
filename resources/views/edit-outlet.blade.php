@@ -74,11 +74,13 @@
                             </div>
                             <div class="form-group">
                                 <label for="lat" class="form-label">Lat</label>
-                                <input type="text" readonly class="form-control" name="lat" id="lat" placeholder="Lat" value="{{old('lat',$outlet['lat'])}}"  autocomplete="lat">
+                                {{-- readonly --}}
+                                <input type="text"  class="form-control" name="lat" id="lat" placeholder="Lat" value="{{old('lat',$outlet['lat'])}}"  autocomplete="lat">
                             </div>
                             <div class="form-group">
                                 <label for="long" class="form-label">Long</label>
-                                <input type="text" readonly class="form-control" name="long" id="long" placeholder="long" value="{{old('long',$outlet['long'])}}"  autocomplete="long">
+                                {{-- readonly --}}
+                                <input type="text" class="form-control" name="long" id="long" placeholder="long" value="{{old('long',$outlet['long'])}}"  autocomplete="long">
                             </div>
 
                             <div class="form-group">
