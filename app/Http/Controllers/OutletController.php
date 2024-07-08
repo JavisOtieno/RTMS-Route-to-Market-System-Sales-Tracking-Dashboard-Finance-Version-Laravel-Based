@@ -131,13 +131,14 @@ class OutletController extends Controller
         return redirect('/outlets');
         
     }
+    
 
     public function showAddOutletsToUsers() {
         //$outlets = Outlet::all();
         $outlets = Outlet::with(['user' => function ($query) {
             $query->withTrashed();
         }])->get();
-        $users = User::inOrganization()->where('usertype','sales')->get();
+        $users = User::inOrganization()->where('usertype','seller')->get();
         //dd($sales);
         //return 'heh';
         return view('add-outlets-to-user', compact('outlets','users') );
@@ -150,7 +151,7 @@ class OutletController extends Controller
         $recentVisits=Visit::with('user','outlet')
         ->orderBy('id', 'desc')
         ->take(200)->get();
-        $users = User::inOrganization()->where('usertype','sales')->get();
+        $users = User::inOrganization()->where('usertype','seller')->get();
         return view('outletsmap', compact('outlets','users','recentVisits') );
     }
 
