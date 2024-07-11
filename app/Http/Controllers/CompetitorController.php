@@ -41,7 +41,7 @@ class CompetitorController extends Controller
         ]);
 
         $incomingFields['pricing']=strip_tags($incomingFields['pricing']);
-        $incomingFields['brandVisibility']=strip_tags($incomingFields['brandVisibility']);
+        $incomingFields['brand_visibility']=strip_tags($incomingFields['brandVisibility']);
         // $incomingFields['organization_id']=$organization_id;
         
         $competitiveAnalysis=Competitor::find($id);
