@@ -31,6 +31,28 @@ class CompetitorController extends Controller
         }])->get()->find($id);
         return view('edit-competitiveanalysis',['competitiveanalysis'=>$competitiveanalysis]);
     }
+
+    public function saveEditCompetitiveAnalysis($id, Request $request){
+
+        // $organization_id=auth()->user()->organization_id;
+        $incomingFields=$request->validate([
+            'pricing' => 'required_without:brandVisibility',
+            'brandVisibility' => 'required_without:pricing',
+        ]);
+
+        $incomingFields['pricing']=strip_tags($incomingFields['pricing']);
+        $incomingFields['brandVisibility']=strip_tags($incomingFields['brandVisibility']);
+        // $incomingFields['organization_id']=$organization_id;
+        
+        $competitiveAnalysis=Competitor::find($id);
+
+        $competitiveAnalysis->update($incomingFields);
+
+        return redirect('/competitors');
+        
+    }
+
+
     // public function showEditCompetitiveAnalysis(Request $request){
     //     $incomingFields=$request->validate([
     //         'id'=>'required|numeric|digits_between:1,11'

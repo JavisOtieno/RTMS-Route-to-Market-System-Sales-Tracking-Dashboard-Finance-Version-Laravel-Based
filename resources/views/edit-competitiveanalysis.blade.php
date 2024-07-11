@@ -29,7 +29,7 @@
             <!--<p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p>-->
             
                 
-                    <form action="/saveeditsale/{{$competitiveanalysis['id']}}" method="POST">
+                    <form action="/saveeditcompetitiveanalysis/{{$competitiveanalysis['id']}}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="">
@@ -69,16 +69,16 @@
 
                             <div class="form-group">
                                 <label for="brandVisibility" class="form-label">Brand Visibility</label>
-                                <textarea type="text" readonly rows="6" class="form-control" name="brandVisibility" id="brandVisibility" placeholder="brandVisibility" autocomplete="brandVisibility">{{$competitiveanalysis['brand_visibility']}}</textarea>
+                                <textarea type="text" rows="6" class="form-control" name="brandVisibility" id="brandVisibility" placeholder="brandVisibility" autocomplete="brandVisibility">{{$competitiveanalysis['brand_visibility']}}</textarea>
                             </div>
 
                             <div class="form-group">
                                 <label for="pricing" class="form-label">Pricing</label>
-                                <textarea type="text" readonly rows="6" class="form-control" name="pricing" id="pricing" placeholder="pricing" autocomplete="pricing">{{$competitiveanalysis['pricing']}}</textarea>
+                                <textarea type="text" rows="6" class="form-control" name="pricing" id="pricing" placeholder="pricing" autocomplete="pricing">{{$competitiveanalysis['pricing']}}</textarea>
                             </div>
                             
                         </div>
-                        {{-- <button class="btn btn-primary mt-4 mb-0">Save</button> --}}
+                        <button class="btn btn-primary mt-4 mb-0">Save</button>
                     </form>
                 
             </div>

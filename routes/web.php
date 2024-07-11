@@ -65,6 +65,7 @@ Route::get('/posaudit/{id}',[PosauditController::class,'showEditPOSAudit']);
 Route::get('/competitors', [CompetitorController::class,'index']);
 Route::get('/deletecompetitiveanalysis/{id}', [CompetitorController::class,'deleteCompetitiveAnalysis']);
 Route::get('/competitiveanalysis/{id}',[CompetitorController::class,'showEditCompetitiveAnalysis']);
+Route::put('/saveeditcompetitiveanalysis/{id}',[CompetitorController::class,'saveEditCompetitiveAnalysis']);
 
 
 Route::get('/feedback', [FeedbackController::class,'index']);
