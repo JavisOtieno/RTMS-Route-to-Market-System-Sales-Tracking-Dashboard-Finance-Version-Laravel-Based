@@ -32,6 +32,25 @@ class FeedbackController extends Controller
         }])->get()->find($id);
         return view('edit-feedback',['feedback'=>$feedback]);
     }
+
+    public function saveEditFeedback($id, Request $request){
+
+        // $organization_id=auth()->user()->organization_id;
+        $incomingFields=$request->validate([
+            'feedback' => 'required',
+        ]);
+
+        $incomingFields['feedback']=strip_tags($incomingFields['feedback']);
+        // $incomingFields['organization_id']=$organization_id;
+        
+        $feedback=Feedback::find($id);
+
+        $feedback->update($incomingFields);
+
+        return redirect('/feedback');
+        
+    }
+    
     // public function showEditFeedback(Request $request){
     //     $incomingFields=$request->validate([
     //         'id'=>'required|numeric|digits_between:1,11'

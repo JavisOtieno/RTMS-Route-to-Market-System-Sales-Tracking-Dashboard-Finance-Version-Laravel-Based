@@ -29,7 +29,7 @@
             <!--<p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p>-->
             
                 
-                    <form action="/saveeditsale/{{$feedback['id']}}" method="POST">
+                    <form action="/saveeditfeedback/{{$feedback['id']}}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="">
@@ -70,7 +70,7 @@
 
                             <div class="form-group">
                                 <label for="feedback" class="form-label">Feedback</label>
-                                <textarea type="text" readonly rows="6" class="form-control" name="feedback" id="description" placeholder="feedback" autocomplete="long">{{$feedback['feedback']}}</textarea>
+                                <textarea type="text" rows="6" class="form-control" name="feedback" id="description" placeholder="feedback" autocomplete="long">{{$feedback['feedback']}}</textarea>
                             </div>
                             
                         </div>

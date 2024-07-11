@@ -43,19 +43,31 @@ class VisitController extends Controller
         $incomingFields['organization_id']=auth()->user()->organization_id;
 
         $visit=Visit::create($incomingFields);
-
+        
         $routePlanItemId=strip_tags($request['routePlanItemId']);
-        $routeplan=RouteplanItem::find($routePlanItemId);
-        $incomingFieldsRoutePlanItem['visit_id']=$visit->id;
-        $routeplan->update($incomingFieldsRoutePlanItem);
+
+        if($routePlanItemId!=0){
+            
+            $routeplanitem=RouteplanItem::find($routePlanItemId);
+            $incomingFieldsRoutePlanItem=[];
+            $incomingFieldsRoutePlanItem['visit_id']=$visit['id'];
+            $routeplanitem->update($incomingFieldsRoutePlanItem);
+                
+
+        }
+
         
         $checkinStatus=array(
             "message" => "Checkin Successful",
             "status" => "success",
             "visitId"=>$visit['id'],
-            "outletId"=>$incomingFields['outlet_id']);
+            "outletId"=>$incomingFields['outlet_id']
+        );
+
+        // $checkinStatus = $routeplanitem['outlet_id'];
 
         return response()->json($checkinStatus);
+
 
 }
 public function checkout($id,Request $request){

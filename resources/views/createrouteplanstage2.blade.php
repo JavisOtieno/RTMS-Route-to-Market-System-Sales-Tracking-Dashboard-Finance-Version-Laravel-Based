@@ -481,10 +481,6 @@ const getDragAfterElement = (
         }
         );
 
-
-        
- 
-        
         //waypoints.push({ location: { lat: -1.244, lng: 36.8 }, stopover: true });
         console.log('Map instance:', map);
         // const myPosition = { lat: -25.344, lng: 131.031 };
@@ -502,23 +498,34 @@ const getDragAfterElement = (
             travelMode: 'DRIVING'
         };
 
-        
+        var bounds = new google.maps.LatLngBounds();
+        addMarkers(map,newOutletsOrderedArray,bounds);
+        map.fitBounds(bounds);
 
         directionsService.route(request, function(result, status) {
             if (status == 'OK') {
+
+                // prevents map from ignoring markers and focusing on route
+                // especially for close markers
+                // directionsRenderer.setOptions({ preserveViewport: true });
+
                 directionsRenderer.setDirections(result);
                 console.log('Route drawn with result:', result);
-                addMarkers(map,newOutletsOrderedArray);
+                // var bounds = new google.maps.LatLngBounds();
+                // addMarkers(map,newOutletsOrderedArray);
+                // map.fitBounds(bounds);
+
             } else {
+
+                directionsRenderer.setDirections(result);
                 console.error('Directions request failed due to ' + status);
-                 var bounds = new google.maps.LatLngBounds();
-                addMarkers(map,newOutletsOrderedArray,bounds);
-                map.fitBounds(bounds);
+
             }
         });
 
         
 
+    
         function addMarkers(map, outlets,bounds) {
             var itemNumber = 1;
             outlets.forEach(outlet => {
