@@ -70,7 +70,7 @@ Route::get('/competitiveanalysis/{id}',[CompetitorController::class,'showEditCom
 Route::get('/feedback', [FeedbackController::class,'index']);
 Route::get('/deletefeedback/{id}', [FeedbackController::class,'deleteFeedback']);
 Route::get('/feedback/{id}',[FeedbackController::class,'showEditFeedback']);
-Route::get('/saveeditfeedback/{id}',[FeedbackController::class,'saveEditFeedback']);
+Route::put('/saveeditfeedback/{id}',[FeedbackController::class,'saveEditFeedback']);
 
 Route::post('/savesale', [SaleController::class,'saveSale']);
 Route::get('/deletesale/{id}', [SaleController::class,'deleteSale']);
