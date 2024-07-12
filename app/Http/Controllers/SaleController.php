@@ -6,6 +6,7 @@ use App\Models\Sale;
 use App\Models\User;
 use App\Models\Outlet;
 use App\Models\Product;
+use App\Models\SaleItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
@@ -119,18 +120,33 @@ class SaleController extends Controller
     public function saveEditSale($id, Request $request){
         $organization_id=auth()->user()->organization_id;
         
-        $incomingFields=$request->validate([
-            'userId'=>'required',
-            'outletId'=>'required',
-            'productId'=>'required',
-            'pieces'=>'required'
-        ]);
+        // $incomingFields=$request->validate([
+        //     // 'userId'=>'required',
+        //     // 'outletId'=>'required',
+        //     // 'productId'=>'required',
+        //     'pieces'=>'required'
+        // ]);
 
         $incomingFields['organization_id']=$organization_id;
-        $incomingFields['user_id']=strip_tags($incomingFields['userId']);
-        $incomingFields['outlet_id']=strip_tags($incomingFields['outletId']);
-        $incomingFields['product_id']=strip_tags($incomingFields['productId']);
-        $incomingFields['pieces']=strip_tags($incomingFields['pieces']);
+        // $incomingFields['user_id']=strip_tags($incomingFields['userId']);
+        // $incomingFields['outlet_id']=strip_tags($incomingFields['outletId']);
+        // $incomingFields['product_id']=strip_tags($incomingFields['productId']);
+        // $incomingFields['pieces']=strip_tags($incomingFields['pieces']);
+
+        $productPieces = $request->input('productPieces'); // This will be an associative array with posaudititem IDs as keys
+        $salepieces = 0;
+
+        foreach ($productPieces as $id => $pieces) {
+            // Update the posaudititem with the given ID
+            $saleitem = SaleItem::find($id);
+            if ($saleitem) {
+                $saleitem->pieces = $pieces;
+                $salepieces = $salepieces + $pieces;
+                $saleitem->save();
+            }
+        }
+
+        $incomingFields['pieces']=$salepieces;
 
         $sale=Sale::find($id);
 

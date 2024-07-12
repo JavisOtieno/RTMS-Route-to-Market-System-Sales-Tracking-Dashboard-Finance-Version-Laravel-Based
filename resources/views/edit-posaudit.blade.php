@@ -29,9 +29,9 @@
             <!--<p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p>-->
             
                 
-                    <form action="/saveeditsale/{{$posaudit['id']}}" method="POST">
+                    <form action="/saveeditposaudit/{{$posaudit['id']}}" method="POST">
                         @csrf
-                        @method('PUT')
+                        @method('POST')
                         <div class="">
                             @if ($errors->any())
                             <div class="alert alert-danger alert-dismissible">
@@ -76,13 +76,15 @@
                                 </div>
                                 @foreach($posaudit['posaudititems'] as $posaudititem)
                                 <div class=" row mb-4">
-                                    <label style="font-weight:400;" for="productPieces" class="col-md-6 form-label">
+                                    <label style="font-weight:400;" for="productPieces_{{ $posaudititem['id'] }}" class="col-md-6 form-label">
                                         {{-- {{$posaudititem['product']['name']}} --}}
                                         {{ $posaudititem['product'] ? $posaudititem['product']['name']  . ($posaudititem['product']->trashed() ? ' (Deleted Product)' : '') : 'Deleted Product'}}
 
                                     </label>
                                     <div class="col-md-6">
-                                        <input readonly type="text" class="form-control" id="productPieces" placeholder="productPieces" autocomplete="productpieces" value="{{$posaudititem['pieces']}}">
+                                        <input type="text" class="form-control" name="productPieces[{{ $posaudititem['id'] }}]" 
+                                        id="productPieces_{{ $posaudititem['id'] }}" placeholder="productPieces" 
+                                        autocomplete="productpieces" value="{{$posaudititem['pieces']}}">
                                     </div>
                                 </div>
                                 @endforeach
@@ -137,7 +139,7 @@
                             </div>
                             
                         </div>
-                        {{-- <button class="btn btn-primary mt-4 mb-0">Save</button> --}}
+                        <button class="btn btn-primary mt-4 mb-0">Save</button>
                     </form>
                 
             </div>

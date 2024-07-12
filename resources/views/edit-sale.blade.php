@@ -94,14 +94,24 @@
 
                                     </label>
                                     <div class="col-md-3">
-                                        <input readonly type="text" class="form-control" id="productPieces" placeholder="productPieces" autocomplete="productpieces" value="{{'KSh. '.number_format($saleitem['price'])}}">
+                                        <input readonly type="text" class="form-control" id="productPrice_{{ $saleitem['id'] }}" 
+                                        name="productPrice[{{ $saleitem['id'] }}]" 
+                                        placeholder="Product Price" autocomplete="productprice" 
+                                        value="{{'KSh. '.number_format($saleitem['price'])}}">
                                     </div>
                                     <div class="col-md-2">
-                                        <input readonly type="text" class="form-control" id="productPieces" placeholder="productPieces" autocomplete="productpieces" value="{{$saleitem['pieces']}}">
+                                        {{-- <input readonly type="text" class="form-control" id="productPieces" 
+                                        placeholder="productPieces" autocomplete="productpieces" value="{{$saleitem['pieces']}}"> --}}
+
+                                        <input type="text" class="form-control" name="productPieces[{{ $saleitem['id'] }}]" 
+                                        id="productPieces_{{ $saleitem['id'] }}" placeholder="Product Pieces" 
+                                        autocomplete="productpieces" value="{{$saleitem['pieces']}}">
                                     </div>
                                     
                                     <div class="col-md-3">
-                                        <input readonly type="text" class="form-control" id="productValue" placeholder="productValue" autocomplete="productvalue" value="{{'KSh. '.number_format($saleitem['value'])}}">
+                                        <input readonly type="text" class="form-control" id="productValue_{{ $saleitem['id'] }}"
+                                        placeholder="Product Value" autocomplete="productvalue" 
+                                        value="{{'KSh. '.number_format($saleitem['value'])}}">
                                     </div>
                                 </div>
                                 @endforeach
@@ -124,7 +134,7 @@
                             </div>
                             
                         </div>
-                        {{-- <button class="btn btn-primary mt-4 mb-0">Save</button> --}}
+                        <button class="btn btn-primary mt-4 mb-0">Save</button>
                     </form>
                 
             </div>
@@ -153,5 +163,40 @@
 
     </div>
 </div>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+
+    var sale= @json($sale);
+    console.log(sale['saleitems'][0]['pieces']);
+    sale['saleitems'].forEach(saleitem => {
+        saleitemid=saleitem['id'];
+
+        $('#productPieces_'+saleitemid).on('input', function() {
+        var productPrice = sale['saleitems'][0]['price'];
+        // alert(productPrice);
+        // alert(price);
+        var productPieces = $(this).val(); // Change this logic as per your requirement
+        if(productPieces==""){
+            productPieces=0;
+        }
+        // var productPrice = $('#productPrice_1').val($(this).val());
+        // alert(productPieces);
+        console.log(productPieces);
+        // alert(parseFloat(productPrice));
+        var productValue = parseFloat(productPieces)*parseFloat(productPrice);
+        // alert(productValue);
+        alert('#productValue_'+saleitemid);
+        $('#productValue_'+saleitemid).val("KSh. "+productValue.toLocaleString());
+
+    });
+
+
+    });
+    
+
+
+});
+
+</script>
 
 @endsection

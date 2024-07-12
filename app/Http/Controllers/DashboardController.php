@@ -65,7 +65,7 @@ class DashboardController extends Controller
 
             
             // $sellerName=$topSeller['user']['name'];
-            $sellerName=$topSeller['user'] ? $topSeller['user']['id']  . ($topSeller['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User';
+            $sellerName=$topSeller['user'] ? $topSeller['user']['name']  . ($topSeller['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User';
             $sellerNames=explode(' ',$sellerName);
             if(count($sellerNames)==1){
                 array_push($topSellerUserNames,$sellerNames[0]);

@@ -50,7 +50,7 @@
                             <th>Outlet name</th>
                             <th>Products Audited</th>
                             <th>Added</th>
-                            <th id="view-column">View</th>
+                            <th id="view-column">View/Edit</th>
                             <th id="delete-column">Delete</th>
                         </tr>
                     </thead>
@@ -66,7 +66,8 @@
 <?php $posaudititems="";$i=1;?>
 @foreach($posaudit['posaudititems'] as $posaudititem)
 <?php 
-$posaudititemname=$posaudititem['product'] ? $posaudititem['product']['name']  . ($posaudititem['product']->trashed() ? ' (Deleted Product)' : '') : 'Deleted Product';
+$posaudititemname=$posaudititem['product'] ? $posaudititem['product']['name']  
+. ($posaudititem['product']->trashed() ? ' (Deleted Product)' : '') : 'Deleted Product';
 $posaudititems=$posaudititems.$posaudititemname." - ".$posaudititem['pieces'];
 if($i%2==0){$posaudititems.="\n"; }else{$posaudititems.="\n"; }$i++;
 if($i>2){$posaudititems.="...";break;}
@@ -74,7 +75,8 @@ if($i>2){$posaudititems.="...";break;}
 @endforeach
 <td style="white-space: pre-line;">{{$posaudititems}}</td>
 <td>{{date('d-M-Y H:i', strtotime($posaudit['created_at']))}}</td>
-<td><a type="button" href="/posaudit/{{$posaudit['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View</a>
+<td><a type="button" href="/posaudit/{{$posaudit['id']}}" 
+    class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
 </td>
 {{-- <td>
     <form method="POST" action="{{ route('editproduct') }}">

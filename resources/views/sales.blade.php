@@ -71,7 +71,7 @@
                                         <th>Value</th>
                                         {{-- <th>Added</th> --}}
                                         <!--<th>View/Edit</th>-->
-                                        <th id="view-column">View</th>
+                                        <th id="view-column">View/Edit</th>
                                         <th id="delete-column">Delete</th>
                                     </tr>
                                 </thead>
@@ -100,7 +100,7 @@
                                         {{-- <td>{{date('d-M-Y H:i', strtotime($sale['created_at']))}}</td> --}}
                                         {{-- <td><a type="button" href="/editsale/{{$sale['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
                                         </td> --}}
-                                        <td><a type="button" href="/sale/{{$sale['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View</a>
+                                        <td><a type="button" href="/sale/{{$sale['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
                                         </td>
                                         {{-- <td>
                                             <form method="POST" action="{{ route('editsale') }}">

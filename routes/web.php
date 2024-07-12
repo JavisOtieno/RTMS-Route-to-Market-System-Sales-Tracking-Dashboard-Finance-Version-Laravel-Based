@@ -59,6 +59,7 @@ Route::get('/products', [ProductController::class,'index']);
 Route::get('/posaudits', [PosauditController::class,'index']);
 Route::get('/deleteposaudits/{id}', [PosauditController::class,'deletePosaudit']);
 Route::get('/posaudit/{id}',[PosauditController::class,'showEditPOSAudit']);
+Route::post('/saveeditposaudit/{id}',[PosauditController::class,'saveEditPOSAudit']);
 //Route::post('/posaudit',[PosauditController::class,'showEditPOSAudit'])->name('editposaudit');
 
 

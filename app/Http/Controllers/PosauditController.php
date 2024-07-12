@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Posaudit;
+use App\Models\PosauditItem;
 use Illuminate\Http\Request;
 
 class PosauditController extends Controller
@@ -40,6 +41,23 @@ class PosauditController extends Controller
         }
         ])->get()->find($id);
         return view('edit-posaudit',['posaudit'=>$posaudit]);
+    }
+    public function saveEditPOSAudit($id,Request $request){
+        
+        //$posaudit = Posaudit::find($id);
+        $productPieces = $request->input('productPieces'); // This will be an associative array with posaudititem IDs as keys
+
+        foreach ($productPieces as $id => $pieces) {
+            // Update the posaudititem with the given ID
+            $posaudititem = PosAuditItem::find($id);
+            if ($posaudititem) {
+                $posaudititem->pieces = $pieces;
+                $posaudititem->save();
+            }
+        }
+
+        return redirect('/posaudits');
+        
     }
 
     // public function showEditPOSAudit(Request $request){

@@ -51,7 +51,7 @@
                             <th>Brand Visibility</th>
                             <th>Pricing</th>
                             <th>Added</th>
-                            <th id="view-column">View</th>
+                            <th id="view-column">View/Edit</th>
                             <th id="delete-column">Delete</th>
                         </tr>
                     </thead>
@@ -67,7 +67,7 @@
 <td  style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{$competitor['brand_visibility']}}</td>
 <td  style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{$competitor['pricing']}}</td>
 <td>{{date('d-M-Y H:i', strtotime($competitor['created_at']))}}</td>
-<td><a type="button" href="/competitiveanalysis/{{$competitor['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View</a>
+<td><a type="button" href="/competitiveanalysis/{{$competitor['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
 </td>
 {{-- <td>
     <form method="POST" action="{{ route('editcompetitiveanalysis') }}">
