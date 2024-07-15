@@ -11,6 +11,7 @@ use Illuminate\Validation\Rules\Password;
 class UserController extends Controller
 {
     //
+    //test commit github
     public function apiindex(){
         //$sales = Sale::all();
         $users = User::inOrganization()->get();

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 class TargetGroupController extends Controller
 {
     //
+    // test commit 2
     public function index() {
         $targetgroups = TargetGroup::all();
         return view('targetgroups', ['targetgroups'=>$targetgroups]);
