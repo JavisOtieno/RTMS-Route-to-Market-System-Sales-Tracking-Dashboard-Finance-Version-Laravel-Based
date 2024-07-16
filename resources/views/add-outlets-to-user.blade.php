@@ -1,6 +1,7 @@
 @include('components/header')
 @include('components/header-extension-main')
 
+<!-- outletcheckboxes Outletstouser -->
 
 <div class="side-app">
 

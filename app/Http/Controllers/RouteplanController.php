@@ -51,7 +51,7 @@ class RouteplanController extends Controller
         //     'user_id'=>'required|numeric|digits_between:1,11'
         // ]);
 
-        $selectedOutlets = $request->input('outlets', []);
+        $selectedOutlets = $request->input('outletcheckboxes', []);
         
         // Process the selected items
         $outletArray=[];

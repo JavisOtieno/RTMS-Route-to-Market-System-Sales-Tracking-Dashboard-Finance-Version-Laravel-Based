@@ -11,18 +11,23 @@
  
 .sortable-list {
     margin: 0 auto 0 0;
+    /*chatgpt overflow-y scroll google auto*/
+    /* overflow-y: scroll; */
+    overflow: auto;
+    
 }
  
 .sortable {
     list-style-type: none;
     padding: 0;
+ 
 }
  
 .list-item {
     background-color: #f0f0f0;
     padding: 10px;
     margin: 5px;
-    cursor: grab;
+    cursor: move;
 }
 
 </style>
@@ -181,8 +186,22 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('date').value = tomorrowFormatted;
     });
 
-    document.addEventListener("DOMContentLoaded", function() {
-        $(function() {
+    // document.addEventListener("DOMContentLoaded", function() {
+    //     $(function() {
+    //         $("#sortable").sortable({
+    //             helper: "clone", // Optional: to improve the dragging experience
+    //             scroll: true,
+    //             start: function(event, ui) {
+    //                 ui.helper.css('position', 'absolute').css('z-index', '1000');
+    //             },
+    //             drag: function(event, ui) {
+    //                 ui.helper.css('top', event.pageY + 'px');
+    //                 ui.helper.css('left', event.pageX + 'px');
+    //             }
+    //         });
+
+            
+
             $("#sortable").sortable({
                 start: function(event, ui) {
                     console.log("Dragging started on item: ", ui.item.index());
@@ -200,6 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     console.log("Item is being dragged");
                 }
         });
+
             $("#sortable").disableSelection();
             
             $("#sortableForm").on("submit", function(event) {
@@ -287,6 +307,8 @@ const getDragAfterElement = (
     ).element;
     alert("not sure");
 };
+
+
     });
     </script>
 

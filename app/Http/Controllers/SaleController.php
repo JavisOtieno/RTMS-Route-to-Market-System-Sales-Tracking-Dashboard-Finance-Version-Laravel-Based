@@ -120,37 +120,75 @@ class SaleController extends Controller
     public function saveEditSale($id, Request $request){
         $organization_id=auth()->user()->organization_id;
         
-        // $incomingFields=$request->validate([
-        //     // 'userId'=>'required',
-        //     // 'outletId'=>'required',
-        //     // 'productId'=>'required',
-        //     'pieces'=>'required'
-        // ]);
+        $request->validate([
+            'productPiecesTotal'=>'required|numeric|digits_between:1,20',
+            'productValueTotalNumber'=>'required|numeric|digits_between:1,20'
+        ]);
 
         $incomingFields['organization_id']=$organization_id;
+
+        $incomingFields["pieces"] = $request->input('productPiecesTotal');
+        $incomingFields["value"] = $request->input('productValueTotalNumber');
+
+        $sale=Sale::find($id);
+
+        $sale->update($incomingFields);
+
         // $incomingFields['user_id']=strip_tags($incomingFields['userId']);
         // $incomingFields['outlet_id']=strip_tags($incomingFields['outletId']);
         // $incomingFields['product_id']=strip_tags($incomingFields['productId']);
         // $incomingFields['pieces']=strip_tags($incomingFields['pieces']);
 
         $productPieces = $request->input('productPieces'); // This will be an associative array with posaudititem IDs as keys
-        $salepieces = 0;
+        // $salepieces = 0;
 
         foreach ($productPieces as $id => $pieces) {
             // Update the posaudititem with the given ID
+            $validator = Validator::make(
+                ['pieces' => $pieces],
+                ['pieces' => 'required|numeric|digits_between:1,20']
+            );
+    
+            if ($validator->fails()) {
+                // Handle the validation error
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+    
             $saleitem = SaleItem::find($id);
             if ($saleitem) {
                 $saleitem->pieces = $pieces;
-                $salepieces = $salepieces + $pieces;
+                // $salepieces = $salepieces + $pieces;
                 $saleitem->save();
             }
         }
 
-        $incomingFields['pieces']=$salepieces;
 
-        $sale=Sale::find($id);
+        $productValue = $request->input('productValue'); // This will be an associative array with posaudititem IDs as keys
+        // $salepieces = 0;
 
-        $sale->update($incomingFields);
+        foreach ($productValue as $id => $value) {
+            // Update the posaudititem with the given ID
+            $validator = Validator::make(
+                ['value' => $value],
+                ['value' => 'required|string|max:255']
+            );
+    
+            if ($validator->fails()) {
+                // Handle the validation error
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+    
+            $saleitem = SaleItem::find($id);
+            if ($saleitem) {
+                $saleitem->value = str_replace("KSh. ","",str_replace(",","",$value));
+                // $salepieces = $salepieces + $pieces;
+                $saleitem->save();
+            }
+        }
+
+        // $incomingFields['pieces']=$salepieces;
+
+
 
         return redirect('/sales');
         

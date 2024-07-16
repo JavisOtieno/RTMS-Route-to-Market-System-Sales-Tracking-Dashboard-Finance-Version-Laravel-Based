@@ -24,7 +24,7 @@
         {{-- action="{{ route('pushuserstotargetgroup') }}" --}}
             {{-- Then the route needs to have a name
             Route::post('/checkboxes', [CheckboxController::class, 'process'])->name('processCheckboxes'); --}}
-        <form action="pushoutletstorouteplan" id="Outletstouser" method="POST">
+        <form action="pushoutletstorouteplan" id="Outletstorouteplan" method="POST">
             @csrf
         
             <div class="col-lg-12">

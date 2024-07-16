@@ -2,7 +2,7 @@ $(function(e) {
     "use strict";
 
     //______Basic Data Table
-    $('#basic-datatable').DataTable({
+    var tableAllocate=$('#basic-datatable').DataTable({
         language: {
             searchPlaceholder: 'Search...',
             sSearch: '',
@@ -90,11 +90,11 @@ $(function(e) {
 
             $('#Outletstouser input[type="hidden"][name="outletcheckboxes[]"]').remove();
 
-            event.preventDefault(); // Prevent the default form submission;
+            event.preventDefault(); // Prevent the default form submission; 
             
     
             // Gather all checkboxes (including those not in view)
-            var allCheckboxes = table2.$('input[type="checkbox"]');
+            var allCheckboxes = tableAllocate.$('input[type="checkbox"]');
     
             // Iterate through all checkboxes to collect their values
             var selectedCheckboxes = [];
@@ -105,7 +105,10 @@ $(function(e) {
             });
     
             // Log the selected checkboxes or send them to the server
+            console.log("Hello");
             console.log(selectedCheckboxes);
+            console.log("Hello");
+            
     
             // Optionally, you can add the selected checkboxes to the form as hidden inputs
             selectedCheckboxes.forEach(function(value) {
@@ -114,7 +117,10 @@ $(function(e) {
                     name: 'outletcheckboxes[]',
                     value: value
                 }).appendTo('#Outletstouser');
+                alert(value);
             });
+
+            alert("stop");
     
             // Submit the form
             
@@ -142,7 +148,7 @@ $(function(e) {
             
     
             // Gather all checkboxes (including those not in view)
-            var allCheckboxes = table2.$('input[type="checkbox"]');
+            var allCheckboxes = tableAllocate.$('input[type="checkbox"]');
     
             // Iterate through all checkboxes to collect their values
             var selectedCheckboxes = [];
@@ -172,6 +178,50 @@ $(function(e) {
         });
 
     //OUTLETS ALLOCATE TO USERS TABLE FORM
+
+
+    $('#Outletstorouteplan').on('submit', function(event) {
+
+        $('#Outletstorouteplan input[type="hidden"][name="outletcheckboxes[]"]').remove();
+
+        event.preventDefault(); // Prevent the default form submission; 
+        
+
+        // Gather all checkboxes (including those not in view)
+        var allCheckboxes = tableAllocate.$('input[type="checkbox"]');
+
+        // Iterate through all checkboxes to collect their values
+        var selectedCheckboxes = [];
+        allCheckboxes.each(function() {
+            if (this.checked) {
+                selectedCheckboxes.push($(this).val());
+            }
+        });
+
+        // Log the selected checkboxes or send them to the server
+        console.log("Hello");
+        console.log(selectedCheckboxes);
+        console.log("Hello");
+        
+
+        // Optionally, you can add the selected checkboxes to the form as hidden inputs
+        selectedCheckboxes.forEach(function(value) {
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'outletcheckboxes[]',
+                value: value
+            }).appendTo('#Outletstorouteplan');
+            alert(value);
+        });
+
+        alert("stop");
+
+        // Submit the form
+        
+        this.submit();
+        
+        
+    });
 
 
     
