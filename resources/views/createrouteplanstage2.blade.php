@@ -186,8 +186,8 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('date').value = tomorrowFormatted;
     });
 
-    // document.addEventListener("DOMContentLoaded", function() {
-    //     $(function() {
+    document.addEventListener("DOMContentLoaded", function() {
+        $(function() {
     //         $("#sortable").sortable({
     //             helper: "clone", // Optional: to improve the dragging experience
     //             scroll: true,
