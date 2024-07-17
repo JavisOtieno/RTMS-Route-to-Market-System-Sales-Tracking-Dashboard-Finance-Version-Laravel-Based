@@ -9,11 +9,11 @@
 
   <!-- PAGE-HEADER -->
   <div class="page-header">
-    <h1 class="page-title">Outlets</h1>
+    <h1 class="page-title">Create Route Plan Stage I</h1>
     <div>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)">RTMS</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Outlets</li>
+            <li class="breadcrumb-item active" aria-current="page">Create Route Plan Stage 1</li>
         </ol>
     </div>
 </div>
@@ -61,10 +61,12 @@
                             </div> --}}
                             <div class="form-group" style="margin-block-end: 0rem;">
                                 {{-- <label class="form-label"> Users</label> --}}
-                                <select class="form-control select2-show-search form-select" name="user_id" id="user_id" data-placeholder="Choose one">
+                                <select class="form-control select2-show-search form-select" name="user_id" id="routeplan_user_id" data-placeholder="Choose one">
                                         <option label="Choose one"></option>
                                         @foreach($users as $user)
-                                        <option value="{{$user['id']}}">{{$user['name']}}</option>
+                                        <option 
+                                        {{ old('user_id', $firstuserid) == $user['id'] ? 'selected' : '' }}
+                                         value="{{$user['id']}}">{{$user['name']}}</option>
                                         @endforeach
                                         
                                     </select>
@@ -72,7 +74,7 @@
                         </div>
                         <input type="submit" class="btn btn-danger col-md-4" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;" value="Add Selected Outlets to Route Plan"></input>
                     </div>
-                    <div class="row" style="margin: 0 10px;">
+                   {{-- <div class="row" style="margin: 0 10px;">
                         <input type="hidden" id="tableLoaded" value="outletstouser"/>
                         <h3 class="card-title" style="margin-top:20px;margin-block-end: 0rem;">Search by :</h3>
                         <div class="col-md-3 mb-3">
@@ -93,7 +95,7 @@
                             <input type="tel" class="form-control" id="phoneInput" placeholder="Phone">
                         </div>
                        
-                    </div>
+                    </div> --}}
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="basic-datatable" class="table table-bordered text-nowrap border-bottom">

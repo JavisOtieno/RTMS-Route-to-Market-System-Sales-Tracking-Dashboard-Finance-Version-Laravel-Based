@@ -53,7 +53,7 @@
                             <th>Route Plan Name</th>
                             <th>Added</th>
                             <th>Scheduled</th>
-                            <th id="view-column">View</th>
+                            <th id="view-column">View/Edit</th>
                             <th id="map-column">Map</th>
                             <th id="delete-column">Delete</th>
                         </tr>
@@ -69,7 +69,7 @@
 <td>{{$routeplan['name']}}</td>
 <td>{{date('d-M-Y H:i', strtotime($routeplan['created_at']))}}</td>
 <td>{{$routeplan['date']}}</td>
-<td><a type="button" href="/routeplan/{{$routeplan['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View</a>
+<td><a type="button" href="/routeplan/{{$routeplan['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
 </td>
 <td><a type="button" 
     {{-- onclick="embedMap2()" --}}
@@ -117,6 +117,7 @@
                                     <span aria-hidden="true">×</span>
                                 </button>
                         </div>
+                    
                         <div class="modal-body">
                             <div id="googleMapRouteplans" class="worldh world-map h-500" ></div>
                             {{-- <iframe id="mapEmbededForNow" style="width:100%;height:400px;" src = "https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d4084493.7307095355!2d36.50569875426991!3d-1.3175850003645804!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2ske!4v1715327211380!5m2!1sen!2ske"></iframe> --}}

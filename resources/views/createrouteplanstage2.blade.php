@@ -44,7 +44,7 @@
 
   <!-- PAGE-HEADER -->
   <div class="page-header">
-    <h1 class="page-title">Create Route Plan Stage 2</h1>
+    <h1 class="page-title">Create Route Plan Stage II</h1>
     <div>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)">RTMS</a></li>
@@ -58,7 +58,7 @@
 <div class="col-xl-12 row">
     <div class="card col-md-8">
         <div class="card-header">
-            <h3 class="card-title">Create Route Plan Stage 2</h3> 
+            <h3 class="card-title">Final Stage</h3> 
         </div>
         <div class="card-body">
             <!--<p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p>-->
@@ -107,11 +107,17 @@
                         data-bs-toggle="modal" href="#largemodal"
                         >Preview Route Plan</button>
 
-                            <div class="form-group">
-                                <label for="password" class="form-label">Hidden</label>
+                            {{-- <div class="form-group">
+                                <label for="password" class="form-label">Outlet Ids</label> --}}
                                 {{-- <input  name="order" id="order"> --}}
-                                <input type="text" class="form-control" name="outletIds" id="outletIds" placeholder="outletIds" autocomplete="outletIds" value="{{$outletString}}">
-                            </div>
+                                <input type="hidden" class="form-control" name="outletIds" id="outletIds" placeholder="outlet ids" autocomplete="outletIds" value="{{$outletString}}">
+                            {{-- </div> --}}
+
+                            {{-- <div class="form-group">
+                                <label for="password" class="form-label">User Id</label> --}}
+                                {{-- <input  name="order" id="order"> --}}
+                                <input type="hidden" class="form-control" name="user_id" id="user_id" placeholder="User Id" autocomplete="User Id" value="{{$user_id}}">
+                            {{-- </div> --}}
 
                             <div class="form-group">
                                 <label for="date" class="form-label">Date</label>

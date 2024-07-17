@@ -11,6 +11,55 @@ $(function(e) {
         'ordering': true,
     });
 
+    $('#routeplan_user_id').on('change', function() {
+        var selectedOption = $(this).val();
+        if (selectedOption) {
+            fetchTableData(selectedOption);
+        } else {
+            table.clear().draw();
+        }
+    });
+
+    function fetchTableData(option) {
+        $.ajax({
+            url: '/updateoutletscreaterouteplan/' + option, // Replace with your actual route to fetch data
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                updateDataTable(response); // Call function to update DataTable
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching data:', error);
+            }
+        });
+    }
+
+    function updateDataTable(data) {
+        // Clear existing DataTable rows
+        tableAllocate.clear();
+        //alert("we are here");
+
+        // console.log("data");
+        // console.log(data);
+        // console.log("data");
+
+        // Add new rows based on fetched data
+        $.each(data.outlets, function(index, outlet) {
+            
+            tableAllocate.row.add([
+                outlet.id,
+                '<div class="form-group" ><label class="custom-control custom-checkbox mb-0" >'+
+                '<input type="checkbox" style="margin: 0 auto" class="custom-control-input" name="outlets[]"  value="' + outlet.id + '"> '+
+                '<span class="custom-control-label">'+outlet.name+'</span></label></div>', // Example for Outlets column
+                outlet.user ? outlet.user.name + (outlet.user.trashed ? ' (Deleted User)' : '') : 'Deleted User',
+                outlet.contact_person_name,
+                outlet.phone
+            ]).draw();
+
+           // alert("we are here too");
+        });
+    }
+
 
 
     //______Basic Data Table
@@ -105,9 +154,9 @@ $(function(e) {
             });
     
             // Log the selected checkboxes or send them to the server
-            console.log("Hello");
-            console.log(selectedCheckboxes);
-            console.log("Hello");
+            // console.log("Hello");
+            // console.log(selectedCheckboxes);
+            // console.log("Hello");
             
     
             // Optionally, you can add the selected checkboxes to the form as hidden inputs
@@ -117,10 +166,10 @@ $(function(e) {
                     name: 'outletcheckboxes[]',
                     value: value
                 }).appendTo('#Outletstouser');
-                alert(value);
+                // alert(value);
             });
 
-            alert("stop");
+            // alert("stop");
     
             // Submit the form
             
@@ -199,9 +248,9 @@ $(function(e) {
         });
 
         // Log the selected checkboxes or send them to the server
-        console.log("Hello");
-        console.log(selectedCheckboxes);
-        console.log("Hello");
+        // console.log("Hello");
+        // console.log(selectedCheckboxes);
+        // console.log("Hello");
         
 
         // Optionally, you can add the selected checkboxes to the form as hidden inputs
@@ -211,10 +260,10 @@ $(function(e) {
                 name: 'outletcheckboxes[]',
                 value: value
             }).appendTo('#Outletstorouteplan');
-            alert(value);
+            //alert(value);
         });
 
-        alert("stop");
+        //alert("stop");
 
         // Submit the form
         

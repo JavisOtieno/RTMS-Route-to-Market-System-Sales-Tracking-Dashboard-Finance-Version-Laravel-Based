@@ -39,11 +39,11 @@
 
   <!-- PAGE-HEADER -->
   <div class="page-header">
-    <h1 class="page-title">Create Route Plan Stage 2</h1>
+    <h1 class="page-title">Edit Route Plan</h1>
     <div>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)">RTMS</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Create Route Plan Stage 2</li>
+            <li class="breadcrumb-item active" aria-current="page">Edit Route Plan</li>
         </ol>
     </div>
 </div>
@@ -53,15 +53,15 @@
 <div class="col-xl-12 row">
     <div class="card col-md-8">
         <div class="card-header">
-            <h3 class="card-title">Create Route Plan Stage 2</h3> 
+            <h3 class="card-title">Edit Route Plan</h3> 
         </div>
         <div class="card-body">
             <!--<p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p>-->
             
                 
-                    <form action="/saverouteplan" method="POST">
+                    <form action="/saveeditrouteplan/{{$routeplan['id']}}" method="POST">
                         @csrf
-                        @method('POST')
+                        @method('PUT')
                         <div class="">
 
                             @if ($errors->any())
@@ -94,8 +94,13 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="dateTime" class="form-label">Date and Time</label>
+                            <label for="dateTime" class="form-label">Date and Time Added</label>
                             <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{date('d-M-Y H:i', strtotime($routeplan['created_at']))}}" autocomplete="dateTime">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="scheduledDate" class="form-label">Scheduled Date</label>
+                            <input type="date" class="form-control" name="date" id="date" placeholder="Date" value="{{$routeplan['date']}}" autocomplete="date">
                         </div>
 
                         <div class="form-group">
@@ -145,7 +150,7 @@
                             
                             
                         </div>
-                        {{-- <button class="btn btn-primary mt-4 mb-0">Save</button> --}}
+                        <button class="btn btn-primary mt-4 mb-0">Save</button>
                     </form>
                 
             </div>

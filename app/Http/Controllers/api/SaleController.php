@@ -28,34 +28,37 @@ class SaleController extends Controller
         $sales = Sale::where('visit_id', $visitId)->where('user_id',$userId)->with('user','visit','outlet','saleitems.product')->get();
         return response()->json(['sales'=>$sales]);
     }
-    public function makesale(Request $request){
+//     public function makesale(Request $request){
 
        
-        $incomingFields=$request->validate([
-            'pieces'=>'required',
-        ]);
+//         $incomingFields=$request->validate([
+//             'pieces'=>'required',
+//         ]);
 
-        $incomingFields=[];
-        $incomingFields['user_id']=strip_tags($request['userId']);
-        $incomingFields['outlet_id']=strip_tags($request['outletId']);
-        $incomingFields['product_id']=strip_tags($request['productId']);
-        $incomingFields['visit_id']=strip_tags($request['visitId']);
-        $incomingFields['user_id']=strip_tags($request['userId']);
-        $incomingFields['pieces']=strip_tags($request['pieces']);
-        $incomingFields['organization_id']=auth()->user()->organization_id;
+//         $incomingFields=[];
+//         $incomingFields['user_id']=strip_tags($request['userId']);
+//         $incomingFields['outlet_id']=strip_tags($request['outletId']);
+//         $incomingFields['product_id']=strip_tags($request['productId']);
+//         $incomingFields['visit_id']=strip_tags($request['visitId']);
+//         $incomingFields['user_id']=strip_tags($request['userId']);
+//         $incomingFields['pieces']=strip_tags($request['pieces']);
+//         $incomingFields['organization_id']=auth()->user()->organization_id;
 
-        $price = Product::find($incomingFields['product_id'])['price'];
-        $incomingFields['value'] = $price * $incomingFields['pieces'];
+//         $price = Product::find($incomingFields['product_id'])['price'];
+//         $incomingFields['value'] = $price * $incomingFields['pieces'];
 
-        Sale::create($incomingFields);
+//         $sale=Sale::create($incomingFields);
+//         $saleId = $sale->id;
         
-        $saleStatus=array(
-                "message" => "Sale Successful",
-                "status" => "success");
+//         $saleStatus=array(
+//                 "message" => "Sale Successful",
+//                 "saleId" => $saleId,
+//                 "status" => "success"
+//             );
         
-        return response()->json($saleStatus);
+//         return response()->json($saleStatus);
 
-}
+// }
 
 //SAVE SALE PREVIOUS CODE
 
@@ -128,10 +131,12 @@ class SaleController extends Controller
         $incomingFieldsSaleUpdate['pieces']=$piecesTotal;
         $incomingFieldsSaleUpdate['value']=$valueTotal;
         $sale->update($incomingFieldsSaleUpdate);
+        $saleId = $sale->id;
         
 
         $saleStatus=array(
             "message" => "Sale Added Successful",
+            "saleId" => $saleId,
             "status" => "success");
 
         }else{

@@ -99,11 +99,13 @@ Route::get('/showoutletsmap',[OutletController::class,'showOutletsMap']);
 
 Route::get('/routeplans', [RouteplanController::class,'index']);
 Route::get('/createrouteplan', [RouteplanController::class,'createRoutePlan']);
+Route::get('/updateoutletscreaterouteplan/{id}', [RouteplanController::class,'updateOutletsCreateRoutePlan']);
 Route::post('/saverouteplan', [RouteplanController::class,'saveRoutePlan']);
 Route::post('/pushoutletstorouteplan', [RouteplanController::class,'pushOutletsToRoutePlan']);
 Route::get('/pushoutletstorouteplan', [RouteplanController::class,'debugToRoutePlan']);
 Route::get('/deleterouteplan/{id}', [RouteplanController::class,'deleteRoutePlan']);
 Route::get('/routeplan/{id}',[RouteplanController::class,'showEditRoutePlan']);
+Route::put('/saveeditrouteplan/{id}',[RouteplanController::class,'saveEditRoutePlan']);
 
 
 Route::get('/clockins', [ClockinController::class,'index']);
@@ -161,12 +163,15 @@ Route::get('/run-artisan-link', function () {
 });
 
 Route::get('/check-storage-link', function () {
+    
     if (is_link(public_path('storage')) && readlink(public_path('storage')) == realpath(storage_path('app/public'))) {
         return 'The storage link is correctly set up.';
     } else {
         return 'The storage link is not correctly set up.';
     }
 });
+
+
 
 
 });

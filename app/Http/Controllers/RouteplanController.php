@@ -24,7 +24,14 @@ class RouteplanController extends Controller
     public function createRoutePlan() {
         $outlets = Outlet::all();
         $users = User::inOrganization()->where('usertype','seller')->get();
-        return view('createrouteplan', compact('users','outlets'));
+        $firstuserid = $users[0]["id"];
+        $outlets = Outlet::where("user_id",$firstuserid)->get();
+        return view('createrouteplan', compact('users','outlets','firstuserid'));
+    }
+
+    public function updateOutletsCreateRoutePlan($id){
+        $outlets = Outlet::where("user_id",$id)->get();
+        return response()->json(['outlets'=>$outlets]);
     }
 
     public function showEditRoutePlan($id){
@@ -47,9 +54,10 @@ class RouteplanController extends Controller
 
     public function pushOutletsToRoutePlan(Request $request) {
        
-        // $incomingFields=$request->validate([
-        //     'user_id'=>'required|numeric|digits_between:1,11'
-        // ]);
+        $incomingFields=$request->validate([
+            'user_id'=>'required|numeric|digits_between:1,11'
+        ]);
+        $user_id=$incomingFields['user_id'];
 
         $selectedOutlets = $request->input('outletcheckboxes', []);
         
@@ -76,8 +84,22 @@ class RouteplanController extends Controller
         // return redirect('/createrouteplanstage2');
         // selectedOutlets
         // outletArray
-        return view('createrouteplanstage2', compact('outletString','outletArray'));
+        return view('createrouteplanstage2', compact('outletString','outletArray','user_id'));
  
+    }
+
+    public function saveEditRoutePlan($id,Request $request){
+        $incomingFields=$request->validate([
+            'date'=>'required|string|max:255',
+        ]);
+        $incomingFields['date']=strip_tags($incomingFields['date']);
+
+        $routePlan=Routeplan::find($id);
+
+        $routePlan->update($incomingFields);
+
+        return redirect('/routeplans');
+
     }
 
     public function debugToRoutePlan(){
@@ -96,6 +118,7 @@ class RouteplanController extends Controller
             'name'=>'nullable|string|max:255',
             'date'=>'required|string|max:255',
             'outletIds'=>'required|string',
+            'user_id'=>'required|numeric|digits_between:1,11'
         ]);
 
         if($incomingFields['name']==""){
@@ -106,7 +129,7 @@ class RouteplanController extends Controller
         $organization_id=auth()->user()->organization_id;
         $incomingFields['name']=strip_tags($incomingFields['name']);
         $incomingFields['date']=strip_tags($incomingFields['date']);
-        $incomingFields['user_id']=1;
+        $incomingFields['user_id']=strip_tags($incomingFields['user_id']);
         $incomingFields['organization_id']=$organization_id;
         //$incomingFields['image']=strip_tags($incomingFields['image']);
 
