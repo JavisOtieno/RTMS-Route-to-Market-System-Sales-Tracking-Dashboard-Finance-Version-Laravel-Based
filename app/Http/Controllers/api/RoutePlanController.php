@@ -18,4 +18,14 @@ class RoutePlanController extends Controller
         ->with('routeplanitems.outlet')->orderBy('id', 'DESC')->get();
         return response()->json(['routeplan'=>$routeplan]);
     }
+
+    public function index() {
+        //$posaudits = Posaudit::all();
+        //$posaudits = Posaudit::with('user','outlet','visit','posaudititems.product')->get();
+        $routeplans = Routeplan::with(['user' => function ($query) {
+            $query->withTrashed();
+        },'routeplanitems.outlet'])->orderBy('id', 'DESC')->get();
+        return response()->json(['routeplans'=>$routeplans]);
+    }
+
 }

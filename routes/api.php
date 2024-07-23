@@ -9,6 +9,7 @@ use App\Http\Controllers\api\SaleController;
 use App\Http\Controllers\api\ImageController;
 use App\Http\Controllers\api\LoginController;
 use App\Http\Controllers\api\VisitController;
+use App\Http\Controllers\OrderNoteController;
 use App\Http\Controllers\api\OutletController;
 use App\Http\Controllers\api\ClockinController;
 use App\Http\Controllers\api\ProductController;
@@ -18,8 +19,8 @@ use App\Http\Controllers\api\ClockoutController;
 use App\Http\Controllers\api\FeedbackController;
 use App\Http\Controllers\api\POSAuditController;
 use App\Http\Controllers\api\DashboardController;
-use App\Http\Controllers\api\CompetitorController;
 use App\Http\Controllers\api\RoutePlanController;
+use App\Http\Controllers\api\CompetitorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,8 +78,15 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::post('activitieslist',[ActivityController::class,'index']);
 
     Route::get('userhasrouteplan', [RoutePlanController::class,'checkIfUserHasRoutePlanToday']);
+    Route::get('routeplans',[RouteplanController::class,'index']);
+
+    Route::get('download-pdf-mobile/{id}', [OrderNoteController::class, 'downloadPdf']);
+
+
 
 });
+
+
 
 //Route::get('geos',[GeoController::class,'apiindex']);
 
