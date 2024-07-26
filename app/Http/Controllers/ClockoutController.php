@@ -29,6 +29,14 @@ class ClockoutController extends Controller
             return view('edit-clockout',['clockout'=>$clockout]);
         }
 
+        public function showClockoutsMap(){
+            $clockouts = Clockout::with(['user' => function ($query) {
+                $query->withTrashed();
+            }])->get();
+           
+            return view('clockoutsmap', compact('clockouts') );
+        }
+
         // public function showEditClockout(Request $request){
         //     $incomingFields=$request->validate([
         //         'id'=>'required|numeric|digits_between:1,11'

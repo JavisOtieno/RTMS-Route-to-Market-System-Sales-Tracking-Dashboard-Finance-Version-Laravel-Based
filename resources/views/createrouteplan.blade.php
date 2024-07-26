@@ -107,7 +107,7 @@
                                         <th>Outlets
                                             {{-- <div class="form-group" style="margin-top:10px;" >
                                                 <label class="custom-control custom-checkbox mb-0" >
-                                            <input type="checkbox" id="selectalloutlets" class="custom-control-input" name="users[]" value="">
+                                            <input type="checkbox" id="selectalloutletsroutes" class="custom-control-input" name="users[]" value="">
                                                         <span class="custom-control-label"> Select All</span>
                                                 </label>
                                             </div> --}}

@@ -110,14 +110,19 @@ Route::put('/saveeditrouteplan/{id}',[RouteplanController::class,'saveEditRouteP
 
 Route::get('/clockins', [ClockinController::class,'index']);
 Route::get('/clockin/{id}',[ClockinController::class,'showEditClockin']);
+Route::get('/clockinsmap', [ClockinController::class,'showClockinsMap']);
 
 Route::get('/clockouts', [ClockoutController::class,'index']);
 Route::get('/clockout/{id}',[ClockoutController::class,'showEditClockout']);
+Route::get('/clockoutsmap', [ClockoutController::class,'showClockoutsMap']);
 
 Route::get('/profile', [UserController::class,'showProfile']);
 
 Route::get('/visits', [VisitController::class,'index']);
 Route::get('/visit/{id}',[VisitController::class,'showEditVisit']);
+Route::get('/visitsmap', [VisitController::class,'showVisitsMap']);
+Route::get('/visitsbyday', [VisitController::class,'showVisitsByDay']);
+Route::get('/visitsbyday/{id}', [VisitController::class,'showEditVisitsByDay']);
 
 Route::get('/ordernote/{id}',[OrderNoteController::class,'index']);
 Route::get('/download-pdf/{id}', [OrderNoteController::class, 'downloadPdf']);

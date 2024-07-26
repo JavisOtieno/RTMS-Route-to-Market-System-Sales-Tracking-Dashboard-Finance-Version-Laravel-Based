@@ -26,6 +26,11 @@ class Clockin extends Model
 
     ];
 
+    public function visits()
+    {
+        return $this->hasMany(Visit::class);
+    }
+
         protected static function booted()
     {
         static::addGlobalScope(new OrganizationScope);

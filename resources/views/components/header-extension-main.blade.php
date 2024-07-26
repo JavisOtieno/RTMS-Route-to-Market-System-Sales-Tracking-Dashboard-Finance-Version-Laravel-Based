@@ -445,6 +445,7 @@
                                         <li class="side-menu-label1"><a href="javascript:void(0)">Users</a></li>
                                         <li><a href="/admins" class="slide-item"> Admins</a></li>
                                         <li><a href="/sellers" class="slide-item"> Sellers</a></li>
+                                        <li><a href="/targetgroups" class="slide-item"> Sales Target Groups</a></li>
                                         <li><a href="/adduserstotargetgroups" class="slide-item"> Add Sellers to Target Groups</a></li>
                                         <li><a href="/allocateoutletstousers" class="slide-item"> Allocate Outlets to Users</a></li>
                                         
@@ -461,75 +462,160 @@
 
             
             
-              <li class="slide">
+              {{-- <li class="slide">
                 <a class="side-menu__item has-link" data-bs-toggle="slide" href="/targetgroups"><i
                         class="side-menu__icon fe fe-bar-chart"></i><span
                         class="side-menu__label">Target Groups</span></a>
-            </li>
-                <li class="slide">
-                  <a class="side-menu__item has-link" data-bs-toggle="slide" href="/clockins"><i
-                          class="side-menu__icon fe fe-arrow-right"></i><span
-                          class="side-menu__label">Clockins</span></a>
-              </li>
-              <li class="slide">
-                <a class="side-menu__item has-link" data-bs-toggle="slide" href="/clockouts"><i
-                        class="side-menu__icon fe fe-arrow-left"></i><span
-                        class="side-menu__label">Clockouts</span></a>
+            </li> --}}
+
+            <li class="slide">
+                <a class="side-menu__item has-link" data-bs-toggle="slide" href="/products"><i
+                        class="side-menu__icon fe fe-shopping-bag"></i><span
+                        class="side-menu__label">Products</span></a>
             </li>
             <li class="slide">
-                <a class="side-menu__item has-link" data-bs-toggle="slide" href="/visits"><i
-                        class="side-menu__icon fe fe-clock"></i><span
-                        class="side-menu__label">Outlet Visits</span></a>
+                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
+                        class="side-menu__icon fe fe-map-pin"></i><span
+                        class="side-menu__label">Outlets</span><i
+                        class="angle fe fe-chevron-right"></i>
+                </a>
+                <ul class="slide-menu">
+                    <li class="panel sidetab-menu">
+                        <div class="tab-menu-heading p-0 pb-2 border-0">
+                            <div class="tabs-menu ">
+                                <!-- Tabs -->
+                                <ul class="nav panel-tabs">
+                                    <li><a href="#side1" class="d-flex active" data-bs-toggle="tab"><i class="fe fe-monitor me-2"></i><p>Home</p></a></li>
+                                    <li><a href="#side2" data-bs-toggle="tab" class="d-flex"><i class="fe fe-message-square me-2"></i><p>Chat</p></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="panel-body tabs-menu-body p-0 border-0">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="side1">
+                                    <ul class="sidemenu-list">
+                                        <li class="side-menu-label1"><a href="javascript:void(0)">Outlets</a></li>
+                                        <li><a href="/outlets" class="slide-item">Outlets List</a></li>
+                                        <li><a href="/showoutletsmap" class="slide-item">Outlets Map</a></li>
+                                        
+                                    </ul>
+    
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </li>
+            <li class="slide">
+                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
+                        class="side-menu__icon fe fe-map-pin"></i><span
+                        class="side-menu__label">Clockins</span><i
+                        class="angle fe fe-chevron-right"></i>
+                </a>
+                <ul class="slide-menu">
+                    <li class="panel sidetab-menu">
+                        <div class="tab-menu-heading p-0 pb-2 border-0">
+                            <div class="tabs-menu ">
+                                <!-- Tabs -->
+                                <ul class="nav panel-tabs">
+                                    <li><a href="#side1" class="d-flex active" data-bs-toggle="tab"><i class="fe fe-monitor me-2"></i><p>Home</p></a></li>
+                                    <li><a href="#side2" data-bs-toggle="tab" class="d-flex"><i class="fe fe-message-square me-2"></i><p>Chat</p></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="panel-body tabs-menu-body p-0 border-0">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="side1">
+                                    <ul class="sidemenu-list">
+                                        <li class="side-menu-label1"><a href="javascript:void(0)">Clockins</a></li>
+                                        <li><a href="/clockins" class="slide-item">Clockins List</a></li>
+                                        <li><a href="/clockinsmap" class="slide-item">Clockins Map</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li class="slide">
+                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
+                        class="side-menu__icon fe fe-map-pin"></i><span
+                        class="side-menu__label">Clockouts</span><i
+                        class="angle fe fe-chevron-right"></i>
+                </a>
+                <ul class="slide-menu">
+                    <li class="panel sidetab-menu">
+                        <div class="tab-menu-heading p-0 pb-2 border-0">
+                            <div class="tabs-menu ">
+                                <!-- Tabs -->
+                                <ul class="nav panel-tabs">
+                                    <li><a href="#side1" class="d-flex active" data-bs-toggle="tab"><i class="fe fe-monitor me-2"></i><p>Home</p></a></li>
+                                    <li><a href="#side2" data-bs-toggle="tab" class="d-flex"><i class="fe fe-message-square me-2"></i><p>Chat</p></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="panel-body tabs-menu-body p-0 border-0">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="side1">
+                                    <ul class="sidemenu-list">
+                                        <li class="side-menu-label1"><a href="javascript:void(0)">Clockouts</a></li>
+                                        <li><a href="/clockouts" class="slide-item">Clockouts List</a></li>
+                                        <li><a href="/clockoutsmap" class="slide-item">Clockouts Map</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li class="slide">
+                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
+                        class="side-menu__icon fe fe-map-pin"></i><span
+                        class="side-menu__label">Outlet Visits</span><i
+                        class="angle fe fe-chevron-right"></i>
+                </a>
+                <ul class="slide-menu">
+                    <li class="panel sidetab-menu">
+                        <div class="tab-menu-heading p-0 pb-2 border-0">
+                            <div class="tabs-menu ">
+                                <!-- Tabs -->
+                                <ul class="nav panel-tabs">
+                                    <li><a href="#side1" class="d-flex active" data-bs-toggle="tab"><i class="fe fe-monitor me-2"></i><p>Home</p></a></li>
+                                    <li><a href="#side2" data-bs-toggle="tab" class="d-flex"><i class="fe fe-message-square me-2"></i><p>Chat</p></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="panel-body tabs-menu-body p-0 border-0">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="side1">
+                                    <ul class="sidemenu-list">
+                                        <li class="side-menu-label1"><a href="javascript:void(0)">Outlet Visits</a></li>
+                                        <li><a href="/visits" class="slide-item">Visits List</a></li>
+                                        <li><a href="/visitsmap" class="slide-item">Visits Map</a></li>
+                                        <li><a href="/visitsbyday" class="slide-item">Visits By Day</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="slide">
+                <a class="side-menu__item has-link" data-bs-toggle="slide" href="/routeplans"><i
+                        class="side-menu__icon fe fe-map"></i><span
+                        class="side-menu__label">Route Plans</span></a>
+            </li>
+            
               <li class="slide">
                 <a class="side-menu__item has-link" data-bs-toggle="slide" href="/sales"><i
                         class="side-menu__icon fe fe-shopping-cart"></i><span
                         class="side-menu__label">Sales</span></a>
             </li>
-            <li class="slide">
-              <a class="side-menu__item has-link" data-bs-toggle="slide" href="/routeplans"><i
-                      class="side-menu__icon fe fe-map"></i><span
-                      class="side-menu__label">Route Plans</span></a>
-          </li>
-          <li class="slide">
-            <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
-                    class="side-menu__icon fe fe-map-pin"></i><span
-                    class="side-menu__label">Outlets</span><i
-                    class="angle fe fe-chevron-right"></i>
-            </a>
-            <ul class="slide-menu">
-                <li class="panel sidetab-menu">
-                    <div class="tab-menu-heading p-0 pb-2 border-0">
-                        <div class="tabs-menu ">
-                            <!-- Tabs -->
-                            <ul class="nav panel-tabs">
-                                <li><a href="#side1" class="d-flex active" data-bs-toggle="tab"><i class="fe fe-monitor me-2"></i><p>Home</p></a></li>
-                                <li><a href="#side2" data-bs-toggle="tab" class="d-flex"><i class="fe fe-message-square me-2"></i><p>Chat</p></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="panel-body tabs-menu-body p-0 border-0">
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="side1">
-                                <ul class="sidemenu-list">
-                                    <li class="side-menu-label1"><a href="javascript:void(0)">Outlets</a></li>
-                                    <li><a href="/outlets" class="slide-item">Outlets List</a></li>
-                                    <li><a href="/showoutletsmap" class="slide-item">Outlets Map</a></li>
-                                    
-                                </ul>
 
-                            </div>
-                            
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </li>
-          <li class="slide">
-            <a class="side-menu__item has-link" data-bs-toggle="slide" href="/products"><i
-                    class="side-menu__icon fe fe-shopping-bag"></i><span
-                    class="side-menu__label">Products</span></a>
-        </li>
+
+
           <li class="slide">
             <a class="side-menu__item has-link" data-bs-toggle="slide" href="/posaudits"><i
                     class="side-menu__icon fe fe-search"></i><span

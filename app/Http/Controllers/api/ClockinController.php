@@ -33,10 +33,11 @@ class ClockinController extends Controller
         $incomingFields['long']=strip_tags($request['long']);
         $incomingFields['organization_id']=auth()->user()->organization_id;
 
-        Clockin::create($incomingFields);
+        $clockin=Clockin::create($incomingFields);
 
         $clockinStatus=array(
             "message" => "Clockin Successful",
+            "clockinId"=>$clockin['id'],
             "status" => "success");
 
         return response()->json($clockinStatus);

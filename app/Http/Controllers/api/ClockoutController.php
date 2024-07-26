@@ -20,6 +20,7 @@ class ClockoutController extends Controller
         //     'lat'=>'required',
         //     'long'=>'required'
         'userId'=>'required|numeric|digits_between:1,20|exists:users,id',
+        'clockinId'=>'required|numeric|digits_between:1,20|exists:clockins,id',
         'time'=>'required|string|max:255',
         'lat'=>'required|between:-90.000000000,90.000000000',
         'long'=>'required|between:-180.000000000,180.000000000'
@@ -39,6 +40,7 @@ class ClockoutController extends Controller
         try {
             Clockout::create([
                 'user_id' => $request['userId'],
+                'clockin_id' => $request['clockinId'],
                 'time' => $request['time'],
                 'lat' => $request['lat'],
                 'long' => $request['long'],

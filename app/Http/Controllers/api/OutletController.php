@@ -16,6 +16,7 @@ class OutletController extends Controller
  
         $incomingFields=$request->validate([
             'userId'=>'required|numeric|digits_between:1,20|exists:users,id',
+            'clockinId'=>'required|numeric|digits_between:1,20|exists:clockins,id',
             'outletName'=>'required|string|max:255',
             'contactPersonName'=>'required|string|max:255',
             'phone'=>['required','string','min:10','max:255', new PhoneNumber],
@@ -28,6 +29,7 @@ class OutletController extends Controller
     
         $incomingFields=[];
         $incomingFields['user_id']=strip_tags($request['userId']);
+
         $incomingFields['name']=strip_tags($request['outletName']);
         $incomingFields['contact_person_name']=strip_tags($request['contactPersonName']);
         $incomingFields['phone']=strip_tags($request['phone']);
@@ -44,6 +46,7 @@ class OutletController extends Controller
         $incomingFields['checkin_latitude']=strip_tags($request['lat']);
         $incomingFields['checkin_longitude']=strip_tags($request['long']);
         $incomingFields['outlet_id']=strip_tags($outlet['id']);
+        $incomingFields['clockin_id']=strip_tags($request['clockinId']);
 
         $incomingFields['checkout_latitude']="";
         $incomingFields['checkout_longitude']="";

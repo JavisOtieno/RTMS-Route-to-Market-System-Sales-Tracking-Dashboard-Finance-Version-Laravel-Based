@@ -20,6 +20,8 @@ return new class extends Migration
             //$table->integer('user_id');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('clockin_id');
+            $table->foreign('clockin_id')->references('id')->on('clockins');
             //$table->foreign('user_id')->constrained();
             $table->string('checkin_time');
             $table->string('checkin_latitude');

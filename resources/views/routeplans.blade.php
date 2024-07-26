@@ -309,6 +309,7 @@ AIzaSyALLsNWwOC09xsRAqrK0S7dINi6BpNc7iw&callback=embedMap2"></script> --}}
     directionsService = new google.maps.DirectionsService();
     directionsRenderer = new google.maps.DirectionsRenderer();
     directionsRenderer.setMap(map);
+    // alert("we get here");
     var waypoints = [];
  
     // if(routeplans.length>0){
@@ -453,20 +454,30 @@ AIzaSyALLsNWwOC09xsRAqrK0S7dINi6BpNc7iw&callback=embedMap2"></script> --}}
         // var marker = new google.maps.Marker({position: myPosition});
         // marker.setMap(map);
 
-        const origin = waypoints.shift().location;
-        const destination = waypoints.pop().location;
 
-        const request = {
-            origin: origin,
-            destination: destination,
-            waypoints: waypoints,
-            optimizeWaypoints: true,
-            travelMode: 'DRIVING'
-        };
 
         
 
-        directionsService.route(request, function(result, status) {
+        if(routeplan.routeplanitems.length==1){
+            const origin = waypoints.shift().location;
+
+            var bounds = new google.maps.LatLngBounds();
+                addMarkers(map,routeplan.routeplanitems,bounds);
+                map.fitBounds(bounds);
+
+        }else{
+            const origin = waypoints.shift().location;
+            const destination = waypoints.pop().location;
+
+            const request = {
+                origin: origin,
+                destination: destination,
+                waypoints: waypoints,
+                optimizeWaypoints: true,
+                travelMode: 'DRIVING'
+            };
+
+            directionsService.route(request, function(result, status) {
             if (status == 'OK') {
                 directionsRenderer.setDirections(result);
                 console.log('Route drawn with result:', result);
@@ -479,10 +490,17 @@ AIzaSyALLsNWwOC09xsRAqrK0S7dINi6BpNc7iw&callback=embedMap2"></script> --}}
             }
         });
 
+        }
+
+
         
 
         function addMarkers(map, routeplanitems,bounds) {
             var itemNumber = 1;
+
+            //should be google.maps.Marker.MAX_ZINDEX + 1 but we're using 
+            //google.maps.Marker.MAX_ZINDEX + itemNumber to overlay multiple on the same for now
+
             routeplanitems.forEach(item => {
                 //alert('adding marker');
                 var marker = new google.maps.Marker({
@@ -490,7 +508,7 @@ AIzaSyALLsNWwOC09xsRAqrK0S7dINi6BpNc7iw&callback=embedMap2"></script> --}}
                     map: map,
                     label: String(itemNumber),
                     title: item.outlet.name,
-                    zIndex: google.maps.Marker.MAX_ZINDEX + 1 
+                    zIndex: google.maps.Marker.MAX_ZINDEX + itemNumber
                 });
                 itemNumber++;
 

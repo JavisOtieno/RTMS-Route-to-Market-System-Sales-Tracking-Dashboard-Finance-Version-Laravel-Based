@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Visit;
 use Illuminate\Http\Request;
+use App\Models\Clockin;
 
 class VisitController extends Controller
 {
@@ -23,6 +24,32 @@ class VisitController extends Controller
                 $query->withTrashed();
             }])->get()->find($id);
             return view('edit-visit',['visit'=>$visit]);
+        }
+
+        public function showVisitsMap(){
+
+            $visits = Visit::with(['user' => function ($query) {
+                $query->withTrashed();
+            }, 'outlet'])->get();
+           
+            //$users = User::inOrganization()->where('usertype','seller')->get();
+            return view('visitsmap', compact('visits') );
+        }
+
+        public function showVisitsByDay() {
+            //$clockins = Clockin::all();
+            $clockins = Clockin::with(['user' => function ($query) {
+                $query->withTrashed();
+            },'visits.outlet'])->get();
+    
+            return view('visitsbyday', ['clockins'=>$clockins]);
+        }
+
+        public function showEditVisitsByDay($id){
+            $clockin = Clockin::with(['user' => function ($query) {
+                $query->withTrashed();
+            },'visits.outlet'])->get()->find($id);
+            return view('edit-visitsbyday',compact('clockin'));
         }
 
         // public function showEditVisit(Request $request){

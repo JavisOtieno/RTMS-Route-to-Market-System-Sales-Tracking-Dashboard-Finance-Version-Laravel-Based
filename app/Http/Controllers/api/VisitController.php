@@ -24,6 +24,7 @@ class VisitController extends Controller
         'lat'=>'required|between:-90.000000000,90.000000000',
         'long'=>'required|between:-180.000000000,180.000000000',
         'outletId'=>'required|numeric|digits_between:1,20|exists:outlets,id',
+        'clockinId'=>'required|numeric|digits_between:1,20|exists:clockins,id',
         'userId' => 'required|numeric|digits_between:1,20|exists:users,id',
         'routePlanItemId' => 'required|numeric|digits_between:1,20',
         
@@ -35,6 +36,7 @@ class VisitController extends Controller
         $incomingFields['checkin_latitude']=strip_tags($request['lat']);
         $incomingFields['checkin_longitude']=strip_tags($request['long']);
         $incomingFields['outlet_id']=strip_tags($request['outletId']);
+        $incomingFields['clockin_id']=strip_tags($request['clockinId']);
 
         $incomingFields['checkout_latitude']="";
         $incomingFields['checkout_longitude']="";

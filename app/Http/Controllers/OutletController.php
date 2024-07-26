@@ -148,12 +148,12 @@ class OutletController extends Controller
         $outlets = Outlet::with(['user' => function ($query) {
             $query->withTrashed();
         }])->get();
-        $recentVisits=Visit::with('user','outlet')
-        ->orderBy('id', 'desc')
-        ->take(200)->get();
+       
         $users = User::inOrganization()->where('usertype','seller')->get();
-        return view('outletsmap', compact('outlets','users','recentVisits') );
+        return view('outletsmap', compact('outlets','users') );
     }
+
+    
 
     public function pushOutletsToUser(Request $request) {
 

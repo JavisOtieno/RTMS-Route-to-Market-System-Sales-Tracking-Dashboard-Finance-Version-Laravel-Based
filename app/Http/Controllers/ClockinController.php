@@ -27,6 +27,13 @@ class ClockinController extends Controller
         }])->get()->find($id);
         return view('edit-clockin',['clockin'=>$clockin]);
     }
+    public function showClockinsMap(){
+        $clockins = Clockin::with(['user' => function ($query) {
+            $query->withTrashed();
+        }])->get();
+   
+        return view('clockinsmap', compact('clockins') );
+    }
     // public function showEditClockin(Request $request){
     //     $incomingFields=$request->validate([
     //         'id'=>'required|numeric|digits_between:1,11'

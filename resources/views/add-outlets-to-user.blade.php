@@ -74,7 +74,7 @@
                         <input type="submit" class="btn btn-danger col-md-4" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;" value="Allocate Selected Outlets To Selected User"></input>
                     </div>
                     <div class="row" style="margin: 0 10px;">
-                        <input type="hidden" id="tableLoaded" value="outletstouser"/>
+                        <input type="hidden" id="tableLoaded" value="Outletstouser"/>
                         <h3 class="card-title" style="margin-top:20px;margin-block-end: 0rem;">Search by :</h3>
                         <div class="col-md-3 mb-3">
                             <label for="nameInput" class="form-label">Outlet Name</label>

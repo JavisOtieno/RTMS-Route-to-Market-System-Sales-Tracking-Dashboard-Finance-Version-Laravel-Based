@@ -15,8 +15,7 @@ class Visit extends Model
     protected $fillable = [
         'user_id',
         'outlet_id',
-        'product_id',
-        'pieces',
+        'clockin_id',
         'checkin_time',
         'checkin_latitude',
         'checkin_longitude',
@@ -34,6 +33,10 @@ class Visit extends Model
     }
     public function outlet(){
         return $this->belongsTo(Outlet::class,'outlet_id');
+    }
+    public function clockin()
+    {
+        return $this->belongsTo(Clockin::class);
     }
     protected static function booted()
     {

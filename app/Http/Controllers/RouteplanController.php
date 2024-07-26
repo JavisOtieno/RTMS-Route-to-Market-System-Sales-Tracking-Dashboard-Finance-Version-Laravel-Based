@@ -25,12 +25,16 @@ class RouteplanController extends Controller
         $outlets = Outlet::all();
         $users = User::inOrganization()->where('usertype','seller')->get();
         $firstuserid = $users[0]["id"];
-        $outlets = Outlet::where("user_id",$firstuserid)->get();
+        $outlets = Outlet::with(['user' => function ($query) {
+            $query->withTrashed();
+        }])->where("user_id",$firstuserid)->get();
         return view('createrouteplan', compact('users','outlets','firstuserid'));
     }
 
     public function updateOutletsCreateRoutePlan($id){
-        $outlets = Outlet::where("user_id",$id)->get();
+        $outlets = Outlet::with(['user' => function ($query) {
+            $query->withTrashed();
+        }])->where("user_id",$id)->get();
         return response()->json(['outlets'=>$outlets]);
     }
 

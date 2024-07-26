@@ -18,6 +18,7 @@ class Clockout extends Model
     }
     protected $fillable = [
         'user_id',
+        'clockin_id',
         'time',
         'lat',
         'long',

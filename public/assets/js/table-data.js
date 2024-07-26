@@ -45,6 +45,10 @@ $(function(e) {
 
         // Add new rows based on fetched data
         $.each(data.outlets, function(index, outlet) {
+
+            console.log('outlet');
+            console.log(outlet);
+            console.log('outlet');
             
             tableAllocate.row.add([
                 outlet.id,
@@ -126,11 +130,18 @@ $(function(e) {
         .appendTo('#responsive-datatable_wrapper .col-md-6:eq(0)');
 
 //OUTLETS ALLOCATE TO USERS TABLE FORM
-
+ 
         // Handle 'select all' checkbox
         $('#selectalloutlets').on('click', function() {
             alert('clicked');
-            var rows = table2.rows({ 'search': 'applied' }).nodes();
+            var rows = tableAllocate.rows({ 'search': 'applied' }).nodes();
+            $('input[type="checkbox"]', rows).prop('checked', this.checked);
+        });
+
+        // Handle 'select all' checkbox
+        $('#selectalloutletsroutes').on('click', function() {
+            alert('clicked');
+            var rows = tableAllocate.rows({ 'search': 'applied' }).nodes();
             $('input[type="checkbox"]', rows).prop('checked', this.checked);
         });
     
@@ -184,7 +195,7 @@ $(function(e) {
 
 //        Handle 'select all' checkbox
         $('#selectallusers').on('click', function() {
-            var rows = table2.rows({ 'search': 'applied' }).nodes();
+            var rows = tableAllocate.rows({ 'search': 'applied' }).nodes();
             $('input[type="checkbox"]', rows).prop('checked', this.checked);
         });
     
@@ -393,22 +404,22 @@ $(function(e) {
         });
 
     }
-    else if(tableLoaded=="outletstouser"){
+    else if(tableLoaded=="Outletstouser"){
         $('#nameInput').on('keyup', function() {
             //alert(this.value);
-            table2.column(1).search(this.value).draw(); // Column index 1 for 'Name'
+            tableAllocate.column(1).search(this.value).draw(); // Column index 1 for 'Name'
         });
         $('#currentSellerInput').on('keyup', function() {
             //alert(this.value);
-            table2.column(2).search(this.value).draw(); // Column index 1 for 'Name'
+            tableAllocate.column(2).search(this.value).draw(); // Column index 1 for 'Name'
         });
         $('#contactNameInput').on('keyup', function() {
             //alert(this.value);
-            table2.column(3).search(this.value).draw(); // Column index 2 for 'Contact Name'
+            tableAllocate.column(3).search(this.value).draw(); // Column index 2 for 'Contact Name'
         });
         $('#phoneInput').on('keyup', function() {
             //alert(this.value);
-            table2.column(4).search(this.value).draw(); // Column index 3 for 'Phone'
+            tableAllocate.column(4).search(this.value).draw(); // Column index 3 for 'Phone'
         });
 
     }
