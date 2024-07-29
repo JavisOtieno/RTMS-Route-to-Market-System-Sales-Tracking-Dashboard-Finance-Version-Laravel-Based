@@ -509,7 +509,7 @@
             </li>
             <li class="slide">
                 <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
-                        class="side-menu__icon fe fe-map-pin"></i><span
+                        class="side-menu__icon fe fe-arrow-right-circle"></i><span
                         class="side-menu__label">Clockins</span><i
                         class="angle fe fe-chevron-right"></i>
                 </a>
@@ -540,7 +540,7 @@
             </li>
             <li class="slide">
                 <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
-                        class="side-menu__icon fe fe-map-pin"></i><span
+                        class="side-menu__icon fe fe-arrow-left-circle"></i><span
                         class="side-menu__label">Clockouts</span><i
                         class="angle fe fe-chevron-right"></i>
                 </a>
@@ -571,7 +571,7 @@
             </li>
             <li class="slide">
                 <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
-                        class="side-menu__icon fe fe-map-pin"></i><span
+                        class="side-menu__icon fe fe-navigation"></i><span
                         class="side-menu__label">Outlet Visits</span><i
                         class="angle fe fe-chevron-right"></i>
                 </a>

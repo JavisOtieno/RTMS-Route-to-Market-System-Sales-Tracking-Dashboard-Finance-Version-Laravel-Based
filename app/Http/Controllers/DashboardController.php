@@ -34,7 +34,9 @@ class DashboardController extends Controller
         $outlets = Outlet::orderBy('id', 'desc')->take(5)->get();
         $month=Carbon::now()->format('M');
 
-        $topSellers=Sale::with('user')->select('user_id', DB::raw('COUNT(user_id) as count'))
+        $topSellers=Sale::with(['user' => function ($query) {
+            $query->withTrashed();
+        }])->select('user_id', DB::raw('COUNT(user_id) as count'))
         ->groupBy('user_id')
         ->orderBy('count', 'desc')
         ->take(5)->get();
@@ -56,7 +58,9 @@ class DashboardController extends Controller
         $topSellerUserNames=[];
         $topSellerSalesCount=[];
 
-        $topSellersGraph=Sale::with('user')->select('user_id', DB::raw('COUNT(user_id) as count'))
+        $topSellersGraph=Sale::with(['user' => function ($query) {
+            $query->withTrashed();
+        }])->select('user_id', DB::raw('COUNT(user_id) as count'))
         ->groupBy('user_id')
         ->orderBy('count', 'desc')
         ->take(10)->get();
@@ -84,7 +88,9 @@ class DashboardController extends Controller
         //$topSellers = User::inOrganization()::withCount('sales')->orderBy('sales_count', 'desc')->take(5)->get();
         //return $topSellers;
 
-        $topOutlets=Sale::with('user')->select('outlet_id', DB::raw('COUNT(outlet_id) as count'))
+        $topOutlets=Sale::with(['user' => function ($query) {
+            $query->withTrashed();
+        }])->select('outlet_id', DB::raw('COUNT(outlet_id) as count'))
         ->groupBy('outlet_id')
         ->orderBy('count', 'desc')
         ->take(5)->get();
