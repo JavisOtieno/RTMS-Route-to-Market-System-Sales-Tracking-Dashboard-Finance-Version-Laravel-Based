@@ -72,17 +72,35 @@ class ProductController extends Controller
             //$path = $request->file('image')->storeAs('images', $imagePath, 'public');
     
             //store to products
-            $path = $request->file('image')->storeAs($folder, $imageName, 'public');
+            // $path = $request->file('image')->storeAs($folder, $imageName, 'public');
 
-            $optimizerChain = OptimizerChainFactory::create();
-            $maxFileSize = 200 * 1024; // 200KB
+            // $optimizerChain = OptimizerChainFactory::create();
+            // $maxFileSize = 200 * 1024; // 200KB
 
-            $fullImagePath = storage_path('app/public/' . $path);
+            // $fullImagePath = storage_path('app/public/' . $path);
     
-            // Optimize image until it is less than 200KB
-            while (filesize($fullImagePath) > $maxFileSize) {
-                $optimizerChain->optimize($fullImagePath);
-            }
+            // // Optimize image until it is less than 200KB
+            // while (filesize($fullImagePath) > $maxFileSize) {
+            //     $optimizerChain->optimize($fullImagePath);
+            // }
+
+            $image = $request->file('image');
+
+            // Set the path to save the original image
+            $imagepath = public_path('/images/');
+             
+            // Set the path to save the compressed image
+            $pathToOutput = public_path('/optimizedImage/');
+ 
+            // Save the original image
+            $image->move($imagepath, $imageName);
+ 
+            // Compress image and save it to optimizedImage path using Spatie's OptimizerChainFactory 
+            $optimizerChain = OptimizerChainFactory::create();
+            $optimizerChain->optimize($imagepath.$imageName,$pathToOutput.$imageName);
+ 
+            // Delete the original image
+            unlink($imagepath.$imageName);
 
             
         }else{
