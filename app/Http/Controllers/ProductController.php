@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Spatie\ImageOptimizer\OptimizerChainFactory;
 
+
 class ProductController extends Controller
 {
     //
@@ -39,7 +40,7 @@ class ProductController extends Controller
             'sku'=>'required|string|unique:products|max:255',
             'stock'=>'required|numeric|digits_between:1,11',
             'description'=>'required|string',
-            'image' => 'image|mimes:jpeg,webp,png,jpg,gif,svg|max:2048'
+            'image' => 'image|mimes:jpeg,webp,png,jpg,gif,svg|max:3072'
         ]);
 
         
