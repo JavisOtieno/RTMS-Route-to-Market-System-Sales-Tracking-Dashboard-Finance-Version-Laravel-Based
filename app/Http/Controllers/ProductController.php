@@ -171,6 +171,16 @@ class ProductController extends Controller
 
             $path = $request->file('image')->storeAs($folder, $imageName, 'public');
 
+            $optimizerChain = OptimizerChainFactory::create();
+            $maxFileSize = 200 * 1024; // 200KB
+    
+            $fullImagePath = storage_path('app/public/' . $path);
+    
+            // Optimize image until it is less than 200KB
+            while (filesize($fullImagePath) > $maxFileSize) {
+                $optimizerChain->optimize($fullImagePath);
+            }
+
             // Optionally delete the old file if it exists
             if ($request->input('existing_file')) {
                 Storage::disk('public')->delete($request->input('existing_file'));
@@ -214,17 +224,7 @@ class ProductController extends Controller
             
         // }
 
-        $path = $request->file('image')->storeAs($folder, $imageName, 'public');
 
-        $optimizerChain = OptimizerChainFactory::create();
-        $maxFileSize = 200 * 1024; // 200KB
-
-        $fullImagePath = storage_path('app/public/' . $path);
-
-        // Optimize image until it is less than 200KB
-        while (filesize($fullImagePath) > $maxFileSize) {
-            $optimizerChain->optimize($fullImagePath);
-        }
 
         $product->update($incomingFields);
 
