@@ -126,6 +126,57 @@ $(function(e) {
     ],
         
     });
+
+
+
+        // Custom filter function for date range comparison
+        $.fn.dataTable.ext.search.push(
+            function(settings, data, dataIndex) {
+                var tableLoaded=$('#tableLoaded').val();
+
+                var dataColumn=3;
+
+                if(tableLoaded=="visits"){
+                    dataColumn = 3; 
+                }else if(tableLoaded=="feedback"){
+                    dataColumn = 4;
+                }
+
+
+                const minDate = $('#dateFromInput').val();
+                const maxDate = $('#dateToInput').val();
+                const dateStr = data[dataColumn]; // Assuming the date is in the 4th column (index 3)
+    
+                const parseDate = str => {
+                    const [day, month, year] = str.split('-');
+                    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                    return new Date(year, months.indexOf(month), day);
+                };
+
+                function toCustomFormat(dateStr) {
+                    const [year, month, day] = dateStr.split('-');
+                    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                    return `${day}-${months[parseInt(month) - 1]}-${year}`;
+                }
+    
+                const minDateParsed = minDate ? parseDate(toCustomFormat(minDate)) : null;
+                const maxDateParsed = maxDate ? parseDate(toCustomFormat(maxDate)) : null;
+                const dateParsed = parseDate(dateStr);
+    
+                // Check if the date is within the range
+                const withinMin = minDateParsed ? dateParsed >= minDateParsed : true;
+                const withinMax = maxDateParsed ? dateParsed <= maxDateParsed : true;
+    
+                return withinMin && withinMax;
+            }
+        );
+
+            // Event handlers to trigger the table redraw when the date inputs change
+    $('#dateFromInput, #dateToInput').on('change', function() {
+        table2.draw(); // Trigger the custom filter when either date input changes
+    });
+
+
     table2.buttons().container()
         .appendTo('#responsive-datatable_wrapper .col-md-6:eq(0)');
 
@@ -369,10 +420,49 @@ $(function(e) {
             //alert(this.value);
             table2.column(2).search(this.value).draw(); // Column index 0 for 'Name'
         });
-        // $('#dateInput').on('keyup', function() {
+
+        // $('#dateInput').on('change', function() {
         //     //alert(this.value);
-        //     table2.column(2).search(this.value).draw(); // Column index 1 for 'Position'
+        //     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+        //     // Function to convert YYYY-MM-DD to DD-MMM-YYYY
+        //     function toCustomFormat(dateStr) {
+        //         const [year, month, day] = dateStr.split('-');
+        //         return `${day}-${months[parseInt(month) - 1]}-${year}`;
+        //     }
+            
+        //     table2.column(3).search(toCustomFormat(this.value)).draw(); // Column index 1 for 'Position'
+            
         // });
+
+        // $('#dateInput').on('change', function() {
+        //     //alert(this.value);
+        //     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+        //     // Function to convert YYYY-MM-DD to DD-MMM-YYYY
+        //     function toCustomFormat(dateStr) {
+        //         const [year, month, day] = dateStr.split('-');
+        //         return `${day}-${months[parseInt(month) - 1]}-${year}`;
+        //     }
+            
+        //     table2.column(3).search(toCustomFormat(this.value)).draw(); // Column index 1 for 'Position'
+            
+        // });
+
+        // $('#dateToInput').on('change', function() {
+        //     //alert(this.value);
+        //     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+        //     // Function to convert YYYY-MM-DD to DD-MMM-YYYY
+        //     function toCustomFormat(dateStr) {
+        //         const [year, month, day] = dateStr.split('-');
+        //         return `${day}-${months[parseInt(month) - 1]}-${year}`;
+        //     }
+            
+        //     table2.column(3).search(toCustomFormat(this.value)).draw(); // Column index 1 for 'Position'
+            
+        // });
+
         // $('#timeInput').on('keyup', function() {
         // table2.column(2).search('>' + this.value, true, false).draw();
         // });

@@ -36,6 +36,14 @@
                 <label for="outletName" class="form-label">Outlet Name</label>
                 <input type="text" class="form-control" id="outletNameInput" placeholder="Outlet Name">
             </div>
+            <div class="col-md-3 mb-3">
+                <label for="date" class="form-label">From</label>
+                <input type="date" class="form-control" id="dateFromInput" placeholder="Min Date">
+            </div>
+            <div class="col-md-3 mb-3">
+                <label for="date" class="form-label">To</label>
+                <input type="date" class="form-control" id="dateToInput" placeholder="Max Date">
+            </div>
             
             
         </div>
@@ -49,7 +57,9 @@
                             <th>Seller Name</th>
                             <th>Outlet Name</th>
                             <th>Feedback</th>
-                            <th>Added</th>
+                            {{-- <th>Added</th> --}}
+                            <th>Date</th>
+                            <th>Time</th>
                             <th id="view-column">View/Edit</th>
                             <th id="delete-column">Delete</th>
                         </tr>
@@ -62,7 +72,9 @@
 <td>{{$feed['user'] ? $feed['user']['name']  . ($feed['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}
 <td>{{$feed['outlet']['name']}}</td>
 <td style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{$feed['feedback']}}</td>
-<td>{{date('d-M-Y H:i', strtotime($feed['created_at']))}}</td>
+{{-- <td>{{date('d-M-Y H:i', strtotime($feed['created_at']))}}</td> --}}
+<td>{{date('d-M-Y', strtotime($feed['created_at']))}}</td>
+<td>{{date('H:i', strtotime($feed['created_at']))}}</td>
 <td><a type="button" href="/feedback/{{$feed['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
 </td>
 {{-- <td>

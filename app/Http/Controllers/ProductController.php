@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Spatie\ImageOptimizer\OptimizerChainFactory;
 
 class ProductController extends Controller
 {
@@ -72,6 +73,17 @@ class ProductController extends Controller
     
             //store to products
             $path = $request->file('image')->storeAs($folder, $imageName, 'public');
+
+            $optimizerChain = OptimizerChainFactory::create();
+            $maxFileSize = 200 * 1024; // 200KB
+
+            $fullImagePath = storage_path('app/public/' . $path);
+    
+            // Optimize image until it is less than 200KB
+            while (filesize($fullImagePath) > $maxFileSize) {
+                $optimizerChain->optimize($fullImagePath);
+            }
+
             
         }else{
             $incomingFields['image']='';   
@@ -201,6 +213,18 @@ class ProductController extends Controller
         //     //$incomingFields['image']='';   
             
         // }
+
+        $path = $request->file('image')->storeAs($folder, $imageName, 'public');
+
+        $optimizerChain = OptimizerChainFactory::create();
+        $maxFileSize = 200 * 1024; // 200KB
+
+        $fullImagePath = storage_path('app/public/' . $path);
+
+        // Optimize image until it is less than 200KB
+        while (filesize($fullImagePath) > $maxFileSize) {
+            $optimizerChain->optimize($fullImagePath);
+        }
 
         $product->update($incomingFields);
 

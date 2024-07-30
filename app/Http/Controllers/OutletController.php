@@ -7,6 +7,8 @@ use App\Models\Visit;
 use App\Models\Outlet;
 use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
+use Spatie\ImageOptimizer\OptimizerChainFactory;
+
 
 class OutletController extends Controller
 {
@@ -77,9 +79,20 @@ class OutletController extends Controller
             //stores to images/folder in this case images/products/
             //$path = $request->file('image')->storeAs('images', $imagePath, 'public');
             //$path = $request->file('image')->storeAs('images', $imagePath, 'public');
-    
+
             //store to products
             $path = $request->file('image')->storeAs($folder, $imageName, 'public');
+
+            $optimizerChain = OptimizerChainFactory::create();
+            $maxFileSize = 200 * 1024; // 200KB
+
+            $fullImagePath = storage_path('app/public/' . $path);
+    
+            // Optimize image until it is less than 200KB
+            while (filesize($fullImagePath) > $maxFileSize) {
+                $optimizerChain->optimize($fullImagePath);
+            }
+            
             
         }else{
             $incomingFields['image']='';   

@@ -14,6 +14,8 @@ class VisitController extends Controller
             //$visits = Visit::all();
             $visits = Visit::with(['user' => function ($query) {
                 $query->withTrashed();
+            },'outlet' => function ($query) {
+                $query->withTrashed();
             }])->get();
             return view('visits', ['visits'=>$visits]);
         }
