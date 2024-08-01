@@ -39,6 +39,14 @@
                 <label for="outletName" class="form-label">Outlet Name</label>
                 <input type="text" class="form-control" id="outletNameInput" placeholder="Outlet Name">
             </div>
+            <div class="col-md-3 mb-3">
+                <label for="date" class="form-label">From</label>
+                <input type="date" class="form-control" id="dateFromInput" placeholder="Min Date">
+            </div>
+            <div class="col-md-3 mb-3">
+                <label for="date" class="form-label">To</label>
+                <input type="date" class="form-control" id="dateToInput" placeholder="Max Date">
+            </div>
             
             
         </div>
@@ -49,13 +57,16 @@
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th id="view-column">View/Edit</th>
+                            <th id="delete-column">Delete</th>
                             <th>Seller Name</th>
                             <th>Route Plan Name</th>
-                            <th>Added</th>
-                            <th>Scheduled</th>
-                            <th id="view-column">View/Edit</th>
+                            <th>Scheduled Date</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            
                             <th id="map-column">Map</th>
-                            <th id="delete-column">Delete</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -64,13 +75,18 @@
                         @foreach($routeplans as $routeplan)
 <tr>
 <td>{{$routeplan['id']}}</td>
-{{-- <td>{{$posaudit['user']['name']}}</td> --}}
-<td>{{ $routeplan['user'] ? $routeplan['user']['name']  . ($routeplan['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}
-<td>{{$routeplan['name']}}</td>
-<td>{{date('d-M-Y H:i', strtotime($routeplan['created_at']))}}</td>
-<td>{{$routeplan['date']}}</td>
 <td><a type="button" href="/routeplan/{{$routeplan['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
 </td>
+<td><a type="button" onclick="deleteItem('{{$routeplan['id']}}','{{$routeplan['name']}}','{{$routeplan['user']['name']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
+</td>
+    {{-- <td>{{$posaudit['user']['name']}}</td> --}}
+<td>{{ $routeplan['user'] ? $routeplan['user']['name']  . ($routeplan['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}
+<td>{{$routeplan['name']}}</td>
+<td>{{$routeplan['date']}}</td>
+<td>{{date('d-M-Y', strtotime($routeplan['created_at']))}}</td>
+<td>{{date('H:i', strtotime($routeplan['created_at']))}}</td>
+
+
 <td><a type="button" 
     {{-- onclick="embedMap2()" --}}
     id=""
@@ -85,8 +101,7 @@
         <button type="submit" class="btn btn-info">View</button>
     </form>
 </td> --}}
-<td><a type="button" onclick="deleteItem('{{$routeplan['id']}}','{{$routeplan['name']}}','{{$routeplan['user']['name']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
-</td>
+
 </tr>
 @endforeach
 

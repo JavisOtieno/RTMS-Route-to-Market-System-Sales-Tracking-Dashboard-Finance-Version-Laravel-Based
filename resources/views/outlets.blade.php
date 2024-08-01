@@ -39,10 +39,17 @@
                 <label for="contactNameInput" class="form-label">Contact Name</label>
                 <input type="text" class="form-control" id="contactNameInput" placeholder="Contact Name">
             </div>
+
             <div class="col-md-3 mb-3">
-                <label for="phone" class="form-label">Phone</label>
-                <input type="tel" class="form-control" id="phoneInput" placeholder="Phone">
+                <label for="date" class="form-label">From</label>
+                <input type="date" class="form-control" id="dateFromInput" placeholder="Min Date">
             </div>
+
+            <div class="col-md-3 mb-3">
+                <label for="date" class="form-label">To</label>
+                <input type="date" class="form-control" id="dateToInput" placeholder="Max Date">
+            </div>
+   
            
         </div>
         <div class="card-body">
@@ -51,11 +58,13 @@
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>View/Edit</th>
                             <th>Name</th>
                             <th>Contact Name</th>
                             <th>Phone</th>
-                            <th>View/Edit</th>
+                            <th>Date</th>
                             <th id="map-column">Map</th>
+                            
                             {{-- <th id="delete-column">Delete</th> --}}
                         </tr>
                     </thead>
@@ -65,11 +74,14 @@
                             @foreach($outlets as $outlet)
                             <tr>
                             <td>{{$outlet['id']}}</td>
+                            <td><a type="button" href="/editoutlet/{{$outlet['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
+                            </td>
                             <td>{{$outlet['name']}}</td>
                             <td>{{$outlet['contact_person_name']}}</td>
                             <td>{{$outlet['phone']}}</td>
-                            <td><a type="button" href="/editoutlet/{{$outlet['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
-                            </td>
+                            <td>{{date('d-M-Y', strtotime($outlet['created_at']))}}</td>
+
+                            
                             {{-- <td>
                                 <form method="POST" action="{{ route('editoutlet') }}">
                                     @csrf

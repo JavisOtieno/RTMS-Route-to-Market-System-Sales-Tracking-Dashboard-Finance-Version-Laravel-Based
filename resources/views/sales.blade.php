@@ -41,6 +41,14 @@
                             <label for="outletName" class="form-label">Outlet Name</label>
                             <input type="text" class="form-control" id="outletNameInput" placeholder="Outlet Name">
                         </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="date" class="form-label">From</label>
+                            <input type="date" class="form-control" id="dateFromInput" placeholder="Min Date">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="date" class="form-label">To</label>
+                            <input type="date" class="form-control" id="dateToInput" placeholder="Max Date">
+                        </div>
                         {{-- <div class="col-md-3 mb-3">
                             <label for="time" class="form-label">Clockin After</label>
                             <input type="time" class="form-control" id="timeInput" placeholder="Time">
@@ -64,15 +72,18 @@
                                     
                                     <tr>
                                         <th>ID</th>
+                                        <th id="view-column">View/Edit</th>
+                                        <th id="delete-column">Delete</th>
                                         <th>Seller Name</th>
                                         <th>Outlet Name</th>
                                         <th>Products Sold</th>
                                         <th>Pieces</th>
                                         <th>Value</th>
+                                        <th>Date</th>
+                                        <th>Time</th>
                                         {{-- <th>Added</th> --}}
                                         <!--<th>View/Edit</th>-->
-                                        <th id="view-column">View/Edit</th>
-                                        <th id="delete-column">Delete</th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -91,27 +102,22 @@
                                         @endforeach
                                     <tr>                                        
                                         <td>{{$sale['id']}}</td>
+                                        <td><a type="button" href="/sale/{{$sale['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
+                                        </td>
+                                        <td><a type="button" onclick="deleteItem({{$sale['id']}},'{{$sale['outlet']['name']}}','{{$sale['user']['name']}}',{{$sale['pieces']}})"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
+                                        </td>
                                         <td>{{ $sale['user'] ? $sale['user']['name']  . ($sale['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}
                                         </td>
                                         <td>{{$sale['outlet']['name']}}</td>
                                         <td style="white-space: pre-line;">{{$saleitems}}</td>
                                         <td>{{$sale['pieces']}}</td>
                                         <td>{{'KSh '.number_format($sale['value'])}}</td>
+                                        <td>{{date('d-M-Y', strtotime($sale['created_at']))}}</td>
+                                        <td>{{date('H:i', strtotime($sale['created_at']))}}</td>
                                         {{-- <td>{{date('d-M-Y H:i', strtotime($sale['created_at']))}}</td> --}}
                                         {{-- <td><a type="button" href="/editsale/{{$sale['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
                                         </td> --}}
-                                        <td><a type="button" href="/sale/{{$sale['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
-                                        </td>
-                                        {{-- <td>
-                                            <form method="POST" action="{{ route('editsale') }}">
-                                                @csrf
-                                                <input type="hidden" name="id" value="{{ $sale->id }}">
-                                                <!-- Other form fields -->
-                                                <button type="submit" class="btn btn-info">View</button>
-                                            </form>
-                                        </td> --}}
-                                        <td><a type="button" onclick="deleteItem({{$sale['id']}},'{{$sale['outlet']['name']}}','{{$sale['user']['name']}}',{{$sale['pieces']}})"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
-                                        </td>
+                                        
                                         <!--<a class="modal-effect btn btn-primary-light d-grid mb-3" data-bs-effect="effect-scale" >Scale</a>-->
                                         </tr>
                                         @endforeach

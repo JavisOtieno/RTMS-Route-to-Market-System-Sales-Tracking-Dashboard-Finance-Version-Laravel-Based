@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Outlet;
 use App\Models\Clockout;
 use Illuminate\Http\Request;
 
@@ -33,8 +35,11 @@ class ClockoutController extends Controller
             $clockouts = Clockout::with(['user' => function ($query) {
                 $query->withTrashed();
             }])->get();
+
            
-            return view('clockoutsmap', compact('clockouts') );
+            $users = User::inOrganization()->where('usertype','seller')->get();
+           
+            return view('clockoutsmap', compact('clockouts','users') );
         }
 
         // public function showEditClockout(Request $request){

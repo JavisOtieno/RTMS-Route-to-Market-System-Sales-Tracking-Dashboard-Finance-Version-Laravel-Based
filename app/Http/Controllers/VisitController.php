@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Visit;
-use Illuminate\Http\Request;
+use App\Models\Outlet;
 use App\Models\Clockin;
+use Illuminate\Http\Request;
 
 class VisitController extends Controller
 {
@@ -33,9 +36,58 @@ class VisitController extends Controller
             $visits = Visit::with(['user' => function ($query) {
                 $query->withTrashed();
             }, 'outlet'])->get();
+
+            $users = User::inOrganization()->get();
+            $outlets = Outlet::all();
            
             //$users = User::inOrganization()->where('usertype','seller')->get();
-            return view('visitsmap', compact('visits') );
+            return view('visitsmap', compact('visits','users','outlets') );
+        }
+
+        public function showVisitsAnalytics(){
+
+            $visits = Visit::with(['user' => function ($query) {
+                $query->withTrashed();
+            }, 'outlet'])->get();
+
+            $users = User::inOrganization()->get();
+            $outlets = Outlet::all();
+
+            $visitsCount = Visit::all()->count();
+
+            $visitsPerMonth= array();
+            for ($i=0; $i<=11; $i++){
+                $visitsPerMonth[$i] = Visit::whereMonth('created_at', date('m',strtotime('-'.$i.' month')))->count();
+            }
+            $visitsPerMonth =array_reverse($visitsPerMonth);
+
+
+            $startOfMonth = date('Y-m-01 00:00:00'); // 1st day of the current month
+            $today = date('Y-m-d 23:59:59'); // Current day
+            $visitsThisMonth = Visit::whereBetween('created_at', [$startOfMonth, $today])->count();
+
+            $startOfWeek = Carbon::now()->startOfWeek(); // Start of the week (Monday)
+            $today = Carbon::now()->endOfDay(); // Current day
+            $visitsThisWeek = Visit::whereBetween('created_at', [$startOfWeek, $today])->count();
+
+            // Visits Today
+            $startOfDay = Carbon::now()->startOfDay();
+            $endOfDay = Carbon::now()->endOfDay();
+            $visitsToday = Visit::whereBetween('created_at', [$startOfDay, $endOfDay])->count();
+
+
+                    //get months Jan Feb Mar...Dec
+            for ($i = 0; $i <= 11; $i++) {
+                        $months[] = date("M", strtotime( date( 'Y-m-01' )." -$i months"));
+                        }
+                        //echo "Before";
+                        //print_r($months);
+                        //echo "After";
+            $months=array_reverse($months);
+           
+            //$users = User::inOrganization()->where('usertype','seller')->get();
+            return view('visitsanalytics', compact('visitsPerMonth','visits','users','outlets','months','visitsCount',
+            'visitsThisMonth', 'visitsThisWeek','visitsToday') );
         }
 
         public function showVisitsByDay() {

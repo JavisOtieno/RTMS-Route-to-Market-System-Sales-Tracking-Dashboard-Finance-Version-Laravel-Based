@@ -29,10 +29,34 @@
         <div class="row" style="margin: 0 10px;">
             <input type="hidden" id="tableLoaded" value="clockouts"/>
             <h3 class="card-title" style="margin-top:20px;margin-block-end: 0rem;">Search by :</h3>
+
             <div class="col-md-3 mb-3">
                 <label for="name" class="form-label">Seller Name</label>
                 <input type="text" class="form-control" id="nameInput" placeholder="Name">
             </div>
+
+            <div class="col-md-3 mb-3">
+                <label for="dateFromInput" class="form-label">Date From</label>
+                <input type="date" class="form-control" id="dateFromInput" placeholder="Min Date">
+            </div>
+            <div class="col-md-3 mb-3">
+                <label for="dateToInput" class="form-label">Date To</label>
+                <input type="date" class="form-control" id="dateToInput" placeholder="Max Date">
+            </div>
+            <div class="col-md-3 mb-3">
+            <div class="row">
+            <div class="col-md-6 ">
+                <label for="timeFromInput" class="form-label">Time From</label>
+                <input type="time" class="form-control" id="timeFromInput" placeholder="Min Date">
+            </div>
+            <div class="col-md-6 ">
+                <label for="timeToInput" class="form-label">Time To</label>
+                <input type="time" class="form-control" id="timeToInput" placeholder="Max Date">
+            </div>
+            </div>
+            </div>
+
+            
             {{-- <div class="col-md-3 mb-3">
                 <label for="date" class="form-label">Date</label>
                 <input type="date" class="form-control" id="dateInput" placeholder="Date">
@@ -59,12 +83,12 @@
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th id="view-column">View</th>
                             <th>Name</th>
                             <th>Date</th>
                             <th>Time</th>
                             <th>Lat</th>
                             <th>Long</th>
-                            <th id="view-column">View</th>
                             <th id="map-column">Map</th>
                         </tr>
                     </thead>
@@ -74,14 +98,15 @@
                             @foreach($clockouts as $clockout)
                             <tr>
                             <td>{{$clockout['id']}}</td>
+                            <td><a type="button" href="/clockout/{{$clockout['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View</a>
+                            </td>
                             <td>{{ $clockout['user'] ? $clockout['user']['name']  . ($clockout['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}
                             </td>
                             <td>{{date('d-M-Y', strtotime($clockout['created_at']))}}</td>
                             <td>{{date('H:i', strtotime($clockout['created_at']))}}</td>
                             <td>{{$clockout['lat']}}</td>
                             <td>{{$clockout['long']}}</td>
-                            <td><a type="button" href="/clockout/{{$clockout['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View</a>
-                            </td>
+                            
                             {{-- <td>
                                 <form method="POST" action="{{ route('editclockout') }}">
                                     @csrf

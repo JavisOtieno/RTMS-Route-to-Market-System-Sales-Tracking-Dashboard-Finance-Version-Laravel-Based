@@ -69,13 +69,13 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
+                                        <th id="view-column">View</th>
                                         <th>Seller Name</th>
                                         <th>Outlet Name</th>
                                         <th>Date</th>
                                         <th>Check In Time</th>
                                         <th>Check Out Time</th>
                                         <th>Duration<br/>(HH:mm:ss)</th>
-                                        <th id="view-column">View</th>
                                         <th id="map-column">Map</th>
                                         <!--<th>Duration</th>-->
                                     </tr>
@@ -86,6 +86,8 @@
                                         @foreach($visits as $visit)
                                         <tr>
                                         <td>{{$visit['id']}}</td>
+                                        <td><a type="button" href="/visit/{{$visit['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View</a>
+                                        </td>
                                         <td>{{ $visit['user'] ? $visit['user']['name']  . ($visit['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}</td>
                                         <td>{{$visit['outlet']['name']}}</td>
                                         <td>{{date('d-M-Y', strtotime($visit['created_at']))}}</td>
@@ -100,8 +102,7 @@
                                         @else
                                         <td>{{gmdate("H:i:s", $visit['checkout_time']-strtotime($visit['created_at']))}}</td>
                                         @endif
-                                        <td><a type="button" href="/visit/{{$visit['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
-                                        </td>
+                                        
                                         {{-- <td>
                                             <form method="POST" action="{{ route('editclockout') }}">
                                                 @csrf
@@ -288,7 +289,34 @@
 
 
             //marker.setMap(map);
-            
+
+            var checkoutDate = new Date(visit.checkout_time * 1000); // Convert to milliseconds
+
+            var checkoutHours = checkoutDate.getHours();
+            var minutes = checkoutDate.getMinutes();
+
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+
+            var checkoutTime = checkoutHours + ':' + minutes;
+
+            var date = new Date(visit.created_at);
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var day = date.getDate();
+            var month = date.getMonth() + 1; // Months are zero-based, so add 1
+            var year = date.getFullYear();
+
+            var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+            // Get month name from array
+            var monthName = monthNames[month];
+
+            var visitDate = day + '-' + monthName + '-' + year;
+
+            // Pad single digit minutes with a leading zero
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+
+            var visitTime = hours + ':' + minutes;
 
             var infoWindow = new google.maps.InfoWindow({
                 content: `
@@ -297,7 +325,9 @@
                         <p><strong>Contact Person:</strong> ${visit.outlet.contact_person_name}</p>
                         <p><strong>Phone:</strong> ${visit.outlet.phone}</p>
                         <p><strong>Latitude:</strong> ${visit.outlet.lat}</p>
-                        <p><strong>Longitude:</strong> ${visit.outlet.long}</p>
+                        <p><strong>Date:</strong> ${visitDate}</p>
+                        <p><strong>Checkin Time:</strong> ${visitTime}</p>
+                        <p><strong>Checkout Time:</strong> ${checkoutTime}</p>
                     </div>
                 `
             });

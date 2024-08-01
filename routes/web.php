@@ -46,8 +46,16 @@ Route::get('/', [DashboardController::class,'index']);
 Route::get('/dashboard', [DashboardController::class,'index']);
 
 Route::get('/sales', [SaleController::class,'index']);
-
+Route::get('/salesmap', [SaleController::class,'showSalesMap']);
 Route::get('/add-sale', [SaleController::class,'addSale']);
+Route::get('/salesanalytics', [SaleController::class,'showSalesAnalytics']);
+
+Route::post('/savesale', [SaleController::class,'saveSale']);
+Route::get('/deletesale/{id}', [SaleController::class,'deleteSale']);
+Route::get('/editsale/{id}',[SaleController::class,'showEditSale']);
+Route::get('/sale/{id}',[SaleController::class,'showEditSale']);
+Route::put('/saveeditsale/{id}',[SaleController::class,'saveEditSale']);
+
 
 Route::get('/outlets', [OutletController::class,'index']);
 Route::get('/allocateoutletstousers', [OutletController::class,'showAddOutletsToUsers']);
@@ -74,11 +82,7 @@ Route::get('/deletefeedback/{id}', [FeedbackController::class,'deleteFeedback'])
 Route::get('/feedback/{id}',[FeedbackController::class,'showEditFeedback']);
 Route::put('/saveeditfeedback/{id}',[FeedbackController::class,'saveEditFeedback']);
 
-Route::post('/savesale', [SaleController::class,'saveSale']);
-Route::get('/deletesale/{id}', [SaleController::class,'deleteSale']);
-Route::get('/editsale/{id}',[SaleController::class,'showEditSale']);
-Route::get('/sale/{id}',[SaleController::class,'showEditSale']);
-Route::put('/saveeditsale/{id}',[SaleController::class,'saveEditSale']);
+
 
 Route::get('/deleteproduct/{id}', [ProductController::class,'deleteProduct']);
 
@@ -122,6 +126,7 @@ Route::get('/visits', [VisitController::class,'index']);
 Route::get('/visit/{id}',[VisitController::class,'showEditVisit']);
 Route::get('/visitsmap', [VisitController::class,'showVisitsMap']);
 Route::get('/visitsbyday', [VisitController::class,'showVisitsByDay']);
+Route::get('/visitsanalytics', [VisitController::class,'showVisitsAnalytics']);
 Route::get('/visitsbyday/{id}', [VisitController::class,'showEditVisitsByDay']);
 
 Route::get('/ordernote/{id}',[OrderNoteController::class,'index']);

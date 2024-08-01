@@ -29,7 +29,7 @@
             <!--<p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p>-->
             
                 
-                    <form action="/saveeditseller/{{$user['id']}}" method="POST">
+                    <form action="/saveeditseller/{{$user['id']}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="">
@@ -81,6 +81,16 @@
                             <div class="form-group">
                                 <label for="dateTime" class="form-label">Date and Time Added</label>
                                 <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{date('d-M-Y H:i', strtotime($user['created_at']))}}" autocomplete="dateTime">
+                            </div>
+                            <div class="form-group">
+                                <label for="image" class="form-label">Image (Optional)</label>
+                                {{-- {{url('storage/'.old('image',$user['image']))}} --}}
+                                <div class="col-lg-12 col-sm-12 mb-4 mb-lg-0">
+                                    <input type="file" class="dropify" name="image" data-default-file="{{$user['image']==''?'':url('storage/'.$user['image'])}}" data-bs-height="180">
+                                    <input type="hidden" name="default_file_removed" id="default_file_removed" value="0">
+                                    <input type="hidden" name="existing_file" value="{{$user['image']==''?'':url('storage/'.$user['image'])}}">
+       
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="password" class="form-label">Password</label>

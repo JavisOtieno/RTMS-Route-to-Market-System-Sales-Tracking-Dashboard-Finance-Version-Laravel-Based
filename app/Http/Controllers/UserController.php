@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Rules\PhoneNumber;
 use App\Models\TargetGroup;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
@@ -102,6 +103,31 @@ class UserController extends Controller
 
         //return $incomingFields['usertype'];
 
+        if($request['image']){
+
+            $imageName = time().'.'.$request->image->extension();
+
+            // Save image to public/images directory
+            //$request->image->move(public_path('images'), $imageName);
+    
+            //code from android version
+            $folder="users";
+            $imagePath=$folder."/".$imageName;
+            //Storage::disk('public')->put($imagePath, $imageData);
+            $incomingFields['image']=$imagePath;
+    
+            //store using the storage facade
+            //stores to images/folder in this case images/users/
+            //$path = $request->file('image')->storeAs('images', $imagePath, 'public');
+            //$path = $request->file('image')->storeAs('images', $imagePath, 'public');
+    
+            //store to users
+            $path = $request->file('image')->storeAs($folder, $imageName, 'public');
+            
+        }else{
+            $incomingFields['image']='';   
+        }
+
         User::create($incomingFields);
 
         return redirect('/admins');
@@ -117,7 +143,8 @@ class UserController extends Controller
             'email'=>'required|email|unique:users|max:255',
             //'password'=>'required|string|max:255|min:8|confirmed',
             'password' => ['required','string','max:255','min:8','confirmed',Password::min(8)->letters()->numbers()],
-            'target_group_id'=>'required|numeric|digits_between:1,20'
+            'target_group_id'=>'required|numeric|digits_between:1,20',
+            'image' => 'image|mimes:jpeg,webp,png,jpg,gif,svg|max:3072'
         ]);
         //return $incomingFields;
         
@@ -129,6 +156,34 @@ class UserController extends Controller
         $incomingFields['email']=strip_tags($incomingFields['email']);
         $incomingFields['password']=strip_tags($incomingFields['password']);
         $incomingFields['organization_id']=$organizationId;
+
+        //return $request->image;
+
+
+        if($request['image']){
+
+            $imageName = time().'.'.$request->image->extension();
+
+            // Save image to public/images directory
+            //$request->image->move(public_path('images'), $imageName);
+    
+            //code from android version
+            $folder="users";
+            $imagePath=$folder."/".$imageName;
+            //Storage::disk('public')->put($imagePath, $imageData);
+            $incomingFields['image']=$imagePath;
+    
+            //store using the storage facade
+            //stores to images/folder in this case images/users/
+            //$path = $request->file('image')->storeAs('images', $imagePath, 'public');
+            //$path = $request->file('image')->storeAs('images', $imagePath, 'public');
+    
+            //store to users
+            $path = $request->file('image')->storeAs($folder, $imageName, 'public');
+            
+        }else{
+            $incomingFields['image']='';   
+        }
         
 
         //return $incomingFields['usertype'];
@@ -175,6 +230,7 @@ class UserController extends Controller
             //'usertype'=>'required|string|max:255',
             // 'email'=>'required|email|max:255',
             // 'email'=>'required|email|unique:users|max:255',
+            'image' => 'image|mimes:jpeg,webp,png,jpg,gif,svg|max:3072',
             'email' => 'required|email|max:255|unique:users,email,' . $id,
             'target_group_id'=>'required|numeric|digits_between:1,20'
         ]);
@@ -187,6 +243,51 @@ class UserController extends Controller
         $incomingFields['organization_id']=$organizationId;
 
         $user=User::inOrganization()->find($id);
+
+
+        if ($request->input('default_file_removed') == 1 && !$request->hasFile('image')) {
+
+            //return "default image removed and none uploaded";
+            // Default file has been removed, handle accordingly
+            $path = "";
+            $incomingFields['image']=$path;
+            // Optionally delete the old file if needed
+            if ($request->input('existing_file')) {
+                Storage::disk('public')->delete($request->input('existing_file'));
+            }
+
+        } elseif ($request->hasFile('image')) {
+            //return "image uploaded";
+            // Store the new file
+            // $file = $request->file('file');
+            // $path = $file->store('uploads', 'public');
+
+            $request->validate([
+                'image' => 'image|mimes:jpeg,webp,png,jpg,gif,svg|max:2048'
+            ]);
+
+
+            $imageName = time().'.'.$request->image->extension();
+            
+            $folder="users";
+            $imagePath=$folder."/".$imageName;
+
+            $incomingFields['image']=$imagePath;
+
+            $path = $request->file('image')->storeAs($folder, $imageName, 'public');
+
+            // Optionally delete the old file if it exists
+            if ($request->input('existing_file')) {
+                Storage::disk('public')->delete($request->input('existing_file'));
+            }
+
+        } else {
+            //return "image has not been changed";
+            // Use the existing file path
+            $path = $request->input('existing_file');
+            // no need to access this
+            // $incomingFields['image']=$path;
+        }
 
         $user->update($incomingFields);
 
@@ -214,6 +315,50 @@ class UserController extends Controller
         $incomingFields['organization_id']=$organizationId;
 
         $user=User::inOrganization()->find($id);
+
+        if ($request->input('default_file_removed') == 1 && !$request->hasFile('image')) {
+
+            //return "default image removed and none uploaded";
+            // Default file has been removed, handle accordingly
+            $path = "";
+            $incomingFields['image']=$path;
+            // Optionally delete the old file if needed
+            if ($request->input('existing_file')) {
+                Storage::disk('public')->delete($request->input('existing_file'));
+            }
+
+        } elseif ($request->hasFile('image')) {
+            //return "image uploaded";
+            // Store the new file
+            // $file = $request->file('file');
+            // $path = $file->store('uploads', 'public');
+
+            $request->validate([
+                'image' => 'image|mimes:jpeg,webp,png,jpg,gif,svg|max:2048'
+            ]);
+
+
+            $imageName = time().'.'.$request->image->extension();
+            
+            $folder="users";
+            $imagePath=$folder."/".$imageName;
+
+            $incomingFields['image']=$imagePath;
+
+            $path = $request->file('image')->storeAs($folder, $imageName, 'public');
+
+            // Optionally delete the old file if it exists
+            if ($request->input('existing_file')) {
+                Storage::disk('public')->delete($request->input('existing_file'));
+            }
+
+        } else {
+            //return "image has not been changed";
+            // Use the existing file path
+            $path = $request->input('existing_file');
+            // no need to access this
+            // $incomingFields['image']=$path;
+        }
 
         $user->update($incomingFields);
 

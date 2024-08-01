@@ -33,6 +33,26 @@
                 <label for="name" class="form-label">Seller Name</label>
                 <input type="text" class="form-control" id="nameInput" placeholder="Name">
             </div>
+            <div class="col-md-3 mb-3">
+                <label for="dateFromInput" class="form-label">Date From</label>
+                <input type="date" class="form-control" id="dateFromInput" placeholder="Min Date">
+            </div>
+            <div class="col-md-3 mb-3">
+                <label for="dateToInput" class="form-label">Date To</label>
+                <input type="date" class="form-control" id="dateToInput" placeholder="Max Date">
+            </div>
+            <div class="col-md-3 mb-3">
+            <div class="row">
+            <div class="col-md-6 ">
+                <label for="timeFromInput" class="form-label">Time From</label>
+                <input type="time" class="form-control" id="timeFromInput" placeholder="Min Date">
+            </div>
+            <div class="col-md-6 ">
+                <label for="timeToInput" class="form-label">Time To</label>
+                <input type="time" class="form-control" id="timeToInput" placeholder="Max Date">
+            </div>
+            </div>
+            </div>
             {{-- <div class="col-md-3 mb-3">
                 <label for="date" class="form-label">Date</label>
                 <input type="date" class="form-control" id="dateInput" placeholder="Date">

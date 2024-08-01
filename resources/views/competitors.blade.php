@@ -36,6 +36,15 @@
                 <label for="outletName" class="form-label">Outlet Name</label>
                 <input type="text" class="form-control" id="outletNameInput" placeholder="Outlet Name">
             </div>
+
+            <div class="col-md-3 mb-3">
+                <label for="date" class="form-label">From</label>
+                <input type="date" class="form-control" id="dateFromInput" placeholder="Min Date">
+            </div>
+            <div class="col-md-3 mb-3">
+                <label for="date" class="form-label">To</label>
+                <input type="date" class="form-control" id="dateToInput" placeholder="Max Date">
+            </div>
             
             
         </div>
@@ -46,13 +55,15 @@
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th id="view-column">View/Edit</th>
+                            <th id="delete-column">Delete</th>
                             <th>Seller Name</th>
                             <th>Outlet Name</th>
                             <th>Brand Visibility</th>
                             <th>Pricing</th>
-                            <th>Added</th>
-                            <th id="view-column">View/Edit</th>
-                            <th id="delete-column">Delete</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -61,23 +72,17 @@
                         
 <tr>
 <td>{{$competitor['id']}}</td>
+<td><a type="button" href="/competitiveanalysis/{{$competitor['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
+</td>
+<td><a type="button" onclick="deleteItemDefault({{$competitor['id']}},'{{$competitor['outlet']['name']}}','{{$competitor['user']['name']}}','competitoranalysis')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
+
 {{-- <td>{{$competitor['user']['name']}}</td> --}}
 <td>{{$competitor['user'] ? $competitor['user']['name']  . ($competitor['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}
 <td>{{$competitor['outlet']['name']}}</td>
 <td  style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{$competitor['brand_visibility']}}</td>
 <td  style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{$competitor['pricing']}}</td>
-<td>{{date('d-M-Y H:i', strtotime($competitor['created_at']))}}</td>
-<td><a type="button" href="/competitiveanalysis/{{$competitor['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
-</td>
-{{-- <td>
-    <form method="POST" action="{{ route('editcompetitiveanalysis') }}">
-        @csrf
-        <input type="hidden" name="id" value="{{ $competitor->id }}">
-        <!-- Other form fields -->
-        <button type="submit" class="btn btn-info">View</button>
-    </form>
-</td> --}}
-<td><a type="button" onclick="deleteItemDefault({{$competitor['id']}},'{{$competitor['outlet']['name']}}','{{$competitor['user']['name']}}','competitoranalysis')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
+<td>{{date('d-M-Y', strtotime($competitor['created_at']))}}</td>
+<td>{{date('H:i', strtotime($competitor['created_at']))}}</td>
 
 </tr>
 @endforeach

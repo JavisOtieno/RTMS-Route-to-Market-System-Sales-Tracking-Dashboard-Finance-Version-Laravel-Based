@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layout-form')
 
 @section('content')
 
@@ -26,27 +26,50 @@
         <div class="card-header">
             <h3 class="card-title">Clockins Map</h3>
         </div>
-        {{-- <div class="row" style="margin: 0 10px;">
+        <div class="row" style="margin: 0 10px;">
             <input type="hidden" id="tableLoaded" value="outlets"/>
             <h3 class="card-title" style="margin-top:20px;margin-block-end: 0rem;">Search by :</h3>
             <div class="col-md-3 mb-3">
-                <label for="nameInput" class="form-label">Outlet Name</label>
-                <input type="text" class="form-control" id="nameInput" placeholder="Name">
+                <label for="nameInput" class="form-label">Seller Name</label>
+                <select id="userFilter"  class="form-control select2-show-search form-select">
+                    <!-- Options will be populated dynamically -->
+                    <option value="">All Users</option>
+                    @foreach($users as $user)
+                    <option value="{{$user['name']}}">{{$user['name']}}</option>
+                    @endforeach
+                </select>
+                
             </div>
-            
+
+
             <div class="col-md-3 mb-3">
-                <label for="contactNameInput" class="form-label">Contact Name</label>
-                <input type="text" class="form-control" id="contactNameInput" placeholder="Contact Name">
+            <label for="date" class="form-label">From</label>
+            <input type="date" class="form-control" id="fromDate" placeholder="Min Date">
             </div>
+
             <div class="col-md-3 mb-3">
-                <label for="phone" class="form-label">Phone</label>
-                <input type="tel" class="form-control" id="phoneInput" placeholder="Phone">
+            <label for="date" class="form-label">To</label>
+            <input type="date" class="form-control" id="toDate" placeholder="Max Date">
             </div>
+
+            <div class="col-md-3 mb-3">
+                <div class="row">
+                <div class="col-md-6 ">
+                    <label for="fromTime" class="form-label">Time From</label>
+                    <input type="time" class="form-control" id="fromTime" placeholder="Min Date">
+                </div>
+                <div class="col-md-6 ">
+                    <label for="toTime" class="form-label">Time To</label>
+                    <input type="time" class="form-control" id="toTime" placeholder="Max Date">
+                </div>
+                </div>
+                </div>
+
            
-        </div> --}}
+        </div>
         <div class="card-body">
             <div class="table-responsive">
-                <div id="googleMapOutlets" class="worldh world-map h-500" ></div>
+                <div id="googleMapClockins" class="worldh world-map h-500" ></div>
             </div>
         </div>
     </div>
@@ -117,7 +140,7 @@
   </script>
 
   
-<script>
+{{-- <script>
     
     function myMap2() {
         var clockins= @json($clockins);
@@ -220,5 +243,172 @@
 
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=
-    AIzaSyALLsNWwOC09xsRAqrK0S7dINi6BpNc7iw&callback=myMap2"></script>
+    AIzaSyALLsNWwOC09xsRAqrK0S7dINi6BpNc7iw&callback=myMap2"></script> --}}
+
+
+    <script>
+        let map;
+        let markers = [];  // Store marker references
+    
+        function myMap2() {
+            var clockins = @json($clockins);
+    
+            console.log("clockin 0");
+            console.log(clockins[0]);
+            console.log("clockin 0");
+    
+            var mapProp = {
+                center: new google.maps.LatLng(-1.286389, 36.817223),
+                zoom: 10,
+            };
+    
+            document.addEventListener("DOMContentLoaded", function() {
+                var googleMapsDiv = document.getElementById("googleMapClockins");
+                map = new google.maps.Map(googleMapsDiv, mapProp);
+    
+                // $('#userFilter').select2();
+    
+                // Populate user filter dropdown
+                // populateUserFilter(visits);
+    
+                // Initial map update with all visits
+                updateMap(clockins);
+    
+                $('#userFilter, #outletFilter, #fromDate, #toDate, #fromTime, #toTime').on('change', function() {
+                applyFilters(clockins);
+                });
+                
+    
+    
+            });
+        }
+    
+        function applyFilters(clockins) {
+    
+                    // var selectedOutlet = $('#outletFilter').val();
+                    var selectedUser = $('#userFilter').val();
+                    var fromDate = $('#fromDate').val();
+                    var toDate = $('#toDate').val();
+                    var fromTime = $('#fromTime').val(); 
+                    var toTime = $('#toTime').val();
+                    
+                   // var filteredVisits = selectedUser ? visits.filter(visit => visit.user.name === selectedUser ) : visits;
+                    var filteredClockins = clockins.filter(clockin => {
+                                const userMatches = selectedUser ? clockin.user.name === selectedUser : true;
+                                // const outletMatches = selectedOutlet ? outlet.name === selectedOutlet : true;
+                                        // Convert visit.created_at to date object
+                                var clockinDate = new Date(clockin.created_at);
+    
+                                // Filter by date range
+                                const fromDateMatches = fromDate ? clockinDate >= new Date(fromDate) : true;
+                                const toDateMatches = toDate ? clockinDate <= new Date(toDate) : true;
+
+                                // Extract time components from clockinDate
+                                var clockinHours = clockinDate.getHours();
+                                var clockinMinutes = clockinDate.getMinutes();
+
+                                    // Filter by time range
+                                const fromTimeMatches = fromTime ? (clockinHours * 60 + clockinMinutes) >= 
+                                (parseInt(fromTime.split(':')[0]) * 60 + parseInt(fromTime.split(':')[1])) : true;
+                                const toTimeMatches = toTime ? (clockinHours * 60 + clockinMinutes) <= 
+                                (parseInt(toTime.split(':')[0]) * 60 + parseInt(toTime.split(':')[1])) : true;
+
+                                return userMatches && fromDateMatches && toDateMatches && fromTimeMatches && toTimeMatches;
+                                // return userMatches && fromDateMatches && toDateMatches;
+
+
+                            });
+                            
+                    updateMap(filteredClockins);
+    
+        }
+    
+        function populateUserFilter(clockins) {
+            const userFilter = document.getElementById("userFilter");
+            const users = [...new Set(clockins.map(clockin => clockin.user.name))];
+    
+            // Add an option for 'All Users'
+            const allUsersOption = document.createElement('option');
+            allUsersOption.value = '';
+            allUsersOption.text = 'All Users';
+            userFilter.add(allUsersOption);
+    
+            users.forEach(user => {
+                const option = document.createElement('option');
+                option.value = user;
+                option.text = user;
+                userFilter.add(option);
+            });
+        }
+    
+        function updateMap(clockins) {
+            clearMarkers();
+    
+            if (clockins.length > 0) {
+                const bounds = new google.maps.LatLngBounds();
+                clockins.forEach(clockin => {
+                    var lat1 = Number(clockin['lat']);
+                    var long1 = Number(clockin['long']);
+                    const myPosition = { lat: lat1, lng: long1 };
+    
+    
+                    var date = new Date(clockin.created_at);
+                    var hours = date.getHours();
+                    var minutes = date.getMinutes();
+                    var day = date.getDate();
+                    var month = date.getMonth() + 1; // Months are zero-based, so add 1
+                    var year = date.getFullYear();
+    
+                    var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    
+                    // Get month name from array
+                    var monthName = monthNames[month];
+    
+                    var clockinDate = day + '-' + monthName + '-' + year;
+    
+                    // Pad single digit minutes with a leading zero
+                    minutes = minutes < 10 ? '0' + minutes : minutes;
+    
+                    hours = hours < 10 ? '0' + hours : hours;
+    
+                    var clockinTime = hours + ':' + minutes;
+    
+                    const infowindow = new google.maps.InfoWindow({
+                        content: "<div><h3>Seller: "+( clockin['user']===null ? 'Deleted User': clockin['user']['name'])+"</h3>"+
+                            "<p>Latitude: " + lat1 + "</p>" +
+                            "<p>Longitude: " + long1 + "</p>" +
+                            "<p><strong>Date: </strong> "+clockinDate+"</p>"+
+                            "<p><strong>Time: </strong> "+clockinTime+"</p>"+
+                        
+                            "</div>"
+                    });
+    
+                    var marker = new google.maps.Marker({
+                        position: myPosition,
+                        title: clockin['name'],
+                        label: String(clockin.id),
+                        title: clockin.user.name,
+                        zIndex: google.maps.Marker.MAX_ZINDEX + Number(clockin.id)
+                    });
+                    google.maps.event.addListener(marker, 'click', function() {
+                        infowindow.open(map, marker);
+                    });
+                    marker.setMap(map);
+    
+                    markers.push(marker);  // Add marker to the array
+    
+                    bounds.extend(myPosition);
+                });
+    
+                map.fitBounds(bounds);
+            }
+        }
+    
+        function clearMarkers() {
+            markers.forEach(marker => marker.setMap(null));  // Remove each marker from the map
+            markers = [];  // Clear the markers array
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALLsNWwOC09xsRAqrK0S7dINi6BpNc7iw&callback=myMap2" async defer></script>
+    
 

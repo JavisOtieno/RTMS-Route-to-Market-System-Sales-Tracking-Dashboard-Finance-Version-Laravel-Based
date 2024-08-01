@@ -40,6 +40,14 @@
                             <label for="amount" class="form-label">Amount</label>
                             <input type="text" class="form-control" id="amountInput" placeholder="Amount">
                         </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="date" class="form-label">From</label>
+                            <input type="date" class="form-control" id="dateFromInput" placeholder="Min Date">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="date" class="form-label">To</label>
+                            <input type="date" class="form-control" id="dateToInput" placeholder="Max Date">
+                        </div>
 
                     </div>
                     <div class="card-body">
@@ -48,11 +56,12 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Target Group Name</th>
-                                        <th>Amount</th>
-                                        <th>Added</th>
                                         <th id="edit-column">View/Edit</th>
                                         <th id="delete-column">Delete</th>
+                                        <th>Target Group Name</th>
+                                        <th>Amount</th>
+                                        <th>Date</th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -62,12 +71,15 @@
                                         @foreach($targetgroups as $targetgroup)
                                         <tr>
                                         <td>{{$targetgroup['id']}}</td>
-                                        <td>{{$targetgroup['name']}}</td>
-                                        <td>{{'KSh '.number_format($targetgroup['amount'])}}</td>
-                                        <td>{{date('d-M-Y H:i', strtotime($targetgroup['created_at']))}}</td>
-                                    
                                         <td><a type="button" href="/edittargetgroup/{{$targetgroup['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
                                         </td>
+                                        <td><a type="button" onclick="deleteItem({{$targetgroup['id']}},'Id: '+{{$targetgroup['id']}}+'<br/> Name: '+'{{$targetgroup['name']}}'+'<br/> Amount: '+'{{$targetgroup['amount']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
+                                        </td>
+                                        <td>{{$targetgroup['name']}}</td>
+                                        <td>{{'KSh '.number_format($targetgroup['amount'])}}</td>
+                                        <td>{{date('d-M-Y', strtotime($targetgroup['created_at']))}}</td>
+                                    
+                                        
                                         {{-- <td>
                                             <form method="POST" action="{{ route('edittargetgroup') }}">
                                                 @csrf
@@ -76,8 +88,7 @@
                                                 <button type="submit" class="btn btn-info">View/Edit</button>
                                             </form>
                                         </td> --}}
-                                        <td><a type="button" onclick="deleteItem({{$targetgroup['id']}},'Id: '+{{$targetgroup['id']}}+'<br/> Name: '+'{{$targetgroup['name']}}'+'<br/> Amount: '+'{{$targetgroup['amount']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
-                                        </td>
+                                        
                                         <!--<a class="modal-effect btn btn-primary-light d-grid mb-3" data-bs-effect="effect-scale" >Scale</a>-->
                                         </tr>
                                         @endforeach

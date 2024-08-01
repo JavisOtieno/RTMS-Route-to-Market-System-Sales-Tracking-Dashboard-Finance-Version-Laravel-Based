@@ -36,6 +36,14 @@
                 <label for="outletName" class="form-label">Outlet Name</label>
                 <input type="text" class="form-control" id="outletNameInput" placeholder="Outlet Name">
             </div>
+            <div class="col-md-3 mb-3">
+                <label for="date" class="form-label">From</label>
+                <input type="date" class="form-control" id="dateFromInput" placeholder="Min Date">
+            </div>
+            <div class="col-md-3 mb-3">
+                <label for="date" class="form-label">To</label>
+                <input type="date" class="form-control" id="dateToInput" placeholder="Max Date">
+            </div>
             
             
         </div>
@@ -46,12 +54,14 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Seller Name</th>
-                            <th>Outlet name</th>
-                            <th>Products Audited</th>
-                            <th>Added</th>
                             <th id="view-column">View/Edit</th>
                             <th id="delete-column">Delete</th>
+                            <th>Seller Name</th>
+                            <th>Outlet Name</th>
+                            <th>Products Audited</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -60,6 +70,12 @@
                         @foreach($posaudits as $posaudit)
 <tr>
 <td>{{$posaudit['id']}}</td>
+<td><a type="button" href="/posaudit/{{$posaudit['id']}}" 
+    class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
+</td>
+
+<td><a type="button" onclick="deleteItemDefault({{$posaudit['id']}},'{{$posaudit['outlet']['name']}}','{{$posaudit['user']['name']}}','posaudits')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
+</td>
 {{-- <td>{{$posaudit['user']['name']}}</td> --}}
 <td>{{ $posaudit['user'] ? $posaudit['user']['name']  . ($posaudit['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}
 <td>{{$posaudit['outlet']['name']}}</td>
@@ -74,20 +90,9 @@ if($i>2){$posaudititems.="...";break;}
 ?>
 @endforeach
 <td style="white-space: pre-line;">{{$posaudititems}}</td>
-<td>{{date('d-M-Y H:i', strtotime($posaudit['created_at']))}}</td>
-<td><a type="button" href="/posaudit/{{$posaudit['id']}}" 
-    class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
-</td>
-{{-- <td>
-    <form method="POST" action="{{ route('editproduct') }}">
-        @csrf
-        <input type="hidden" name="id" value="{{ $product->id }}">
-        <!-- Other form fields -->
-        <button type="submit" class="btn btn-info">View</button>
-    </form>
-</td> --}}
-<td><a type="button" onclick="deleteItemDefault({{$posaudit['id']}},'{{$posaudit['outlet']['name']}}','{{$posaudit['user']['name']}}','posaudits')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
-</td>
+<td>{{date('d-M-Y', strtotime($posaudit['created_at']))}}</td>
+<td>{{date('H:i', strtotime($posaudit['created_at']))}}</td>
+
 </tr>
 @endforeach
 

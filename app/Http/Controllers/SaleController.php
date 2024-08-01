@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Sale;
 use App\Models\User;
 use App\Models\Outlet;
@@ -87,6 +88,66 @@ class SaleController extends Controller
         return redirect('/sales');
         
     }
+
+    public function showSalesMap(){
+
+        $sales = Sale::with(['user' => function ($query) {
+            $query->withTrashed();
+        }, 'outlet'])->get();
+
+        $users = User::inOrganization()->get();
+        $outlets = Outlet::all();
+       
+        //$users = User::inOrganization()->where('usertype','seller')->get();
+        return view('salesmap', compact('sales','users','outlets') );
+    }
+
+    public function showSalesAnalytics(){
+
+        $visits = Sale::with(['user' => function ($query) {
+            $query->withTrashed();
+        }, 'outlet'])->get();
+
+        $users = User::inOrganization()->get();
+        $outlets = Outlet::all();
+
+        $salesCount = Sale::all()->count();
+
+        $visitsPerMonth= array();
+        for ($i=0; $i<=11; $i++){
+            $salesPerMonth[$i] = Sale::whereMonth('created_at', date('m',strtotime('-'.$i.' month')))->count();
+        }
+        $salesPerMonth =array_reverse($salesPerMonth);
+
+
+        $startOfMonth = date('Y-m-01 00:00:00'); // 1st day of the current month
+        $today = date('Y-m-d 23:59:59'); // Current day
+        $salesThisMonth =Sale::whereBetween('created_at', [$startOfMonth, $today])->count();
+
+        $startOfWeek = Carbon::now()->startOfWeek(); // Start of the week (Monday)
+        $today = Carbon::now()->endOfDay(); // Current day
+        $salesThisWeek = Sale::whereBetween('created_at', [$startOfWeek, $today])->count();
+
+        // Visits Today
+        $startOfDay = Carbon::now()->startOfDay();
+        $endOfDay = Carbon::now()->endOfDay();
+        $salesToday = Sale::whereBetween('created_at', [$startOfDay, $endOfDay])->count();
+
+
+                //get months Jan Feb Mar...Dec
+        for ($i = 0; $i <= 11; $i++) {
+                    $months[] = date("M", strtotime( date( 'Y-m-01' )." -$i months"));
+                    }
+                    //echo "Before";
+                    //print_r($months);
+                    //echo "After";
+        $months=array_reverse($months);
+       
+        //$users = User::inOrganization()->where('usertype','seller')->get();
+        return view('salesanalytics', compact('salesPerMonth','months','salesCount',
+        'salesThisMonth', 'salesThisWeek','salesToday') );
+    }
+
 
     public function deleteSale($id){
         $sale = Sale::find($id);

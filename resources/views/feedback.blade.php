@@ -54,14 +54,15 @@
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th id="view-column">View/Edit</th>
+                            <th id="delete-column">Delete</th>
                             <th>Seller Name</th>
                             <th>Outlet Name</th>
                             <th>Feedback</th>
                             {{-- <th>Added</th> --}}
                             <th>Date</th>
                             <th>Time</th>
-                            <th id="view-column">View/Edit</th>
-                            <th id="delete-column">Delete</th>
+ 
                         </tr>
                     </thead>
                     <tbody>
@@ -69,23 +70,16 @@
                         @foreach($feedback as $feed)
 <tr>
 <td>{{$feed['id']}}</td>
+<td><a type="button" href="/feedback/{{$feed['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
+</td>
+<td><a type="button" onclick="deleteItemDefault({{$feed['id']}},'{{$feed['outlet']['name']}}','{{$feed['user']['name']}}','feedback')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
+
 <td>{{$feed['user'] ? $feed['user']['name']  . ($feed['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}
 <td>{{$feed['outlet']['name']}}</td>
 <td style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{$feed['feedback']}}</td>
 {{-- <td>{{date('d-M-Y H:i', strtotime($feed['created_at']))}}</td> --}}
 <td>{{date('d-M-Y', strtotime($feed['created_at']))}}</td>
 <td>{{date('H:i', strtotime($feed['created_at']))}}</td>
-<td><a type="button" href="/feedback/{{$feed['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
-</td>
-{{-- <td>
-    <form method="POST" action="{{ route('editfeedback') }}">
-        @csrf
-        <input type="hidden" name="id" value="{{ $feed->id }}">
-        <!-- Other form fields -->
-        <button type="submit" class="btn btn-info">View</button>
-    </form>
-</td> --}}
-<td><a type="button" onclick="deleteItemDefault({{$feed['id']}},'{{$feed['outlet']['name']}}','{{$feed['user']['name']}}','feedback')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
 
 </tr>
 @endforeach

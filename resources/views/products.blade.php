@@ -41,9 +41,14 @@
                             <label for="skuInput" class="form-label">SKU</label>
                             <input type="text" class="form-control" id="skuInput" placeholder="SKU">
                         </div>
+            
                         <div class="col-md-3 mb-3">
-                            <label for="priceInput" class="form-label">Price</label>
-                            <input type="tel" class="form-control" id="priceInput" placeholder="Price">
+                            <label for="date" class="form-label">From</label>
+                            <input type="date" class="form-control" id="dateFromInput" placeholder="Min Date">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="date" class="form-label">To</label>
+                            <input type="date" class="form-control" id="dateToInput" placeholder="Max Date">
                         </div>
                        
                     </div>
@@ -53,12 +58,14 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
+                                        <th id="edit-column">View/Edit</th>
+                                        <th id="delete-column">Delete</th>
                                         <th>Product Name</th>
                                         <th>SKU</th>
                                         <th>Price</th>
                                         <th>Stock</th>
-                                        <th id="edit-column">View/Edit</th>
-                                        <th id="delete-column">Delete</th>
+                                        <th>Date</th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -67,12 +74,17 @@
                                         @foreach($products as $product)
                                         <tr>
                                         <td>{{$product['id']}}</td>
+                                        <td><a type="button" href="/editproduct/{{$product['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
+                                        </td>
+                                        <td><a type="button" onclick="deleteItem({{$product['id']}},'{{$product['name']}}','{{$product['sku']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
+                                        </td>
                                         <td>{{$product['name']}}</td>
                                         <td>{{$product['sku']}}</td>
                                         <td>{{'KSh '.number_format($product['price'])}}</td>
                                         <td>{{number_format($product['stock'])}}</td>
-                                        <td><a type="button" href="/editproduct/{{$product['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
-                                        </td>
+                                        <td>{{date('d-M-Y', strtotime($product['created_at']))}}</td>
+
+                                        
                                         {{-- <td>
                                             <form method="POST" action="{{ route('editproduct') }}">
                                                 @csrf
@@ -81,8 +93,7 @@
                                                 <button type="submit" class="btn btn-info">View/Edit</button>
                                             </form>
                                         </td> --}}
-                                        <td><a type="button" onclick="deleteItem({{$product['id']}},'{{$product['name']}}','{{$product['sku']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
-                                        </td>
+                                        
                                         <!--<a class="modal-effect btn btn-primary-light d-grid mb-3" data-bs-effect="effect-scale" >Scale</a>-->
                                         </tr>
                                         

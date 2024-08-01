@@ -161,6 +161,8 @@ class OutletController extends Controller
         $outlets = Outlet::with(['user' => function ($query) {
             $query->withTrashed();
         }])->get();
+
+        
        
         $users = User::inOrganization()->where('usertype','seller')->get();
         return view('outletsmap', compact('outlets','users') );

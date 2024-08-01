@@ -601,6 +601,9 @@
            
             var marker = new google.maps.Marker({position: myPosition,
                 title: visit['outlet']['name'],
+                label: String(visit.id),
+                title: visit.outlet.name,
+                zIndex: google.maps.Marker.MAX_ZINDEX + Number(visit.id)
             });
             google.maps.event.addListener(marker, 'click', function() {
                     infowindow.open(map,marker);

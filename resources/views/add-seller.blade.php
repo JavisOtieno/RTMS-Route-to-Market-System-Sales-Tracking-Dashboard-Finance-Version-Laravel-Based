@@ -29,7 +29,7 @@
             <!--<p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p>-->
             
                 
-                    <form action="/saveseller" method="POST">
+                    <form action="/saveseller" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('POST')
                         <div class="">
@@ -79,6 +79,12 @@
                                         @endforeach
                 </select></div>
                             <div class="form-group">
+                                <label for="image" class="form-label">Image (Optional)</label>
+                                <div class="col-lg-12 col-sm-12 mb-4 mb-lg-0">
+                                    <input name="image" type="file" class="dropify" data-bs-height="180">
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label for="password" class="form-label">Password</label>
                                 <input type="password" class="form-control" name="password" id="password" placeholder="Password" autocomplete="password">
                             </div>
@@ -86,6 +92,8 @@
                                 <label for="password_confirmation" class="form-label">Confirm Password</label>
                                 <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Confirm Password"  autocomplete="password_confirmation">
                             </div>
+
+
                             
                             
                         </div>

@@ -81,7 +81,7 @@
                             <input type="text" class="form-control" id="nameInput" placeholder="Name">
                         </div>
                         <div class="col-md-3 mb-3">
-                            <label for="currentSellerInput" class="form-label">Current Seller</label>
+                            <label for="currentSellerInput" class="form-label">Seller</label>
                             <input type="text" class="form-control" id="currentSellerInput" placeholder="Current Seller">
                         </div>
                         
@@ -90,7 +90,7 @@
                             <input type="text" class="form-control" id="contactNameInput" placeholder="Contact Name">
                         </div>
                         <div class="col-md-3 mb-3">
-                            <label for="phone" class="form-label">Phone</label>
+                            <label for="phone" class="form-label">Contact Phone</label>
                             <input type="tel" class="form-control" id="phoneInput" placeholder="Phone">
                         </div>
                        
@@ -103,7 +103,7 @@
                                         
                                         <th>ID</th>
                                         {{-- <th>Select - Outlet Name</th> --}}
-                                        <th>Outlets
+                                        <th>Outlet Name
                                             {{-- <div class="form-group" style="margin-top:10px;" >
                                                 <label class="custom-control custom-checkbox mb-0" >
                                             <input type="checkbox" id="selectalloutlets" class="custom-control-input" name="users[]" value="">
@@ -111,10 +111,10 @@
                                                 </label>
                                             </div> --}}
                                         </th>
-                                        <th>Current Seller</th>
+                                        <th>Seller</th>
                                         {{-- <th>Name</th> --}}
                                         <th>Contact Name</th>
-                                        <th>Phone</th>
+                                        <th>Contact Phone</th>
 
                                         
                                     </tr>

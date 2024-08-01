@@ -32,7 +32,10 @@
                                     <div class="card-body">
                                         <div class="text-center chat-image mb-5">
                                             <div class="avatar avatar-xxl chat-profile mb-3 brround">
-                                                <a class="" href="#"><img alt="avatar" src="../assets/images/users/7.jpg" class="brround"></a>
+                                                <a class="" href="#"><img alt="avatar" 
+                                                    src="{{ url('storage/'.auth()->user()->image) }}"
+                                                    onerror="this.onerror=null; this.src='{{ asset('assets/images/users/profilepicdefault.jpg') }}';"
+                                                    class="brround"></a>
                                             </div>
                                             <div class="main-chat-msg-name">
                                                 <a href="#">
@@ -64,6 +67,10 @@
                                             <div class="wrap-input100 validate-input input-group" id="Password-toggle2">
                                                 <input type="text" class="form-control" disabled value="{{ auth()->user() ? ucfirst(auth()->user()->email) : '' }}">
                                             </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="profile" class="form-label">Edit Profile</label>
+                                            <a href="editadmin/{{$user['id']}}" class="btn btn-info mb-0">Edit Profile</a>                            
                                         </div>
                                     </div>
                                     <div class="card-footer text-center" style="display: none">

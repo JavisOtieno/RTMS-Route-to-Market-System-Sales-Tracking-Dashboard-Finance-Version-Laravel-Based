@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Outlet;
 use App\Models\Clockin;
 use Illuminate\Http\Request;
 
@@ -31,8 +33,11 @@ class ClockinController extends Controller
         $clockins = Clockin::with(['user' => function ($query) {
             $query->withTrashed();
         }])->get();
+
+
+        $users = User::inOrganization()->where('usertype','seller')->get();
    
-        return view('clockinsmap', compact('clockins') );
+        return view('clockinsmap', compact('clockins','users') );
     }
     // public function showEditClockin(Request $request){
     //     $incomingFields=$request->validate([

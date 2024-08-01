@@ -22,6 +22,7 @@ $(function(e) {
 
     function fetchTableData(option) {
         $.ajax({
+            
             url: '/updateoutletscreaterouteplan/' + option, // Replace with your actual route to fetch data
             method: 'GET',
             dataType: 'json',
@@ -132,20 +133,35 @@ $(function(e) {
         // Custom filter function for date range comparison
         $.fn.dataTable.ext.search.push(
             function(settings, data, dataIndex) {
-                var tableLoaded=$('#tableLoaded').val();
 
-                var dataColumn=3;
+                // Check if the current table is table2
+                    if (settings.nTable.id !== 'responsive-datatable') {
+                        return true; // Skip filtering if not table2
+                    }
+                // var tableLoaded=$('#tableLoaded').val();
 
-                if(tableLoaded=="visits"){
-                    dataColumn = 3; 
-                }else if(tableLoaded=="feedback"){
-                    dataColumn = 4;
-                }
+                // Alert the name of the 5th column (index 4)
+                // var fifthColumnName = settings.aoColumns[4].sTitle;
+                // alert("The name of the 5th column is: " + fifthColumnName);
+
+                var dataColumn = settings.aoColumns.map(column => column.sTitle).indexOf("Date");
+                 // alert(dataColumn);
+
+
+                // if(tableLoaded=="visits"){
+                //     dataColumn = 3; 
+                // }else if(tableLoaded=="feedback"){
+                //     dataColumn = 4;
+                // }
+                if(dataColumn!=-1){
+                    
 
 
                 const minDate = $('#dateFromInput').val();
                 const maxDate = $('#dateToInput').val();
                 const dateStr = data[dataColumn]; // Assuming the date is in the 4th column (index 3)
+
+                // alert(minDate+"///"+maxDate);
     
                 const parseDate = str => {
                     const [day, month, year] = str.split('-');
@@ -162,18 +178,72 @@ $(function(e) {
                 const minDateParsed = minDate ? parseDate(toCustomFormat(minDate)) : null;
                 const maxDateParsed = maxDate ? parseDate(toCustomFormat(maxDate)) : null;
                 const dateParsed = parseDate(dateStr);
+
+                // alert(minDateParsed+"/////"+dateParsed);
     
                 // Check if the date is within the range
                 const withinMin = minDateParsed ? dateParsed >= minDateParsed : true;
                 const withinMax = maxDateParsed ? dateParsed <= maxDateParsed : true;
     
                 return withinMin && withinMax;
+
+            }else{
+                console.log("Date Column not found");
+                return true; // Skip filtering if not the specific table
+            }
+
+                
             }
         );
+
+
+        
+        $.fn.dataTable.ext.search.push(
+            function(settings, data, dataIndex) {
+                if (settings.nTable.id !== 'responsive-datatable') {
+                    return true; // Skip filtering if not the specific table
+                }
+     
+        
+                var timeColumnIndex = settings.aoColumns.map(column => column.sTitle).indexOf("Time");
+
+                if(timeColumnIndex!=-1){
+                    // alert("we get here");
+        
+                const minTime = $('#timeFromInput').val();
+                const maxTime = $('#timeToInput').val();
+                const timeStr = data[timeColumnIndex]; // Time column value
+        
+                const parseTime = str => {
+                    const [hour, minute] = str.split(':');
+                    return new Date(0, 0, 0, hour, minute);
+                };
+        
+                const minTimeParsed = minTime ? parseTime(minTime) : null;
+                const maxTimeParsed = maxTime ? parseTime(maxTime) : null;
+                const timeParsed = parseTime(timeStr);
+
+        
+                const withinMin = minTimeParsed ? timeParsed >= minTimeParsed : true;
+                const withinMax = maxTimeParsed ? timeParsed <= maxTimeParsed : true;
+        
+                return withinMin && withinMax;
+            }else{
+                console.log("Time column not found");
+                return true; // Skip filtering if not the specific table
+            }
+            }
+        );
+
+
+        
 
             // Event handlers to trigger the table redraw when the date inputs change
     $('#dateFromInput, #dateToInput').on('change', function() {
         table2.draw(); // Trigger the custom filter when either date input changes
+    });
+    $('#timeFromInput, #timeToInput').change(function() {
+        table2.draw();
     });
 
 
@@ -351,42 +421,55 @@ $(function(e) {
     var tableLoaded=$('#tableLoaded').val();
     //alert(tableLoaded);
     if(tableLoaded=="users"){
+
+        var nameColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text() === 'Name');
+        var phoneColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text() === 'Phone');
+        var emailColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text() === 'Email');
+
     $('#nameInput').on('keyup', function() {
         //alert(this.value);
-        table2.column(1).search(this.value).draw(); // Column index 0 for 'Name'
+        table2.column(nameColumnIndex).search(this.value).draw(); // Column index 0 for 'Name'
     });
     // alert("file loads");
 
     $('#phoneInput').on('keyup', function() {
         //alert(this.value);
-        table2.column(2).search(this.value).draw(); // Column index 1 for 'Position'
+        table2.column(phoneColumnIndex).search(this.value).draw(); // Column index 1 for 'Position'
     });
 
     $('#emailInput').on('keyup', function() {
         //alert(this.value);
-        table2.column(3).search(this.value).draw(); // Column index 0 for 'Name'
+        table2.column(emailColumnIndex).search(this.value).draw(); // Column index 0 for 'Name'
     });
 
   
     $('#targetsInput').change(function(){
+
         var selectedValue = $(this).val();
-        table2.column(4).search(this.value).draw(); 
+        table2.column(nameColumnIndex).search(this.value).draw(); 
         //console.log("Selected value: " + selectedValue);
       });
     }else if(tableLoaded=="targetgroups"){
+
+        var nameColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text() === 'Name');
+        var amountColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text() === 'Amount');
+
         $('#nameInput').on('keyup', function() {
             //alert(this.value);
-            table2.column(1).search(this.value).draw(); // Column index 0 for 'Name'
+            table2.column(nameColumnIndex).search(this.value).draw(); // Column index 0 for 'Name'
         });
         $('#amountInput').on('keyup', function() {
             //alert(this.value);
-            table2.column(2).search(this.value).draw(); // Column index 1 for 'Position'
+            table2.column(amountColumnIndex).search(this.value).draw(); // Column index 1 for 'Position'
         });
+
 
     }else if(tableLoaded=="clockins"){
         $('#nameInput').on('keyup', function() {
-            //alert(this.value);
-            table2.column(1).search(this.value).draw(); // Column index 0 for 'Name'
+            // alert(this.value);
+            var nameColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text() === 'Name');
+            // alert(nameColumnIndex);
+            table2.column(nameColumnIndex).search(this.value).draw(); // Column index 0 for 'Name'
         });
         // $('#dateInput').on('keyup', function() {
         //     //alert(this.value);
@@ -400,7 +483,8 @@ $(function(e) {
     else if(tableLoaded=="clockouts"){
         $('#nameInput').on('keyup', function() {
             //alert(this.value);
-            table2.column(1).search(this.value).draw(); // Column index 0 for 'Name'
+            var nameColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text() === 'Name');
+            table2.column(nameColumnIndex).search(this.value).draw(); // Column index 0 for 'Name'
         });
         // $('#dateInput').on('keyup', function() {
         //     //alert(this.value);
@@ -412,13 +496,23 @@ $(function(e) {
 
     }
     else if(tableLoaded=="visits"){
+        
+        console.log("table allocate");
+        console.log(table2.columns().header().toArray());
+        console.log("table allocate");
+
+        var sellerNameColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text() === 'Seller Name');
+        var outletNameColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text() === 'Outlet Name');
+
+
+
         $('#nameInput').on('keyup', function() {
             //alert(this.value);
-            table2.column(1).search(this.value).draw(); // Column index 0 for 'Name'
+            table2.column(sellerNameColumnIndex).search(this.value).draw(); // Column index 0 for 'Name'
         });
         $('#outletNameInput').on('keyup', function() {
             //alert(this.value);
-            table2.column(2).search(this.value).draw(); // Column index 0 for 'Name'
+            table2.column(outletNameColumnIndex).search(this.value).draw(); // Column index 0 for 'Name'
         });
 
         // $('#dateInput').on('change', function() {
@@ -469,47 +563,75 @@ $(function(e) {
 
     }
     else if(tableLoaded=="sales" || tableLoaded=="posaudits" || tableLoaded=="competitoranalysis" || tableLoaded=="feedback"){
+    
+        var nameColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text() === 'Seller Name');
+        var outletNameColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text() === 'Outlet Name');
+        // alert(nameColumnIndex+" "+outletNameColumnIndex)
+
         $('#nameInput').on('keyup', function() {
-            //alert(this.value);
-            table2.column(1).search(this.value).draw(); // Column index 0 for 'Name'
+            // alert(this.value);
+            table2.column(nameColumnIndex).search(this.value).draw(); // Column index 0 for 'Name'
         });
         $('#outletNameInput').on('keyup', function() {
-            //alert(this.value);
-            table2.column(2).search(this.value).draw(); // Column index 0 for 'Name'
+            // alert(thzzis.value);
+            table2.column(outletNameColumnIndex).search(this.value).draw(); // Column index 0 for 'Name'
         });
 
     }
     else if(tableLoaded=="outlets"){
+        
+        var nameColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text() === 'Name');
+        var contactNameColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text() === 'Contact Name');
+
+
         $('#nameInput').on('keyup', function() {
-            //alert(this.value);
-            table2.column(1).search(this.value).draw(); // Column index 1 for 'Name'
+
+            // alert(this.value);
+            table2.column(nameColumnIndex).search(this.value).draw(); // Column index 1 for 'Name'
+            
         });
         $('#contactNameInput').on('keyup', function() {
             //alert(this.value);
-            table2.column(2).search(this.value).draw(); // Column index 2 for 'Contact Name'
+            table2.column(contactNameColumnIndex).search(this.value).draw(); // Column index 2 for 'Contact Name'
         });
-        $('#phoneInput').on('keyup', function() {
-            //alert(this.value);
-            table2.column(3).search(this.value).draw(); // Column index 3 for 'Phone'
-        });
+        // $('#phoneInput').on('keyup', function() {
+        //     //alert(this.value);
+        //     table2.column(3).search(this.value).draw(); // Column index 3 for 'Phone'
+        // });
 
     }
     else if(tableLoaded=="Outletstouser"){
+        console.log("table allocate");
+        console.log(tableAllocate.columns().header().toArray());
+        console.log("table allocate");
+
+        // var firstColumnHeader = tableAllocate.columns().header().toArray()[1];
+        // var firstColumnName = $(firstColumnHeader).text();
+        // alert(firstColumnName);
+
+        var outletNameColumnIndex = tableAllocate.columns().header().toArray().findIndex(header => $(header).text() === "Outlet Name");
+        var sellerColumnIndex = tableAllocate.columns().header().toArray().findIndex(header => $(header).text() === 'Seller');
+        var contactNameColumnIndex = tableAllocate.columns().header().toArray().findIndex(header => $(header).text() === 'Contact Name');
+        var contactPhoneColumnIndex = tableAllocate.columns().header().toArray().findIndex(header => $(header).text() === 'Contact Phone');
+        
+  
+        
         $('#nameInput').on('keyup', function() {
-            //alert(this.value);
-            tableAllocate.column(1).search(this.value).draw(); // Column index 1 for 'Name'
+            // alert(this.value);
+            // alert(outletNameColumnIndex);
+            tableAllocate.column(outletNameColumnIndex).search(this.value).draw(); // Column index 1 for 'Name'
         });
         $('#currentSellerInput').on('keyup', function() {
-            //alert(this.value);
-            tableAllocate.column(2).search(this.value).draw(); // Column index 1 for 'Name'
+            // alert(this.value);
+            tableAllocate.column(sellerColumnIndex ).search(this.value).draw(); // Column index 1 for 'Name'
         });
         $('#contactNameInput').on('keyup', function() {
-            //alert(this.value);
-            tableAllocate.column(3).search(this.value).draw(); // Column index 2 for 'Contact Name'
+            // alert(this.value);
+            tableAllocate.column(contactNameColumnIndex).search(this.value).draw(); // Column index 2 for 'Contact Name'
         });
         $('#phoneInput').on('keyup', function() {
-            //alert(this.value);
-            tableAllocate.column(4).search(this.value).draw(); // Column index 3 for 'Phone'
+            // alert(this.value);
+            tableAllocate.column(contactPhoneColumnIndex).search(this.value).draw(); // Column index 3 for 'Phone'
         });
 
     }
@@ -527,7 +649,7 @@ $(function(e) {
             table2.column(3).search(this.value).draw(); // Column index 3 for 'Phone'
         });
 
-    }    
+    }
 
 
     //______File-Export Data Table

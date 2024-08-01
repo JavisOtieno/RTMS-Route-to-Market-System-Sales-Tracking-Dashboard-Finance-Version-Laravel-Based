@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Spatie\ImageOptimizer\OptimizerChainFactory;
-
+use Intervention\Image\Facades\Image as Image;
 
 class ProductController extends Controller
 {
@@ -18,6 +17,13 @@ class ProductController extends Controller
     }
     public function index() {
         $products = Product::all();
+
+
+
+        
+
+
+
         //dd($sales);
         return view('products', ['products'=>$products]);
     }
@@ -29,6 +35,7 @@ class ProductController extends Controller
     public function addProduct() {
         return view('add-product');
     }
+
     public function saveProduct(Request $request){
 
         // required not necessary
@@ -40,7 +47,7 @@ class ProductController extends Controller
             'sku'=>'required|string|unique:products|max:255',
             'stock'=>'required|numeric|digits_between:1,11',
             'description'=>'required|string',
-            'image' => 'image|mimes:jpeg,webp,png,jpg,gif,svg|max:3072'
+            'image' => 'image|mimes:jpeg,webp,png,jpg,gif,svg|max:2048'
         ]);
 
         
@@ -58,6 +65,24 @@ class ProductController extends Controller
 
             $imageName = time().'.'.$request->image->extension();
 
+
+                    // Store the uploaded image temporarily
+        $image = $request->file('image');
+        $filename = time() . '.' . $image->getClientOriginalExtension();
+        $path = $image->storeAs('images/original', $filename, 'public');
+
+        // Resize and compress the image
+        $resizedImage = Image::make($image)
+            ->resize(800, 600, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })
+            ->encode('jpg', 75); // Adjust the quality as needed
+
+        // Save the resized image
+        Storage::disk('public')->put('images/resized/' . $filename, (string) $resizedImage);
+
+
             // Save image to public/images directory
             //$request->image->move(public_path('images'), $imageName);
     
@@ -73,36 +98,7 @@ class ProductController extends Controller
             //$path = $request->file('image')->storeAs('images', $imagePath, 'public');
     
             //store to products
-            // $path = $request->file('image')->storeAs($folder, $imageName, 'public');
-
-            // $optimizerChain = OptimizerChainFactory::create();
-            // $maxFileSize = 200 * 1024; // 200KB
-
-            // $fullImagePath = storage_path('app/public/' . $path);
-    
-            // // Optimize image until it is less than 200KB
-            // while (filesize($fullImagePath) > $maxFileSize) {
-            //     $optimizerChain->optimize($fullImagePath);
-            // }
-
-            $image = $request->file('image');
-
-            // Set the path to save the original image
-            $imagepath = public_path('/images/');
-             
-            // Set the path to save the compressed image
-            $pathToOutput = public_path('/optimizedImage/');
- 
-            // Save the original image
-            $image->move($imagepath, $imageName);
- 
-            // Compress image and save it to optimizedImage path using Spatie's OptimizerChainFactory 
-            $optimizerChain = OptimizerChainFactory::create();
-            $optimizerChain->optimize($imagepath.$imageName,$pathToOutput.$imageName);
- 
-            // Delete the original image
-            unlink($imagepath.$imageName);
-
+            $path = $request->file('image')->storeAs($folder, $imageName, 'public');
             
         }else{
             $incomingFields['image']='';   
@@ -159,6 +155,12 @@ class ProductController extends Controller
         //     return "image not present";
         // }
 
+
+
+
+
+
+
         if ($request->input('default_file_removed') == 1 && !$request->hasFile('image')) {
 
             //return "default image removed and none uploaded";
@@ -189,16 +191,6 @@ class ProductController extends Controller
             $incomingFields['image']=$imagePath;
 
             $path = $request->file('image')->storeAs($folder, $imageName, 'public');
-
-            $optimizerChain = OptimizerChainFactory::create();
-            $maxFileSize = 200 * 1024; // 200KB
-    
-            $fullImagePath = storage_path('app/public/' . $path);
-    
-            // Optimize image until it is less than 200KB
-            while (filesize($fullImagePath) > $maxFileSize) {
-                $optimizerChain->optimize($fullImagePath);
-            }
 
             // Optionally delete the old file if it exists
             if ($request->input('existing_file')) {
@@ -242,8 +234,6 @@ class ProductController extends Controller
         //     //$incomingFields['image']='';   
             
         // }
-
-
 
         $product->update($incomingFields);
 
