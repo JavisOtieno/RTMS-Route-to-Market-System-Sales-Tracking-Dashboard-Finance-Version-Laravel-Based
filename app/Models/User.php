@@ -61,6 +61,13 @@ class User extends Authenticatable
         return $this->belongsTo(TargetGroup::class,'target_group_id');
     }
 
+    public function region(){
+        return $this->belongsTo(Region::class,'region_id');
+    }
+
+    public function territory(){
+        return $this->belongsTo(Territory::class,'territory_id');
+    }
 
 // Results in error 500 because the scope requires the user class on Auth::user
     // protected static function booted()

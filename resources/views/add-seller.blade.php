@@ -80,15 +80,16 @@
                 </select></div>
                 <div class="form-group">
                     <label for="region_id" class="form-label">Region</label>
-                    <select name="region_id" class="form-control form-select select2" data-bs-placeholder="Select Region">
+                    <select name="region_id" id="region_id" class="form-control form-select select2" data-bs-placeholder="Select Region">
                         <option value="0">None</option>
                             @foreach($regions as $region)
                             <option {{old('region_id','')==$region['id']? 'selected':''}} value="{{$region['id']}}">{{$region['name']}}</option>
                             @endforeach
     </select></div>
+
     <div class="form-group">
         <label for="territory_id" class="form-label">Territory</label>
-        <select name="territory_id" class="form-control form-select select2" data-bs-placeholder="Select Territory">
+        <select name="territory_id" id="territory_id" class="form-control form-select select2" data-bs-placeholder="Select Territory">
             <option value="0">None</option>
                 @foreach($territories as $territory)
                 <option {{old('territory_id','')==$territory['id']? 'selected':''}} value="{{$territory['id']}}">{{$territory['name']}}</option>
@@ -144,3 +145,31 @@
 </div>
 
 @endsection
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+
+        var territories  = @json($territories);
+
+        $('#region_id').on('change', function() {
+            var regionId = $(this).val();
+            var $territorySelect = $('#territory_id');
+            $territorySelect.empty();
+            $territorySelect.append('<option value="0">None</option>');
+
+            if (territories.length > 0) {
+                territories.forEach(territory => {
+                    // alert(territory.id+'">'+territory.name);
+
+                    if(regionId==territory.region_id){
+                    $territorySelect.append('<option value="'+territory.id+'">'+territory.name+'</option>');
+                    }
+
+                });
+            }
+
+        });
+
+    
+    });
+    </script>

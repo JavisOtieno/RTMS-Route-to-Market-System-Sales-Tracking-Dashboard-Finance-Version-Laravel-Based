@@ -136,10 +136,34 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
+                <h3>Sales Over The Last 12 Months </h3>
                 <canvas id="myBarChart" width="400" height="200"></canvas>
             </div>
             <div class="table-responsive mt-4">
+                <h3>Sales Over The Last 7 Days</h3>
                 <canvas id="myLineChart" width="400" height="200"></canvas>
+            </div>
+            <div class="row">
+            <div class="table-responsive col-md-4 mt-6">
+                <h3>Sellers By Region</h3>
+            <canvas id="salesPieChart" width="180" height="180"></canvas>
+            </div>
+            <div class="table-responsive col-md-8 mt-6">
+            <div class="card">
+                {{-- <div class="card-header">
+                    <h3 class="card-title">Top Sellers</h3>
+                </div> --}}
+                <h3>Top Sellers</h3>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="chartBar1" class="h-275"></canvas>
+                    </div>
+                </div>
+            </div>
+            </div>
+            
+            
+
             </div>
             
         </div>
@@ -307,8 +331,137 @@
         });
 
 
+        var regionCountGraph = @json($sellersByRegionCount);
+        var regionNamesLabels = @json($sellersByRegionNames);
+
+        function generateColors(numColors) {
+            const colors = [];
+            const step = 360 / numColors;
+            for (let i = 0; i < numColors; i++) {
+                const hue = step * i;
+                const color = `hsl(${hue}, 70%, 70%)`;
+                colors.push(color);
+            }
+            return colors;
+        }
+        
+        // Data for the pie chart
+        const data = {
+            labels: regionNamesLabels,
+            datasets: [{
+                data: regionCountGraph, // Example data
+                backgroundColor: generateColors(regionCountGraph.length),
+                hoverOffset: 4
+            }]
+        };
+
+        // Config for the pie chart
+        const config = {
+            type: 'pie',
+            data: data,
+            options: {
+                responsive: true,
+                pluginss: {
+                    legend: {
+                        display: true, // Shows the legend
+                        position: 'top', // Position of the legend
+                        labels: {
+                            color: 'rgb(255, 99, 132)', // Text color
+                            font: {
+                                size: 14 // Font size
+                            }
+                        }
+                    },
+                    
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.label || '';
+
+                                if (context.parsed !== null) {
+                                    label += ': ' + context.parsed + ' sellers'; // Customize the label
+                                }
+
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        // Create the pie chart
+        const ctxPie = document.getElementById('salesPieChart').getContext('2d');
+        new Chart(ctxPie, config);
+
+
+        
+        var ctxTopSellers = document.getElementById("chartBar1").getContext('2d');
+        var topSellerUserNames= @json($topSellerUserNames);
+        var topSellerSalesCount= @json($topSellerSalesCount);
+
+       // alert($topSellerUserNames);
+        
+    var myChart = new Chart(ctxTopSellers, {
+        type: 'bar',
+        data: {
+            labels: topSellerUserNames,
+            datasets: [{
+                label: 'Sales',
+                data: topSellerSalesCount,
+                borderWidth: 2,
+                backgroundColor: '#E04D53',
+                borderColor: '#E04D53',
+                borderWidth: 2.0,
+                pointBackgroundColor: '#ffffff',
+
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                display: true
+            },
+            scales: {
+                y: {
+                    ticks: {
+                        beginAtZero: true,
+                        stepSize: 150,
+                        color: "#9ba6b5",
+                    },
+                    grid: {
+                        color: 'rgba(119, 119, 142, 0.2)'
+                    }
+                },
+                x: {
+                    barPercentage: 0.4,
+                    barValueSpacing: 0,
+                    barDatasetSpacing: 0,
+                    barRadius: 0,
+                    ticks: {
+                        display: true,
+                        color: "#9ba6b5",
+                    },
+                    grid: {
+                        display: false,
+                        color: 'rgba(119, 119, 142, 0.2)'
+                    }
+                }
+            },
+            legend: {
+                labels: {
+                    fontColor: "#9ba6b5"
+                },
+            },
+        }
+    });
 
 });
+
+
+
+
   </script>
   
   

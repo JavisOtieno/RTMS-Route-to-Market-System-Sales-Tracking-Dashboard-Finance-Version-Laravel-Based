@@ -9,6 +9,7 @@ use App\Models\Outlet;
 use App\Models\Product;
 use App\Models\SaleItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
@@ -163,10 +164,64 @@ class SaleController extends Controller
                     //print_r($months);
                     //echo "After";
         $months=array_reverse($months);
+
+
+        $sellersByRegionCount = array();
+        $sellersByRegionNames = array();
+        $sellersByRegion=User::with(['region' => function ($query) {
+            $query->withTrashed();
+        }])->select('region_id', DB::raw('COUNT(region_id) as count'))
+        ->groupBy('region_id')
+        ->orderBy('count', 'desc')
+        ->take(5)->get();
+
+        // return $sellersByRegion;
+        foreach ($sellersByRegion as $seller) {
+            # code...
+            array_push($sellersByRegionCount,$seller['count']);
+            if($seller['region_id']==0){
+                array_push($sellersByRegionNames,"Unassigned");
+            }else{
+                array_push($sellersByRegionNames,$seller['region']['name']);
+            }
+            
+            
+            
+        }
+
+        $topSellerUserNames=[];
+        $topSellerSalesCount=[];
+
+        $topSellersGraph=Sale::with(['user' => function ($query) {
+            $query->withTrashed();
+        }])->select('user_id', DB::raw('COUNT(user_id) as count'))
+        ->groupBy('user_id')
+        ->orderBy('count', 'desc')
+        ->take(10)->get();
+
+        foreach($topSellersGraph as $topSeller){
+
+            
+            // $sellerName=$topSeller['user']['name'];
+            $sellerName=$topSeller['user'] ? $topSeller['user']['name']  . ($topSeller['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User';
+            $sellerNames=explode(' ',$sellerName);
+            if(count($sellerNames)==1){
+                array_push($topSellerUserNames,$sellerNames[0]);
+            }else{
+                array_push($topSellerUserNames,$sellerNames[0]."\n".$sellerNames[1]);
+            }
+            
+            $sellerSalesCount=$topSeller['count'];
+            array_push($topSellerSalesCount,$sellerSalesCount);
+
+        }
+
+
        
         //$users = User::inOrganization()->where('usertype','seller')->get();
         return view('salesanalytics', compact('salesPerMonth','months','salesCount',
-        'salesThisMonth', 'salesThisWeek','salesToday','dates','salesPerDay') );
+        'salesThisMonth', 'salesThisWeek','salesToday','dates','salesPerDay','sellersByRegionCount','sellersByRegionNames',
+        'topSellerSalesCount','topSellerUserNames') );
     }
 
 
