@@ -119,6 +119,27 @@ class SaleController extends Controller
         }
         $salesPerMonth =array_reverse($salesPerMonth);
 
+        $dates = [];
+        $dayNames = [];
+        $salesPerDay = array();
+        for ($i = 1; $i <= 7; $i++) {
+
+            $date = now()->subDays($i);
+            $dateString = $date->toDateString();
+            $dayName = $date->format('l'); // Get the day name (e.g., 'Monday')
+            
+            $dates[] = $dateString;
+            $dayNames[] = $dayName;
+
+            $date = now()->subDays($i)->toDateString();
+
+
+            $salesPerDay[$date] = Sale::whereDate('created_at', $date)->count();
+        }
+        $salesPerDay = array_reverse($salesPerDay);
+        $dates = array_reverse($dates);
+        $dayNames = array_reverse($dayNames);
+
 
         $startOfMonth = date('Y-m-01 00:00:00'); // 1st day of the current month
         $today = date('Y-m-d 23:59:59'); // Current day
@@ -145,7 +166,7 @@ class SaleController extends Controller
        
         //$users = User::inOrganization()->where('usertype','seller')->get();
         return view('salesanalytics', compact('salesPerMonth','months','salesCount',
-        'salesThisMonth', 'salesThisWeek','salesToday') );
+        'salesThisMonth', 'salesThisWeek','salesToday','dates','salesPerDay') );
     }
 
 

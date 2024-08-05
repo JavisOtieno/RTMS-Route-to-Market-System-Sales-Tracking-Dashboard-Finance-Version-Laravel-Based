@@ -139,12 +139,9 @@
                 <canvas id="myBarChart" width="400" height="200"></canvas>
             </div>
             <div class="table-responsive mt-4">
-                <canvas id="myLineBarChart2" width="400" height="200"></canvas>
-            </div>
-            <div class="table-responsive mt-4">
                 <canvas id="myLineChart" width="400" height="200"></canvas>
             </div>
-            <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+            
             
         </div>
     </div>
@@ -296,7 +293,7 @@
             data: {
                 labels: dataDayLabels, // X-axis labels
                 datasets: [{
-                    label: 'Visits Last 30 Days',
+                    label: 'Visits Last 7 Days',
                     data: dataVisitsDayGraph, // Y-axis data
                     backgroundColor: 'rgba(54, 162, 235, 0.2)', // Line color (light blue)
                     borderColor: 'rgba(54, 162, 235, 1)', // Border color (blue)
