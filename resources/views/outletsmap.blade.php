@@ -397,11 +397,7 @@
             markers.forEach(marker => marker.setMap(null));  // Remove each marker from the map
             markers = [];  // Clear the markers array
         }
-
-        window.onload = function() {
-            myMap2();
-        };
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALLsNWwOC09xsRAqrK0S7dINi6BpNc7iw" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALLsNWwOC09xsRAqrK0S7dINi6BpNc7iw&callback=myMap2" async defer></script>
     
     
