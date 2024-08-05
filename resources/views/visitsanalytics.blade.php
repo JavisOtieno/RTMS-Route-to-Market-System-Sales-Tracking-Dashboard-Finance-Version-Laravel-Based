@@ -144,6 +144,7 @@
             <div class="table-responsive mt-4">
                 <canvas id="myLineChart" width="400" height="200"></canvas>
             </div>
+            <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
             
         </div>
     </div>
@@ -276,18 +277,18 @@
       }
     });
 
-});
+
 
 
         // Line Chart
         var ctxLine = document.getElementById('myLineChart').getContext('2d');
-        // var dataVisitsDayGraph = @json($visitsPerMonth);
-        // var dataDayLabels = @json($months);
-        var dataVisitsDayGraph = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 
-        80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150]; // Placeholder data
-        var dataDayLabels = ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7', 'Day 8', 'Day 9', 
-        'Day 10', 'Day 11', 'Day 12', 'Day 13', 'Day 14', 'Day 15', 'Day 16', 'Day 17', 'Day 18', 'Day 19', 'Day 20', 
-        'Day 21', 'Day 22', 'Day 23', 'Day 24', 'Day 25', 'Day 26', 'Day 27', 'Day 28', 'Day 29', 'Day 30']; // Placeholder labels
+        var dataVisitsDayGraph = @json($visitsPerDay);
+        var dataDayLabels = @json($dates);
+        // var dataVisitsDayGraph = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 
+        // 80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150]; // Placeholder data
+        // var dataDayLabels = ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7', 'Day 8', 'Day 9', 
+        // 'Day 10', 'Day 11', 'Day 12', 'Day 13', 'Day 14', 'Day 15', 'Day 16', 'Day 17', 'Day 18', 'Day 19', 'Day 20', 
+        // 'Day 21', 'Day 22', 'Day 23', 'Day 24', 'Day 25', 'Day 26', 'Day 27', 'Day 28', 'Day 29', 'Day 30']; // Placeholder labels
 
 
         var myLineChart = new Chart(ctxLine, {
@@ -310,6 +311,11 @@
                 }
             }
         });
+
+
+  
+
+});
   </script>
   
   

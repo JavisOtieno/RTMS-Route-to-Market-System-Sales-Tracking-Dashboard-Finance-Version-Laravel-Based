@@ -61,6 +61,29 @@ class VisitController extends Controller
             }
             $visitsPerMonth =array_reverse($visitsPerMonth);
 
+            $dates = [];
+            $dayNames = [];
+            $visitsPerDay = array();
+            for ($i = 1; $i <= 7; $i++) {
+
+                $date = now()->subDays($i);
+                $dateString = $date->toDateString();
+                $dayName = $date->format('l'); // Get the day name (e.g., 'Monday')
+                
+                $dates[] = $dateString;
+                $dayNames[] = $dayName;
+
+                $date = now()->subDays($i)->toDateString();
+ 
+
+                $visitsPerDay[$date] = Visit::whereDate('created_at', $date)->count();
+            }
+            $visitsPerDay = array_reverse($visitsPerDay);
+            $dates = array_reverse($dates);
+            $dayNames = array_reverse($dayNames);
+
+            
+
 
             $startOfMonth = date('Y-m-01 00:00:00'); // 1st day of the current month
             $today = date('Y-m-d 23:59:59'); // Current day
@@ -87,7 +110,7 @@ class VisitController extends Controller
            
             //$users = User::inOrganization()->where('usertype','seller')->get();
             return view('visitsanalytics', compact('visitsPerMonth','visits','users','outlets','months','visitsCount',
-            'visitsThisMonth', 'visitsThisWeek','visitsToday') );
+            'visitsThisMonth', 'visitsThisWeek','visitsToday','visitsPerDay','dates','dayNames') );
         }
 
         public function showVisitsByDay() {
