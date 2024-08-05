@@ -79,6 +79,26 @@
                 </select>
                             </div>
                             <div class="form-group">
+                                <label for="region_id" class="form-label">Region</label>
+                                <select name="region_id" class="form-control form-select select2" data-bs-placeholder="Select Region">
+                                    <option {{old('region_id',$user['region_id'])=="0"? 'selected':''}} value="0">None</option>
+                                    @foreach($regions as $region)
+                                        <option {{old('target_group_id',$user['region_id'])==$region['id']? 'selected':''}} value="{{$region['id']}}">{{$region['name']}}</option>
+
+                                        @endforeach
+                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="territory_id" class="form-label">Territory</label>
+                                <select name="territory_id" class="form-control form-select select2" data-bs-placeholder="Select Territory">
+                                    <option {{old('territory_id',$user['territory_id'])=="0"? 'selected':''}} value="0">None</option>
+                                    @foreach($territories as $territory)
+                                        <option {{old('territory_id',$user['territory_id'])==$territory['id']? 'selected':''}} value="{{$territory['id']}}">{{$territory['name']}}</option>
+
+                                        @endforeach
+                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="dateTime" class="form-label">Date and Time Added</label>
                                 <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{date('d-M-Y H:i', strtotime($user['created_at']))}}" autocomplete="dateTime">
                             </div>

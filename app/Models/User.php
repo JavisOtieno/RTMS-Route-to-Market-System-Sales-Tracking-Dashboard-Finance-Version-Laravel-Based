@@ -24,6 +24,8 @@ class User extends Authenticatable
         'name',
         'phone',
         'target_group_id',
+        'region_id',
+        'territory_id',
         'usertype',
         'email',
         'password',

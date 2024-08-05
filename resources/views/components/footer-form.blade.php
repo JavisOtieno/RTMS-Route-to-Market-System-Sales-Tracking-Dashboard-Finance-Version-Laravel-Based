@@ -687,6 +687,30 @@
     <!-- Switcher js -->
     <script src="{{asset('assets/switcher/js/switcher.js')}}"></script>
 
+    <script>
+        $(document).ready(function() {
+            var drEvent = $('.dropify').dropify();
+    
+            drEvent.on('dropify.beforeClear', function(event, element) {
+                $('#default_file_removed').val(1);
+            });
+    
+            drEvent.on('dropify.afterClear', function(event, element) {
+                $('#default_file_removed').val(1);
+            });
+    
+            drEvent.on('dropify.errors', function(event, element) {
+                $('#default_file_removed').val(0);
+            });
+    
+            drEvent.on('change', function(event, element) {
+                if (element.files.length > 0) {
+                    $('#default_file_removed').val(0);
+                }
+            });
+        });
+    </script>
+
 </body>
 
 </html>

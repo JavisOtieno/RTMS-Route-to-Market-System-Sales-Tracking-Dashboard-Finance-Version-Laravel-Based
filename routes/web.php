@@ -27,7 +27,10 @@ use App\Http\Controllers\CompetitorController;
 use App\Http\Controllers\TargetGroupController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\OrderNoteController;
+use App\Http\Controllers\RegionController;
 use App\Http\Controllers\RouteplanController;
+use App\Http\Controllers\TerritoryController;
+use App\Models\Territory;
 
 /*
 |--------------------------------------------------------------------------
@@ -145,9 +148,25 @@ Route::get('/sellers', [UserController::class,'sellers']);
 Route::get('/adduserstotargetgroups', [UserController::class,'showAddUsersToTargetGroups']);
 Route::post('/pushuserstotargetgroup', [UserController::class,'addUsersToTargetGroup']);
 
+Route::get('/regions', [RegionController::class,'index']);
+Route::get('/add-region', [RegionController::class,'addRegion']);
+Route::post('/saveregion', [RegionController::class,'saveRegion']);
+Route::get('/deleteregion/{id}', [RegionController::class,'deleteRegion']);
+Route::get('/editregion/{id}', [RegionController::class,'showEditRegion']);
+Route::put('/saveeditregion/{id}',[RegionController::class,'saveEditRegion']);
+
+Route::get('/territories', [TerritoryController::class,'index']);
+Route::get('/add-territory', [TerritoryController::class,'addTerritory']);
+Route::post('/saveterritory', [TerritoryController::class,'saveTerritory']);
+Route::get('/deleteterritory/{id}', [TerritoryController::class,'deleteTerritory']);
+Route::get('/editterritory/{id}', [TerritoryController::class,'showEditTerritory']);
+Route::put('/saveeditterritory/{id}',[TerritoryController::class,'saveEditTerritory']);
+
+Route::get('/add-product', [ProductController::class,'addProduct']);
 
 Route::get('/deleteadmin/{id}', [UserController::class,'deleteAdmin']);
 Route::get('/deleteseller/{id}', [UserController::class,'deleteSeller']);
+
 
 Route::post('/saveadmin', [UserController::class,'saveAdmin']);
 Route::post('/saveseller', [UserController::class,'saveSeller']);

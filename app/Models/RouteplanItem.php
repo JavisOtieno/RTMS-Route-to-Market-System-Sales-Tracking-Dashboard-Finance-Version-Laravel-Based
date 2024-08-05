@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Scopes\OrganizationScope;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -23,5 +24,9 @@ class RouteplanItem extends Model
     }
     public function outlet(){
         return $this->belongsTo(Outlet::class,'outlet_id');
+    }
+    protected static function booted()
+    {
+        static::addGlobalScope(new OrganizationScope);
     }
 }

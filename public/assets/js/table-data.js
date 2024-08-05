@@ -636,17 +636,40 @@ $(function(e) {
 
     }
     else if(tableLoaded=="products"){
+
+        var nameColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text() === "Product Name");
+        var skuColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text() === "SKU");
+ 
         $('#nameInput').on('keyup', function() {
             //alert(this.value);
-            table2.column(1).search(this.value).draw(); // Column index 1 for 'Name'
+            table2.column(nameColumnIndex).search(this.value).draw(); // Column index 1 for 'Name'
         });
         $('#skuInput').on('keyup', function() {
             //alert(this.value);
-            table2.column(2).search(this.value).draw(); // Column index 2 for 'Contact Name'
+            table2.column(skuColumnIndex).search(this.value).draw(); // Column index 2 for 'Contact Name'
         });
-        $('#priceInput').on('keyup', function() {
+        // $('#priceInput').on('keyup', function() {
+        //     //alert(this.value);
+        //     table2.column(3).search(this.value).draw(); // Column index 3 for 'Phone'
+        // });
+
+    }else if(tableLoaded=="regions"){
+        var nameColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text() === "Region Name");
+        $('#nameInput').on('keyup', function() {
             //alert(this.value);
-            table2.column(3).search(this.value).draw(); // Column index 3 for 'Phone'
+            table2.column(nameColumnIndex).search(this.value).draw(); // Column index 1 for 'Name'
+        });
+
+    }else if(tableLoaded=="territories"){
+        $('#nameInput').on('keyup', function() {
+            var nameColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text() === "Territory Name");
+            //alert(this.value);
+            table2.column(nameColumnIndex).search(this.value).draw(); // Column index 1 for 'Name'
+        });
+        $('#regionInput').on('keyup', function() {
+            var nameColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text() === "Region");
+            //alert(this.value);
+            table2.column(nameColumnIndex).search(this.value).draw(); // Column index 1 for 'Name'
         });
 
     }

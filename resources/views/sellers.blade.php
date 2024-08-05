@@ -79,7 +79,10 @@
                                         <th>Email</th>
                                         {{-- <th>Usertype</th> --}}
                                         <th>Targets</th>
+                                        <th>Region</th>
+                                        <th>Territory</th>
                                         <th>Date</th>
+                                        
                                         
                                     </tr>
                                 </thead>
@@ -100,6 +103,8 @@
                                         <td>{{$user['email']}}</td>
                                         {{-- <td>{{ucfirst($user['usertype'])}}</td> --}}
                                         <td>{{$user['targetgroup']==null?"None":'KSh '.number_format($user['targetgroup']['amount']) }}</td>
+                                        <td>{{$user['region']==null?"None":'KSh '.number_format($user['region']['name']) }}</td>
+                                        <td>{{$user['territory']==null?"None":'KSh '.number_format($user['territory']['name']) }}</td>
                                         <td>{{date('d-M-Y', strtotime($user['created_at']))}}</td>
 
                                         <!--<a class="modal-effect btn btn-primary-light d-grid mb-3" data-bs-effect="effect-scale" >Scale</a>-->

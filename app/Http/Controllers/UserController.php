@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Region;
 use App\Rules\PhoneNumber;
 use App\Models\TargetGroup;
+use App\Models\Territory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
@@ -147,6 +149,8 @@ class UserController extends CommonController
             //'password'=>'required|string|max:255|min:8|confirmed',
             'password' => ['required','string','max:255','min:8','confirmed',Password::min(8)->letters()->numbers()],
             'target_group_id'=>'required|numeric|digits_between:1,20',
+            'region_id'=>'required|numeric|digits_between:1,20',
+            'territory_id'=>'required|numeric|digits_between:1,20',
             'image' => 'image|mimes:jpeg,webp,png,jpg,gif,svg|max:3072'
         ]);
         //return $incomingFields;
@@ -197,7 +201,9 @@ class UserController extends CommonController
 
     public function addSeller() {
         $targetgroups = TargetGroup::all();
-        return view('add-seller',['targetgroups'=>$targetgroups]);
+        $regions = Region::all();
+        $territories = Territory::all();
+        return view('add-seller',compact('regions','territories','targetgroups'));
     }
     public function addAdmin() {
         return view('add-admin');
@@ -206,7 +212,9 @@ class UserController extends CommonController
     public function showEditSeller($id){
         $user = User::inOrganization()->find($id);
         $targetgroups = TargetGroup::all();
-        return view('edit-seller',compact('user','targetgroups'));
+        $regions = Region::all();
+        $territories = Territory::all();
+        return view('edit-seller',compact('user','targetgroups','regions','territories'));
     }
     public function showEditAdmin($id){
         $user = User::inOrganization()->find($id);
@@ -231,9 +239,12 @@ class UserController extends CommonController
             //'usertype'=>'required|string|max:255',
             // 'email'=>'required|email|max:255',
             // 'email'=>'required|email|unique:users|max:255',
+            
             'image' => 'image|mimes:jpeg,webp,png,jpg,gif,svg|max:3072',
             'email' => 'required|email|max:255|unique:users,email,' . $id,
-            'target_group_id'=>'required|numeric|digits_between:1,20'
+            'target_group_id'=>'required|numeric|digits_between:1,20',
+            'region_id'=>'required|numeric|digits_between:1,20',
+            'territory_id'=>'required|numeric|digits_between:1,20',
         ]);
 
         $incomingFields['name']=strip_tags($incomingFields['name']);
@@ -242,6 +253,10 @@ class UserController extends CommonController
         $incomingFields['target_group_id']=strip_tags($incomingFields['target_group_id']);
         $incomingFields['phone']=strip_tags($incomingFields['phone']);
         $incomingFields['organization_id']=$organizationId;
+        $incomingFields['region_id']=strip_tags($incomingFields['region_id']);
+        $incomingFields['territory_id']=strip_tags($incomingFields['territory_id']);
+
+        // return $incomingFields;
 
         $user=User::inOrganization()->find($id);
 

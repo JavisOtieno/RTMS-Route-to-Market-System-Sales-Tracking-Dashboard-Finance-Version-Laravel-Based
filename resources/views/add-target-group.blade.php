@@ -9,11 +9,11 @@
 
   <!-- PAGE-HEADER -->
   <div class="page-header">
-    <h1 class="page-title">Users</h1>
+    <h1 class="page-title">Target Groups</h1>
     <div>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)">RTMS</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Sales</li>
+            <li class="breadcrumb-item active" aria-current="page">Target Groups</li>
         </ol>
     </div>
 </div>
@@ -74,7 +74,7 @@
              
             <h5 class="card-title">Quick Tips</h5>
            <ol class="card-text">
-                <li style="margin-bottom: 10px;"><strong>Name </strong>: Enter of the target group. For instance, based on location, Ruaraka Group </li>
+                <li style="margin-bottom: 10px;"><strong>Name </strong>: Enter the name of the target group. For instance, based on location, Ruaraka Group </li>
                 <li style="margin-bottom: 10px;"><strong>Target Amount </strong>: Enter the target amount for this entry. Numbers only.</li>    
             </ol>
           </div>

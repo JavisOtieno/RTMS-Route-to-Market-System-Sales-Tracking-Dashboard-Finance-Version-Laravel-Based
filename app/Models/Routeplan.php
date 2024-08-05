@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Scopes\OrganizationScope;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -26,5 +27,9 @@ class Routeplan extends Model
     public function routeplanitems()
     {
         return $this->hasMany(RouteplanItem::class);
+    }
+    protected static function booted()
+    {
+        static::addGlobalScope(new OrganizationScope);
     }
 }

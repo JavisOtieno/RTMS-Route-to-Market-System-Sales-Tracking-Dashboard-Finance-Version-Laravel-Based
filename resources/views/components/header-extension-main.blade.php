@@ -455,7 +455,9 @@
                                         <li><a href="/targetgroups" class="slide-item"> Sales Target Groups</a></li>
                                         <li><a href="/adduserstotargetgroups" class="slide-item"> Add Sellers to Target Groups</a></li>
                                         <li><a href="/allocateoutletstousers" class="slide-item"> Allocate Outlets to Users</a></li>
-                                        
+                                        <li><a href="/regions" class="slide-item"> Regions</a></li>
+                                        <li><a href="/territories" class="slide-item"> Territories</a></li>
+
                                         
                                     </ul>
 
