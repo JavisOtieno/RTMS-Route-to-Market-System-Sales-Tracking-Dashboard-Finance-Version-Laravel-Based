@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Spatie\ImageOptimizer\OptimizerChainFactory;
 
 
-class OutletController extends Controller
+class OutletController extends CommonController
 {
     //
 
@@ -60,7 +60,7 @@ class OutletController extends Controller
 
         if($request->hasFile('image')){
 
-            $imageName = time().'.'.$request->image->extension();
+            $imageName = time().'.jpg';
 
             $request->validate([
                 'image' => 'image|mimes:jpeg,webp,png,jpg,gif,svg|max:2048'
@@ -71,27 +71,19 @@ class OutletController extends Controller
     
             //code from android version
             $folder="outlets";
-            $imagePath=$folder."/".$imageName;
+            $imagePathOnDb=$folder."/".$imageName;
             //Storage::disk('public')->put($imagePath, $imageData);
-            $incomingFields['image']=$imagePath;
+            $incomingFields['image']=$imagePathOnDb;
     
-            //store using the storage facade
-            //stores to images/folder in this case images/products/
-            //$path = $request->file('image')->storeAs('images', $imagePath, 'public');
-            //$path = $request->file('image')->storeAs('images', $imagePath, 'public');
+            $image = $request->file('image');
+            $imagePath = $image->getPathName();
+            $compressedImagePath = storage_path('app/public/outlets/'.$imageName);
 
-            //store to products
-            $path = $request->file('image')->storeAs($folder, $imageName, 'public');
+            $sourcePath = $imagePath;
+            $maxSizeKB = 100;
+            $destinationPath = $compressedImagePath;
 
-            $optimizerChain = OptimizerChainFactory::create();
-            $maxFileSize = 200 * 1024; // 200KB
-
-            $fullImagePath = storage_path('app/public/' . $path);
-    
-            // Optimize image until it is less than 200KB
-            while (filesize($fullImagePath) > $maxFileSize) {
-                $optimizerChain->optimize($fullImagePath);
-            }
+            $this->compressImage($sourcePath,$destinationPath,$maxSizeKB);
             
             
         }else{

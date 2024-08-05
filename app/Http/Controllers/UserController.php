@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
 
-class UserController extends Controller
+class UserController extends CommonController
 {
     //
     //test commit github
@@ -105,24 +105,27 @@ class UserController extends Controller
 
         if($request['image']){
 
-            $imageName = time().'.'.$request->image->extension();
+            $imageName = time().'.jpg';
 
             // Save image to public/images directory
             //$request->image->move(public_path('images'), $imageName);
     
             //code from android version
             $folder="users";
-            $imagePath=$folder."/".$imageName;
+            $imagePathOnDB=$folder."/".$imageName;
             //Storage::disk('public')->put($imagePath, $imageData);
-            $incomingFields['image']=$imagePath;
+            $incomingFields['image']=$imagePathOnDB;
     
-            //store using the storage facade
-            //stores to images/folder in this case images/users/
-            //$path = $request->file('image')->storeAs('images', $imagePath, 'public');
-            //$path = $request->file('image')->storeAs('images', $imagePath, 'public');
-    
-            //store to users
-            $path = $request->file('image')->storeAs($folder, $imageName, 'public');
+            $image = $request->file('image');
+            $imagePath = $image->getPathName();
+
+            $compressedImagePath = storage_path('app/public/users/'.$imageName);
+
+            $sourcePath = $imagePath;
+            $maxSizeKB = 100;
+            $destinationPath = $compressedImagePath;
+
+            $this->compressImage($sourcePath,$destinationPath,$maxSizeKB);
             
         }else{
             $incomingFields['image']='';   
@@ -161,25 +164,23 @@ class UserController extends Controller
 
 
         if($request['image']){
-
-            $imageName = time().'.'.$request->image->extension();
-
-            // Save image to public/images directory
-            //$request->image->move(public_path('images'), $imageName);
-    
-            //code from android version
+            
+            $imageName = time().'.jpg';
             $folder="users";
-            $imagePath=$folder."/".$imageName;
-            //Storage::disk('public')->put($imagePath, $imageData);
-            $incomingFields['image']=$imagePath;
+            $imagePathOnDB=$folder."/".$imageName;
+            $incomingFields['image']=$imagePathOnDB;
     
-            //store using the storage facade
-            //stores to images/folder in this case images/users/
-            //$path = $request->file('image')->storeAs('images', $imagePath, 'public');
-            //$path = $request->file('image')->storeAs('images', $imagePath, 'public');
-    
-            //store to users
-            $path = $request->file('image')->storeAs($folder, $imageName, 'public');
+            $image = $request->file('image');
+            $imagePath = $image->getPathName();
+
+            $compressedImagePath = storage_path('app/public/users/'.$imageName);
+
+            $sourcePath = $imagePath;
+            $maxSizeKB = 100;
+            $destinationPath = $compressedImagePath;
+
+            $this->compressImage($sourcePath,$destinationPath,$maxSizeKB);
+
             
         }else{
             $incomingFields['image']='';   
@@ -265,16 +266,29 @@ class UserController extends Controller
             $request->validate([
                 'image' => 'image|mimes:jpeg,webp,png,jpg,gif,svg|max:2048'
             ]);
+            // old code
+            // $imageName = time().'.'.$request->image->extension();
+            // $folder="users";
+            // $imagePath=$folder."/".$imageName;
+            // $incomingFields['image']=$imagePath;
+            // $path = $request->file('image')->storeAs($folder, $imageName, 'public');
+            // old code
 
-
-            $imageName = time().'.'.$request->image->extension();
-            
+            $imageName = time().'.jpg';
             $folder="users";
-            $imagePath=$folder."/".$imageName;
+            $imagePathOnDB=$folder."/".$imageName;
+            $incomingFields['image']=$imagePathOnDB;
 
-            $incomingFields['image']=$imagePath;
+            $image = $request->file('image');
+            $imagePath = $image->getPathName();
 
-            $path = $request->file('image')->storeAs($folder, $imageName, 'public');
+            $compressedImagePath = storage_path('app/public/users/'.$imageName);
+
+            $sourcePath = $imagePath;
+            $maxSizeKB = 100;
+            $destinationPath = $compressedImagePath;
+
+            $this->compressImage($sourcePath,$destinationPath,$maxSizeKB);
 
             // Optionally delete the old file if it exists
             if ($request->input('existing_file')) {
@@ -338,14 +352,31 @@ class UserController extends Controller
             ]);
 
 
-            $imageName = time().'.'.$request->image->extension();
+            // $imageName = time().'.'.$request->image->extension();
+            // $folder="users";
+            // $imagePath=$folder."/".$imageName;
+            // $incomingFields['image']=$imagePath;
+            // $path = $request->file('image')->storeAs($folder, $imageName, 'public');
+
             
+
+            $imageName = time().'.jpg';
             $folder="users";
-            $imagePath=$folder."/".$imageName;
+            $imagePathOnDB=$folder."/".$imageName;
+            $incomingFields['image']=$imagePathOnDB;
 
-            $incomingFields['image']=$imagePath;
+            $image = $request->file('image');
+            $imagePath = $image->getPathName();
 
-            $path = $request->file('image')->storeAs($folder, $imageName, 'public');
+            $compressedImagePath = storage_path('app/public/users/'.$imageName);
+
+            $sourcePath = $imagePath;
+            $maxSizeKB = 100;
+            $destinationPath = $compressedImagePath;
+
+            $this->compressImage($sourcePath,$destinationPath,$maxSizeKB);
+
+
 
             // Optionally delete the old file if it exists
             if ($request->input('existing_file')) {

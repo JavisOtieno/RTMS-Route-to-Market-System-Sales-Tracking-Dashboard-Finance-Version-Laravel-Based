@@ -2,27 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use Imagick;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use League\Glide\ServerFactory;
 use Illuminate\Support\Facades\Storage;
+use Spatie\ImageOptimizer\Optimizers\Svgo;
+use Spatie\ImageOptimizer\Optimizers\Optipng;
 use Intervention\Image\Facades\Image as Image;
+use Spatie\ImageOptimizer\Optimizers\Gifsicle;
 
-class ProductController extends Controller
+use Spatie\ImageOptimizer\Optimizers\Jpegoptim;
+use Spatie\ImageOptimizer\OptimizerChainFactory;
+use League\Glide\Responses\LaravelResponseFactory;
+
+
+
+class ProductController extends CommonController
 {
+ 
     //
     public function apiindex(){
         //$sales = Sale::all();
         $products = Product::all();
+
         return response()->json(['products'=>$products]);
+
     }
     public function index() {
         $products = Product::all();
-
-
-
-        
-
-
 
         //dd($sales);
         return view('products', ['products'=>$products]);
@@ -36,6 +44,150 @@ class ProductController extends Controller
         return view('add-product');
     }
 
+    public function testCompress(){
+    
+        //using intervention 2.7.2
+        // Get the uploaded image
+        // $image = $request->file('image');
+        // $imagePath = $image->getPathName();
+        // 1722321638.png
+        // 1722323337.jpg
+        // $imagePath = public_path('images/1722321638.png');
+        $imagePath = public_path('images/2mb.jpg');
+        // $imagePath = public_path('images/1722323337.jpg');
+        // $imagePath = public_path('images/testcompressjpgtest22.jpg');
+        // $imagePath = public_path('images/2mbpng2.jpg');
+        $imagePath = public_path("images/testcompressjpgtest4.jpg");
+        $imagePath = public_path("images/4835.jpg"); //104kb
+        $imagePath = public_path("images/5372DC.jpg"); //500kb
+        $imagePath = public_path("images/Office-065.png"); //40mb
+        
+        
+
+        $compressedImagePath = public_path('images/testcompressjpgtest444.jpg');
+    
+        // Create an image instance
+        // $img = Image::make($imagePath);
+
+        // Compress the image
+        // $img->save($compressedImagePath, 80); // 80 is the quality percentage
+
+        // Compress image to be under 200KB
+
+            return $this->compressImageToSize($imagePath, $compressedImagePath, 100);
+    
+
+
+
+    }
+
+    private function compressImageToSize($sourcePath, $destinationPath, $maxSizeKB)
+    {
+        function showbytes($filepath){
+            $bytes= filesize($filepath);
+        
+            if ($bytes >= 1073741824) {
+                $bytes = number_format($bytes / 1073741824, 2) . ' GB';
+            } elseif ($bytes >= 1048576) {
+                $bytes = number_format($bytes / 1048576, 2) . ' MB';
+            } elseif ($bytes >= 1024) {
+                $bytes = number_format($bytes / 1024, 2) . ' KB';
+            } elseif ($bytes > 1) {
+                $bytes = $bytes . ' bytes';
+            } elseif ($bytes == 1) {
+                $bytes = $bytes . ' byte';
+            } else {
+                $bytes = '0 bytes';
+            }
+            return $bytes;
+        }
+        $bytes_story='';
+
+        if(filesize($sourcePath)>100*1024){
+
+        $img = Image::make($sourcePath);
+        
+        $bytes_story=$bytes_story.'Initial file size'.showbytes($sourcePath).'<br/>';
+        
+        // Save the image to a temporary path
+        // $tempPath = $destinationPath . '.jpg';
+        $tempPath = $destinationPath;
+
+
+
+        $width = $img->width();
+        $height = $img->height();
+        $maxWidth = 1920; // Example max width
+        $maxHeight = 1080; // Example max height
+
+        //  $bytes_story=$bytes_story."Before resize".showbytes($sourcePath)."<br/>";
+
+        //Size is critical especially for large images, it reduces the size of the image significantly
+        if ($width > $maxWidth || $height > $maxHeight) {
+            $img->resize($maxWidth, $maxHeight, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
+        }
+
+        $img->save($tempPath, 90);
+
+        $bytes_story=$bytes_story."Initial step".showbytes($tempPath)."<br/>";
+
+        $quality = 100; // Start with high quality
+
+        while (filesize($tempPath) > $maxSizeKB * 1024 && $quality > 10) {
+            // $quality -= 10; // Reduce quality by 10%
+            // $img->save($tempPath, $quality);
+            // $bytes_story=$bytes_story."While quality loop".$quality." ".showbytes($tempPath)."<br/>";
+            // clearstatcache(true, $tempPath); // Clear cache for specific file
+            
+            $quality -= 10; // Reduce quality by 10%
+            $img->save($tempPath, $quality);
+            
+            // Debugging information
+            // clearstatcache(); // Clear cache to get the latest file size
+            clearstatcache(true, $tempPath); // Clear cache for specific file
+            
+            $newFileSize = filesize($tempPath);
+            $bytes_story .= "While quality loop. Quality: $quality, File Size: " . showbytes($tempPath) 
+            . " ($newFileSize bytes)<br/>";
+            
+            if ($newFileSize >= filesize($tempPath)) {
+                // If the file size doesn't change, break the loop to avoid infinite loop
+                $bytes_story .= "File size did not change, breaking the loop.<br/>";
+                //break;
+            }
+
+        }
+
+        // if (filesize($tempPath) > $maxSizeKB * 1024) {
+
+        //         // Fine-tune the quality in smaller steps if needed
+        //         while (filesize($tempPath) > $maxSizeKB * 1024 && $quality > 0) {
+        //             $quality -= 1; // Reduce quality by 1%
+        //             $img->save($tempPath, $quality);
+        //         }
+
+        // }
+        $bytes_story=$bytes_story."Before rename after while".$quality." ".showbytes($destinationPath)."<br/>";
+
+        // Move the compressed image to the final destination
+        rename($tempPath, $destinationPath);
+
+        $bytes_story=$bytes_story."After rename after while".$quality." ".showbytes($destinationPath)."<br/>";
+
+
+    }else{
+        $bytes_story=$bytes_story."File does not need compression ".showbytes($sourcePath)."<br/>"; 
+    }
+
+    return $bytes_story;
+
+    }
+
+    
+
     public function saveProduct(Request $request){
 
         // required not necessary
@@ -47,7 +199,8 @@ class ProductController extends Controller
             'sku'=>'required|string|unique:products|max:255',
             'stock'=>'required|numeric|digits_between:1,11',
             'description'=>'required|string',
-            'image' => 'image|mimes:jpeg,webp,png,jpg,gif,svg|max:2048'
+            //max 2048 removed temporarily
+            'image' => 'image|mimes:jpeg,webp,png,jpg,gif,svg'
         ]);
 
         
@@ -63,25 +216,8 @@ class ProductController extends Controller
 
         if($request['image']){
 
-            $imageName = time().'.'.$request->image->extension();
-
-
-                    // Store the uploaded image temporarily
-        $image = $request->file('image');
-        $filename = time() . '.' . $image->getClientOriginalExtension();
-        $path = $image->storeAs('images/original', $filename, 'public');
-
-        // Resize and compress the image
-        $resizedImage = Image::make($image)
-            ->resize(800, 600, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })
-            ->encode('jpg', 75); // Adjust the quality as needed
-
-        // Save the resized image
-        Storage::disk('public')->put('images/resized/' . $filename, (string) $resizedImage);
-
+            // $imageName = time().'.'.$request->image->extension();
+            $imageName = time().'.jpg';
 
             // Save image to public/images directory
             //$request->image->move(public_path('images'), $imageName);
@@ -92,17 +228,28 @@ class ProductController extends Controller
             //Storage::disk('public')->put($imagePath, $imageData);
             $incomingFields['image']=$imagePath;
     
-            //store using the storage facade
-            //stores to images/folder in this case images/products/
-            //$path = $request->file('image')->storeAs('images', $imagePath, 'public');
-            //$path = $request->file('image')->storeAs('images', $imagePath, 'public');
-    
+            $image = $request->file('image');
+            $imagePath = $image->getPathName();
+
+            $compressedImagePath = storage_path('app/public/products/'.$imageName);
+
+            $sourcePath = $imagePath;
+            $maxSizeKB = 100;
+            $destinationPath = $compressedImagePath;
+
+            $this->compressImage($sourcePath,$destinationPath,$maxSizeKB);
+
             //store to products
-            $path = $request->file('image')->storeAs($folder, $imageName, 'public');
+            // $path = $request->file('image')->storeAs($folder, $imageName, 'public');
             
         }else{
             $incomingFields['image']='';   
         }
+
+
+    
+
+
 
 
 
@@ -111,6 +258,11 @@ class ProductController extends Controller
         return redirect('/products');
         
     }
+
+
+
+
+
 
     public function showEditProduct($id){
         $product = Product::find($id);
@@ -183,14 +335,29 @@ class ProductController extends Controller
             ]);
 
 
-            $imageName = time().'.'.$request->image->extension();
-            
+            // OLD UPLOAD CODE WITHOUT COMPRESSION
+            // $imageName = time().'.'.$request->image->extension();
+            // $folder="products";
+            // $imagePath=$folder."/".$imageName;
+            // $incomingFields['image']=$imagePath;
+            // $path = $request->file('image')->storeAs($folder, $imageName, 'public');
+            // OLD UPLOAD CODE WITHOUT COMPRESSION
+
+            $imageName = time().'.jpg';
             $folder="products";
-            $imagePath=$folder."/".$imageName;
+            $imagePathOnDB=$folder."/".$imageName;
+            $incomingFields['image']=$imagePathOnDB;
 
-            $incomingFields['image']=$imagePath;
+            $image = $request->file('image');
+            $imagePath = $image->getPathName();
 
-            $path = $request->file('image')->storeAs($folder, $imageName, 'public');
+            $compressedImagePath = storage_path('app/public/products/'.$imageName);
+
+            $sourcePath = $imagePath;
+            $maxSizeKB = 100;
+            $destinationPath = $compressedImagePath;
+
+            $this->compressImage($sourcePath,$destinationPath,$maxSizeKB);
 
             // Optionally delete the old file if it exists
             if ($request->input('existing_file')) {

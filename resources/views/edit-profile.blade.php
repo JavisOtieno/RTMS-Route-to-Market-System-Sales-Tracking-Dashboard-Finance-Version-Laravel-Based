@@ -32,10 +32,14 @@
                                     <div class="card-body">
                                         <div class="text-center chat-image mb-5">
                                             <div class="avatar avatar-xxl chat-profile mb-3 brround">
-                                                <a class="" href="#"><img alt="avatar" 
+                                                <a class="" href="{{url('showimage/'.auth()->user()->image)}}">
+                                                    <img alt="avatar" 
                                                     src="{{ url('storage/'.auth()->user()->image) }}"
                                                     onerror="this.onerror=null; this.src='{{ asset('assets/images/users/profilepicdefault.jpg') }}';"
-                                                    class="brround"></a>
+                                                    {{-- class="brround" --}}
+                                                    class="avatar  profile-user brround cover-image" style="height: 80px;width:80px;"
+                                                    >
+                                                </a>
                                             </div>
                                             <div class="main-chat-msg-name">
                                                 <a href="#">

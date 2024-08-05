@@ -84,6 +84,7 @@ Route::put('/saveeditfeedback/{id}',[FeedbackController::class,'saveEditFeedback
 
 
 
+Route::get('/testcompress', [ProductController::class,'testCompress']);
 Route::get('/deleteproduct/{id}', [ProductController::class,'deleteProduct']);
 
 Route::get('/add-product', [ProductController::class,'addProduct']);
