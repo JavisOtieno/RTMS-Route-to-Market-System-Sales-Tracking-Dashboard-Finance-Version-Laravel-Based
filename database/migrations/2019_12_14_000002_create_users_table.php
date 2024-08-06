@@ -19,6 +19,8 @@ return new class extends Migration
             // $table->integer('target_group_id');
             $table->unsignedBigInteger('target_group_id');
             //$table->foreign('target_group_id')->references('id')->on('target_groups');
+            $table->unsignedBigInteger('region_id');
+            $table->unsignedBigInteger('territory_id');
             // $table->integer('organization_id');
             $table->unsignedBigInteger('organization_id');
             //$table->foreign('organization_id')->references('id')->on('organizations');
