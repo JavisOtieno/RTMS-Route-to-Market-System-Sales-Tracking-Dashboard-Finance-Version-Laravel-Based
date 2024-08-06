@@ -54,10 +54,11 @@ class CommonController extends BaseController
             // Move the compressed image to the final destination
             rename($tempPath, $destinationPath);
     
-            // return "Compression Successful".$destinationPath;
+            return "Compression Successful".$destinationPath;
     
         }else{
-            // return "File does not need compression ".$sourcePath."<br/>"; 
+            rename($sourcePath, $destinationPath);
+            return "File does not need compression ".$sourcePath."<br/>"; 
         }
     }
 }
