@@ -98,6 +98,8 @@ class UserController extends CommonController
         $incomingFields['phone']=strip_tags($incomingFields['phone']);
         $incomingFields['usertype']='admin';
         $incomingFields['target_group_id']=0;
+        $incomingFields['region_id']=0;
+        $incomingFields['territory_id']=0;
         $incomingFields['email']=strip_tags($incomingFields['email']);
         $incomingFields['password']=strip_tags($incomingFields['password']);
         $incomingFields['organization_id']=$organizationId;
@@ -160,6 +162,8 @@ class UserController extends CommonController
         $incomingFields['phone']=strip_tags($incomingFields['phone']);
         $incomingFields['usertype']='seller';
         $incomingFields['target_group_id']=strip_tags($incomingFields['target_group_id']);
+        $incomingFields['region_id']=strip_tags($incomingFields['region_id']);
+        $incomingFields['territory_id']=strip_tags($incomingFields['territory_id']);
         $incomingFields['email']=strip_tags($incomingFields['email']);
         $incomingFields['password']=strip_tags($incomingFields['password']);
         $incomingFields['organization_id']=$organizationId;
