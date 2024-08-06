@@ -144,11 +144,11 @@
                 <canvas id="myLineChart" width="400" height="200"></canvas>
             </div>
             <div class="row">
-            <div class="table-responsive col-md-4 mt-6">
+            <div class="table-responsive col-md-3 mt-6">
                 <h3>Sellers By Region</h3>
             <canvas id="salesPieChart" width="180" height="180"></canvas>
             </div>
-            <div class="table-responsive col-md-8 mt-6">
+            <div class="table-responsive col-md-9 mt-6">
             <div class="card">
                 {{-- <div class="card-header">
                     <h3 class="card-title">Top Sellers</h3>
