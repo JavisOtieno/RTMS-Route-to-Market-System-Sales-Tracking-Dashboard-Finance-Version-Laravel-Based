@@ -16,16 +16,18 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone');
             $table->string('usertype');
+            // WE ALLOW DEFAULT TARGET GROUP, REGION, TERRITORY AS ZERO SO THEY DON'T HAVE TO BE WITHIN THE TABLE
+
             // $table->integer('target_group_id');
             $table->unsignedBigInteger('target_group_id');
-            $table->foreign('target_group_id')->references('id')->on('target_groups');
+            // $table->foreign('target_group_id')->references('id')->on('target_groups');
             $table->unsignedBigInteger('region_id');
-            $table->foreign('region_id')->references('id')->on('regions');
+            // $table->foreign('region_id')->references('id')->on('regions');
             $table->unsignedBigInteger('territory_id');
-            $table->foreign('territory_id')->references('id')->on('territories');
+            // $table->foreign('territory_id')->references('id')->on('territories');
             // $table->integer('organization_id');
             $table->unsignedBigInteger('organization_id');
-            //$table->foreign('organization_id')->references('id')->on('organizations');
+            $table->foreign('organization_id')->references('id')->on('organizations');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

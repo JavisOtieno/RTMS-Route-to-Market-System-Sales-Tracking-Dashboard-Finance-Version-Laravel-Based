@@ -59,6 +59,8 @@ class SignupController extends Controller
         $incomingFields['organization_id']=$organization->id;
 
         $user = User::create($incomingFields);
+        
+        // return $user->id;
 
         // Log the user in
         Auth::login($user);
@@ -67,7 +69,10 @@ class SignupController extends Controller
         return redirect('dashboard')->with('success', 'User created successfully. You are now logged in.');
 
         } catch (\Exception $e) {
-            return back()->withInput()->with('error', 'An error occurred while creating the user. Please try again.');
+            // return back()->withInput()->with('error', 'An error occurred while creating the user. Please try again.');
+            return redirect()->back()->withErrors([
+                'specifyinputmaybe' => 'An error occurred while creating the user. Please try again.'
+            ]);
         }
 
         
