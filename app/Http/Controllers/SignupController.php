@@ -35,6 +35,8 @@ class SignupController extends Controller
         $incomingFields['phone']=strip_tags($credentials['phone']);
         $incomingFields['usertype']='admin';
         $incomingFields['target_group_id']=0;
+        $incomingFields['region_id']=0;
+        $incomingFields['territory_id']=0;
         $incomingFields['image']='';
         $incomingFields['email']=strip_tags($credentials['email']);
         $incomingFields['password']=strip_tags($credentials['password']);
