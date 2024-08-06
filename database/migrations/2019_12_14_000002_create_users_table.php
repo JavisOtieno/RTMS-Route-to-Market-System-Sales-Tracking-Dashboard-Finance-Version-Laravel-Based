@@ -18,9 +18,11 @@ return new class extends Migration
             $table->string('usertype');
             // $table->integer('target_group_id');
             $table->unsignedBigInteger('target_group_id');
-            //$table->foreign('target_group_id')->references('id')->on('target_groups');
+            $table->foreign('target_group_id')->references('id')->on('target_groups');
             $table->unsignedBigInteger('region_id');
+            $table->foreign('region_id')->references('id')->on('regions');
             $table->unsignedBigInteger('territory_id');
+            $table->foreign('territory_id')->references('id')->on('territories');
             // $table->integer('organization_id');
             $table->unsignedBigInteger('organization_id');
             //$table->foreign('organization_id')->references('id')->on('organizations');
