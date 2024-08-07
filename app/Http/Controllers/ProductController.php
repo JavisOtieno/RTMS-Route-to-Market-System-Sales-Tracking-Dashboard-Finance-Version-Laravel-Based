@@ -331,7 +331,7 @@ class ProductController extends CommonController
                 Storage::disk('public')->delete($request->input('existing_file'));
             }
 
-            return "we get here".$request;
+            return $request;
 
         } elseif ($request->hasFile('image')) {
             //return "image uploaded";
@@ -367,7 +367,8 @@ class ProductController extends CommonController
             $maxSizeKB = 100;
             $destinationPath = $compressedImagePath;
 
-            return "Paths: ".$sourcePath." ".$maxSizeKB." ".$compressedImagePath." ".$request;
+            return $request;
+            return "Paths: ".$sourcePath." ".$maxSizeKB." ".$compressedImagePath." ";
             //return $this->compressImage($sourcePath,$destinationPath,$maxSizeKB);
 
             // Optionally delete the old file if it exists
