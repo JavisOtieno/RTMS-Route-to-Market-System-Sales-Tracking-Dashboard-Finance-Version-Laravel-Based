@@ -132,7 +132,7 @@ class SaleController extends Controller
             $dates[] = $dateString;
             $dayNames[] = $dayName;
 
-            $date = now()->subDaysi($i)->toDateString();
+            $date = now()->subDays($i)->toDateString();
 
 
             $salesPerDay[$date] = Sale::whereDate('created_at', $date)->count();
