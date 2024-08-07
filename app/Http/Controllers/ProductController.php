@@ -193,7 +193,7 @@ class ProductController extends CommonController
         // required not necessary
         //'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
 
-        return "we get here";
+        // return "we get here";
        
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
@@ -241,7 +241,7 @@ class ProductController extends CommonController
             $maxSizeKB = 100;
             $destinationPath = $compressedImagePath;
 
-            return "Paths: ".$sourcePath." ".$maxSizeKB." ".$compressedImagePath;
+            // return "Paths: ".$sourcePath." ".$maxSizeKB." ".$compressedImagePath;
 
 
             $this->compressImage($sourcePath,$destinationPath,$maxSizeKB);
@@ -365,7 +365,7 @@ class ProductController extends CommonController
             $maxSizeKB = 100;
             $destinationPath = $compressedImagePath;
 
-            return "Paths: ".$sourcePath." ".$maxSizeKB." ".$compressedImagePath;
+            // return "Paths: ".$sourcePath." ".$maxSizeKB." ".$compressedImagePath;
             $this->compressImage($sourcePath,$destinationPath,$maxSizeKB);
 
             // Optionally delete the old file if it exists
