@@ -331,6 +331,8 @@ class ProductController extends CommonController
                 Storage::disk('public')->delete($request->input('existing_file'));
             }
 
+            return "we get here";
+
         } elseif ($request->hasFile('image')) {
             //return "image uploaded";
             // Store the new file
@@ -377,6 +379,7 @@ class ProductController extends CommonController
             //return "image has not been changed";
             // Use the existing file path
             $path = $request->input('existing_file');
+            return "we are here";
             // no need to access this
             // $incomingFields['image']=$path;
         }
