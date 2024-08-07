@@ -331,7 +331,8 @@ class ProductController extends CommonController
             // $path = $file->store('uploads', 'public');
 
             $request->validate([
-                'image' => 'image|mimes:jpeg,webp,png,jpg,gif,svg|max:2048'
+                // |max2048 removed for now
+                'image' => 'image|mimes:jpeg,webp,png,jpg,gif,svg'
             ]);
 
 
