@@ -192,6 +192,8 @@ class ProductController extends CommonController
 
         // required not necessary
         //'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+
+        return "we get here";
        
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
@@ -203,7 +205,7 @@ class ProductController extends CommonController
             'image' => 'image|mimes:jpeg,webp,png,jpg,gif,svg'
         ]);
         
-        return "we get here";
+      
 
         
         $organization_id=auth()->user()->organization_id;
