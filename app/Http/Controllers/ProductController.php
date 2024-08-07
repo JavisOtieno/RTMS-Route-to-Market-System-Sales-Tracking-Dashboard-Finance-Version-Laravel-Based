@@ -332,7 +332,7 @@ class ProductController extends CommonController
             }
 
             // return $request;
-            return "default file removed";
+            // return "default file removed";
 
         } elseif ($request->hasFile('image')) {
             //return "image uploaded";
@@ -368,8 +368,8 @@ class ProductController extends CommonController
             $maxSizeKB = 100;
             $destinationPath = $compressedImagePath;
 
-            return "Paths: ".$sourcePath." ".$maxSizeKB." ".$compressedImagePath." ";
-            //return $this->compressImage($sourcePath,$destinationPath,$maxSizeKB);
+            //return "Paths: ".$sourcePath." ".$maxSizeKB." ".$compressedImagePath." ";
+            $this->compressImage($sourcePath,$destinationPath,$maxSizeKB);
 
             // Optionally delete the old file if it exists
             if ($request->input('existing_file')) {
@@ -380,7 +380,7 @@ class ProductController extends CommonController
             //return "image has not been changed";
             // Use the existing file path
             $path = $request->input('existing_file');
-            return $request;
+            // return $request;
             // no need to access this
             // $incomingFields['image']=$path;
         }
