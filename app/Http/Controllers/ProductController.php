@@ -202,6 +202,7 @@ class ProductController extends CommonController
             //max 2048 removed temporarily
             'image' => 'image|mimes:jpeg,webp,png,jpg,gif,svg'
         ]);
+        
         return "we get here";
 
         
