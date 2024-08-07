@@ -379,7 +379,7 @@ class ProductController extends CommonController
             //return "image has not been changed";
             // Use the existing file path
             $path = $request->input('existing_file');
-            return "we are here existing";
+            return $request;
             // no need to access this
             // $incomingFields['image']=$path;
         }
