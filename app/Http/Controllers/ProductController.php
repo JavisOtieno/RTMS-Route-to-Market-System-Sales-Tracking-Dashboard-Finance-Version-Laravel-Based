@@ -332,6 +332,7 @@ class ProductController extends CommonController
             }
 
             // return $request;
+            return "default file removed";
 
         } elseif ($request->hasFile('image')) {
             //return "image uploaded";
