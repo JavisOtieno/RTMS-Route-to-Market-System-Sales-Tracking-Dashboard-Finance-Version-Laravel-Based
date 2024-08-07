@@ -237,6 +237,9 @@ class ProductController extends CommonController
             $maxSizeKB = 100;
             $destinationPath = $compressedImagePath;
 
+            return "Paths: ".$sourcePath." ".$maxSizeKB." ".$compressedImagePath;
+
+
             $this->compressImage($sourcePath,$destinationPath,$maxSizeKB);
 
             //store to products
@@ -358,6 +361,7 @@ class ProductController extends CommonController
             $maxSizeKB = 100;
             $destinationPath = $compressedImagePath;
 
+            return "Paths: ".$sourcePath." ".$maxSizeKB." ".$compressedImagePath;
             $this->compressImage($sourcePath,$destinationPath,$maxSizeKB);
 
             // Optionally delete the old file if it exists
