@@ -82,7 +82,7 @@
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="currentSellerInput" class="form-label">Seller</label>
-                            <input type="text" class="form-control" id="currentSellerInput" placeholder="Current Seller">
+                            <input type="text" class="form-control" id="currentSellerInput" placeholder="Seller">
                         </div>
                         
                         <div class="col-md-3 mb-3">

@@ -82,8 +82,8 @@
                             <input type="text" class="form-control" id="nameInput" placeholder="Name">
                         </div>
                         <div class="col-md-3 mb-3">
-                            <label for="currentSellerInput" class="form-label">Current Seller</label>
-                            <input type="text" class="form-control" id="currentSellerInput" placeholder="Current Seller">
+                            <label for="currentSellerInput" class="form-label">Seller</label>
+                            <input type="text" class="form-control" id="currentSellerInput" placeholder="Seller">
                         </div>
                         
                         <div class="col-md-3 mb-3">
@@ -112,7 +112,7 @@
                                                 </label>
                                             </div> --}}
                                         </th>
-                                        <th>Current Seller</th>
+                                        <th>Seller</th>
                                         {{-- <th>Name</th> --}}
                                         <th>Contact Name</th>
                                         <th>Phone</th>
