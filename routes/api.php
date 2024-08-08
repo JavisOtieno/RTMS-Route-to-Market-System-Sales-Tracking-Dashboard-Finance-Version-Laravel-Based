@@ -21,6 +21,7 @@ use App\Http\Controllers\api\POSAuditController;
 use App\Http\Controllers\api\DashboardController;
 use App\Http\Controllers\api\RoutePlanController;
 use App\Http\Controllers\api\CompetitorController;
+use App\Http\Controllers\api\OrganizationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +59,8 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::get('productsinstock',[ProductController::class,'productsInStock']);
 
     Route::get('profile', [ProfileController::class,'showProfile']);
+
+    Route::get('organization', [OrganizationController::class,'showOrganizationDetails']);
 
     Route::post('addfeedback',[FeedbackController::class,'saveFeedback']);
     Route::get('feedback',[FeedbackController::class,'index']);
