@@ -35,7 +35,7 @@
                         <h3 class="card-title" style="margin-top:20px;margin-block-end: 0rem;">Search by :</h3>
                         <div class="col-md-3 mb-3">
                             <label for="name" class="form-label">Seller Name</label>
-                            <input type="text" class="form-control" id="nameInput" placeholder="Seller Name">
+                            <input type="text" class="form-control" id="nameInput" placeholder="Name">
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="outletName" class="form-label">Outlet Name</label>
@@ -89,8 +89,7 @@
                                 <tbody>
                                     @if(count($sales)>0)
                                     @foreach($sales as $sale)
-                                    <?php $saleitems="";
-                                    // $i=1;
+                                    <?php $saleitems="";$i=1;
                                         //print_r($sale['saleitems']);
                                         ?>
                                     @foreach($sale['saleitems'] as $saleitem)
@@ -98,15 +97,8 @@
                                         //$saleitemname=$saleitem['product']['name'];
                                         $saleitemname=$saleitem['product'] ? $saleitem['product']['name']  . ($saleitem['product']->trashed() ? ' (Deleted Product)' : '') : 'Deleted Product';
                                         $saleitems=$saleitems.$saleitemname." - ".$saleitem['pieces'];
-                                        // if($i%2==0){$saleitems.="\n"; }
-                                        //        else{$saleitems.="\n"; }
-                                        $saleitems.="\n"
-                                            //    $i++;
-                                        // if($i>2){
-                                        // $saleitems.="...";
-                                        // break;
-                                        // }
-                                        ?>
+                                        if($i%2==0){$saleitems.="\n"; }else{$saleitems.="\n"; }$i++;
+                                        if($i>2){$saleitems.="...";break;}?>
                                         @endforeach
                                     <tr>                                        
                                         <td>{{$sale['id']}}</td>
@@ -117,17 +109,7 @@
                                         <td>{{ $sale['user'] ? $sale['user']['name']  . ($sale['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}
                                         </td>
                                         <td>{{$sale['outlet']['name']}}</td>
-                                        <style>
-                                                    .multi-line-ellipsis {
-                                                    display: -webkit-box;
-                                                    -webkit-box-orient: vertical;
-                                                    -webkit-line-clamp: 2; /* Limit to 2 lines */
-                                                    overflow: hidden;
-                                                    text-overflow: ellipsis;
-                                                    max-width: 200px; /* Adjust as needed */
-                                                    }
-                                            </style>
-                                        <td style="white-space: pre-line;" class=".multi-line-ellipsis">{{$saleitems}}</td>
+                                        <td style="white-space: pre-line;">{{$saleitems}}</td>
                                         <td>{{$sale['pieces']}}</td>
                                         <td>{{'KSh '.number_format($sale['value'])}}</td>
                                         <td>{{date('d-M-Y', strtotime($sale['created_at']))}}</td>

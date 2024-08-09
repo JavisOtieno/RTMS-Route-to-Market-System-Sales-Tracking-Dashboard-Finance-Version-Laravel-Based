@@ -25,8 +25,8 @@ class RouteplanItem extends Model
     public function outlet(){
         return $this->belongsTo(Outlet::class,'outlet_id');
     }
-    protected static function booted()
-    {
-        static::addGlobalScope(new OrganizationScope);
-    }
+    // protected static function booted()
+    // {
+    //     static::addGlobalScope(new OrganizationScope);
+    // }
 }
