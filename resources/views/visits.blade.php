@@ -93,7 +93,7 @@
                                         <td>{{date('d-M-Y', strtotime($visit['created_at']))}}</td>
                                         <td>{{date('H:i', strtotime($visit['created_at']))}}</td>
                                         @if($visit['checkout_time']=="")
-                                        <td>{{$visit['checkout_time']}}</td>
+                                        <td>N/A</td>
                                         @else
                                         <td>{{date('H:i',$visit['checkout_time'])}}</td>
                                         @endif
@@ -289,15 +289,17 @@
 
 
             //marker.setMap(map);
+            var checkoutTime = "";
 
+            if(visit.checkout_time==""){
+                checkoutTime="N/A";
+            }else{
             var checkoutDate = new Date(visit.checkout_time * 1000); // Convert to milliseconds
-
             var checkoutHours = checkoutDate.getHours();
             var minutes = checkoutDate.getMinutes();
-
             minutes = minutes < 10 ? '0' + minutes : minutes;
-
-            var checkoutTime = checkoutHours + ':' + minutes;
+            checkoutTime = checkoutHours + ':' + minutes;
+            }
 
             var date = new Date(visit.created_at);
             var hours = date.getHours();

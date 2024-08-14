@@ -229,6 +229,13 @@
                 var long1 = Number(visit.outlet['long']);
                 const myPosition = { lat: lat1, lng: long1 };
 
+                var checkoutTime="";
+
+                if(visit.checkout_time==""){
+                    checkoutTime="N/A";
+
+                }else{
+
                 var checkoutDate = new Date(visit.checkout_time * 1000); // Convert to milliseconds
 
                 var checkoutHours = checkoutDate.getHours();
@@ -238,7 +245,9 @@
 
                 checkoutHours = checkoutHours < 10 ? '0' + checkoutHours : checkoutHours;
 
-                var checkoutTime = checkoutHours + ':' + minutes;
+                checkoutTime = checkoutHours + ':' + minutes;
+
+                }
 
                 var date = new Date(visit.created_at);
                 var hours = date.getHours();

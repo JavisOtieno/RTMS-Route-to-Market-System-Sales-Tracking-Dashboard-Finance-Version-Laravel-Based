@@ -69,7 +69,7 @@
                             <div class="form-group">
                                 <label for="checkoutTime" class="form-label">Checkout Time</label>
                                 @if($visit['checkout_time']=="")
-                                <input readonly type="text" class="form-control" name="checkoutTime" id="checkoutTime" placeholder="Checkout Time" value="{{$visit['checkout_time']}}" autocomplete="checkoutTime">
+                                <input readonly type="text" class="form-control" name="checkoutTime" id="checkoutTime" placeholder="Checkout Time" value="Not checked out" autocomplete="checkoutTime">
                                         @else
                                         <input readonly type="text" class="form-control" name="checkoutTime" id="checkoutTime" placeholder="Checkout Time" value="{{date('H:i',$visit['checkout_time'])}}" autocomplete="checkoutTime">
                                         @endif
