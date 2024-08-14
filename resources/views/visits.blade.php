@@ -293,6 +293,7 @@
 
             if(visit.checkout_time==""){
                 checkoutTime="N/A";
+                //test
             }else{
             var checkoutDate = new Date(visit.checkout_time * 1000); // Convert to milliseconds
             var checkoutHours = checkoutDate.getHours();

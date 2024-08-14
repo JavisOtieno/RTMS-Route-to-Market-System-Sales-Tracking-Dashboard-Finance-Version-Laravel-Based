@@ -276,8 +276,13 @@
             markers.forEach(marker => {
                 marker.setMap(null);
             });
-            if (directionsRenderer.getMap()) {
-            directionsRenderer.set('directions', null); // Clear previous route
+            //test
+            
+            // if (directionsRenderer.getMap()) {
+            // directionsRenderer.set('directions', null); // Clear previous route
+            // }
+            if (directionsRenderer && directionsRenderer.getMap()) {
+                directionsRenderer.set('directions', null); // Clear previous route
             }
         }
         
