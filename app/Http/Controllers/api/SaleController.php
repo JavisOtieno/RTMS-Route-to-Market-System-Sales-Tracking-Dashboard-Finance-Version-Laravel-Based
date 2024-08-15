@@ -15,7 +15,7 @@ class SaleController extends Controller
         //$sales = Sale::all();
         $userId = auth()->id();
         $sales = Sale::where('user_id',$userId)->with('user','visit','outlet','saleitems.product')->orderBy('id', 'DESC')->get();
-        return "nothing";
+        // return "nothing";
         return response()->json(['sales'=>$sales]);
        
     }
