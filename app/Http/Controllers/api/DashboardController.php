@@ -93,7 +93,7 @@ class DashboardController extends Controller
         return response()->json( compact('sales','outlets','salesCount','feedbackCount',
         'outletsCount','posauditsCount','visitsCount','competitorsCount','dailySalesTotal',
         'currentTargets','clockinTime','clockoutTime','checkinTime','checkoutTime',
-        'visitId','userId','outletId','outletName','outletLat','outletLong'));
+        'visitId','userId','outletId','outletLat','outletLong'));
 
     }
 }
