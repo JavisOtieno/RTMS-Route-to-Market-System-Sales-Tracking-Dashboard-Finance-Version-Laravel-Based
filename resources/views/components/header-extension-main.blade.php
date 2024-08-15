@@ -602,7 +602,7 @@
                                         <li class="side-menu-label1"><a href="javascript:void(0)">Outlet Visits</a></li>
                                         <li><a href="/visits" class="slide-item">Visits List</a></li>
                                         <li><a href="/visitsmap" class="slide-item">Visits Map</a></li>
-                                        <li><a href="/visitsbyday" class="slide-item">Visits By Day</a></li>
+                                        {{-- <li><a href="/visitsbyday" class="slide-item">Visits By Day</a></li> --}}
                                         <li><a href="/visitsanalytics" class="slide-item">Visits Analytics</a></li>
                                     </ul>
                                 </div>
@@ -644,7 +644,7 @@
                                         <li class="side-menu-label1"><a href="javascript:void(0)">Sales</a></li>
                                         <li><a href="/sales" class="slide-item">Sales List</a></li>
                                         <li><a href="/salesmap" class="slide-item">Sales Map</a></li>
-                                        <li><a href="/salesanalytics" class="slide-item">Sales Analytics</a></li>
+                                        {{-- <li><a href="/salesanalytics" class="slide-item">Sales Analytics</a></li> --}}
                                     </ul>
                                 </div>
                             </div>
