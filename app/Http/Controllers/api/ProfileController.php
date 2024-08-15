@@ -13,6 +13,6 @@ class ProfileController extends Controller
         $id=auth()->user()->id;
         $user = User::inOrganization()->with('organization','region','targetgroup','territory')->find($id);
         //return response()->json(['user'=>$user]);
-        return null;
+        return "here I am. You're error from the server.";
     }
 }
