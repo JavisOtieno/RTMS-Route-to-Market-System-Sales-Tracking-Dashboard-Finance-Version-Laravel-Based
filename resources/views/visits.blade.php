@@ -93,11 +93,13 @@
                                         <td>{{$visit['outlet']['name']}}</td>
                                         <td>{{date('d-M-Y', strtotime($visit['created_at']))}}</td>
                                         <td>{{date('H:i', strtotime($visit['created_at']))}}</td>
+
                                         @if($visit['checkout_time']=="")
                                         <td>N/A</td>
                                         @else
                                         <td>{{date('H:i',$visit['checkout_time'])}}</td>
                                         @endif
+
                                         @if($visit['checkout_time']=="")
                                         <td>{{gmdate("H:i:s", strtotime(0))}}</td>
                                         @else
@@ -122,7 +124,10 @@
                                         data-bs-toggle="modal" href="#largemodal">Map</a>
                                   </td>
                                   @if($visit['checkout_time']=="")
-                                  <td><a type="button" href="/checkout/{{$visit['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">Check Out</a>
+                                  <td><a type="button" 
+                                    onclick="checkout({{$visit['id']}},'{{$visit['user']['name']}}','{{$visit['created_at']}}')" 
+                                    {{-- href="/checkout/{{$visit['id']}}"  --}}
+                                    class="btn btn-info" style="margin-left: auto;color:white;">Force CheckOut</a>
                                   </td>
                                   @else
                                   <td>Checked out</td>
@@ -221,12 +226,12 @@
 @endsection
 
 <script>
-    function deleteItem(id,name,sku,pieces){
+    function checkout(id,name,time){
         //alert(id);
         var itemDetails = document.getElementById("itemDetails");
-        itemDetails.innerHTML = "Sale Id: "+id+"<br/> Product Name: "+name+"<br/> SKU: "+sku+"<br/> Pieces: "+pieces;
+        itemDetails.innerHTML = "Visit Id: "+id+"<br/> Seller Name: "+name+"<br/> Checkin Time: "+time;
         var confirmDeleteLink = document.getElementById('confirmDelete'); //or grab it by tagname etc
-        confirmDeleteLink.href = "/deletesale/"+id;
+        confirmDeleteLink.href = "/checkout/"+id;
     }
 
     // function embedMap(lat,long){
