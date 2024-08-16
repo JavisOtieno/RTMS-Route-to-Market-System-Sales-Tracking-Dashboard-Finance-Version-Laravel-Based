@@ -179,7 +179,7 @@ class SaleController extends Controller
         foreach ($sellersByRegion as $seller) {
             # code...
             array_push($sellersByRegionCount,$seller['count']);
-            if($seller['region_id']==0){
+            if($seller['region']==null){
                 array_push($sellersByRegionNames,"Unassigned");
             }else{
                 array_push($sellersByRegionNames,$seller['region']['name']);
