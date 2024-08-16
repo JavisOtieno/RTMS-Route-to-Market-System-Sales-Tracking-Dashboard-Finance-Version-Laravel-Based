@@ -55,7 +55,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="form-label">User Type</label>
+                                            <label class="form-label">Post</label>
                                             <div class="wrap-input100 validate-input input-group" id="Password-toggle1">
                                                 <input type="text" class="form-control" disabled value="{{ auth()->user() ? ucfirst(auth()->user()->usertype) : '' }}">
                                             </div>
