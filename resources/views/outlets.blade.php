@@ -271,7 +271,11 @@
                         <p><strong>Phone:</strong> ${outlet.phone}</p>
                         <p><strong>Latitude:</strong> ${outlet.lat}</p>
                         <p><strong>Longitude:</strong> ${outlet.long}</p>
-                        <img src="${outletImage}" alt="${outlet.name}" style="width:100px;height:auto;"/>
+                        <img 
+                        src="${outletImage}" 
+                        alt="${outlet.name}" 
+                        onerror="this.onerror=null;this.src='/assets/images/users/profilepicdefault.jpg';"
+                        style="width:100px;height:auto;"/>
                     </div>
                 `
             });
