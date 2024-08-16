@@ -77,7 +77,7 @@
                                         <th>Check Out Time</th>
                                         <th>Duration<br/>(HH:mm:ss)</th>
                                         <th id="map-column">Map</th>
-                                        <th>Delete</th>
+                                        <th id="delete-column">Check Out</th>
                                         <!--<th>Duration</th>-->
                                     </tr>
                                 </thead>
@@ -90,7 +90,6 @@
                                         <td><a type="button" href="/visit/{{$visit['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View</a>
                                         </td>
                                         <td>{{ $visit['user'] ? $visit['user']['name']  . ($visit['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}</td>
-                                        <!
                                         <td>{{$visit['outlet']['name']}}</td>
                                         <td>{{date('d-M-Y', strtotime($visit['created_at']))}}</td>
                                         <td>{{date('H:i', strtotime($visit['created_at']))}}</td>
@@ -103,7 +102,7 @@
                                         <td>{{gmdate("H:i:s", strtotime(0))}}</td>
                                         @else
                                         <td>{{gmdate("H:i:s", $visit['checkout_time']-strtotime($visit['created_at']))}}</td>
-                                        <td><a type="button" onclick="checkout({{$visit['id']}},{{$visit['user']['name']}},'{{$visit['created_at']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Checkout</a>
+                                        <td><a type="button" href="/checkout/{{$visit['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">Check Out</a>
                                         </td>
                                         @endif
                                         
@@ -217,15 +216,13 @@
 @endsection
 
 <script>
-    function checkout(id,name,time){
+    function deleteItem(id,name,sku,pieces){
         //alert(id);
         var itemDetails = document.getElementById("itemDetails");
-        itemDetails.innerHTML = "Visit Id: "+id+"<br/> Seller Name: "+name+"<br/> Checkin Time: "+time;
+        itemDetails.innerHTML = "Sale Id: "+id+"<br/> Product Name: "+name+"<br/> SKU: "+sku+"<br/> Pieces: "+pieces;
         var confirmDeleteLink = document.getElementById('confirmDelete'); //or grab it by tagname etc
-        confirmDeleteLink.href = "/checkout/"+id;
+        confirmDeleteLink.href = "/deletesale/"+id;
     }
-
-    
 
     // function embedMap(lat,long){
     //     //alert(id);
