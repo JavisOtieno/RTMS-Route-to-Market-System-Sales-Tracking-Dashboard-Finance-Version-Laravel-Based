@@ -227,7 +227,7 @@
 
 <script>
     function checkout(id,name,time){
-        //alert(id);
+        alert(id);
         var itemDetails = document.getElementById("itemDetails");
         itemDetails.innerHTML = "Visit Id: "+id+"<br/> Seller Name: "+name+"<br/> Checkin Time: "+time;
         var confirmDeleteLink = document.getElementById('confirmDelete'); //or grab it by tagname etc
