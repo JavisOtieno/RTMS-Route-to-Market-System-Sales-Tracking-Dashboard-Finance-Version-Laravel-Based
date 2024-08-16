@@ -102,8 +102,7 @@
                                         <td>{{gmdate("H:i:s", strtotime(0))}}</td>
                                         @else
                                         <td>{{gmdate("H:i:s", $visit['checkout_time']-strtotime($visit['created_at']))}}</td>
-                                        <td><a type="button" href="/checkout/{{$visit['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">Check Out</a>
-                                        </td>
+                                        
                                         @endif
                                         
                                         {{-- <td>
@@ -121,6 +120,8 @@
                                         onclick="loadPointOnMap({{ $visit }})"
                                         class="btn btn-success" style="margin-left: auto;color:white;" 
                                         data-bs-toggle="modal" href="#largemodal">Map</a>
+                                  </td>
+                                  <td><a type="button" href="/checkout/{{$visit['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">Check Out</a>
                                   </td>
                                         <!--<td>$visit['duration']</td>-->
                                         <!--<a class="modal-effect btn btn-primary-light d-grid mb-3" data-bs-effect="effect-scale" >Scale</a>-->
