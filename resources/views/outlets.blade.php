@@ -274,7 +274,7 @@
                         <img 
                         src="${outletImage}" 
                         alt="${outlet.name}" 
-                        onerror="this.onerror=null;this.src='/assets/images/users/profilepicdefault.jpg';"
+                        onerror="this.onerror=null;this.src='/assets/default-images/no_image_available.jpg';"
                         style="width:100px;height:auto;"/>
                     </div>
                 `
