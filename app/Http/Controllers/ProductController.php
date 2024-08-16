@@ -30,14 +30,14 @@ class ProductController extends CommonController
 
     }
     public function index() {
-        $products = Product::all();
+        $products = Product::where('producttype', 'product')->orWhereNull('producttype');
 
         //dd($sales);
         return view('products', ['products'=>$products]);
     }
 
     public function services() {
-        $products = Product::all();
+        $products = Product::where('producttype','service');
 
         //dd($sales);
         return view('services', ['products'=>$products]);
