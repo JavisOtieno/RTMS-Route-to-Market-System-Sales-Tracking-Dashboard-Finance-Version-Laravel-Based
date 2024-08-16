@@ -90,7 +90,7 @@
                                         <td><a type="button" href="/visit/{{$visit['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View</a>
                                         </td>
                                         <td>{{ $visit['user'] ? $visit['user']['name']  . ($visit['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}</td>
-                                        <!--test>
+                                        <!
                                         <td>{{$visit['outlet']['name']}}</td>
                                         <td>{{date('d-M-Y', strtotime($visit['created_at']))}}</td>
                                         <td>{{date('H:i', strtotime($visit['created_at']))}}</td>
@@ -103,7 +103,7 @@
                                         <td>{{gmdate("H:i:s", strtotime(0))}}</td>
                                         @else
                                         <td>{{gmdate("H:i:s", $visit['checkout_time']-strtotime($visit['created_at']))}}</td>
-                                        <td><a type="button" onclick="checkout({{$visit['id']}},{{$visit['user']['name']  . ($visit['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}},'{{$visit['created_at']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Checkout</a>
+                                        <td><a type="button" onclick="checkout({{$visit['id']}},{{$visit['user']['name']}},'{{$visit['created_at']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Checkout</a>
                                         </td>
                                         @endif
                                         
