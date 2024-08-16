@@ -676,7 +676,7 @@
                                         <li class="side-menu-label1"><a href="javascript:void(0)">Sales</a></li>
                                         <li><a href="/sales" class="slide-item">Sales List</a></li>
                                         <li><a href="/salesmap" class="slide-item">Sales Map</a></li>
-                                        {{-- <li><a href="/salesanalytics" class="slide-item">Sales Analytics</a></li> --}}
+                                        <li><a href="/salesanalytics" class="slide-item">Sales Analytics</a></li>
                                     </ul>
                                 </div>
                             </div>
