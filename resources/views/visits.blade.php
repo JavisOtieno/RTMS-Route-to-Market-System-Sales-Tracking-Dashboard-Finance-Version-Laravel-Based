@@ -104,8 +104,8 @@
                                         <td>{{gmdate("H:i:s", strtotime(0))}}</td>
                                         @else
                                         <td>{{gmdate("H:i:s", $visit['checkout_time']-strtotime($visit['created_at']))}}</td>
-                                        
                                         @endif
+                                        <th id="delete-column">Delete</th>
                                         
                                         {{-- <td>
                                             <form method="POST" action="{{ route('editclockout') }}">
@@ -129,7 +129,7 @@
                                     {{-- href="/checkout/{{$visit['id']}}"  --}}
                                     class="btn btn-info" style="margin-left: auto;color:white;"
                                     data-bs-toggle="modal" href="#modalDelete"
-                                    >Force CheckOut
+                                    >Force Check Out
                                 </a>
                                   </td>
                                   @else

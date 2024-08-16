@@ -90,6 +90,7 @@
                             <th>Lat</th>
                             <th>Long</th>
                             <th id="map-column">Map</th>
+                            <th id="delete-column">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -106,6 +107,14 @@
                             <td>{{date('H:i', strtotime($clockout['created_at']))}}</td>
                             <td>{{$clockout['lat']}}</td>
                             <td>{{$clockout['long']}}</td>
+                            <td><a type="button" 
+                                onclick="deleteItem({{$clockout['id']}},'Id: '+{{$clockout['id']}}+'<br/>Name: '+'{{$clockout['user']['name']}}'+'<br/>Time: '+'{{$clockout['created_at']}}')" 
+                                {{-- href="/checkout/{{$visit['id']}}"  --}}
+                                class="btn btn-info" style="margin-left: auto;color:white;"
+                                data-bs-toggle="modal" href="#modalDelete"
+                                >Delete
+                            </a>
+                              </td>
                             
                             {{-- <td>
                                 <form method="POST" action="{{ route('editclockout') }}">
@@ -216,6 +225,16 @@
         //confirmDeleteLink.href = "/deletesale/"+id;
     }
   </script> --}}
+
+  <script>
+      function deleteItem(id,message){
+        //alert(id);
+        var itemDetails = document.getElementById("itemDetails");
+        itemDetails.innerHTML = message;
+        var confirmDeleteLink = document.getElementById('confirmDelete'); //or grab it by tagname etc
+        confirmDeleteLink.href = "/deleteclockout/"+id;
+    }
+    </script>
 
   
 <script>

@@ -124,6 +124,7 @@ Route::get('/clockinsmap', [ClockinController::class,'showClockinsMap']);
 Route::get('/clockouts', [ClockoutController::class,'index']);
 Route::get('/clockout/{id}',[ClockoutController::class,'showEditClockout']);
 Route::get('/clockoutsmap', [ClockoutController::class,'showClockoutsMap']);
+Route::get('/deleteclockout/{id}', [ClockoutController::class,'deleteClockout']);
 
 Route::get('/profile', [UserController::class,'showProfile']);
 

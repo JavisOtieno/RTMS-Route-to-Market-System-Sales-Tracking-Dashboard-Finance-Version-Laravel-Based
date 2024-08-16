@@ -42,6 +42,12 @@ class ClockoutController extends Controller
             return view('clockoutsmap', compact('clockouts','users') );
         }
 
+        public function deleteClockout($id){
+            $clockout = Clockout::find($id);
+            $clockout->delete();
+            return redirect('/clockouts');
+        }
+
         // public function showEditClockout(Request $request){
         //     $incomingFields=$request->validate([
         //         'id'=>'required|numeric|digits_between:1,11'
