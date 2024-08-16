@@ -351,18 +351,22 @@
             });
 
             // Open the info window
+            let isInfoWindowOpen = true;
             infoWindow.open(map,marker);
 
             //added the toggle functionality here because for this case the map opens up the infoview on load
+            
             marker.addListener('click', function () {
+                if (isInfoWindowOpen) {
+                    infoWindow.close(); // Close the InfoWindow if it's open
+                    isInfoWindowOpen = false; // Update the state
+                } else {
+                    infoWindow.open(map, marker); // Open the InfoWindow if it's closed
+                    isInfoWindowOpen = true; // Update the state
+                }
+            });
 
-                if (infoWindow) {
-                infoWindow.close(); // Close the InfoWindow if it's open
-            } else {
-                infoWindow.open(map, marker); // Open the InfoWindow if it's closed
-            }
 
-                });
 
             
 

@@ -287,7 +287,6 @@
 
             //added the toggle functionality here because for this case the map opens up the infoview on load
             
-
             marker.addListener('click', function () {
                 if (isInfoWindowOpen) {
                     infoWindow.close(); // Close the InfoWindow if it's open
