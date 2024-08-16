@@ -66,6 +66,7 @@ Route::post('/pushoutletstouser', [OutletController::class,'pushOutletsToUser'])
 
 
 Route::get('/products', [ProductController::class,'index']);
+Route::get('/services', [ProductController::class,'services']);
 
 Route::get('/posaudits', [PosauditController::class,'index']);
 Route::get('/deleteposaudits/{id}', [PosauditController::class,'deletePosaudit']);
@@ -132,6 +133,7 @@ Route::get('/visitsmap', [VisitController::class,'showVisitsMap']);
 Route::get('/visitsbyday', [VisitController::class,'showVisitsByDay']);
 Route::get('/visitsanalytics', [VisitController::class,'showVisitsAnalytics']);
 Route::get('/visitsbyday/{id}', [VisitController::class,'showEditVisitsByDay']);
+Route::get('/checkout/{id}', [VisitController::class,'checkout']);
 
 Route::get('/ordernote/{id}',[OrderNoteController::class,'index']);
 Route::get('/download-pdf/{id}', [OrderNoteController::class, 'downloadPdf']);

@@ -77,6 +77,7 @@
                                         <th>Check Out Time</th>
                                         <th>Duration<br/>(HH:mm:ss)</th>
                                         <th id="map-column">Map</th>
+                                        <th>Delete</th>
                                         <!--<th>Duration</th>-->
                                     </tr>
                                 </thead>
@@ -101,6 +102,8 @@
                                         <td>{{gmdate("H:i:s", strtotime(0))}}</td>
                                         @else
                                         <td>{{gmdate("H:i:s", $visit['checkout_time']-strtotime($visit['created_at']))}}</td>
+                                        <td><a type="button" onclick="deleteItem({{$visit['id']}},$visit['user']['name']  . ($visit['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User','{{$visit['created_at']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
+                                        </td>
                                         @endif
                                         
                                         {{-- <td>
@@ -213,13 +216,15 @@
 @endsection
 
 <script>
-    function deleteItem(id,name,sku,pieces){
+    function deleteItem(id,name,time){
         //alert(id);
         var itemDetails = document.getElementById("itemDetails");
-        itemDetails.innerHTML = "Sale Id: "+id+"<br/> Product Name: "+name+"<br/> SKU: "+sku+"<br/> Pieces: "+pieces;
+        itemDetails.innerHTML = "Visit Id: "+id+"<br/> Seller Name: "+name+"<br/> Checkin Time: "+time;
         var confirmDeleteLink = document.getElementById('confirmDelete'); //or grab it by tagname etc
-        confirmDeleteLink.href = "/deletesale/"+id;
+        confirmDeleteLink.href = "/checkout/"+id;
     }
+
+    
 
     // function embedMap(lat,long){
     //     //alert(id);

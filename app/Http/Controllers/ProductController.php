@@ -35,6 +35,13 @@ class ProductController extends CommonController
         //dd($sales);
         return view('products', ['products'=>$products]);
     }
+
+    public function services() {
+        $products = Product::all();
+
+        //dd($sales);
+        return view('services', ['products'=>$products]);
+    }
     public function deleteProduct($id){
         $product = Product::find($id);
         $product->delete();

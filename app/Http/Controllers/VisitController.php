@@ -31,6 +31,20 @@ class VisitController extends Controller
             return view('edit-visit',['visit'=>$visit]);
         }
 
+        public function checkout($id){
+            //$visit = Visit::find($id);
+            $visit=Visit::find($id);
+            $outlet=Outlet::find($visit['outlet_id']);
+
+            $incomingFields['checkout_latitude']=$outlet['lat'];
+            $incomingFields['checkout_longitude']=$outlet['long'];
+            $incomingFields['checkout_time']=now()->timestamp;
+            $visit->update($incomingFields);
+        
+            return redirect('/visits');
+
+        }
+
         public function showVisitsMap(){
 
             $visits = Visit::with(['user' => function ($query) {
