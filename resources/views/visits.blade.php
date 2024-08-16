@@ -121,8 +121,12 @@
                                         class="btn btn-success" style="margin-left: auto;color:white;" 
                                         data-bs-toggle="modal" href="#largemodal">Map</a>
                                   </td>
+                                  @if($visit['checkout_time']=="")
                                   <td><a type="button" href="/checkout/{{$visit['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">Check Out</a>
                                   </td>
+                                  @else
+                                  <td>Checked out</td>
+                                  @endif
                                         <!--<td>$visit['duration']</td>-->
                                         <!--<a class="modal-effect btn btn-primary-light d-grid mb-3" data-bs-effect="effect-scale" >Scale</a>-->
                                         </tr>
