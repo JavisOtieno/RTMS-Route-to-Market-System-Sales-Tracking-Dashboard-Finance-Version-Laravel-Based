@@ -78,6 +78,18 @@
                                                 <input type="text" class="form-control" disabled value="{{ auth()->user() ? ucfirst(auth()->user()->organization->name) : '' }}">
                                             </div>
                                         </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Organization Phone</label>
+                                            <div class="wrap-input100 validate-input input-group" id="Password-toggle2">
+                                                <input type="text" class="form-control" disabled value="{{ auth()->user() ? ucfirst(auth()->user()->organization->phone) : '' }}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Organization Email</label>
+                                            <div class="wrap-input100 validate-input input-group" id="Password-toggle2">
+                                                <input type="text" class="form-control" disabled value="{{ auth()->user() ? ucfirst(auth()->user()->organization->email) : '' }}">
+                                            </div>
+                                        </div>
 
                                         <div class="form-group">
                                             <label for="profile" class="form-label">Edit Profile</label>
