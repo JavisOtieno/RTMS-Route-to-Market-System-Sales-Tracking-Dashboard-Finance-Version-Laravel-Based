@@ -164,14 +164,14 @@
         <div class="modal-dialog modal-dialog-centered text-center" role="document">
             <div class="modal-content modal-content-demo">
                 <div class="modal-header">
-                    <h6 class="modal-title">Delete</h6><button aria-label="Close" class="btn-close" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                    <h6 class="modal-title">Check Out</h6><button aria-label="Close" class="btn-close" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
-                    <h6>Are you sure you want to delete?</h6>
+                    <h6>Are you sure you want to checkout?</h6>
                     <strong id="itemDetails">Details</strong>
                 </div>
                 <div class="modal-footer">
-                    <a id="confirmDelete" class="btn btn-danger" style="color: white">Delete</a> <button class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                    <a id="confirmDelete" class="btn btn-danger" style="color: white">Check Out</a> <button class="btn btn-light" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
