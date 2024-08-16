@@ -127,7 +127,10 @@
                                   <td><a type="button" 
                                     onclick="checkout({{$visit['id']}},'{{$visit['user']['name']}}','{{$visit['created_at']}}')" 
                                     {{-- href="/checkout/{{$visit['id']}}"  --}}
-                                    class="btn btn-info" style="margin-left: auto;color:white;">Force CheckOut</a>
+                                    class="btn btn-info" style="margin-left: auto;color:white;"
+                                    data-bs-toggle="modal" href="#modalDelete"
+                                    >Force CheckOut
+                                </a>
                                   </td>
                                   @else
                                   <td>Checked out</td>

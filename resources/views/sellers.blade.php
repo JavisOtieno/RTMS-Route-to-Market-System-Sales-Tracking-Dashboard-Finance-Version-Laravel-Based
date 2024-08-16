@@ -96,7 +96,9 @@
                                         <td>
                                             <a type="button" href="/editseller/{{$user['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
                                         </td>
-                                        <td><a type="button" onclick="deleteItem({{$user['id']}},'Id: '+{{$user['id']}}+'<br/> Name: '+'{{$user['name']}}'+'<br/> Phone: '+'{{$user['phone']}}'+'<br/> Email: '+'{{$user['email']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
+                                        <td><a type="button" onclick="deleteItem({{$user['id']}},'Id: '+{{$user['id']}}+'<br/> Name: '+'{{$user['name']}}'+'<br/> Phone: '+'{{$user['phone']}}'+'<br/> Email: '+'{{$user['email']}}')"  
+                                            class="btn btn-danger" style="margin-left: auto;color:white;" 
+                                            data-bs-toggle="modal" href="#modalDelete">Delete</a>
                                         </td>
                                         <td>{{$user['name']}}</td>
                                         <td>{{$user['phone']}}</td>
