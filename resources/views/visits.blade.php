@@ -102,7 +102,7 @@
                                         <td>{{gmdate("H:i:s", strtotime(0))}}</td>
                                         @else
                                         <td>{{gmdate("H:i:s", $visit['checkout_time']-strtotime($visit['created_at']))}}</td>
-                                        <td><a type="button" onclick="deleteItem({{$visit['id']}},$visit['user']['name']  . ($visit['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User','{{$visit['created_at']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
+                                        <td><a type="button" onclick="checkout({{$visit['id']}},$visit['user']['name']  . ($visit['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User','{{$visit['created_at']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
                                         </td>
                                         @endif
                                         
@@ -216,7 +216,7 @@
 @endsection
 
 <script>
-    function deleteItem(id,name,time){
+    function checkout(id,name,time){
         //alert(id);
         var itemDetails = document.getElementById("itemDetails");
         itemDetails.innerHTML = "Visit Id: "+id+"<br/> Seller Name: "+name+"<br/> Checkin Time: "+time;
