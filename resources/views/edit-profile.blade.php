@@ -73,6 +73,13 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
+                                            <label class="form-label">Organization Name</label>
+                                            <div class="wrap-input100 validate-input input-group" id="Password-toggle2">
+                                                <input type="text" class="form-control" disabled value="{{ auth()->user() ? ucfirst(auth()->user()->organization->name) : '' }}">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
                                             <label for="profile" class="form-label">Edit Profile</label>
                                             <a href="editadmin/{{$user['id']}}" class="btn btn-info mb-0">Edit Profile</a>                            
                                         </div>
