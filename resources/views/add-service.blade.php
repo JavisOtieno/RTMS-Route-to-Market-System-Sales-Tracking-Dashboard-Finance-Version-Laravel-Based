@@ -56,6 +56,10 @@
                                 <input type="text" class="form-control" name="name" id="name" placeholder="Name" autocomplete="name" value="{{ old('name', '') }}">
                             </div>
                             <div class="form-group">
+                                <label for="name" class="form-label">Target</label>
+                                <input type="text" class="form-control" name="target" id="target" placeholder="Target" autocomplete="target" value="{{ old('target', '') }}">
+                            </div>
+                            <div class="form-group">
                                 <label for="description" class="form-label">Description</label>
                                 <textarea type="text" class="form-control" name="description" id="description" placeholder="Description" autocomplete="description" value="">{{ old('description', '') }}</textarea>
                             </div>

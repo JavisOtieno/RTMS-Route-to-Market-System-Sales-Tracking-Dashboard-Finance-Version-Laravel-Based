@@ -57,6 +57,11 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="target" class="form-label">Target</label>
+                                <input type="text" class="form-control" name="target" id="target" placeholder="Target" value="{{old('target',$product['target'])}}" autocomplete="target">
+                            </div>
+
+                            <div class="form-group">
                                 <label for="description" class="form-label">Description</label>
                                 <textarea type="text" rows="6" class="form-control" name="description" id="description" placeholder="Description" autocomplete="long">{{old('description',$product['description'])}}</textarea>
                             </div>

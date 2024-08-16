@@ -67,6 +67,8 @@ Route::post('/pushoutletstouser', [OutletController::class,'pushOutletsToUser'])
 
 Route::get('/products', [ProductController::class,'index']);
 Route::get('/services', [ProductController::class,'services']);
+Route::get('/add-service', [ProductController::class,'addService']);
+Route::get('/edit-service', [ProductController::class,'editService']);
 
 Route::get('/posaudits', [PosauditController::class,'index']);
 Route::get('/deleteposaudits/{id}', [PosauditController::class,'deletePosaudit']);

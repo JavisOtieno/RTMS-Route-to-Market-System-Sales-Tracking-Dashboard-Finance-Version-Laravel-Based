@@ -50,6 +50,10 @@ class ProductController extends CommonController
     public function addProduct() {
         return view('add-product');
     }
+    public function addService() {
+        return view('add-service');
+    }
+
 
     public function testCompress(){
     
@@ -281,6 +285,11 @@ class ProductController extends CommonController
     public function showEditProduct($id){
         $product = Product::find($id);
         return view('edit-product',['product'=>$product]);
+    }
+
+    public function showEditService($id){
+        $product = Product::find($id);
+        return view('edit-service',['product'=>$product]);
     }
 
     // public function showEditProduct(Request $request){
