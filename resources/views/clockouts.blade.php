@@ -107,14 +107,7 @@
                             <td>{{date('H:i', strtotime($clockout['created_at']))}}</td>
                             <td>{{$clockout['lat']}}</td>
                             <td>{{$clockout['long']}}</td>
-                            <td><a type="button" 
-                                onclick="deleteItem({{$clockout['id']}},'Id: '+{{$clockout['id']}}+'<br/>Name: '+'{{$clockout['user']['name']}}'+'<br/>Time: '+'{{$clockout['created_at']}}')" 
-                                {{-- href="/checkout/{{$visit['id']}}"  --}}
-                                class="btn btn-info" style="margin-left: auto;color:white;"
-                                data-bs-toggle="modal" href="#modalDelete"
-                                >Delete
-                            </a>
-                              </td>
+                            
                             
                             {{-- <td>
                                 <form method="POST" action="{{ route('editclockout') }}">
@@ -131,6 +124,14 @@
                             onclick="loadPointOnMap({{ $clockout }})"
                             class="btn btn-success" style="margin-left: auto;color:white;" 
                             data-bs-toggle="modal" href="#largemodal">Map</a>
+                      </td>
+                      <td><a type="button" 
+                        onclick="deleteItem({{$clockout['id']}},'Id: '+{{$clockout['id']}}+'<br/>Name: '+'{{$clockout['user']['name']}}'+'<br/>Time: '+'{{$clockout['created_at']}}')" 
+                        {{-- href="/checkout/{{$visit['id']}}"  --}}
+                        class="btn btn-info" style="margin-left: auto;color:white;"
+                        data-bs-toggle="modal" href="#modalDelete"
+                        >Delete
+                    </a>
                       </td>
                             <!--<a class="modal-effect btn btn-primary-light d-grid mb-3" data-bs-effect="effect-scale" >Scale</a>-->
                             </tr>
