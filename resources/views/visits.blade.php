@@ -90,6 +90,7 @@
                                         <td><a type="button" href="/visit/{{$visit['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View</a>
                                         </td>
                                         <td>{{ $visit['user'] ? $visit['user']['name']  . ($visit['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}</td>
+                                        <!--test>
                                         <td>{{$visit['outlet']['name']}}</td>
                                         <td>{{date('d-M-Y', strtotime($visit['created_at']))}}</td>
                                         <td>{{date('H:i', strtotime($visit['created_at']))}}</td>
