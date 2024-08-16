@@ -128,7 +128,7 @@
                       <td><a type="button" 
                         onclick="deleteItem({{$clockout['id']}},'Id: '+{{$clockout['id']}}+'<br/>Name: '+'{{$clockout['user']['name']}}'+'<br/>Time: '+'{{$clockout['created_at']}}')" 
                         {{-- href="/checkout/{{$visit['id']}}"  --}}
-                        class="btn btn-info" style="margin-left: auto;color:white;"
+                        class="btn btn-danger" style="margin-left: auto;color:white;"
                         data-bs-toggle="modal" href="#modalDelete"
                         >Delete
                     </a>
