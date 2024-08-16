@@ -634,7 +634,7 @@
                                         <li class="side-menu-label1"><a href="javascript:void(0)">Outlet Visits</a></li>
                                         <li><a href="/visits" class="slide-item">Visits List</a></li>
                                         <li><a href="/visitsmap" class="slide-item">Visits Map</a></li>
-                                        {{-- <li><a href="/visitsbyday" class="slide-item">Visits By Day</a></li> --}}
+                                        <li><a href="/visitsbyday" class="slide-item">Visits By Day</a></li>
                                         <li><a href="/visitsanalytics" class="slide-item">Visits Analytics</a></li>
                                     </ul>
                                 </div>
