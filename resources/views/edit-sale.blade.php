@@ -64,8 +64,8 @@
                             </div>
               
                             <div class="form-group">
-                                <label for="pieces" class="form-label">Pieces</label>
-                                <input readonly type="text" class="form-control" name="pieces" id="pieces" placeholder="Pieces" value="{{$sale['pieces']}}" autocomplete="pieces">
+                                <label for="pieces" class="form-label">Quantity</label>
+                                <input readonly type="text" class="form-control" name="pieces" id="pieces" placeholder="Quantity" value="{{$sale['pieces']}}" autocomplete="pieces">
                             </div>
                             <div class="form-group">
                                 <label for="value" class="form-label">Total Value</label>
@@ -81,7 +81,7 @@
                                 <div class="row mb-4">
                                     <label style="font-weight:bold;" for="productName" class="col-md-4 form-label">Product Name</label>
                                     <label style="font-weight:bold;" for="productValue" class="col-md-3 form-label">Product Price</label>
-                                    <label style="font-weight:bold;" for="productPieces" class="col-md-2 form-label">Pieces</label>
+                                    <label style="font-weight:bold;" for="productPieces" class="col-md-2 form-label">Quantity</label>
                                     <label style="font-weight:bold;" for="productPieces" class="col-md-3 form-label">Value</label>
                                     
                                 </div>
@@ -155,10 +155,11 @@
         <ol class="card-text">
         <li style="margin-bottom: 10px;"><strong>Seller Name</strong> :This field displays the name of the seller associated with the sale.</li>
         <li style="margin-bottom: 10px;"><strong>Outlet Name</strong> : This field displays the name of the outlet where the sale took place.</li>
-        <li style="margin-bottom: 10px;"><strong>Pieces</strong> : This field displays the total number of pieces sold in the transaction.</li>
+        <li style="margin-bottom: 10px;"><strong>Quantity</strong> : This field displays the total number of products
+             sold in the transaction.</li>
         <li style="margin-bottom: 10px;"><strong>Total Value</strong> : This field displays the total value of the sale.</li>
         <li style="margin-bottom: 10px;"><strong>Date and Time</strong> : This field displays the date and time when the sale occurred.</li>
-        <li style="margin-bottom: 10px;"><strong>Products</strong> : This section displays details about the products sold in the transaction, including their names, prices, pieces sold, and total value. Each product entry is displayed in a separate row and is disabled, showing only the information relevant to the product. The total pieces and total value of all products are also displayed at the end of the section.</li>
+        <li style="margin-bottom: 10px;"><strong>Products</strong> : This section displays details about the products sold in the transaction, including their names, prices, quantities sold, and total value. Each product entry is displayed in a separate row and is disabled, showing only the information relevant to the product. The total pieces and total value of all products are also displayed at the end of the section.</li>
         </ol>
       </div>
     </div>

@@ -77,7 +77,7 @@
                                         <th>Seller Name</th>
                                         <th>Outlet Name</th>
                                         <th>Products Sold</th>
-                                        <th>Pieces</th>
+                                        <th>Quantity</th>
                                         <th>Value</th>
                                         <th>Date</th>
                                         <th>Time</th>
