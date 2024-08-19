@@ -18,6 +18,9 @@ class Product extends Model
         'price',
         'stock',
         'image',
+        'producttype',
+        'targettype',
+        'target',
         'sku',
         'organization_id'
 

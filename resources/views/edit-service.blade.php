@@ -29,7 +29,7 @@
             <!--<p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p>-->
             
                 
-                    <form action="/saveeditproduct/{{$product['id']}}" method="POST" enctype="multipart/form-data">
+                    <form action="/saveeditservice/{{$product['id']}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="">
@@ -54,6 +54,13 @@
                             <div class="form-group">
                                 <label for="name" class="form-label">Service Name</label>
                                 <input type="text" class="form-control" name="name" id="name" placeholder="Name" value="{{old('name',$product['name'])}}" autocomplete="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="admin" class="form-label">Target Type</label>
+                                <select name="targettype" class="form-control form-select select2" data-bs-placeholder="Select User Type">
+                                                    <option {{old('targettype',$product['targettype'])=="amount"? 'selected':''}} value="amount">Amount</option>
+                                                    <option {{old('targettype',$product['targettype'])=="quantity"? 'selected':''}} value="quantity">Quantity</option>
+                                </select>
                             </div>
 
                             <div class="form-group">

@@ -42,10 +42,16 @@ class ProductController extends CommonController
         //dd($sales);
         return view('services', ['products'=>$products]);
     }
+
     public function deleteProduct($id){
         $product = Product::find($id);
         $product->delete();
         return redirect('/products');
+    }
+    public function deleteService($id){
+        $product = Product::find($id);
+        $product->delete();
+        return redirect('/services');
     }
     public function addProduct() {
         return view('add-product');
@@ -196,6 +202,82 @@ class ProductController extends CommonController
     return $bytes_story;
 
     }
+
+    public function saveService(Request $request){
+
+        // required not necessary
+        //'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+
+        // return "we get here";
+       
+        $incomingFields=$request->validate([
+            'name'=>'required|string|max:255',
+            'targettype'=>'required|string|max:255',
+            'target'=>'required|string|max:255',
+            'description'=>'required|string',
+            //max 2048 removed temporarily
+            'image' => 'image|mimes:jpeg,webp,png,jpg,gif,svg'
+        ]);
+        
+      
+
+        
+        $organization_id=auth()->user()->organization_id;
+        $incomingFields['name']=strip_tags($incomingFields['name']);
+        $incomingFields['targettype']=strip_tags($incomingFields['targettype']);
+        $incomingFields['producttype']='service';
+        $incomingFields['target']='target';
+
+        $incomingFields['sku']='';
+    
+        $incomingFields['description']=strip_tags($incomingFields['description']);
+        $incomingFields['organization_id']=$organization_id;
+        //$incomingFields['image']=strip_tags($incomingFields['image']);
+
+
+        if($request['image']){
+
+            // $imageName = time().'.'.$request->image->extension();
+            $imageName = time().'.jpg';
+
+            // Save image to public/images directory
+            //$request->image->move(public_path('images'), $imageName);
+    
+            //code from android version
+            $folder="products";
+            $imagePath=$folder."/".$imageName;
+            //Storage::disk('public')->put($imagePath, $imageData);
+            $incomingFields['image']=$imagePath;
+    
+            $image = $request->file('image');
+            $imagePath = $image->getPathName();
+
+            $compressedImagePath = storage_path('app/public/products/'.$imageName);
+
+            $sourcePath = $imagePath;
+            $maxSizeKB = 100;
+            $destinationPath = $compressedImagePath;
+
+            // return "Paths: ".$sourcePath." ".$maxSizeKB." ".$compressedImagePath;
+
+
+            $this->compressImage($sourcePath,$destinationPath,$maxSizeKB);
+
+            //store to products
+            // $path = $request->file('image')->storeAs($folder, $imageName, 'public');
+            
+        }else{
+            $incomingFields['image']='';   
+        }
+        //return $incomingFields;
+
+
+        Product::create($incomingFields);
+
+        return redirect('/services');
+        
+    }
+
 
     
 
@@ -434,6 +516,142 @@ class ProductController extends CommonController
         $product->update($incomingFields);
 
         return redirect('/products');
+        
+    }
+
+
+    public function saveEditService($id, Request $request){
+        //return $request;
+        $organization_id=auth()->user()->organization_id;
+        $incomingFields=$request->validate([
+            'name'=>'required|string|max:255',
+            'target'=>'required|numeric|digits_between:1,11',
+//            'sku'=>'required|string|unique:products|max:255',
+            'description'=>'required|string',
+            'targettype'=>'required|string|max:255',
+            'image' => ''
+        ]);
+
+        //'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+
+        $incomingFields['name']=strip_tags($incomingFields['name']);
+        $incomingFields['target']=strip_tags($incomingFields['target']);
+        $incomingFields['description']=strip_tags($incomingFields['description']);
+        $incomingFields['targettype']=strip_tags($incomingFields['targettype']);
+        $incomingFields['organization_id']=$organization_id;
+
+        $product=Product::find($id);
+
+        // if($request['image']){
+        //     return $request['image'];
+        // }else{
+        //     return "image not present";
+        // }
+
+
+
+
+
+
+
+        if ($request->input('default_file_removed') == 1 && !$request->hasFile('image')) {
+
+            //return "default image removed and none uploaded";
+            // Default file has been removed, handle accordingly
+            $path = "";
+            $incomingFields['image']=$path;
+            // Optionally delete the old file if needed
+            if ($request->input('existing_file')) {
+                Storage::disk('public')->delete($request->input('existing_file'));
+            }
+
+            // return $request;
+            // return "default file removed";
+
+        } elseif ($request->hasFile('image')) {
+            //return "image uploaded";
+            // Store the new file
+            // $file = $request->file('file');
+            // $path = $file->store('uploads', 'public');
+
+            $request->validate([
+                // |max2048 removed for now
+                'image' => 'image|mimes:jpeg,webp,png,jpg,gif,svg'
+            ]);
+
+
+            // OLD UPLOAD CODE WITHOUT COMPRESSION
+            // $imageName = time().'.'.$request->image->extension();
+            // $folder="products";
+            // $imagePath=$folder."/".$imageName;
+            // $incomingFields['image']=$imagePath;
+            // $path = $request->file('image')->storeAs($folder, $imageName, 'public');
+            // OLD UPLOAD CODE WITHOUT COMPRESSION
+
+            $imageName = time().'.jpg';
+            $folder="products";
+            $imagePathOnDB=$folder."/".$imageName;
+            $incomingFields['image']=$imagePathOnDB;
+
+            $image = $request->file('image');
+            $imagePath = $image->getPathName();
+
+            $compressedImagePath = storage_path('app/public/products/'.$imageName);
+
+            $sourcePath = $imagePath;
+            $maxSizeKB = 100;
+            $destinationPath = $compressedImagePath;
+
+            //return "Paths: ".$sourcePath." ".$maxSizeKB." ".$compressedImagePath." ";
+            $this->compressImage($sourcePath,$destinationPath,$maxSizeKB);
+
+            // Optionally delete the old file if it exists
+            if ($request->input('existing_file')) {
+                Storage::disk('public')->delete($request->input('existing_file'));
+            }
+
+        } else {
+            //return "image has not been changed";
+            // Use the existing file path
+            $path = $request->input('existing_file');
+            // return $request;
+            // no need to access this
+            // $incomingFields['image']=$path;
+        }
+
+        
+        // if($request['image']){
+
+        //     Storage::disk('public')->delete($product['image']);
+
+        //     $imageName = time().'.'.$request->image->extension();
+            
+
+        //     // Save image to public/images directory
+        //     //$request->image->move(public_path('images'), $imageName);
+    
+        //     //code from android version
+        //     $folder="products";
+        //     $imagePath=$folder."/".$imageName;
+        //     //Storage::disk('public')->put($imagePath, $imageData);
+        //     $incomingFields['image']=$imagePath;
+    
+        //     //store using the storage facade
+        //     //stores to images/folder in this case images/products/
+        //     //$path = $request->file('image')->storeAs('images', $imagePath, 'public');
+        //     //$path = $request->file('image')->storeAs('images', $imagePath, 'public');
+    
+        //     //store to products
+        //     $path = $request->file('image')->storeAs($folder, $imageName, 'public');
+            
+        // }else{
+        //     //$incomingFields['image']='';   
+            
+        // }
+
+        $product->update($incomingFields);
+
+        return redirect('/services');
         
     }
 }

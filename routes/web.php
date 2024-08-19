@@ -30,6 +30,7 @@ use App\Http\Controllers\OrderNoteController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\RouteplanController;
 use App\Http\Controllers\TerritoryController;
+use App\Models\Product;
 use App\Models\Territory;
 
 /*
@@ -68,7 +69,12 @@ Route::post('/pushoutletstouser', [OutletController::class,'pushOutletsToUser'])
 Route::get('/products', [ProductController::class,'index']);
 Route::get('/services', [ProductController::class,'services']);
 Route::get('/add-service', [ProductController::class,'addService']);
-Route::get('/edit-service', [ProductController::class,'editService']);
+Route::get('/editservice/{id}', [ProductController::class,'showEditService']);
+Route::post('/saveservice', [ProductController::class,'saveService']);
+Route::get('/deleteservice/{id}', [ProductController::class,'deleteService']);
+Route::put('/saveeditservice/{id}',[ProductController::class,'saveEditService']);
+
+
 
 Route::get('/posaudits', [PosauditController::class,'index']);
 Route::get('/deleteposaudits/{id}', [PosauditController::class,'deletePosaudit']);

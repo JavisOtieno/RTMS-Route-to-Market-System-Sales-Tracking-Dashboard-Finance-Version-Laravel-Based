@@ -11,16 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('sale_items', function (Blueprint $table) {
-            $table->text('notes')->nullable()->after('value'); // Adjust the `after` clause as needed
+        Schema::table('products', function (Blueprint $table) {
+            $table->string('targettype')->nullable()->after('producttype'); // Adjust the `after` clause as needed
         });
     }
-    
+
     public function down(): void
     {
-        Schema::table('sale_items', function (Blueprint $table) {
-            $table->dropColumn('notes');
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn('targettype');
         });
     }
-    
 };

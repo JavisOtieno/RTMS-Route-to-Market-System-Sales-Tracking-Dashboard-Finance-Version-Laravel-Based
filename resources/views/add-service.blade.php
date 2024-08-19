@@ -29,7 +29,7 @@
             <!--<p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p>-->
             
                 
-                    <form action="/saveproduct" method="POST" enctype="multipart/form-data">
+                    <form action="/saveservice" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('POST')
                         <div class="">
@@ -56,8 +56,15 @@
                                 <input type="text" class="form-control" name="name" id="name" placeholder="Name" autocomplete="name" value="{{ old('name', '') }}">
                             </div>
                             <div class="form-group">
-                                <label for="name" class="form-label">Target</label>
-                                <input type="text" class="form-control" name="target" id="target" placeholder="Target" autocomplete="target" value="{{ old('target', '') }}">
+                                <label for="targettype" class="form-label">Target Type</label>
+                                <select name="targettype" id="targettype" class="form-control form-select select2" data-bs-placeholder="Select Target Type">
+                                    <option value="amount">Amount</option>
+                                    <option value="quantity">Quantity</option>
+                                       
+                </select></div>
+                            <div class="form-group">
+                                <label for="name" class="form-label">Target Amount/Quantity</label>
+                                <input type="text" class="form-control" name="target" id="target" placeholder="Target Amount/Quantity" autocomplete="target" value="{{ old('target', '') }}">
                             </div>
                             <div class="form-group">
                                 <label for="description" class="form-label">Description</label>

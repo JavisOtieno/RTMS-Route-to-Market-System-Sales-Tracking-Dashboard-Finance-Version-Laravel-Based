@@ -477,11 +477,12 @@
                         class="side-menu__label">Target Groups</span></a>
             </li> --}}
 
-            <li class="slide">
+            {{-- <li class="slide">
                 <a class="side-menu__item has-link" data-bs-toggle="slide" href="/products"><i
                         class="side-menu__icon fe fe-shopping-bag"></i><span
                         class="side-menu__label">Products</span></a>
-            </li>
+            </li> --}}
+            
             <li class="slide">
                 <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                         class="side-menu__icon fe fe-arrow-right-circle"></i><span

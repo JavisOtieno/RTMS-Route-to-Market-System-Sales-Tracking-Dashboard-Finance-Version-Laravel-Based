@@ -57,6 +57,8 @@
                                         <th id="edit-column">View/Edit</th>
                                         <th id="delete-column">Delete</th>
                                         <th>Service Name</th>
+                                        <th>Target Type</th>
+                                        <th>Target</th>
                                         <th>Date</th>
                                         
                                     </tr>
@@ -67,11 +69,14 @@
                                         @foreach($products as $product)
                                         <tr>
                                         <td>{{$product['id']}}</td>
+                                       
                                         <td><a type="button" href="/editservice/{{$product['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
                                         </td>
-                                        <td><a type="button" onclick="deleteItem({{$product['id']}},'{{$product['name']}}','{{$product['sku']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
+                                        <td><a type="button" onclick="deleteItem({{$product['id']}},'{{$product['name']}}','{{$product['description']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
                                         </td>
                                         <td>{{$product['name']}}</td>
+                                        <td>{{ucfirst($product['targettype'])}}</td>
+                                        <td>{{($product['targettype']=='amount'?'KSh ':'').number_format($product['target'])}}</td>
                                         <td>{{date('d-M-Y', strtotime($product['created_at']))}}</td>
 
                                         
@@ -127,12 +132,12 @@
 @endsection
 
 <script>
-    function deleteItem(id,name,sku,pieces){
+    function deleteItem(id,name,description){
         //alert(id);
         var itemDetails = document.getElementById("itemDetails");
-        itemDetails.innerHTML = "Product Id: "+id+"<br/> Product Name: "+name+"<br/> SKU: "+sku;
+        itemDetails.innerHTML = "Service Id: "+id+"<br/> Service Name: "+name+"<br/> Description: "+description;
         var confirmDeleteLink = document.getElementById('confirmDelete'); //or grab it by tagname etc
-        confirmDeleteLink.href = "/deleteproduct/"+id;
+        confirmDeleteLink.href = "/deleteservice/"+id;
     }
   </script>
 
