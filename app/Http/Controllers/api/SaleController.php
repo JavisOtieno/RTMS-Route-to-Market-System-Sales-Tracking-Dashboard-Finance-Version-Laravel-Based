@@ -113,12 +113,13 @@ class SaleController extends Controller
             $productId=$productPiecesSplit[0];
             $pieces=$productPiecesSplit[1];
             $piecesTotal=$piecesTotal+$pieces;
+
+            $incomingFieldsSaleItem['product_id']=$productId;
             
 
             $product=Product::find($productId);
             if($product->producttype=='service'){
 
-                $incomingFieldsSaleItem['product_id']=$productId;
                 if($product->targettype=='quantity'){
                     //value is zero as it depends purely on quantity
                     $incomingFieldsSaleItem['pieces']=$pieces;
@@ -141,7 +142,6 @@ class SaleController extends Controller
 
             $value=$pieces*$productPrice;
             $valueTotal=$valueTotal+$value;
-            $incomingFieldsSaleItem['product_id']=$productId;
             $incomingFieldsSaleItem['pieces']=$pieces;
             $incomingFieldsSaleItem['price']=$productPrice;
             $incomingFieldsSaleItem['value']=$pieces*$productPrice;
