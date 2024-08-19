@@ -17,7 +17,9 @@ class ProductController extends Controller
         public function productsInStock(){
             // where('stock' > 0)
             $products = Product::orderBy('id', 'DESC')
-            ->where('stock', '>', '0')->get();
+            ->where('stock', '>', '0')
+            ->orWhere('producttype', 'service')
+            ->get();
             return response()->json(['products'=>$products]);
             
         }
