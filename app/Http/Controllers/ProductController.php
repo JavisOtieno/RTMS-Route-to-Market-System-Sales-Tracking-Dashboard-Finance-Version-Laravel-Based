@@ -226,7 +226,9 @@ class ProductController extends CommonController
         $incomingFields['name']=strip_tags($incomingFields['name']);
         $incomingFields['targettype']=strip_tags($incomingFields['targettype']);
         $incomingFields['producttype']='service';
-        $incomingFields['target']='target';
+        $incomingFields['target']=strip_tags($incomingFields['target']);
+        $incomingFields['price']=0;
+        $incomingFields['stock']=0;
 
         $incomingFields['sku']='';
     
