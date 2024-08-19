@@ -286,8 +286,8 @@
                                 <tr>
                                     {{-- <th>ID</th> --}}
                                     <th>Product Name</th>
-                                    <th>SKU</th>
-                                    <th>Sales</th>
+                                    {{-- <th>SKU</th> --}}
+                                    <th>Sales  Qty</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -296,7 +296,7 @@
                                 <tr>
                                 {{-- <td>{{$topSeller['user']['id']}}</td> --}}
                                 <td>{{$topProduct['name']}}</td>
-                                <td>{{$topProduct['sku']}}</td>
+                                {{-- <td>{{$topProduct['sku']}}</td> --}}
                                 <td>{{number_format($topProduct['total_quantity'])}}</td>
                                 </tr>
                                 @endforeach
