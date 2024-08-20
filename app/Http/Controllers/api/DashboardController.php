@@ -40,7 +40,7 @@ class DashboardController extends Controller
 
         if(count($clockin)>0){
         $clockinTime = strtotime($clockin[0]['created_at']);
-        $clockinId = strtotime($clockin[0]['id']);
+        $clockinId = $clockin[0]['id'];
         }else{
         $clockinTime = 'undefined';
         $clockinId = 'undefined';
