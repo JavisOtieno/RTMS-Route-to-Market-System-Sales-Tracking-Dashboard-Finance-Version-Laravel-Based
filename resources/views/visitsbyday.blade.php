@@ -224,7 +224,9 @@
         console.log("clockin 0");
 
 
-    if(clockins[0]['visits'][0]['outlet']){
+    if (clockins[0] && clockins[0]['visits'] && 
+    clockins[0]['visits'][0] && clockins[0]['visits'][0]['outlet'] != null) {
+
     var mapProp= {
       center:new google.maps.LatLng(Number(clockins[0]['visits'][0]['outlet']['lat']),
       Number(clockins[0]['visits'][0]['outlet']['long'])),
