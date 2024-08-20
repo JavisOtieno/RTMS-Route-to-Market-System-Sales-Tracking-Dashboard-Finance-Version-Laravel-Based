@@ -109,7 +109,13 @@
                                         <td>{{ $sale['user'] ? $sale['user']['name']  . ($sale['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}
                                         </td>
                                         <td>{{$sale['outlet']['name']}}</td>
-                                        <td style="white-space: pre-line;">{{$saleitems}}</td>
+                                        {{-- <td style="white-space: pre-line;">{{$saleitems}}</td> --}}
+                                        <td style="
+                                            max-width: 100px;
+                                            white-space: nowrap;
+                                            overflow: hidden;
+                                            text-overflow: ellipsis;">{{$saleitems}}</td>
+                                   
                                         <td>{{$sale['pieces']}}</td>
                                         <td>{{'KSh '.number_format($sale['value'])}}</td>
                                         <td>{{date('d-M-Y', strtotime($sale['created_at']))}}</td>
