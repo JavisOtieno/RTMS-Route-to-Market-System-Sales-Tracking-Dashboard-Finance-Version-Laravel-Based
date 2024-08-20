@@ -37,11 +37,15 @@ class DashboardController extends Controller
         $clockin=Clockin::where('user_id',$userId)->orderBy('id', 'desc')->take(1)->get();
         $clockout=Clockout::where('user_id',$userId)->orderBy('id', 'desc')->take(1)->get();
         $visit=Visit::where('user_id',$userId)->with('outlet')->orderBy('id', 'desc')->take(1)->get();
+
         if(count($clockin)>0){
         $clockinTime = strtotime($clockin[0]['created_at']);
+        $clockinId = strtotime($clockin[0]['id']);
         }else{
         $clockinTime = 'undefined';
+        $clockinId = 'undefined';
         }
+
         if(count($clockout)>0){
             $clockoutTime = strtotime($clockout[0]['created_at']);
             }else{
@@ -92,7 +96,7 @@ class DashboardController extends Controller
 
         return response()->json( compact('sales','outlets','salesCount','feedbackCount',
         'outletsCount','posauditsCount','visitsCount','competitorsCount','dailySalesTotal',
-        'currentTargets','clockinTime','clockoutTime','checkinTime','checkoutTime',
+        'currentTargets','clockinTime','clockoutTime','checkinTime','checkoutTime', 'clockinId',
         'visitId','userId','outletId','outletName','outletLat','outletLong'));
 
     }

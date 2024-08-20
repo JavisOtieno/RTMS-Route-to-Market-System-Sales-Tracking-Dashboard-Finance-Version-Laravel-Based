@@ -120,7 +120,7 @@
                                             text-overflow: ellipsis;
                                             display: block;
                                             line-height: 1.2em;
-                                            max-height: 2.4em;
+                                            max-height: 1.2em;
                                             word-wrap: break-word;">{{$saleitems}}</td>
                                    
                                         <td>{{$sale['pieces']}}</td>
