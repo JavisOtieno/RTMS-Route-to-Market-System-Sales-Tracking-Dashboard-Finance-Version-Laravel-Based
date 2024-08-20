@@ -114,16 +114,14 @@
                                         <td>{{$sale['outlet']['name']}}</td>
                                         {{-- <td style="white-space: pre-line;">{{$saleitems}}</td> --}}
                                         <td style="
-                                                max-width: 100px;
-                                                white-space: nowrap;
-                                                overflow: hidden;
-                                                text-overflow: ellipsis;
-                                                display: -webkit-box;
-                                                -webkit-line-clamp: 2;
-                                                -webkit-box-orient: vertical;
-                                                line-height: 1.2em;
-                                                max-height: 2.4em;
-                                                word-wrap: break-word;">{{$saleitems}}</td>
+                                            max-width: 100px;
+                                            white-space: nowrap;
+                                            overflow: hidden;
+                                            text-overflow: ellipsis;
+                                            display: block;
+                                            line-height: 1.2em;
+                                            max-height: 2.4em;
+                                            word-wrap: break-word;">{{$saleitems}}</td>
                                    
                                         <td>{{$sale['pieces']}}</td>
                                         <td>{{'KSh '.number_format($sale['value'])}}</td>
