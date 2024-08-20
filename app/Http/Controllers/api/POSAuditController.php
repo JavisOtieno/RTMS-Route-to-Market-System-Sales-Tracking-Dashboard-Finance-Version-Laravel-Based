@@ -94,7 +94,7 @@ class POSAuditController extends Controller
         $visitId=strip_tags($request['visitId']);
 
         $userId = auth()->id();
-        $posaudits = Posaudit::where('visit_id', $visitId)->where('user_id',$userId)->with('user','visit','outlet','posaudititems.product')->get();
+        $posaudits = Posaudit::where('visit_id', $visitId)->where('user_id',$userId)->with('user','visit','outlet','posaudititems.product')->orderBy('id', 'DESC')->get();
         return response()->json(['posaudits'=>$posaudits]);
     }
 }

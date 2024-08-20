@@ -54,7 +54,7 @@ class FeedbackController extends Controller
         $visitId=strip_tags($request['visitId']);
 
         $userId = auth()->id();
-        $feedback = Feedback::where('visit_id', $visitId)->where('user_id',$userId)->with('user','visit','outlet')->get();
+        $feedback = Feedback::where('visit_id', $visitId)->where('user_id',$userId)->with('user','visit','outlet')->orderBy('id', 'DESC')->get();
         return response()->json(['feedback'=>$feedback]);
     }
 

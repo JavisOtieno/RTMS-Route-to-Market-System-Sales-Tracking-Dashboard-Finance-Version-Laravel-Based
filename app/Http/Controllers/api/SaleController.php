@@ -27,7 +27,7 @@ class SaleController extends Controller
         $visitId=strip_tags($request['visitId']);
 
         $userId = auth()->id();
-        $sales = Sale::where('visit_id', $visitId)->where('user_id',$userId)->with('user','visit','outlet','saleitems.product')->get();
+        $sales = Sale::where('visit_id', $visitId)->where('user_id',$userId)->with('user','visit','outlet','saleitems.product')->orderBy('id', 'DESC')->get();
         return response()->json(['sales'=>$sales]);
     }
 //     public function makesale(Request $request){

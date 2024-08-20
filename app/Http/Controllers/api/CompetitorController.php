@@ -58,7 +58,7 @@ class CompetitorController extends Controller
         $visitId=strip_tags($request['visitId']);
 
         $userId = auth()->id();
-        $competitors = Competitor::where('visit_id', $visitId)->where('user_id',$userId)->with('user','visit','outlet')->get();
+        $competitors = Competitor::where('visit_id', $visitId)->where('user_id',$userId)->with('user','visit','outlet')->orderBy('id', 'DESC')->get();
         return response()->json(['competitors'=>$competitors]);
     }
 }

@@ -281,9 +281,14 @@
             // if (directionsRenderer.getMap()) {
             // directionsRenderer.set('directions', null); // Clear previous route
             // }
-            if (directionsRenderer && directionsRenderer.getMap()) {
+            // if (directionsRenderer && directionsRenderer.getMap()) {
+            //     directionsRenderer.set('directions', null); // Clear previous route
+            // }
+
+            if (typeof directionsRenderer !== 'undefined' && directionsRenderer.getMap()) {
                 directionsRenderer.set('directions', null); // Clear previous route
             }
+            
         }
         
  
