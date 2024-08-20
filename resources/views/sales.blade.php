@@ -97,8 +97,11 @@
                                         //$saleitemname=$saleitem['product']['name'];
                                         $saleitemname=$saleitem['product'] ? $saleitem['product']['name']  . ($saleitem['product']->trashed() ? ' (Deleted Product)' : '') : 'Deleted Product';
                                         $saleitems=$saleitems.$saleitemname." - ".$saleitem['pieces'];
-                                        if($i%2==0){$saleitems.="\n"; }else{$saleitems.="\n"; }$i++;
-                                        if($i>2){$saleitems.="...";break;}?>
+                                        $saleitems.="\n"; 
+                                        //code that displays first two items
+                                        // if($i%2==0){$saleitems.="\n"; }else{$saleitems.="\n"; }$i++;
+                                        // if($i>2){$saleitems.="...";break;}
+                                        ?>
                                         @endforeach
                                     <tr>                                        
                                         <td>{{$sale['id']}}</td>
