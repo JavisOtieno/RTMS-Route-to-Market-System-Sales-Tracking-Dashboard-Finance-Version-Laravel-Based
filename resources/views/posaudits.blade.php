@@ -85,11 +85,22 @@
 $posaudititemname=$posaudititem['product'] ? $posaudititem['product']['name']  
 . ($posaudititem['product']->trashed() ? ' (Deleted Product)' : '') : 'Deleted Product';
 $posaudititems=$posaudititems.$posaudititemname." - ".$posaudititem['pieces'];
-if($i%2==0){$posaudititems.="\n"; }else{$posaudititems.="\n"; }$i++;
-if($i>2){$posaudititems.="...";break;}
+$posaudititems.="\n"; 
+//code that displays first two items
+// if($i%2==0){$posaudititems.="\n"; }else{$posaudititems.="\n"; }$i++;
+// if($i>2){$posaudititems.="...";break;}
 ?>
 @endforeach
-<td style="white-space: pre-line;">{{$posaudititems}}</td>
+{{-- <td style="white-space: pre-line;">{{$posaudititems}}</td> --}}
+<td style="
+max-width: 100px;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+display: block;
+line-height: 1.2em;
+max-height: 1.2em;
+word-wrap: break-word;">{{$posaudititems}}</td>
 <td>{{date('d-M-Y', strtotime($posaudit['created_at']))}}</td>
 <td>{{date('H:i', strtotime($posaudit['created_at']))}}</td>
 
