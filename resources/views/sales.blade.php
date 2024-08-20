@@ -114,7 +114,11 @@
                                             max-width: 100px;
                                             white-space: nowrap;
                                             overflow: hidden;
-                                            text-overflow: ellipsis;">{{$saleitems}}</td>
+                                            text-overflow: ellipsis;
+                                            display: block;
+                                            line-height: 1.2em;
+                                            max-height: 1.2em;
+                                            word-wrap: break-word;">{{$saleitems}}</td>
                                    
                                         <td>{{$sale['pieces']}}</td>
                                         <td>{{'KSh '.number_format($sale['value'])}}</td>
