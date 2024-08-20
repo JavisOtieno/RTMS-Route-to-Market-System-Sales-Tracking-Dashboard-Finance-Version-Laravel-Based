@@ -100,7 +100,8 @@ text-overflow: ellipsis;
 display: block;
 line-height: 1.2em;
 max-height: 1.2em;
-word-wrap: break-word;">{{$posaudititems}}</td>
+word-wrap: break-word;
+">{{$posaudititems}}</td>
 <td>{{date('d-M-Y', strtotime($posaudit['created_at']))}}</td>
 <td>{{date('H:i', strtotime($posaudit['created_at']))}}</td>
 
