@@ -123,14 +123,7 @@ $(function(e) {
                     }
                 }
             },
-            customize: function(doc) {
-                // Ensure text wraps and respects newlines
-                for (var i = 1; i < doc.content[1].table.body.length; i++) {
-                    for (var j = 0; j < doc.content[1].table.body[i].length; j++) {
-                        doc.content[1].table.body[i][j].text = doc.content[1].table.body[i][j].text.split("\n");
-                    }
-                }
-            }
+            
         },
         
         ,         {
