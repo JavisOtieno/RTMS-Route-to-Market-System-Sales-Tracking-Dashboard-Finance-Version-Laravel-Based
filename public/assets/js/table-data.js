@@ -116,9 +116,23 @@ $(function(e) {
                     // Prevent export of columns with certain IDs
                     var columnId = $(node).attr('id');
                     return columnId !== 'map-column' && columnId !== 'view-column' &&columnId !== 'edit-column' && columnId !== 'delete-column';
+                },
+                format: {
+                    body: function (data, row, column, node) {
+                        return data.replace(/\n/g, '\n'); // Preserve newlines for PDF
+                    }
+                }
+            },
+            customize: function(doc) {
+                // Ensure text wraps and respects newlines
+                for (var i = 1; i < doc.content[1].table.body.length; i++) {
+                    for (var j = 0; j < doc.content[1].table.body[i].length; j++) {
+                        doc.content[1].table.body[i][j].text = doc.content[1].table.body[i][j].text.split("\n");
+                    }
                 }
             }
-        }
+        },
+        
         ,         {
             extend: 'colvis',
             title: 'RTMSExport',
