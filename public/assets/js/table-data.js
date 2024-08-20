@@ -86,6 +86,11 @@ $(function(e) {
                         // Prevent export of columns with certain IDs
                         var columnId = $(node).attr('id');
                         return columnId !== 'map-column' && columnId !== 'view-column' &&columnId !== 'edit-column' && columnId !== 'delete-column';
+                    },
+                    format: {
+                        body: function (data, row, column, node) {
+                            return data.replace(/\n/g, '\r\n'); // Replace \n with \r\n for clipboard copy
+                        }
                     }
                 }
             }
