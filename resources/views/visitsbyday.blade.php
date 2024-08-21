@@ -332,21 +332,21 @@
         
 
         //NO NEED AS CLOCKIN WILL ALWAYS BE THE ORIGIN
-        // if(clockin.visits.length==1){
-        //     const origin = waypoints.shift().location;
+        if(clockin.visits.length==0 && clockin.clockout==null){
+            const origin = waypoints.shift().location;
 
-        //     console.log("origin");
-        //     console.log(origin);
-        //     console.log("origin");
+            console.log("origin");
+            console.log(origin);
+            console.log("origin");
             
-        //     var bounds = new google.maps.LatLngBounds();
-        //         addMarkers(map,clockin,bounds);
-        //         map.fitBounds(bounds);
-        //         // alert('one');
+            var bounds = new google.maps.LatLngBounds();
+                addMarkers(map,clockin,bounds);
+                map.fitBounds(bounds);
+                 alert('one');
 
-        // }
+        }
 
-        // else{
+        else{
 
             const origin = waypoints.shift().location;
             // const destination = waypoints.pop().location;
@@ -379,7 +379,7 @@
             }
         });
 
-        // }
+        }
 
 
         
