@@ -373,6 +373,36 @@
         function addMarkers(map, clockin,bounds) {
             var itemNumber = 1;
             var placedOutlets = [];
+
+            var clockinmarker = new google.maps.Marker({
+                    position: { lat: parseFloat(clockin.lat), lng: parseFloat(clockin.long) },
+                    map: map,
+                    label: 'IN',
+                    title: "Clockin",
+                    zIndex: google.maps.Marker.MAX_ZINDEX + 0.5
+                });
+                if(bounds!=undefined){
+                const clockinPosition = { lat: parseFloat(clockin.lat), lng: parseFloat(clockin.long) };
+                console.log(clockinPosition);
+                bounds.extend(clockinPosition);
+                }
+                var infoWindow = new google.maps.InfoWindow({
+                    content: `
+                        <div>
+                            <h3>${clockin.user.name}</h3>
+                            <p><strong>Clockin Time:</strong> ${clockin.created_at}</p>
+                            <p><strong>Latitude:</strong> ${clockin.lat}</p>
+                            <p><strong>Longitude:</strong> ${clockin.long}</p>
+                        </div>
+                    `
+                });
+
+                marker.addListener('click', function () {
+                    infoWindow.open(map, marker);
+                });
+
+                markers.push(marker);]
+
             
             clockin.visits.forEach(item => {
                 //alert('adding marker');
@@ -417,7 +447,7 @@
                     infoWindow.open(map, marker);
                 });
 
-                markers.push(marker);
+                markers.push(marker);]
 
                
             });
