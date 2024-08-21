@@ -83,8 +83,8 @@
                             <th>Name</th>
                             <th>Date</th>
                             <th>Time</th>
-                            <th>Lat</th>
-                            <th>Long</th>
+                            <th>Latitude</th>
+                            <th>Longitude</th>
                             <th id="map-column">Map</th>
                         </tr>
                     </thead>
