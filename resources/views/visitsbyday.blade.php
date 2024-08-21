@@ -347,15 +347,20 @@
         else{
 
             const origin = waypoints.shift().location;
-            const destination = waypoints.pop().location;
+            // const destination = waypoints.pop().location;
+            const destination = waypoints.length > 0 ? waypoints.pop().location : null;
 
             const request = {
                 origin: origin,
-                destination: destination,
+                // destination: destination,
                 waypoints: waypoints,
                 optimizeWaypoints: true,
                 travelMode: 'DRIVING'
             };
+            if (destination) {
+                request.destination = destination;
+            }
+
 
             directionsService.route(request, function(result, status) {
             if (status == 'OK') {
