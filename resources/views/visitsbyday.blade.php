@@ -451,8 +451,44 @@
 
                
             });
+
+            if(clockin && clockin['clockout'] != null){
+            var clockoutmarker = new google.maps.Marker({
+                    position: { lat: parseFloat(clockin.clockout.lat), 
+                        lng: parseFloat(clockin.clockout.long) },
+                    map: map,
+                    label: 'OUT',
+                    title: "Clockout",
+                    zIndex: google.maps.Marker.MAX_ZINDEX + itemNumber
+                });
+                if(bounds!=undefined){
+                const clockoutPosition = { lat: parseFloat(clockin.clockout.lat), 
+                    lng: parseFloat(clockin.clockout.long) };
+                console.log(clockoutPosition);
+                bounds.extend(clockoutPosition);
+                }
+                var infoWindow = new google.maps.InfoWindow({
+                    content: `
+                        <div>
+                            <h3>${clockin.clockout.user.name}</h3>
+                            <p><strong>Clockin Time:</strong> ${clockin.clockout.created_at}</p>
+                            <p><strong>Latitude:</strong> ${clockin.clockout.lat}</p>
+                            <p><strong>Longitude:</strong> ${clockin.clockout.long}</p>
+                        </div>
+                    `
+                });
+
+                clockoutmarker.addListener('click', function () {
+                    infoWindow.open(map, clockoutmarker);
+                });
+
+                markers.push(clockoutmarker);
+
+                
+
             
         }
+    }
 
 
         
