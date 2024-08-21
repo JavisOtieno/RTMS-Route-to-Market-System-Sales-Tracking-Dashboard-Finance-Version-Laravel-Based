@@ -397,7 +397,7 @@
                     `
                 });
 
-                marker.addListener('click', function () {
+                clockinmarker.addListener('click', function () {
                     infoWindow.open(map, clockinmarker);
                 });
 
