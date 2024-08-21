@@ -401,7 +401,7 @@
                     infoWindow.open(map, marker);
                 });
 
-                markers.push(marker);]
+                markers.push(marker);
 
             
             clockin.visits.forEach(item => {
