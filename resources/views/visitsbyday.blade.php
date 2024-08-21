@@ -316,7 +316,7 @@
         }
 
         console.log("waypoints");
-        console.log(clockin.clockout);
+        console.log(waypoints);
         console.log("waypoints");
 
 
