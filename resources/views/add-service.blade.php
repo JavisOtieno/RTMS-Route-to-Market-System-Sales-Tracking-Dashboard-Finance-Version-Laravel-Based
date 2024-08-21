@@ -64,7 +64,7 @@
                 </select></div>
                             <div class="form-group">
                                 <label for="name" class="form-label">Target Amount/Quantity</label>
-                                <input type="text" class="form-control" name="target" id="target" placeholder="Target Amount/Quantity" autocomplete="target" value="{{ old('target', '') }}">
+                                <input type="number" class="form-control" name="target" id="target" placeholder="Target Amount/Quantity" autocomplete="target" value="{{ old('target', '') }}">
                             </div>
                             <div class="form-group">
                                 <label for="description" class="form-label">Description</label>

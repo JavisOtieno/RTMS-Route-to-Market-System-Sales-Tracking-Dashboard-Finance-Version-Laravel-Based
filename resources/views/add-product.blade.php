@@ -65,7 +65,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="stock" class="form-label">Stock</label>
-                                <input type="text" class="form-control" name="stock" id="stock" placeholder="Stock" autocomplete="stock" value="{{ old('stock', '') }}">
+                                <input type="number" class="form-control" name="stock" id="stock" placeholder="Stock" autocomplete="stock" value="{{ old('stock', '') }}">
                             </div>
                             <div class="form-group">
                                 <label for="description" class="form-label">Description</label>
