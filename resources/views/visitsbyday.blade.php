@@ -367,9 +367,27 @@
 
             directionsService.route(request, function(result, status) {
             if (status == 'OK') {
-                directionsRenderer.setDirections(result);
-                console.log('Route drawn with result:', result);
-                addMarkers(map,clockin);
+
+                const route = result.routes[0];
+                let totalDistance = 0;
+
+                // Loop through each leg to calculate the total distance
+                route.legs.forEach(leg => {
+                    totalDistance += leg.distance.value; // distance.value is in meters
+                });
+
+                if (totalDistance < 50) {
+                    console.log('Route is less than 50 meters, not drawing directions.');
+                } else {
+                    directionsRenderer.setDirections(result);
+                    console.log('Route drawn with result:', result);
+                    addMarkers(map, clockin);
+                }
+
+                // directionsRenderer.setDirections(result);
+                // console.log('Route drawn with result:', result);
+                // addMarkers(map,clockin);
+
             } else {
                 console.error('Directions request failed due to ' + status);
                  var bounds = new google.maps.LatLngBounds();
