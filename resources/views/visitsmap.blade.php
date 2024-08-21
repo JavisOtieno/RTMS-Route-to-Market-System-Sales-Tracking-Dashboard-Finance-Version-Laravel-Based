@@ -141,8 +141,7 @@
 
   
 <script>
-    let map;
-    let markers = [];  // Store marker references
+ // Store marker references
 
     function myMap2() {
         var visits = @json($visits);
@@ -157,6 +156,8 @@
         };
 
         document.addEventListener("DOMContentLoaded", function() {
+            let map;
+            let markers = []; 
             var googleMapsDiv = document.getElementById("googleMapVisits");
             map = new google.maps.Map(googleMapsDiv, mapProp);
 
