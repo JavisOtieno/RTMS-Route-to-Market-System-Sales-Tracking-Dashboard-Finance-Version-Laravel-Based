@@ -308,5 +308,6 @@
         markers = [];  // Clear the markers array
     }
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALLsNWwOC09xsRAqrK0S7dINi6BpNc7iw&callback=myMap2" async defer></script>
+{{-- async defer --}}
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALLsNWwOC09xsRAqrK0S7dINi6BpNc7iw&callback=myMap2" ></script>
 
