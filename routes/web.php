@@ -74,6 +74,9 @@ Route::post('/saveservice', [ProductController::class,'saveService']);
 Route::get('/deleteservice/{id}', [ProductController::class,'deleteService']);
 Route::put('/saveeditservice/{id}',[ProductController::class,'saveEditService']);
 
+Route::get('/ajaxservicesyajra',[ProductController::class,'ajaxservicesYajraTest'])->name('yajratest');
+Route::get('/servicesyajra',[ProductController::class,'viewservicesYajraTest']);
+
 
 
 Route::get('/posaudits', [PosauditController::class,'index']);

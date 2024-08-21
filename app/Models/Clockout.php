@@ -16,6 +16,10 @@ class Clockout extends Model
         //return $this->belongsTo(User::class);
         return $this->belongsTo(User::class,'user_id');
     }
+    public function clockin(){
+        //return $this->belongsTo(User::class);
+        return $this->belongsTo(Clockin::class,'clockin_id');
+    }
     protected $fillable = [
         'user_id',
         'clockin_id',

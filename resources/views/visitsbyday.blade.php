@@ -97,7 +97,6 @@
                             <td>{{date('H:i', strtotime($clockin['created_at']))}}</td>
                             <td><a type="button" href="visitsbyday/{{$clockin['id']}}" class="btn btn-info"
                                  style="margin-left: auto;color:white;"
-                                 
                                  >View</a>
                             </td>
                             {{-- <td>
@@ -292,8 +291,14 @@
             }
             
         }
-        
- 
+
+        waypoints.push({ location: { lat: Number(clockin.lat), lng: Number(clockin.long) }, stopover: true });
+        if(clockin && clockin['clockout'] != null){
+            waypoints.push({ location: { lat: Number(clockin.clockout.lat), 
+                lng: Number(clockin.clockout.long) }, stopover: true });
+
+        }
+
         clockin.visits.forEach(visit => {
             console.log("visit");
             console.log(visit);
@@ -304,6 +309,8 @@
             console.log("visit outlet");
             waypoints.push({ location: { lat: Number(visit.outlet.lat), lng: Number(visit.outlet.long) }, stopover: true });
         });
+
+        if(clo)
         
         //waypoints.push({ location: { lat: -1.244, lng: 36.8 }, stopover: true });
         console.log('Map instance:', map);
@@ -323,7 +330,7 @@
             console.log("origin");
             
             var bounds = new google.maps.LatLngBounds();
-                addMarkers(map,clockin.visits,bounds);
+                addMarkers(map,clockin,bounds);
                 map.fitBounds(bounds);
                 // alert('one');
 
@@ -345,11 +352,11 @@
             if (status == 'OK') {
                 directionsRenderer.setDirections(result);
                 console.log('Route drawn with result:', result);
-                addMarkers(map,clockin.visits);
+                addMarkers(map,clockin);
             } else {
                 console.error('Directions request failed due to ' + status);
                  var bounds = new google.maps.LatLngBounds();
-                addMarkers(map,clockin.visits,bounds);
+                addMarkers(map,clockin,bounds);
                 map.fitBounds(bounds);
                 // alert('many');
             }
@@ -360,10 +367,11 @@
 
         
 
-        function addMarkers(map, visits,bounds) {
+        function addMarkers(map, clockin,bounds) {
             var itemNumber = 1;
             var placedOutlets = [];
-            visits.forEach(item => {
+            
+            clockin.visits.forEach(item => {
                 //alert('adding marker');
                 // alert("Testing this shit"+item.outlet.lat+" "+item.outlet.long);\
                                 

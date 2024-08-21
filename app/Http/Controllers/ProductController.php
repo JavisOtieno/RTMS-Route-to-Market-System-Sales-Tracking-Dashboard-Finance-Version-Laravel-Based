@@ -15,12 +15,24 @@ use Spatie\ImageOptimizer\Optimizers\Gifsicle;
 use Spatie\ImageOptimizer\Optimizers\Jpegoptim;
 use Spatie\ImageOptimizer\OptimizerChainFactory;
 use League\Glide\Responses\LaravelResponseFactory;
+use Yajra\DataTables\Facades\DataTables;
+
 
 
 
 class ProductController extends CommonController
 {
- 
+
+    public function ajaxServicesYajraTest()
+    {
+        $services = Product::where('producttype','service')->get();
+        return DataTables::of($services)->make(true);
+    }
+    public function viewServicesYajraTest()
+    {
+        return view('servicesyajratest');
+    }
+    
     //
     public function apiindex(){
         //$sales = Sale::all();
