@@ -398,10 +398,10 @@
                 });
 
                 marker.addListener('click', function () {
-                    infoWindow.open(map, marker);
+                    infoWindow.open(map, clockinmarker);
                 });
 
-                markers.push(marker);
+                markers.push(clockinmarker);
 
             
             clockin.visits.forEach(item => {
