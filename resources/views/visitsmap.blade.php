@@ -156,7 +156,7 @@
             zoom: 10,
         };
 
-        // document.addEventListener("DOMContentLoaded", function() {
+
             var googleMapsDiv = document.getElementById("googleMapVisits");
             map = new google.maps.Map(googleMapsDiv, mapProp);
 
@@ -168,8 +168,11 @@
             // Initial map update with all visits
             updateMap(visits);
 
+            document.addEventListener("DOMContentLoaded", function() {
+
             $('#userFilter, #outletFilter, #fromDate, #toDate').on('change', function() {
             applyFilters(visits);
+            
             });
             
 
