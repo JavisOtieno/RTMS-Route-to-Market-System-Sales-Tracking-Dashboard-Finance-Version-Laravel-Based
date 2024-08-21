@@ -357,9 +357,10 @@
                 optimizeWaypoints: true,
                 travelMode: 'DRIVING'
             };
-            if (destination) {
-                request.destination = destination;
-            }
+            
+            if (destination!=null) {
+                    request.destination = destination;
+                }
 
 
             directionsService.route(request, function(result, status) {
