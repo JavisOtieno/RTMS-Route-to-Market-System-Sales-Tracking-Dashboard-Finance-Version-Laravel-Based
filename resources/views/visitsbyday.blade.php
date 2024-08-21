@@ -342,7 +342,7 @@
             var bounds = new google.maps.LatLngBounds();
                 addMarkers(map,clockin,bounds);
                 map.fitBounds(bounds);
-                 alert('one');
+                //  alert('one');
 
         }
 
