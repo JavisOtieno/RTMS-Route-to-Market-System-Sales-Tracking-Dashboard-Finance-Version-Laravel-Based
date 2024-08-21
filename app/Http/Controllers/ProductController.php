@@ -213,7 +213,7 @@ class ProductController extends CommonController
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
             'targettype'=>'required|string|max:255',
-            'price'=>'required|numeric|digits_between:1,11',
+            'target'=>'required|numeric|digits_between:1,11',
             'description'=>'required|string',
             //max 2048 removed temporarily
             'image' => 'image|mimes:jpeg,webp,png,jpg,gif,svg'

@@ -65,7 +65,7 @@
 
                             <div class="form-group">
                                 <label for="target" class="form-label">Target</label>
-                                <input type="text" class="form-control" name="target" id="target" placeholder="Target" value="{{old('target',$product['target'])}}" autocomplete="target">
+                                <input type="number" class="form-control" name="target" id="target" placeholder="Target" value="{{old('target',$product['target'])}}" autocomplete="target">
                             </div>
 
                             <div class="form-group">

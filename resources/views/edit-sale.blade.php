@@ -124,7 +124,7 @@
                                     <div class="col-md-3">
                                     </div>
                                     <div class="col-md-2">
-                                        <input style="font-weight:bold;" readonly type="text" class="form-control" id="productPiecesTotal" name="productPiecesTotal" placeholder="salePieces" autocomplete="salepieces" value="{{$sale['pieces']}}">
+                                        <input style="font-weight:bold;" readonly type="number" class="form-control" id="productPiecesTotal" name="productPiecesTotal" placeholder="salePieces" autocomplete="salepieces" value="{{$sale['pieces']}}">
                                     </div>
 
                                     <div class="col-md-3">

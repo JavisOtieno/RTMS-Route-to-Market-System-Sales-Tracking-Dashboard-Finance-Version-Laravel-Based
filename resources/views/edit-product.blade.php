@@ -57,7 +57,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="price" class="form-label">Price</label>
-                                <input type="text" class="form-control" name="price" id="price" placeholder="Price" value="{{old('price',$product['price'])}}" autocomplete="price">
+                                <input type="number" class="form-control" name="price" id="price" placeholder="Price" value="{{old('price',$product['price'])}}" autocomplete="price">
                             </div>
                             <div class="form-group">
                                 <label for="sku" class="form-label">SKU</label>
@@ -65,7 +65,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="stock" class="form-label">Stock</label>
-                                <input type="text" class="form-control" name="stock" id="stock" placeholder="Stock" autocomplete="stock" value="{{old('stock',$product['stock'])}}">
+                                <input type="number" class="form-control" name="stock" id="stock" placeholder="Stock" autocomplete="stock" value="{{old('stock',$product['stock'])}}">
                             </div>
                             <div class="form-group">
                                 <label for="description" class="form-label">Description</label>
