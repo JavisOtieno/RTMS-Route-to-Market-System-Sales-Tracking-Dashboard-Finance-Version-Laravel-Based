@@ -167,17 +167,16 @@
 
             // Initial map update with all visits
             updateMap(visits);
-
-            document.addEventListener("DOMContentLoaded", function() {
+            
+                    document.addEventListener("DOMContentLoaded", function() {
 
             $('#userFilter, #outletFilter, #fromDate, #toDate').on('change', function() {
             applyFilters(visits);
-            
             });
             
 
 
-        // });
+        });
     }
 
     function applyFilters(visits) {
