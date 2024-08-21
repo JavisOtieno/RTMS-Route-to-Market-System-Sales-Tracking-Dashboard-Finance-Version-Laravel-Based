@@ -131,6 +131,8 @@ class VisitController extends Controller
             //$clockins = Clockin::all();
             $clockins = Clockin::with(['user' => function ($query) {
                 $query->withTrashed();
+            },'clockout' => function ($query) {
+                $query->withTrashed();
             },'visits.outlet'])->get();
     
             return view('visitsbyday', ['clockins'=>$clockins]);
