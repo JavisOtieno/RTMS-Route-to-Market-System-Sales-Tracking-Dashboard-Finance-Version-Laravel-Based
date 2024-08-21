@@ -310,7 +310,7 @@
             waypoints.push({ location: { lat: Number(visit.outlet.lat), lng: Number(visit.outlet.long) }, stopover: true });
         });
 
-        if(clo)
+
         
         //waypoints.push({ location: { lat: -1.244, lng: 36.8 }, stopover: true });
         console.log('Map instance:', map);
