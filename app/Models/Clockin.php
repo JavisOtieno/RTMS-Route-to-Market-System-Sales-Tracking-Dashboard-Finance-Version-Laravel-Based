@@ -25,10 +25,15 @@ class Clockin extends Model
         'organization_id'
 
     ];
+    
 
     public function visits()
     {
         return $this->hasMany(Visit::class);
+    }
+    public function clockout()
+    {
+        return $this->hasOne(Clockout::class);
     }
 
         protected static function booted()
