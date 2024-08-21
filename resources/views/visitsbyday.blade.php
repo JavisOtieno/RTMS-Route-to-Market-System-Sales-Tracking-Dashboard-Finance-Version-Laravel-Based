@@ -294,19 +294,22 @@
 
         waypoints.push({ location: { lat: Number(clockin.lat), lng: Number(clockin.long) }, stopover: true });
         if(clockin && clockin['clockout'] != null){
+            console.log("clockout");
+            console.log(clockin.clockout);
+            console.log("clockout");
             waypoints.push({ location: { lat: Number(clockin.clockout.lat), 
                 lng: Number(clockin.clockout.long) }, stopover: true });
 
         }
 
         clockin.visits.forEach(visit => {
-            console.log("visit");
-            console.log(visit);
-            console.log("visit");
-            // Accessing outlet details
-            console.log("visit outlet");
-            console.log(visit.outlet);
-            console.log("visit outlet");
+            // console.log("visit");
+            // console.log(visit);
+            // console.log("visit");
+            // // Accessing outlet details
+            // console.log("visit outlet");
+            // console.log(visit.outlet);
+            // console.log("visit outlet");
             waypoints.push({ location: { lat: Number(visit.outlet.lat), lng: Number(visit.outlet.long) }, stopover: true });
         });
 
