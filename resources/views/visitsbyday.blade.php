@@ -470,7 +470,7 @@
                 var infoWindow = new google.maps.InfoWindow({
                     content: `
                         <div>
-                            <h3>${clockin.clockout.user.name}</h3>
+                            <h3>${clockin.user.name}</h3>
                             <p><strong>Clockin Time:</strong> ${clockin.clockout.created_at}</p>
                             <p><strong>Latitude:</strong> ${clockin.clockout.lat}</p>
                             <p><strong>Longitude:</strong> ${clockin.clockout.long}</p>
@@ -482,12 +482,10 @@
                     infoWindow.open(map, clockoutmarker);
                 });
 
-                markers.push(clockoutmarker);
-
-                
-
-            
+                markers.push(clockoutmarker);    
         }
+
+
     }
 
 
