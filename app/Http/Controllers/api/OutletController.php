@@ -38,7 +38,7 @@ class OutletController extends Controller
         $contact_person_name_array=explode(' ',$contactnamein);
         $finalname="";
         foreach ($contact_person_name_array as $name) {
-            $finalname=$finalname+" "+ucfirst($name);
+            $finalname=$finalname." ".ucfirst($name);
         }
         return $finalname;
         }
