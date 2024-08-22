@@ -8,10 +8,24 @@ use App\Models\Outlet;
 use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
 use Spatie\ImageOptimizer\OptimizerChainFactory;
-
+use Yajra\DataTables\Facades\DataTables;
 
 class OutletController extends CommonController
 {
+
+    public function ajaxOutletsYajraTest()
+    {
+        $outlets = Outlet::with(['user' => function ($query) {
+            $query->withTrashed();
+        }])->get();
+        return DataTables::of($outlets)->make(true);
+
+    }
+
+    public function viewOutletsYajraTest()
+    {
+        return view('outletsyajratest');
+    }
     //
 
     public function index() {
@@ -20,13 +34,16 @@ class OutletController extends CommonController
             $query->withTrashed();
         }])->get();
         return view('outlets', ['outlets'=>$outlets]);
+        
     }
+
     //delete outlet not allowed
-    // public function deleteOutlet($id){
-    //     $outlet = Outlet::find($id);
-    //     $outlet->delete();
-    //     return redirect('/outlets');
-    // }
+    public function deleteOutlet($id){
+        $outlet = Outlet::find($id);
+        $outlet->delete();
+        return redirect('/outlets');
+    }
+
     public function addOutlet() {
         $users = User::inOrganization()->where('usertype','seller')->get();
         return view('add-outlet',['users'=>$users]);

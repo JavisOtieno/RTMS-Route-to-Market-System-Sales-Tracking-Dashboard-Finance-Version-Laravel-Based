@@ -117,6 +117,10 @@ Route::get('/editoutlet/{id}',[OutletController::class,'showEditOutlet']);
 Route::put('/saveeditoutlet/{id}',[OutletController::class,'saveEditOutlet']);
 Route::get('/showoutletsmap',[OutletController::class,'showOutletsMap']);
 
+Route::get('/ajaxoutletsyajra',[OutletController::class,'ajaxoutletsYajraTest'])
+->name('yajratestoutlets');
+Route::get('/outletsyajra',[OutletController::class,'viewoutletsYajraTest']);
+
 Route::get('/routeplans', [RouteplanController::class,'index']);
 Route::get('/createrouteplan', [RouteplanController::class,'createRoutePlan']);
 Route::get('/updateoutletscreaterouteplan/{id}', [RouteplanController::class,'updateOutletsCreateRoutePlan']);

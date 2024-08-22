@@ -30,8 +30,22 @@ class OutletController extends Controller
         $incomingFields=[];
         $incomingFields['user_id']=strip_tags($request['userId']);
 
-        $incomingFields['name']=strip_tags($request['outletName']);
-        $incomingFields['contact_person_name']=strip_tags($request['contactPersonName']);
+        
+        $contact_person_name=strip_tags($request['contactPersonName']);
+
+        function processName($contactnamein){
+        $contactnamein = strtolower($contactnamein);
+        $contact_person_name_array=explode(' ',$contactnamein);
+        $finalname="";
+        foreach ($contact_person_name_array as $name) {
+            $finalname=$finalname+" "+ucfirst($name);
+        }
+        return $finalname;
+        }
+    
+        $incomingFields['contact_person_name']=processName($contact_person_name);
+        $incomingFields['name']=processName(strip_tags($request['outletName']));
+
         $incomingFields['phone']=strip_tags($request['phone']);
         $incomingFields['lat']=strip_tags($request['lat']);
         $incomingFields['long']=strip_tags($request['long']);
