@@ -40,7 +40,7 @@ class OutletController extends Controller
         foreach ($contact_person_name_array as $name) {
             $finalname=$finalname." ".ucfirst($name);
         }
-        return $finalname;
+        return trim($finalname); // Trim to remove any leading/trailing spaces
         }
     
         $incomingFields['contact_person_name']=processName($contact_person_name);
