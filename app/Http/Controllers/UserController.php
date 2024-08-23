@@ -47,12 +47,11 @@ class UserController extends CommonController
         //return $request;
        
         $incomingFields=$request->validate([
-            'target_group_id' => 'required|numeric|digits_between:1,20|not_in:0',
+            'target_group_id' => 'required|numeric|digits_between:1,20',
             'usercheckboxes' => 'required|array|min:1',
     ],[
         'usercheckboxes.required' => 'You must select at least one seller.',
         'usercheckboxes.min' => 'You must select at least one seller.',
-        'target_group_id.not_in' => 'You must select a valid target group.',
     ]);
     
     //    $selectedUsers = $request->input('users', []);
