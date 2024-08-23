@@ -10,11 +10,11 @@
 
   <!-- PAGE-HEADER -->
   <div class="page-header">
-    <h1 class="page-title">Users</h1>
+    <h1 class="page-title">Add Sellers to Target Group</h1>
     <div>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)">RTMS</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Users</li>
+            <li class="breadcrumb-item active" aria-current="page">Add Sellers to Target Group</li>
         </ol>
     </div>
 </div>
