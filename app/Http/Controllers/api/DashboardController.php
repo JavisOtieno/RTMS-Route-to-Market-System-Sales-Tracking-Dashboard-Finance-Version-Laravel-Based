@@ -53,7 +53,8 @@ class DashboardController extends Controller
             }
         if(count($visit)>0)
         {
-        $checkinTime = strtotime($visit[0]['checkin_time']);
+            //can be $visit[0]['checkin_time'] or created_at
+        $checkinTime = strtotime($visit[0]['created_at']);
         $visitId = $visit[0]['id'];
         $outletId = $visit[0]['outlet_id'];
         $checkoutTime = $visit[0]['checkout_time'];
