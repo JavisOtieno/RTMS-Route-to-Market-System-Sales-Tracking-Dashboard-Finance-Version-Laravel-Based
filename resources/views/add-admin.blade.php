@@ -53,7 +53,7 @@
 
                             <div class="form-group">
                                 <label for="name" class="form-label">Name</label>
-                                <input type="name" class="form-control" value="{{ old('name', '') }}" name="name" id="name" placeholder="Name" autocomplete="name">
+                                <input type="text" class="form-control" value="{{ old('name', '') }}" name="name" id="name" placeholder="Name" autocomplete="name">
                             </div>
                             <div class="form-group">
                                 <label for="phone" class="form-label">Phone</label>
@@ -61,7 +61,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="text" class="form-control" name="email" value="{{ old('email', '') }}" id="email" placeholder="Email" autocomplete="email">
+                                <input type="email" class="form-control" name="email" value="{{ old('email', '') }}" id="email" placeholder="Email" autocomplete="email">
                             </div>
                             {{-- <div class="form-group">
                                 <label for="admin" class="form-label">User Type</label>

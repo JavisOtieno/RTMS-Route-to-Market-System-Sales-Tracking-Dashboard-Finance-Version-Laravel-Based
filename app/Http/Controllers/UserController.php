@@ -47,8 +47,12 @@ class UserController extends CommonController
         //return $request;
        
         $incomingFields=$request->validate([
-            'target_group_id'=>'required|numeric|digits_between:1,20'
-        ]);
+            'target_group_id'=>'required|numeric|digits_between:1,20',
+            'usercheckboxes' => 'required|array|min:1',
+    ],[
+        'usercheckboxes.required' => 'You must select at least one user.',
+        'usercheckboxes.min' => 'You must select at least one user.',
+    ]);
     
     //    $selectedUsers = $request->input('users', []);
                 
