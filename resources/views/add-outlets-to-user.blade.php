@@ -63,7 +63,7 @@
                             <div class="form-group" style="margin-block-end: 0rem;">
                                 {{-- <label class="form-label"> Users</label> --}}
                                 <select class="form-control select2-show-search form-select" name="user_id" id="user_id" data-placeholder="Choose one">
-                                        <option label="Choose one"></option>
+                                        <option value="0" label="Choose one"></option>
                                         @foreach($users as $user)
                                         <option value="{{$user['id']}}">{{$user['name']}}</option>
                                         @endforeach

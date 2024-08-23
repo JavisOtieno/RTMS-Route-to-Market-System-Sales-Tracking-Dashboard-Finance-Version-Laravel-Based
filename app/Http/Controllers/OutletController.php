@@ -184,11 +184,12 @@ class OutletController extends CommonController
         //return $request->input('checkboxes',[]);
        
         $incomingFields=$request->validate([
-            'user_id'=>'required|numeric|digits_between:1,11',
+            'user_id'=>'required|numeric|digits_between:1,11|not_in:0',
              'outletcheckboxes' => 'required|array|min:1',
         ],[
             'outletcheckboxes.required' => 'You must select at least one outlet.',
             'outletcheckboxes.min' => 'You must select at least one outlet.',
+            'user_id.not_in' => 'You must select a valid user.',
         ]);
     
         //$selectedOutlets = $request->input('outlets', []);
