@@ -297,7 +297,10 @@ AIzaSyALLsNWwOC09xsRAqrK0S7dINi6BpNc7iw&callback=embedMap2"></script> --}}
     function myMap2() {
         var routeplans= @json($routeplans);
 
-    if(routeplans[0]['routeplanitems'][0]['outlet']){
+    if(routeplans[0] && routeplans[0]['routeplanitems'] && 
+     routeplans[0]['routeplanitems'][0] && 
+     routeplans[0]['routeplanitems'][0]['outlet'] 
+    != null){
     var mapProp= {
       center:new google.maps.LatLng(Number(routeplans[0]['routeplanitems'][0]['outlet']['lat']),
       Number(routeplans[0]['routeplanitems'][0]['outlet']['long'])),
