@@ -71,7 +71,7 @@
                                     </select>
                             </div>
                         </div>
-                        <input type="submit" class="btn btn-danger col-md-4" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;" value="Allocate Selected Outlets To Selected User"></input>
+                        <input type="submit" class="btn btn-danger col-md-4" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;" value="Allocate Selected Outlets To Seller"></input>
                     </div>
                     <div class="row" style="margin: 0 10px;">
                         <input type="hidden" id="tableLoaded" value="Outletstouser"/>
