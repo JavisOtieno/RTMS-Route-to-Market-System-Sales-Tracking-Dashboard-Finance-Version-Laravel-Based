@@ -50,8 +50,8 @@ class UserController extends CommonController
             'target_group_id' => 'required|numeric|digits_between:1,20|not_in:0',
             'usercheckboxes' => 'required|array|min:1',
     ],[
-        'usercheckboxes.required' => 'You must select at least one user.',
-        'usercheckboxes.min' => 'You must select at least one user.',
+        'usercheckboxes.required' => 'You must select at least one seller.',
+        'usercheckboxes.min' => 'You must select at least one seller.',
         'target_group_id.not_in' => 'You must select a valid target group.',
     ]);
     
