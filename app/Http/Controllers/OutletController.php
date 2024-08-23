@@ -189,7 +189,7 @@ class OutletController extends CommonController
         ],[
             'outletcheckboxes.required' => 'You must select at least one outlet.',
             'outletcheckboxes.min' => 'You must select at least one outlet.',
-            'user_id.not_in' => 'You must select a valid user.',
+            'user_id.not_in' => 'You must select a valid seller.',
         ]);
     
         //$selectedOutlets = $request->input('outlets', []);
