@@ -84,8 +84,8 @@
                                     </select>
                             </div>
                             <div class="form-group">
-                                <label for="pieces" class="form-label">Pieces</label>
-                                <input type="text" class="form-control" name="pieces" id="pieces" placeholder="Pieces" autocomplete="pieces" value="{{old('pieces')}}">
+                                <label for="pieces" class="form-label">Quantity</label>
+                                <input type="number" class="form-control" name="pieces" id="pieces" placeholder="Pieces" autocomplete="pieces" value="{{old('pieces')}}">
                             </div>
                             
                         </div>

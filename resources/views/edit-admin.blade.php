@@ -51,7 +51,7 @@
                             @endif
                             <div class="form-group">
                                 <label for="name" class="form-label">Name</label>
-                                <input type="name" class="form-control" name="name" id="name" placeholder="Name" value="{{old('name',$user['name'])}}" autocomplete="name">
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Name" value="{{old('name',$user['name'])}}" autocomplete="name">
                             </div>
                             <div class="form-group">
                                 <label for="phone" class="form-label">Phone</label>
