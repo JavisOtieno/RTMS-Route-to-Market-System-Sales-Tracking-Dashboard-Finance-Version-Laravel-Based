@@ -537,8 +537,25 @@ const getDragAfterElement = (
                 // especially for close markers
                 // directionsRenderer.setOptions({ preserveViewport: true });
 
-                directionsRenderer.setDirections(result);
-                console.log('Route drawn with result:', result);
+                // directionsRenderer.setDirections(result);
+                // console.log('Route drawn with result:', result);
+
+                const route = result.routes[0];
+                let totalDistance = 0;
+
+                // Loop through each leg to calculate the total distance
+                route.legs.forEach(leg => {
+                    totalDistance += leg.distance.value; // distance.value is in meters
+                });
+
+                if (totalDistance < 50) {
+                    console.log('Route is less than 50 meters, not drawing directions.');
+
+                } else {
+                    directionsRenderer.setDirections(result);
+                    console.log('Route drawn with result:', result);
+                }
+                
                 // var bounds = new google.maps.LatLngBounds();
                 // addMarkers(map,newOutletsOrderedArray);
                 // map.fitBounds(bounds);
