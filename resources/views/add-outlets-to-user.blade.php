@@ -10,11 +10,11 @@
 
   <!-- PAGE-HEADER -->
   <div class="page-header">
-    <h1 class="page-title">Outlets</h1>
+    <h1 class="page-title">Allocate Outlets To Sellers</h1>
     <div>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)">RTMS</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Outlets</li>
+            <li class="breadcrumb-item active" aria-current="page">Allocate Outlets To Sellers</li>
         </ol>
     </div>
 </div>
