@@ -48,7 +48,7 @@
                         </ul>
                     </div>
                     @endif
-                        <h3 class="card-title col-md-2">Select Group</h3>
+                        <h3 class="card-title col-md-2">Select Target Group</h3>
                         <div class="col-md-4" style="margin-left:20px;margin-right:20px;margin-top:10px;margin-bottom:10px;">
                             <div class="form-group" style="margin-block-end: 0rem;">
                                 
