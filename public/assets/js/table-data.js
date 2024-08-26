@@ -44,6 +44,7 @@ $(function(e) {
         // console.log(data);
         // console.log("data");
 
+        if (Array.isArray(data.outlets) && data.outlets.length > 0) {
         // Add new rows based on fetched data
         $.each(data.outlets, function(index, outlet) {
 
@@ -63,6 +64,11 @@ $(function(e) {
 
            // alert("we are here too");
         });
+    }else{
+        tableAllocate.draw();
+        //alert("outlets empty");
+    }
+
     }
 
 

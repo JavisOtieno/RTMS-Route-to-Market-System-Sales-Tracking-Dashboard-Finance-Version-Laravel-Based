@@ -68,7 +68,7 @@
                                         {{ old('user_id', $firstuserid) == $user['id'] ? 'selected' : '' }}
                                          value="{{$user['id']}}">{{$user['name']}}</option>
                                         @endforeach
-                                        
+                                        ]
                                     </select>
                             </div>
                         </div>
