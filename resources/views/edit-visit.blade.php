@@ -86,6 +86,10 @@
                                 <label for="dateTime" class="form-label">Date and Time</label>
                                 <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{date('d-M-Y H:i', strtotime($visit['created_at']))}}" autocomplete="dateTime">
                             </div>
+                            <div class="form-group">
+                                <label for="visitSales" class="form-label">Visit Sales</label>
+                                <a href="/visitsales/{{$visit['id']}}" class="btn btn-primary mt-12 mb-0">View Visit Sales</a>
+                            </div>
                             
                         </div>
                         {{-- <button class="btn btn-primary mt-4 mb-0">Save</button> --}}

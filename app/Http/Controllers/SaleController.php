@@ -31,6 +31,20 @@ class SaleController extends Controller
         return view('sales', ['sales'=>$sales]);
     }
 
+    public function visitSales($visitId) {
+        //$sales = Sale::with('user','visit','outlet','saleitems.product')->orderBy('id', 'DESC')->get();
+        //dd($sales);
+        $sales = Sale::with(['user' => function ($query) {
+            $query->withTrashed();
+        }, 'visit','outlet','saleitems' => function ($query) {
+        $query->with(['product' => function ($query) {
+            $query->withTrashed();
+        }]);
+    }
+    ])->where('visit_id',$visitId)->get();
+        return view('sales', ['sales'=>$sales]);
+    }
+
     public function addSale() {
         $users = User::inOrganization()->get();
         $outlets = Outlet::all();
