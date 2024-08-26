@@ -368,8 +368,8 @@ $(function() {
                     .search(this.value)
                     .draw();
             }
-            // Apply descending order after search
-            table.order([i, 'desc']).draw();
+            // Apply descending order based on id after search
+            table.order([0, 'desc']).draw();
         });
     });
 });
