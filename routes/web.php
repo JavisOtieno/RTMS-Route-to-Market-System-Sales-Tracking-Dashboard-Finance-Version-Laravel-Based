@@ -53,7 +53,7 @@ Route::get('/sales', [SaleController::class,'index']);
 Route::get('/salesmap', [SaleController::class,'showSalesMap']);
 Route::get('/add-sale', [SaleController::class,'addSale']);
 Route::get('/salesanalytics', [SaleController::class,'showSalesAnalytics']);
-Route::get('/visitsales/{id}',[SaleController::class,'visitSales']);
+Route::get('/visitsales',[SaleController::class,'visitSales']);
 
 Route::post('/savesale', [SaleController::class,'saveSale']);
 Route::get('/deletesale/{id}', [SaleController::class,'deleteSale']);
