@@ -72,13 +72,17 @@ class RouteplanController extends Controller
         // Process the selected items
         $outletArray=[];
         $outletString = "";
+        $outletCount = 0;
         foreach ($selectedOutlets as $selectedOutletId) {
             $outlet = Outlet::find($selectedOutletId);
             array_push($outletArray,$outlet);
+
             if($outletString==""){
                 $outletString = $outletString.$outlet['id'];
+                $outletCount++;
             }else{
                 $outletString = $outletString.",".$outlet['id'];
+                $outletCount++;
             }
             
             //$outlet->update($incomingFields);
@@ -92,7 +96,7 @@ class RouteplanController extends Controller
         // return redirect('/createrouteplanstage2');
         // selectedOutlets
         // outletArray
-        return view('createrouteplanstage2', compact('outletString','outletArray','user_id'));
+        return view('createrouteplanstage2', compact('outletString','outletArray','outletCount','user_id'));
  
     }
 
