@@ -177,7 +177,7 @@ class SaleController extends Controller
 
         $unassignedCount = 0;
 
-         return $sellersByRegion;
+        //return $sellersByRegion;
         foreach ($sellersByRegion as $seller) {
             # code...
             array_push($sellersByRegionCount,$seller['count']);
