@@ -168,7 +168,7 @@ class SaleController extends Controller
 
         $sellersByRegionCount = array();
         $sellersByRegionNames = array();
-        $sellersByRegion=User::with(['region' => function ($query) {
+        $sellersByRegion=User::inOrganization()->with(['region' => function ($query) {
             $query->withTrashed();
         }])->select('region_id', DB::raw('COUNT(region_id) as count'))
         ->groupBy('region_id')
