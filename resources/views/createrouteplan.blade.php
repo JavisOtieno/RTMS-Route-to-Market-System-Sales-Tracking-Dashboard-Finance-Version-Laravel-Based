@@ -65,7 +65,8 @@
                                         <option label="Choose one"></option>
                                         @foreach($users as $user)
                                         <option 
-                                        {{ old('user_id', $firstuserid) == $user['id'] ? 'selected' : '' }}
+                                        {{-- {{ old('user_id', $firstuserid) == $user['id'] ? 'selected' : '' }} --}}
+                                        {{ $firstuserid == $user['id'] ? 'selected' : '' }}
                                          value="{{$user['id']}}">{{$user['name']}}</option>
                                         @endforeach
                                         ]
