@@ -20,6 +20,14 @@ class FeedbackController extends Controller
         return view('feedback', ['feedback'=>$feedback]);
     }
 
+    public function visitFeedback($visitId) {
+        //$feedback = Feedback::all();
+        $feedback = Feedback::with(['user' => function ($query) {
+            $query->withTrashed();
+        }])->where('visit_id',$visitId)->get();
+        return view('feedback', ['feedback'=>$feedback]);
+    }
+
     public function deleteFeedback($id){
         $feedback = Feedback::find($id);
         $feedback->delete();

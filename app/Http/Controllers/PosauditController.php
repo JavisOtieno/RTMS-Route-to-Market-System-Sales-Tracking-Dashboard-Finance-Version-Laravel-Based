@@ -23,6 +23,19 @@ class PosauditController extends Controller
         return view('posaudits', ['posaudits'=>$posaudits]);
     }
 
+    public function visitPosaudits($visitId) {
+        //$posaudits = Posaudit::all();
+        //$posaudits = Posaudit::with('user','outlet','visit','posaudititems.product')->get();
+        $posaudits = Posaudit::with(['user' => function ($query) {
+            $query->withTrashed();
+        }, 'visit','outlet','posaudititems' => function ($query) {
+        $query->with(['product' => function ($query) {
+            $query->withTrashed();
+        }]);
+    }])->where('visit_id',$visitId)->get();
+        return view('posaudits', ['posaudits'=>$posaudits]);
+    }
+
     public function deletePosaudit($id){
         $posaudit = Posaudit::find($id);
         $posaudit->delete();

@@ -19,6 +19,13 @@ class CompetitorController extends Controller
         }])->get();
         return view('competitors', ['competitors'=>$competitors]);
     }
+    public function visitCompetitiveAnalysis($visitId) {
+        //$competitors = Competitor::all();
+        $competitors = Competitor::with(['user' => function ($query) {
+            $query->withTrashed();
+        }])->where('visit_id',$visitId)->get();
+        return view('competitors', ['competitors'=>$competitors]);
+    }
     public function deleteCompetitiveanalysis($id){
         $competitiveAnalysis = Competitor::find($id);
         $competitiveAnalysis->delete();

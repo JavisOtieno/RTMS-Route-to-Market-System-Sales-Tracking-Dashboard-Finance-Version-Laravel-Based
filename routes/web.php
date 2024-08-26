@@ -30,6 +30,7 @@ use App\Http\Controllers\OrderNoteController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\RouteplanController;
 use App\Http\Controllers\TerritoryController;
+use App\Models\Competitor;
 use App\Models\Product;
 use App\Models\Territory;
 
@@ -53,7 +54,7 @@ Route::get('/sales', [SaleController::class,'index']);
 Route::get('/salesmap', [SaleController::class,'showSalesMap']);
 Route::get('/add-sale', [SaleController::class,'addSale']);
 Route::get('/salesanalytics', [SaleController::class,'showSalesAnalytics']);
-Route::get('/visitsales',[SaleController::class,'visitSales']);
+Route::get('/visitsales/{id}',[SaleController::class,'visitSales']);
 
 Route::post('/savesale', [SaleController::class,'saveSale']);
 Route::get('/deletesale/{id}', [SaleController::class,'deleteSale']);
@@ -84,6 +85,7 @@ Route::get('/posaudits', [PosauditController::class,'index']);
 Route::get('/deleteposaudits/{id}', [PosauditController::class,'deletePosaudit']);
 Route::get('/posaudit/{id}',[PosauditController::class,'showEditPOSAudit']);
 Route::post('/saveeditposaudit/{id}',[PosauditController::class,'saveEditPOSAudit']);
+Route::get('/visitposaudits/{id}',[PosauditController::class,'visitPosaudits']);
 //Route::post('/posaudit',[PosauditController::class,'showEditPOSAudit'])->name('editposaudit');
 
 
@@ -91,12 +93,13 @@ Route::get('/competitors', [CompetitorController::class,'index']);
 Route::get('/deletecompetitiveanalysis/{id}', [CompetitorController::class,'deleteCompetitiveAnalysis']);
 Route::get('/competitiveanalysis/{id}',[CompetitorController::class,'showEditCompetitiveAnalysis']);
 Route::put('/saveeditcompetitiveanalysis/{id}',[CompetitorController::class,'saveEditCompetitiveAnalysis']);
-
+Route::get('/visitcompetitiveanalysis/{id}',[CompetitorController::class,'visitCompetitiveAnalysis']);
 
 Route::get('/feedback', [FeedbackController::class,'index']);
 Route::get('/deletefeedback/{id}', [FeedbackController::class,'deleteFeedback']);
 Route::get('/feedback/{id}',[FeedbackController::class,'showEditFeedback']);
 Route::put('/saveeditfeedback/{id}',[FeedbackController::class,'saveEditFeedback']);
+Route::get('/visitfeedback/{id}',[FeedbackController::class,'visitFeedback']);
 
 
 
