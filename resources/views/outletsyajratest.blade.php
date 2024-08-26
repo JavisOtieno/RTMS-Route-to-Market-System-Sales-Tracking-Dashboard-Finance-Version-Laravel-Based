@@ -287,7 +287,7 @@ $(function() {
     var table = $('#responsive-datatable-yajra').DataTable({
         processing: true,
         serverSide: true,
-        ajax: '{!! route('yajratestoutlets') !!}',
+        ajax: '{!! url('yajratestoutlets') !!}',
         columns: [
             { data: 'id', name: 'id' },
                         {
