@@ -177,21 +177,18 @@ class SaleController extends Controller
 
         $unassignedCount = 0;
 
-        // return $sellersByRegion;
+         return $sellersByRegion;
         foreach ($sellersByRegion as $seller) {
             # code...
             array_push($sellersByRegionCount,$seller['count']);
             if($seller['region']==null){
-                $unassignedCount += $seller['count'];
-                // array_push($sellersByRegionNames,"Unassigned");
+                array_push($sellersByRegionNames,"Unassigned");
             }else{
                 array_push($sellersByRegionNames,$seller['region']['name']);
-            } 
-        }
-
-        if ($unassignedCount > 0) {
-            array_push($sellersByRegionNames, "Unassigned");
-            array_push($sellersByRegionCount, $unassignedCount);
+            }
+            
+            
+            
         }
 
         $topSellerUserNames=[];
