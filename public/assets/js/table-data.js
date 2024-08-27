@@ -604,17 +604,24 @@ $(function(e) {
     else if(tableLoaded=="outlets"){
         
         var nameColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text() === 'Name');
+        var sellerNameColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text() === 'Seller Name');
         var contactNameColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text() === 'Contact Name');
 
 
         $('#nameInput').on('keyup', function() {
 
-            // alert(this.value);
             table2.column(nameColumnIndex).search(this.value).draw(); // Column index 1 for 'Name'
             
         });
+
+        $('#sellerNameInput').on('keyup', function() {
+
+            table2.column(sellerNameColumnIndex).search(this.value).draw(); // Column index 1 for 'Name'
+            
+        });
+
         $('#contactNameInput').on('keyup', function() {
-            //alert(this.value);
+
             table2.column(contactNameColumnIndex).search(this.value).draw(); // Column index 2 for 'Contact Name'
         });
         // $('#phoneInput').on('keyup', function() {

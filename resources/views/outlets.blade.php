@@ -30,22 +30,27 @@
         <div class="row" style="margin: 0 10px;">
             <input type="hidden" id="tableLoaded" value="outlets"/>
             <h3 class="card-title" style="margin-top:20px;margin-block-end: 0rem;">Search by :</h3>
-            <div class="col-md-3 mb-3">
+            <div class="col-md-2 mb-3">
                 <label for="nameInput" class="form-label">Outlet Name</label>
-                <input type="text" class="form-control" id="nameInput" placeholder="Name">
+                <input type="text" class="form-control" id="nameInput" placeholder="Outlet Name">
+            </div>
+
+            <div class="col-md-2 mb-3">
+                <label for="sellerNameInput" class="form-label">Seller Name</label>
+                <input type="text" class="form-control" id="sellerNameInput" placeholder="Seller Name">
             </div>
             
-            <div class="col-md-3 mb-3">
+            <div class="col-md-2 mb-3">
                 <label for="contactNameInput" class="form-label">Contact Name</label>
                 <input type="text" class="form-control" id="contactNameInput" placeholder="Contact Name">
             </div>
 
-            <div class="col-md-3 mb-3">
+            <div class="col-md-2 mb-3">
                 <label for="date" class="form-label">From</label>
                 <input type="date" class="form-control" id="dateFromInput" placeholder="Min Date">
             </div>
 
-            <div class="col-md-3 mb-3">
+            <div class="col-md-2 mb-3">
                 <label for="date" class="form-label">To</label>
                 <input type="date" class="form-control" id="dateToInput" placeholder="Max Date">
             </div>
@@ -60,6 +65,7 @@
                             <th>ID</th>
                             <th>View/Edit</th>
                             <th>Name</th>
+                            <th>Seller Name</th>
                             <th>Contact Name</th>
                             <th>Phone</th>
                             <th>Date</th>
@@ -77,6 +83,7 @@
                             <td><a type="button" href="/editoutlet/{{$outlet['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
                             </td>
                             <td>{{$outlet['name']}}</td>
+                            <td>{{$outlet['user']['name']}}</td>
                             <td>{{$outlet['contact_person_name']}}</td>
                             <td>{{$outlet['phone']}}</td>
                             <td>{{date('d-M-Y', strtotime($outlet['created_at']))}}</td>
