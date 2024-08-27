@@ -23,6 +23,17 @@ class VisitController extends Controller
             return view('visits', ['visits'=>$visits]);
         }
 
+        public function showVisitsById($objectId,$object) {
+            //$visits = Visit::all();
+            $visits = Visit::with(['user' => function ($query) {
+                $query->withTrashed();
+            },'outlet' => function ($query) {
+                $query->withTrashed();
+            }])->where($object.'_id',$objectId)->get();
+            return view('visits', ['visits'=>$visits]);
+        }
+        
+
         public function showEditVisit($id){
             //$visit = Visit::find($id);
             $visit=Visit::with(['user' => function ($query) {
@@ -127,13 +138,25 @@ class VisitController extends Controller
             'visitsThisMonth', 'visitsThisWeek','visitsToday','visitsPerDay','dates','dayNames') );
         }
 
-        public function showVisitsByDay() {
+        public function showRoutes() {
             //$clockins = Clockin::all();
             $clockins = Clockin::with(['user' => function ($query) {
                 $query->withTrashed();
             },'clockout' => function ($query) {
                 $query->withTrashed();
             },'visits.outlet'])->get();
+    
+            return view('visitsbyday', ['clockins'=>$clockins]);
+        }
+
+        public function showRoutesById($objectId) {
+            //$clockins = Clockin::all();
+            $clockins = Clockin::with(['user' => function ($query) {
+                $query->withTrashed();
+            },'clockout' => function ($query) {
+                $query->withTrashed();
+            },'visits.outlet'])->where('id',$objectId)
+            ->get();
     
             return view('visitsbyday', ['clockins'=>$clockins]);
         }

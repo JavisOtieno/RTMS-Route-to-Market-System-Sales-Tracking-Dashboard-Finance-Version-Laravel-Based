@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\RoutePlanController as ApiRoutePlanController;
 use App\Models\Geo;
 use App\Models\Sale;
 use App\Models\Outlet;
@@ -54,7 +55,8 @@ Route::get('/sales', [SaleController::class,'index']);
 Route::get('/salesmap', [SaleController::class,'showSalesMap']);
 Route::get('/add-sale', [SaleController::class,'addSale']);
 Route::get('/salesanalytics', [SaleController::class,'showSalesAnalytics']);
-Route::get('/visitsales/{id}',[SaleController::class,'visitSales']);
+
+Route::get('/sales/{id}/{object}',[SaleController::class,'showSalesById']);
 
 Route::post('/savesale', [SaleController::class,'saveSale']);
 Route::get('/deletesale/{id}', [SaleController::class,'deleteSale']);
@@ -64,6 +66,7 @@ Route::put('/saveeditsale/{id}',[SaleController::class,'saveEditSale']);
 
 
 Route::get('/outlets', [OutletController::class,'index']);
+Route::get('/outlets/{id}/{object}', [OutletController::class,'showOutletsById']);
 Route::get('/allocateoutletstousers', [OutletController::class,'showAddOutletsToUsers']);
 Route::post('/pushoutletstouser', [OutletController::class,'pushOutletsToUser']);
 
@@ -85,7 +88,7 @@ Route::get('/posaudits', [PosauditController::class,'index']);
 Route::get('/deleteposaudits/{id}', [PosauditController::class,'deletePosaudit']);
 Route::get('/posaudit/{id}',[PosauditController::class,'showEditPOSAudit']);
 Route::post('/saveeditposaudit/{id}',[PosauditController::class,'saveEditPOSAudit']);
-Route::get('/visitposaudits/{id}',[PosauditController::class,'visitPosaudits']);
+Route::get('/posaudits/{id}/{object}',[PosauditController::class,'showPosauditsById']);
 //Route::post('/posaudit',[PosauditController::class,'showEditPOSAudit'])->name('editposaudit');
 
 
@@ -93,13 +96,14 @@ Route::get('/competitors', [CompetitorController::class,'index']);
 Route::get('/deletecompetitiveanalysis/{id}', [CompetitorController::class,'deleteCompetitiveAnalysis']);
 Route::get('/competitiveanalysis/{id}',[CompetitorController::class,'showEditCompetitiveAnalysis']);
 Route::put('/saveeditcompetitiveanalysis/{id}',[CompetitorController::class,'saveEditCompetitiveAnalysis']);
-Route::get('/visitcompetitiveanalysis/{id}',[CompetitorController::class,'visitCompetitiveAnalysis']);
+Route::get('/competitiveanalysis/{id}/{object}',[CompetitorController::class,'showCompetitiveAnalysisById']);
 
 Route::get('/feedback', [FeedbackController::class,'index']);
 Route::get('/deletefeedback/{id}', [FeedbackController::class,'deleteFeedback']);
 Route::get('/feedback/{id}',[FeedbackController::class,'showEditFeedback']);
 Route::put('/saveeditfeedback/{id}',[FeedbackController::class,'saveEditFeedback']);
-Route::get('/visitfeedback/{id}',[FeedbackController::class,'visitFeedback']);
+Route::get('/feedback/{id}/{object}',[FeedbackController::class,'showFeedbackById']);
+
 
 
 
@@ -134,13 +138,17 @@ Route::get('/pushoutletstorouteplan', [RouteplanController::class,'debugToRouteP
 Route::get('/deleterouteplan/{id}', [RouteplanController::class,'deleteRoutePlan']);
 Route::get('/routeplan/{id}',[RouteplanController::class,'showEditRoutePlan']);
 Route::put('/saveeditrouteplan/{id}',[RouteplanController::class,'saveEditRoutePlan']);
+Route::get('/routeplans/{id}/{object}',[RoutePlanController::class,'showRoutePlansById']);
+
 
 
 Route::get('/clockins', [ClockinController::class,'index']);
 Route::get('/clockin/{id}',[ClockinController::class,'showEditClockin']);
+Route::get('/clockins/{id}/{object}',[ClockinController::class,'showClockinsById']);
 Route::get('/clockinsmap', [ClockinController::class,'showClockinsMap']);
 
 Route::get('/clockouts', [ClockoutController::class,'index']);
+Route::get('/clockouts/{id}/{object}',[ClockoutController::class,'showClockoutsById']);
 Route::get('/clockout/{id}',[ClockoutController::class,'showEditClockout']);
 Route::get('/clockoutsmap', [ClockoutController::class,'showClockoutsMap']);
 Route::get('/deleteclockout/{id}', [ClockoutController::class,'deleteClockout']);
@@ -150,9 +158,10 @@ Route::get('/profile', [UserController::class,'showProfile']);
 Route::get('/visits', [VisitController::class,'index']);
 Route::get('/visit/{id}',[VisitController::class,'showEditVisit']);
 Route::get('/visitsmap', [VisitController::class,'showVisitsMap']);
-Route::get('/visitsbyday', [VisitController::class,'showVisitsByDay']);
+Route::get('/routes', [VisitController::class,'showRoutes']);
+Route::get('/routes/{id}', [VisitController::class,'showRoutesById']);
 Route::get('/visitsanalytics', [VisitController::class,'showVisitsAnalytics']);
-Route::get('/visitsbyday/{id}', [VisitController::class,'showEditVisitsByDay']);
+Route::get('/visits/{id}/{object}',[VisitController::class,'showVisitsById']);
 Route::get('/checkout/{id}', [VisitController::class,'checkout']);
 
 Route::get('/ordernote/{id}',[OrderNoteController::class,'index']);

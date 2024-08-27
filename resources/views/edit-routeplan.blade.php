@@ -119,7 +119,7 @@
                                 <div class="col-md-12">
                                     <li>
                                     <input readonly type="text" class="form-control" id="outletName" placeholder="Outlet Name" autocomplete="outletname" 
-                                    value="{{ $routeplanitem['outlet'] ? $routeplanitem['outlet']['name']  . ($routeplanitem['outlet']->trashed() ? ' (Deleted Outlet)' : '') : 'Deleted Outlet'}}"
+                                    value="{{$routeplanitem['outlet'] ? $routeplanitem['outlet']['name']  . ($routeplanitem['outlet']->trashed() ? ' (Deleted Outlet)' : '') : 'Deleted Outlet'}} {{$routeplanitem['visit_id']?' - Visited ':''}}"
                                     >
                                     </li>
                                 </div>

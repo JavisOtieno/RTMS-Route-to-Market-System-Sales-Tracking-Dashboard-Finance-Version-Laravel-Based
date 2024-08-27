@@ -37,6 +37,15 @@ class OutletController extends CommonController
         
     }
 
+    public function showOutletsById($objectId,$object) {
+        // $outlets = Outlet::all();
+        $outlets = Outlet::with(['user' => function ($query) {
+            $query->withTrashed();
+        }])->where($object.'_id',$objectId)->get();
+        return view('outlets', ['outlets'=>$outlets]);
+        
+    }
+
     //delete outlet not allowed
     public function deleteOutlet($id){
         $outlet = Outlet::find($id);

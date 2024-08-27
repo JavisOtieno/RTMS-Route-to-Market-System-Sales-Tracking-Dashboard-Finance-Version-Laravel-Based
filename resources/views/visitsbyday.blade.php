@@ -9,11 +9,11 @@
 
   <!-- PAGE-HEADER -->
   <div class="page-header">
-    <h1 class="page-title">Visits by Day</h1>
+    <h1 class="page-title">Completed Day Routes</h1>
     <div>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)">RTMS</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Visits by Day</li>
+            <li class="breadcrumb-item active" aria-current="page">Completed Day Routes</li>
         </ol>
     </div>
 </div>
@@ -24,7 +24,7 @@
 
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Visits by Day</h3>
+            <h3 class="card-title">Completed Day Routes</h3>
         </div>
         <div class="row" style="margin: 0 10px;">
             <input type="hidden" id="tableLoaded" value="clockins"/>
@@ -81,8 +81,8 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Date</th>
-                            <th>Time</th>
-                            <th id="view-column">View</th>
+                            <th>Start Time</th>
+                            {{-- <th id="view-column">View</th> --}}
                             <th id="map-column">Map</th>
                         </tr>
                     </thead>
@@ -95,10 +95,10 @@
                             <td>{{$clockin['user'] ? $clockin['user']['name']  . ($clockin['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}</td>
                             <td>{{date('d-M-Y', strtotime($clockin['created_at']))}}</td>
                             <td>{{date('H:i', strtotime($clockin['created_at']))}}</td>
-                            <td><a type="button" href="visitsbyday/{{$clockin['id']}}" class="btn btn-info"
+                            {{-- <td><a type="button" href="visitsbyday/{{$clockin['id']}}" class="btn btn-info"
                                  style="margin-left: auto;color:white;"
                                  >View</a>
-                            </td>
+                            </td> --}}
                             {{-- <td>
                                 <form method="POST" action="{{ route('editclockin') }}">
                                     @csrf

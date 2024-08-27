@@ -68,8 +68,24 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="dateTime" class="form-label">Date and Time</label>
+                                <label for="dateTime" class="form-label">Clockin Date and Time</label>
                                 <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{date('d-M-Y H:i', strtotime($clockin['created_at']))}}" autocomplete="dateTime">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="dateTime" class="form-label">Clockout Date and Time</label>
+                                <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{$clockin['clockout']==""?'Not Clocked Out':date('d-M-Y H:i', strtotime($clockin['clockout']['created_at']))}}" autocomplete="dateTime">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="clockinActivities" class="form-label">Clockin Visits</label>
+                                <a href="/visits/{{$clockin['id']}}/clockin" class="btn btn-info col-md-12 mt-0 mb-2">View Clockin Visits</a>
+
+                                <a href="/sales/{{$clockin['id']}}/clockin" class="btn btn-info col-md-12 mt-0 mb-2">View Clockin Sales</a>
+                                <a href="/posaudits/{{$clockin['id']}}/clockin" class="btn btn-info col-md-12 mt-0 mb-2">View Clockin POS Audits</a>
+                                <a href="/competitiveanalysis/{{$clockin['id']}}/clockin" class="btn col-md-12 btn-info mt-0 mb-2">View Clockin Competitive Analysis</a>
+                                <a href="/feedback/{{$clockin['id']}}/clockin" class="btn btn-info col-md-12 mt-0 mb-2">View Clockin Feedback</a>
+                                
                             </div>
                             
                         </div>

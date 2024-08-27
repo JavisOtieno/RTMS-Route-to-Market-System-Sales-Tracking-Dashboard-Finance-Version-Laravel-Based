@@ -9,11 +9,11 @@
 
   <!-- PAGE-HEADER -->
   <div class="page-header">
-    <h1 class="page-title">Visits By Day</h1>
+    <h1 class="page-title">Route</h1>
     <div>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)">RTMS</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Visits By Day</li>
+            <li class="breadcrumb-item active" aria-current="page">Route</li>
         </ol>
     </div>
 </div>
@@ -23,7 +23,7 @@
 <div class="col-xl-12 row">
     <div class="card col-md-8">
         <div class="card-header">
-            <h3 class="card-title">View Visits By Day</h3> 
+            <h3 class="card-title">View Route</h3> 
         </div>
         <div class="card-body">
             <!--<p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p>-->

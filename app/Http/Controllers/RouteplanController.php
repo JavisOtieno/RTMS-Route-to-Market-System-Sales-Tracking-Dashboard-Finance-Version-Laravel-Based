@@ -20,6 +20,14 @@ class RouteplanController extends Controller
         },'routeplanitems.outlet'])->get();
         return view('routeplans', ['routeplans'=>$routeplans]);
     }
+    public function showRoutePlansById($objectId,$object) {
+        //$posaudits = Posaudit::all();
+        //$posaudits = Posaudit::with('user','outlet','visit','posaudititems.product')->get();
+        $routeplans = Routeplan::with(['user' => function ($query) {
+            $query->withTrashed();
+        },'routeplanitems.outlet'])->where($object.'_id',$objectId)->get();
+        return view('routeplans', ['routeplans'=>$routeplans]);
+    }
 
     public function createRoutePlan() {
         $outlets = Outlet::all();

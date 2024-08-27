@@ -20,13 +20,24 @@ class FeedbackController extends Controller
         return view('feedback', ['feedback'=>$feedback]);
     }
 
-    public function visitFeedback($visitId) {
+    public function showFeedbackById($id,$object) {
         //$feedback = Feedback::all();
+            // Check if the object is 'clockin'
+    if ($object === 'clockin') {
+        // Fetch feedback based on clockin ID via visits
+        $feedback = Feedback::whereHas('visit', function ($query) use ($id) {
+            $query->where('clockin_id', $id);
+        })->with(['user' => function ($query) {
+            $query->withTrashed();
+        }])->get();
+    } else{
         $feedback = Feedback::with(['user' => function ($query) {
             $query->withTrashed();
-        }])->where('visit_id',$visitId)->get();
+        }])->where($object.'_id',$id)->get();
+    }
         return view('feedback', ['feedback'=>$feedback]);
     }
+
 
     public function deleteFeedback($id){
         $feedback = Feedback::find($id);

@@ -31,19 +31,38 @@ class SaleController extends Controller
         return view('sales', ['sales'=>$sales]);
     }
 
-    public function visitSales($visitId) {
+
+
+    public function showSalesById($id,$object) {
         //$sales = Sale::with('user','visit','outlet','saleitems.product')->orderBy('id', 'DESC')->get();
         //dd($sales);
-        $sales = Sale::with(['user' => function ($query) {
-            $query->withTrashed();
-        }, 'visit','outlet','saleitems' => function ($query) {
-        $query->with(['product' => function ($query) {
-            $query->withTrashed();
-        }]);
-    }
-    ])->where('visit_id',$visitId)->get();
+        if ($object === 'clockin') {
+
+                    $sales = Sale::whereHas('visit', function ($query) use ($id) {
+                        $query->where('clockin_id', $id);
+                    })->with(['user' => function ($query) {
+                        $query->withTrashed();
+                    }, 'visit', 'outlet', 'saleitems' => function ($query) {
+                        $query->with(['product' => function ($query) {
+                            $query->withTrashed();
+                        }]);
+                    }])->get();
+        } else {
+        
+                    $sales = Sale::with(['user' => function ($query) {
+                        $query->withTrashed();
+                    }, 'visit','outlet','saleitems' => function ($query) {
+                    $query->with(['product' => function ($query) {
+                        $query->withTrashed();
+                    }]);
+                }
+                ])->where($object.'_id',$id)->get();
+        }
+
         return view('sales', ['sales'=>$sales]);
+
     }
+
 
     public function addSale() {
         $users = User::inOrganization()->get();

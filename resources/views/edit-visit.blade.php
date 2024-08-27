@@ -88,10 +88,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="visitSales" class="form-label">Visit Activities</label>
-                                <a href="/visitsales/{{$visit['id']}}" class="btn btn-info col-md-12 mt-0 mb-2">View Visit Sales</a>
-                                <a href="/visitposaudits/{{$visit['id']}}" class="btn btn-info col-md-12 mt-0 mb-2">View Visit POS Audits</a>
-                                <a href="/visitcompetitiveanalysis/{{$visit['id']}}" class="btn col-md-12 btn-info mt-0 mb-2">View Visit Competitive Analysis</a>
-                                <a href="/visitfeedback/{{$visit['id']}}" class="btn btn-info col-md-12 mt-0 mb-2">View Visit Feedback</a>
+
+                                <a href="/sales/{{$visit['id']}}/visit" class="btn btn-info col-md-12 mt-0 mb-2">View Visit Sales</a>
+                                <a href="/posaudits/{{$visit['id']}}/visit" class="btn btn-info col-md-12 mt-0 mb-2">View Visit POS Audits</a>
+                                <a href="/competitiveanalysis/{{$visit['id']}}/visit" class="btn col-md-12 btn-info mt-0 mb-2">View Visit Competitive Analysis</a>
+                                <a href="/feedback/{{$visit['id']}}/visit" class="btn btn-info col-md-12 mt-0 mb-2">View Visit Feedback</a>
+                            
                             </div>
                             
                         </div>

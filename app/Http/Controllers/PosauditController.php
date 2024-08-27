@@ -23,18 +23,34 @@ class PosauditController extends Controller
         return view('posaudits', ['posaudits'=>$posaudits]);
     }
 
-    public function visitPosaudits($visitId) {
+    public function showPOSAuditsById($objectId,$object) {
+
         //$posaudits = Posaudit::all();
         //$posaudits = Posaudit::with('user','outlet','visit','posaudititems.product')->get();
+        if ($object === 'clockin') {
+            // Fetch POS audits based on clockin ID via visits
+            $posaudits = Posaudit::whereHas('visit', function ($query) use ($objectId) {
+                $query->where('clockin_id', $objectId);
+            })->with(['user' => function ($query) {
+                $query->withTrashed();
+            }, 'visit', 'outlet', 'posaudititems' => function ($query) {
+                $query->with(['product' => function ($query) {
+                    $query->withTrashed();
+                }]);
+            }])->get();
+        } else {
         $posaudits = Posaudit::with(['user' => function ($query) {
             $query->withTrashed();
         }, 'visit','outlet','posaudititems' => function ($query) {
         $query->with(['product' => function ($query) {
             $query->withTrashed();
         }]);
-    }])->where('visit_id',$visitId)->get();
+    }])->where($object.'_id',$objectId)->get();
+    }
         return view('posaudits', ['posaudits'=>$posaudits]);
     }
+
+
 
     public function deletePosaudit($id){
         $posaudit = Posaudit::find($id);

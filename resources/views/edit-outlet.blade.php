@@ -89,6 +89,15 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="outletActivities" class="form-label">Outlet Activities</label>
+                                <a href="/visits/{{$outlet['id']}}/outlet" class="btn btn-info col-md-12 mt-0 mb-2">View Outlet Visits</a>
+                                <a href="/sales/{{$outlet['id']}}/outlet" class="btn btn-info col-md-12 mt-0 mb-2">View Outlet Sales</a>
+                                <a href="/posaudits/{{$outlet['id']}}/outlet" class="btn btn-info col-md-12 mt-0 mb-2">View Outlet POS Audits</a>
+                                <a href="/competitiveanalysis/{{$outlet['id']}}/outlet" class="btn col-md-12 btn-info mt-0 mb-2">View Outlet Competitive Analysis</a>
+                                <a href="/feedback/{{$outlet['id']}}/outlet" class="btn btn-info col-md-12 mt-0 mb-2">View Outlet Feedback</a>
+                            </div>
+
+                            <div class="form-group">
 
                                 <label for="image" class="form-label">Image (Optional)</label>
 

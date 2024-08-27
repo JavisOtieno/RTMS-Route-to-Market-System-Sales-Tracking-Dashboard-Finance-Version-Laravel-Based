@@ -22,6 +22,13 @@ class ClockoutController extends Controller
             }])->get();
             return view('clockouts', ['clockouts'=>$clockouts]);
         }
+        public function showClockoutsById($objectId,$object) {
+            //$clockouts = Clockout::all();
+            $clockouts = Clockout::with(['user' => function ($query) {
+                $query->withTrashed();
+            }])->where($object.'_id',$objectId)->get();
+            return view('clockouts', ['clockouts'=>$clockouts]);
+        }
 
         public function showEditClockout($id){
             //$clockout = Clockout::find($id);

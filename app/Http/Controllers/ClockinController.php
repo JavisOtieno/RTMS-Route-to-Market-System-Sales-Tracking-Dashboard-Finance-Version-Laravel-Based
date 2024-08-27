@@ -22,6 +22,14 @@ class ClockinController extends Controller
 
         return view('clockins', ['clockins'=>$clockins]);
     }
+    public function showClockinsById($objectId,$object) {
+        //$clockins = Clockin::all();
+        $clockins = Clockin::with(['user' => function ($query) {
+            $query->withTrashed();
+        }])->where($object.'_id',$objectId)->get();
+
+        return view('clockins', ['clockins'=>$clockins]);
+    }
     public function showEditClockin($id){
         // $clockin = Clockin::find($id);
         $clockin = Clockin::with(['user' => function ($query) {

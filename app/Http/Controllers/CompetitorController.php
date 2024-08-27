@@ -14,18 +14,31 @@ class CompetitorController extends Controller
     }
     public function index() {
         //$competitors = Competitor::all();
+
         $competitors = Competitor::with(['user' => function ($query) {
             $query->withTrashed();
         }])->get();
         return view('competitors', ['competitors'=>$competitors]);
     }
-    public function visitCompetitiveAnalysis($visitId) {
+    public function showCompetitiveAnalysisById($objectId,$object) {
         //$competitors = Competitor::all();
-        $competitors = Competitor::with(['user' => function ($query) {
-            $query->withTrashed();
-        }])->where('visit_id',$visitId)->get();
+            // Check if the object is 'clockin'
+            if ($object === 'clockin') {
+                // Fetch competitors based on clockin ID via visits
+                $competitors = Competitor::whereHas('visit', function ($query) use ($objectId) {
+                    $query->where('clockin_id', $objectId);
+                })->with(['user' => function ($query) {
+                    $query->withTrashed();
+                }])->get();
+            } else {
+                $competitors = Competitor::with(['user' => function ($query) {
+                    $query->withTrashed();
+                }])->where($object.'_id',$objectId)->get();
+            }
         return view('competitors', ['competitors'=>$competitors]);
     }
+
+
     public function deleteCompetitiveanalysis($id){
         $competitiveAnalysis = Competitor::find($id);
         $competitiveAnalysis->delete();

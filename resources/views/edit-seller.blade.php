@@ -116,6 +116,21 @@
                                 <label for="password" class="form-label">Password</label>
                                 <a href="/changepassword/seller/{{$user['id']}}" class="btn btn-info mb-0">Change Password</a>                            
                             </div>
+
+                            <div class="form-group">
+                                <label for="sellerComponents" class="form-label">Seller Activities</label>
+                                <a href="/clockins/{{$user['id']}}/user" class="btn btn-info col-md-5 mt-0 mb-2">View Seller Clockins</a>
+                                <a href="/clockouts/{{$user['id']}}/user" class="btn btn-info col-md-5 ml-4 mt-0 mb-2">View Seller Clockouts</a>
+                                <a href="/outlets/{{$user['id']}}/user" class="btn btn-info col-md-5 mt-0 mb-2">View Seller Outlets</a>
+                                <a href="/visits/{{$user['id']}}/user" class="btn btn-info col-md-5 mt-0 mb-2">View Seller Visits</a>
+                                <a href="/sales/{{$user['id']}}/user" class="btn btn-info col-md-5 mt-0 mb-2">View Seller Sales</a>
+                                <a href="/posaudits/{{$user['id']}}/user" class="btn btn-info col-md-5 mt-0 mb-2">View Seller POS Audits</a>
+                                <a href="/competitiveanalysis/{{$user['id']}}/user" class="btn col-md-5 btn-info mt-0 mb-2">View Seller Competitive Analysis</a>
+                                <a href="/feedback/{{$user['id']}}/user" class="btn btn-info col-md-5 mt-0 mb-2">View Seller Feedback</a>
+                                <a href="/routeplans/{{$user['id']}}/user" class="btn btn-info col-md-5 mt-0 mb-2">View Seller RoutePlans</a>
+                                <a href="/routes/{{$user['id']}}" class="btn btn-info col-md-5 mt-0 mb-2">View Seller Completed Day Routes</a>
+
+                            </div>
                             
                         </div>
                         <button class="btn btn-primary mt-4 mb-0">Save</button>
