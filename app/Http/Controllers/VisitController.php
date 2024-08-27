@@ -155,7 +155,7 @@ class VisitController extends Controller
                 $query->withTrashed();
             },'clockout' => function ($query) {
                 $query->withTrashed();
-            },'visits.outlet'])->where('id',$objectId)
+            },'visits.outlet'])->where('user_id',$objectId)
             ->get();
     
             return view('visitsbyday', ['clockins'=>$clockins]);
