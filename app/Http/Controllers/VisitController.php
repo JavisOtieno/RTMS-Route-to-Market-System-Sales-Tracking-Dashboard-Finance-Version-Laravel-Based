@@ -159,6 +159,7 @@ class VisitController extends Controller
             ->get();
     
             return view('visitsbyday', ['clockins'=>$clockins]);
+            
         }
 
         public function showEditVisitsByDay($id){

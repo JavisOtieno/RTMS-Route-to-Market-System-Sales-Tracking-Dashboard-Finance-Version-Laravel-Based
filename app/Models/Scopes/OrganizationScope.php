@@ -16,4 +16,7 @@ class OrganizationScope implements Scope
             $builder->where('organization_id', Auth::user()->organization_id);
         }
     }
+    
 }
+
+

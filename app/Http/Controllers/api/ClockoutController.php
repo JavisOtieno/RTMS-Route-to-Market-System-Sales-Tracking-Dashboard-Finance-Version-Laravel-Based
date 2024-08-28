@@ -22,8 +22,8 @@ class ClockoutController extends Controller
         'userId'=>'required|numeric|digits_between:1,20|exists:users,id',
         'clockinId'=>'required|numeric|digits_between:1,20|exists:clockins,id',
         'time'=>'required|string|max:255',
-        'lat'=>'required|between:-90.000000000,90.000000000',
-        'long'=>'required|between:-180.000000000,180.000000000'
+        'lat'=>'required|numeric|between:-90,90',
+        'long'=>'required|numeric|between:-180,180'
         ]);
 
         // $incomingFields=[];
