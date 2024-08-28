@@ -21,7 +21,7 @@ class DefaultTeamScope implements Scope
         
         if (Auth::check() && $user->usertype=='teamlead') {
             $teamId = $user->team_id;
-            $builder->where('team_id', $teamId);
+            $builder->where('team_id', $teamId)->whereNotNull('project_id');
 
             // if ($teamId === null) {
             //     $builder->where('team_id', null);
