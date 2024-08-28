@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\Eloquent\Builder;
 
 
-class ProjectScope implements Scope
+class DefaultTeamScope implements Scope
 {
     public function apply(Builder $builder, Model $model)
     {
@@ -20,17 +20,17 @@ class ProjectScope implements Scope
         // }
         
         if (Auth::check() && $user=='teamlead') {
-            $projectId = $user->project_id;
-            $builder->where('project_id', $projectId);
+            $teamId = $user->team_id;
+            $builder->where('team_id', $teamId);
         }
         
         if (Auth::check() && $user=='seller') {
-            $projectId = $user->project_id;
-            $builder->where('project_id', $projectId);
-            if ($projectId === null) {
-                $builder->where('project_id', null);
+            $teamId = $user->team_id;
+            $builder->where('team_id', $teamId);
+            if ($teamId === null) {
+                $builder->where('team_id', null);
             }else{
-                $builder->where('project_id', $user->project_id);
+                $builder->where('team_id', $user->team_id);
             }
         }
 

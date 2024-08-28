@@ -43,7 +43,7 @@ class ClockinController extends Controller
         }])->get();
 
 
-        $users = User::inOrganization()->where('usertype','seller')->get();
+        $users = User::inOrganization()->->where('usertype','seller')->get();
    
         return view('clockinsmap', compact('clockins','users') );
     }

@@ -30,8 +30,8 @@ return new class extends Migration
 
         foreach ($tables as $table) {
             Schema::table($table, function (Blueprint $table) {
-                if (!Schema::hasColumn($table->getTable(), 'project_id')) {
-                    $table->unsignedBigInteger('project_id')->nullable()->after('organization_id');
+                if (!Schema::hasColumn($table->getTable(), 'team_id')) {
+                    $table->unsignedBigInteger('team_id')->nullable()->after('organization_id');
                 }
             });
         }
@@ -61,7 +61,7 @@ return new class extends Migration
 
         foreach ($tables as $table) {
             Schema::table($table, function (Blueprint $table) {
-                $table->dropColumn('project_id');
+                $table->dropColumn('team_id');
             });
         }
     }

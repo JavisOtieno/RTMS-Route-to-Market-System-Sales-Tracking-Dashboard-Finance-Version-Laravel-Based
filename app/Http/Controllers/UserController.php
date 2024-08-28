@@ -36,6 +36,7 @@ class UserController extends CommonController
         $targetgroups = TargetGroup::withTrashed();
         return view('sellers', ['users'=>$users, 'targetgroups'=>$targetgroups]);
     }
+
     public function showAddUsersToTargetGroups() {
         $users = User::inOrganization()->where('usertype','seller')->get();
         $targetgroups = TargetGroup::all();
@@ -78,6 +79,8 @@ class UserController extends CommonController
         $user->delete();
         return redirect('/sellers');
     }
+
+
     public function deleteAdmin($id){
         $user = User::inOrganization()->where('usertype','admin')->find($id);
         $user->delete();
@@ -144,6 +147,177 @@ class UserController extends CommonController
         return redirect('/admins');
         
     }
+
+    public function teamleads() {
+        $users = User::inOrganization()->where('usertype','teamlead')->get();
+
+        return view('teamlead.index', ['users'=>$users]);
+    }
+
+    public function addTeamLead() {
+        return view('teamlead.create');
+    }
+    public function showEditTeamlead($id){
+        $user = User::inOrganization()->find($id);
+        return view('teamlead.edit',compact('user'));
+    }
+    public function deleteTeamlead($id){
+        $user = User::inOrganization()->where('usertype','teamlead')->find($id);
+        $user->delete();
+        return redirect('/teamleads');
+    }
+
+    public function saveTeamlead(Request $request){
+        $organizationId=auth()->user()->organization_id;
+       
+        $incomingFields=$request->validate([
+            'name'=>'required|string|max:255',
+            'phone'=>['required','min:10','string','max:255', new PhoneNumber],
+            // 'usertype'=>'required|string|max:255',
+            'email'=>'required|email|unique:users|max:255',
+            //'password'=>'required|string|max:255|min:8|confirmed',
+            'password' => ['required','string','max:255','min:8','confirmed',Password::min(8)->letters()->numbers()],
+            // 'target_group_id'=>'required|numeric|digits_between:1,11'
+        ]);
+        //return $incomingFields;
+        
+        
+        $incomingFields['name']=strip_tags($incomingFields['name']);
+        $incomingFields['phone']=strip_tags($incomingFields['phone']);
+        $incomingFields['usertype']='teamlead';
+        $incomingFields['target_group_id']=0;
+        $incomingFields['region_id']=0;
+        $incomingFields['territory_id']=0;
+        $incomingFields['email']=strip_tags($incomingFields['email']);
+        $incomingFields['password']=strip_tags($incomingFields['password']);
+        $incomingFields['organization_id']=$organizationId;
+        
+
+        //return $incomingFields['usertype'];
+
+        if($request['image']){
+
+            $imageName = time().'.jpg';
+
+            // Save image to public/images directory
+            //$request->image->move(public_path('images'), $imageName);
+    
+            //code from android version
+            $folder="users";
+            $imagePathOnDB=$folder."/".$imageName;
+            //Storage::disk('public')->put($imagePath, $imageData);
+            $incomingFields['image']=$imagePathOnDB;
+    
+            $image = $request->file('image');
+            $imagePath = $image->getPathName();
+
+            $compressedImagePath = storage_path('app/public/users/'.$imageName);
+
+            $sourcePath = $imagePath;
+            $maxSizeKB = 100;
+            $destinationPath = $compressedImagePath;
+
+            $this->compressImage($sourcePath,$destinationPath,$maxSizeKB);
+            
+        }else{
+            $incomingFields['image']='';   
+        }
+
+        User::create($incomingFields);
+
+        return redirect('/teamleads');
+        
+    }
+
+    public function saveEditTeamlead($id, Request $request){
+        $organizationId=auth()->user()->organization_id;
+        $incomingFields=$request->validate([
+            'name'=>'required|string|max:255',
+            'phone'=>['required','min:10','string','max:255', new PhoneNumber],
+            //'usertype'=>'required|string|max:255',
+            // 'email'=>'required|email|max:255',
+            // 'email'=>'required|email|unique:users|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $id,
+            // 'target_group_id'=>'required|numeric|digits_between:1,11'
+        ]);
+
+        $incomingFields['name']=strip_tags($incomingFields['name']);
+        //$incomingFields['usertype']='teamlead';
+        $incomingFields['email']=strip_tags($incomingFields['email']);
+        // $incomingFields['target_group_id']=strip_tags($incomingFields['target_group_id']);
+        $incomingFields['phone']=strip_tags($incomingFields['phone']);
+        $incomingFields['organization_id']=$organizationId;
+
+        $user=User::inOrganization()->find($id);
+
+        if ($request->input('default_file_removed') == 1 && !$request->hasFile('image')) {
+
+            //return "default image removed and none uploaded";
+            // Default file has been removed, handle accordingly
+            $path = "";
+            $incomingFields['image']=$path;
+            // Optionally delete the old file if needed
+            if ($request->input('existing_file')) {
+                Storage::disk('public')->delete($request->input('existing_file'));
+            }
+
+        } elseif ($request->hasFile('image')) {
+            //return "image uploaded";
+            // Store the new file
+            // $file = $request->file('file');
+            // $path = $file->store('uploads', 'public');
+
+            $request->validate([
+                'image' => 'image|mimes:jpeg,webp,png,jpg,gif,svg|max:2048'
+            ]);
+
+
+            // $imageName = time().'.'.$request->image->extension();
+            // $folder="users";
+            // $imagePath=$folder."/".$imageName;
+            // $incomingFields['image']=$imagePath;
+            // $path = $request->file('image')->storeAs($folder, $imageName, 'public');
+
+            
+
+            $imageName = time().'.jpg';
+            $folder="users";
+            $imagePathOnDB=$folder."/".$imageName;
+            $incomingFields['image']=$imagePathOnDB;
+
+            $image = $request->file('image');
+            $imagePath = $image->getPathName();
+
+            $compressedImagePath = storage_path('app/public/users/'.$imageName);
+
+            $sourcePath = $imagePath;
+            $maxSizeKB = 100;
+            $destinationPath = $compressedImagePath;
+
+            $this->compressImage($sourcePath,$destinationPath,$maxSizeKB);
+
+
+
+            // Optionally delete the old file if it exists
+            if ($request->input('existing_file')) {
+                Storage::disk('public')->delete($request->input('existing_file'));
+            }
+
+        } else {
+            //return "image has not been changed";
+            // Use the existing file path
+            $path = $request->input('existing_file');
+            // no need to access this
+            // $incomingFields['image']=$path;
+        }
+
+        $user->update($incomingFields);
+
+        return redirect('/teamleads');
+        
+    }
+
+
     public function saveSeller(Request $request){
         $organizationId=auth()->user()->organization_id;
        
@@ -216,6 +390,7 @@ class UserController extends CommonController
     public function addAdmin() {
         return view('add-admin');
     }
+
 
     public function showEditSeller($id){
         $user = User::inOrganization()->find($id);
@@ -438,7 +613,7 @@ class UserController extends CommonController
     public function saveChangePassword($id, Request $request){
         $incomingFields=$request->validate([
             'password'=>'required|confirmed|min:8',
-            'usertype'=>'required|string|in:admin,seller'
+            'usertype'=>'required|string|in:admin,seller,teamlead'
         ]);
 
         $incomingFields['password']=strip_tags($incomingFields['password']);
@@ -451,7 +626,11 @@ class UserController extends CommonController
         //return redirect('/edituser/'.$id);
         if($usertype=='admin'){
         return redirect('/admins');
-        }else{
+        }
+        else if($usertype=='teamleads'){
+            return redirect('/teamleads');
+            }
+        {
             return redirect('/sellers');
         }
         

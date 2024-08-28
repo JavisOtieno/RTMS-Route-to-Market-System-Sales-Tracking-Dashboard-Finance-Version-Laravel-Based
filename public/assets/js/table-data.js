@@ -702,7 +702,18 @@ $(function(e) {
             table2.column(nameColumnIndex).search(this.value).draw(); // Column index 1 for 'Name'
         });
 
-    }
+    }else if(tableLoaded=="default"){
+        // alert('we are here');
+        
+        var nameColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text() === 'Name');
+
+        if(nameColumnIndex>0){
+        $('#nameInput').on('keyup', function() {
+            table2.column(nameColumnIndex).search(this.value).draw(); // Column index 1 for 'Name'
+        });
+        
+        }
+        }
 
 
     //______File-Export Data Table
