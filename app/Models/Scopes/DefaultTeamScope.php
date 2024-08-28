@@ -13,25 +13,31 @@ class DefaultTeamScope implements Scope
     public function apply(Builder $builder, Model $model)
     {
 
-        $user = Auth::user()->id;
+        $user = Auth::user();
         // if (Auth::check() && $user->usertype=='admin') {
         //     // Admins see everything
         //     return;
         // }
         
-        if (Auth::check() && $user=='teamlead') {
+        if (Auth::check() && $user->usertype=='teamlead') {
             $teamId = $user->team_id;
             $builder->where('team_id', $teamId);
+
+            // if ($teamId === null) {
+            //     $builder->where('team_id', null);
+            // }
+
         }
         
-        if (Auth::check() && $user=='seller') {
+        if (Auth::check() && $user->usertype=='seller') {
             $teamId = $user->team_id;
             $builder->where('team_id', $teamId);
-            if ($teamId === null) {
-                $builder->where('team_id', null);
-            }else{
-                $builder->where('team_id', $user->team_id);
-            }
+            // if ($teamId === null) {
+            //     $builder->where('team_id', null);
+            // }else
+            // {
+                // $builder->where('team_id', $user->team_id);
+            // }
         }
 
     }
