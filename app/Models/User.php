@@ -88,7 +88,7 @@ class User extends Authenticatable
     {
         $user = auth()->user();
         
-        if($user->usertype=="admin"){
+        if($user->usertype=="admin" ){
         return $query->where('organization_id', $user->organization_id);
         }
         //limit users access to teamleads for now
@@ -97,9 +97,19 @@ class User extends Authenticatable
         else if($user->usertype=="teamlead"){
         return $query->where('team_id', $user->team_id)->whereNotNull('team_id');
         }
+        else if($user->usertype=="seller"){
+        //allow current testers access
+        //IDEAL
+        // return $query->where('team_id', $user->team_id);
+        //IDEAL
+
+        return $query->where('team_id', $user->team_id)->whereNull('team_id');
+        }
+
         else{
+        // can be seller
         // Restrict access completely
-        return $query->whereRaw('1 = 0');
+        // return $query->whereRaw('1 = 0');
         }
         
 

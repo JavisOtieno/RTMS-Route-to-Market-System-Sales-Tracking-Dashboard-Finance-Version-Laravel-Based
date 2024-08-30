@@ -24,24 +24,19 @@ class DefaultTeamScope implements Scope
             $teamId = $user->team_id;
             $builder->where('team_id', $teamId)->whereNotNull('team_id');
 
-            // if ($teamId === null) {
-            //     $builder->where('team_id', null);
-            // }
-
         }
         
         if (Auth::check() && $user->usertype=='seller') {
 
+            //allow users who are currently testing with the null
+            //to be removed
+            //IDEAL
+            // $teamId = $user->team_id;
+            // $builder->where('team_id', $teamId);
+            //IDEAL
             $teamId = $user->team_id;
-            $builder->where('team_id', $teamId);
+            $builder->where('team_id', $teamId)->orWhereNull('team_id');
 
-            // if ($teamId === null) {
-            //     $builder->where('team_id', null);
-            // }else
-            // {
-                // $builder->where('team_id', $user->team_id);
-            // }
-            
         }
 
     }
