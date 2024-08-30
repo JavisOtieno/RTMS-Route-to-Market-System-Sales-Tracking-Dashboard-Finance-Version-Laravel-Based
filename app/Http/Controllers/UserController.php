@@ -400,7 +400,7 @@ class UserController extends CommonController
         $regions = Region::all();
         $territories = Territory::all();
         $teams = Team::all();
-        return view('seller.add',compact('regions','territories','targetgroups','teams'));
+        return view('seller.create',compact('regions','territories','targetgroups','teams'));
     }
     public function addAdmin() {
         return view('add-admin');
