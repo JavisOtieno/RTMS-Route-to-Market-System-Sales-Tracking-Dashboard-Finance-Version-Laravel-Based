@@ -37,7 +37,7 @@ class UserController extends CommonController
         //dd($sales);
         $targetgroups = TargetGroup::withTrashed();
 
-        return view('sellers', ['users'=>$users, 'targetgroups'=>$targetgroups]);
+        return view('seller.index', ['users'=>$users, 'targetgroups'=>$targetgroups]);
     }
 
     public function showAddUsersToTargetGroups() {
@@ -400,7 +400,7 @@ class UserController extends CommonController
         $regions = Region::all();
         $territories = Territory::all();
         $teams = Team::all();
-        return view('add-seller',compact('regions','territories','targetgroups','teams'));
+        return view('seller.add',compact('regions','territories','targetgroups','teams'));
     }
     public function addAdmin() {
         return view('add-admin');
@@ -413,7 +413,7 @@ class UserController extends CommonController
         $regions = Region::all();
         $teams = Team::all();
         $territories = Territory::all();
-        return view('edit-seller',compact('user','targetgroups','regions','territories','teams'));
+        return view('seller.edit',compact('user','targetgroups','regions','territories','teams'));
     }
     public function showEditAdmin($id){
         $user = User::inOrganization()->find($id);
