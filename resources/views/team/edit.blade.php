@@ -9,11 +9,11 @@
 
   <!-- PAGE-HEADER -->
   <div class="page-header">
-    <h1 class="page-title">Users</h1>
+    <h1 class="page-title">Edit Team</h1>
     <div>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)">RTMS</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Edit User</li>
+            <li class="breadcrumb-item active" aria-current="page">Edit Team</li>
         </ol>
     </div>
 </div>
@@ -61,6 +61,46 @@
                             <div class="form-group">
                                 <label for="dateTime" class="form-label">Date and Time</label>
                                 <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{date('d-M-Y H:i', strtotime($team['created_at']))}}" autocomplete="dateTime">
+                            </div>
+
+                            {{-- <div class="form-group">
+                                <label for="password" class="form-label">Add Sellers to Team</label>
+                                <a href="/addsellerstoteam/{{$team['id']}}" class="btn btn-info mb-0">Add Sellers</a>                            
+                            </div> --}}
+
+                            <div class="form-group">
+                                <label for="teamSellers" style="font-weight:bold;"  class="form-label">Sellers on team</label>
+                                @if(count($teamsellers)>0)
+                                <ol>
+                                @foreach($teamsellers as $seller)
+                                <div class="row mb-4">
+                                    {{-- <label style="font-weight:400;" for="planOutlet" class="col-md-1 form-label">
+                                        {{$posaudititem['product']['name']}}
+                                    </label> --}}
+                                    <div class="col-md-12">
+                                        <li>
+                                            
+                                        <input readonly type="text" class="form-control" id="sellerName" placeholder="Seller Name" autocomplete="sellername" 
+                                        value="{{$seller ? $seller['name']  . ($seller->trashed() ? ' (Deleted Seller)' : '') : 'Deleted Seller'}}"
+                                        >
+                                        </li>
+                                    </div>
+                                </div>
+                                @endforeach
+                                </ol>
+                                @else
+                                <div class="row mb-4">
+                                    <div class="col-md-12">
+            
+                                        <input readonly type="text" class="form-control" id="sellers" placeholder="Seller Name" autocomplete="sellername" 
+                                        value="No sellers at the moment"
+                                        >
+                                
+                                    </div>
+                                </div>
+                                @endif
+                                </ol>
+    
                             </div>
                             
                             

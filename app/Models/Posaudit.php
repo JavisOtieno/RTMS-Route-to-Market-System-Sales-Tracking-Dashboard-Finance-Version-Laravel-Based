@@ -18,7 +18,8 @@ class Posaudit extends Model
         'outlet_id',
         'visit_id',
         'image',
-        'organization_id'
+        'organization_id',
+        'team_id'
 
     ];
     public function user(){

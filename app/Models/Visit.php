@@ -24,7 +24,8 @@ class Visit extends Model
         'checkout_latitude',
         'checkout_longitude',
         'duration',
-        'organization_id'
+        'organization_id',
+        'team_id'
 
     ];
 

@@ -8,6 +8,7 @@ use App\Models\Posaudit;
 use App\Models\Territory;
 use App\Models\Competitor;
 use App\Models\PosauditItem;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GeoController;
 use Illuminate\Support\Facades\Artisan;
@@ -46,7 +47,7 @@ use App\Http\Controllers\api\RoutePlanController as ApiRoutePlanController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::middleware(['auth'])->group(function(){
+Route::middleware(['authCustomCheck'])->group(function(){
 
 Route::get('/', [DashboardController::class,'index']);
 
@@ -56,23 +57,23 @@ Route::get('/sales', [SaleController::class,'index']);
 Route::get('/salesmap', [SaleController::class,'showSalesMap']);
 Route::get('/add-sale', [SaleController::class,'addSale']);
 Route::get('/salesanalytics', [SaleController::class,'showSalesAnalytics']);
-
 Route::get('/sales/{id}/{object}',[SaleController::class,'showSalesById']);
-
 Route::post('/savesale', [SaleController::class,'saveSale']);
 Route::get('/deletesale/{id}', [SaleController::class,'deleteSale']);
 Route::get('/editsale/{id}',[SaleController::class,'showEditSale']);
 Route::get('/sale/{id}',[SaleController::class,'showEditSale']);
 Route::put('/saveeditsale/{id}',[SaleController::class,'saveEditSale']);
 
-
-Route::get('/outlets', [OutletController::class,'index']);
-Route::get('/outlets/{id}/{object}', [OutletController::class,'showOutletsById']);
-Route::get('/allocateoutletstousers', [OutletController::class,'showAddOutletsToUsers']);
-Route::post('/pushoutletstouser', [OutletController::class,'pushOutletsToUser']);
-
-
 Route::get('/products', [ProductController::class,'index']);
+Route::get('/deleteproduct/{id}', [ProductController::class,'deleteProduct']);
+Route::get('/add-product', [ProductController::class,'addProduct']);
+Route::post('/saveproduct', [ProductController::class,'saveProduct']);
+Route::get('/editproduct/{id}', [ProductController::class,'showEditProduct']);
+Route::put('/saveeditproduct/{id}',[ProductController::class,'saveEditProduct']);
+Route::get('/add-product', [ProductController::class,'addProduct']);
+
+Route::get('/testcompress', [ProductController::class,'testCompress']);
+
 Route::get('/services', [ProductController::class,'services']);
 Route::get('/add-service', [ProductController::class,'addService']);
 Route::get('/editservice/{id}', [ProductController::class,'showEditService']);
@@ -83,15 +84,12 @@ Route::put('/saveeditservice/{id}',[ProductController::class,'saveEditService'])
 Route::get('/ajaxservicesyajra',[ProductController::class,'ajaxservicesYajraTest'])->name('yajratest');
 Route::get('/servicesyajra',[ProductController::class,'viewservicesYajraTest']);
 
-
-
 Route::get('/posaudits', [PosauditController::class,'index']);
 Route::get('/deleteposaudits/{id}', [PosauditController::class,'deletePosaudit']);
 Route::get('/posaudit/{id}',[PosauditController::class,'showEditPOSAudit']);
 Route::post('/saveeditposaudit/{id}',[PosauditController::class,'saveEditPOSAudit']);
 Route::get('/posaudits/{id}/{object}',[PosauditController::class,'showPosauditsById']);
 //Route::post('/posaudit',[PosauditController::class,'showEditPOSAudit'])->name('editposaudit');
-
 
 Route::get('/competitors', [CompetitorController::class,'index']);
 Route::get('/deletecompetitiveanalysis/{id}', [CompetitorController::class,'deleteCompetitiveAnalysis']);
@@ -105,19 +103,9 @@ Route::get('/feedback/{id}',[FeedbackController::class,'showEditFeedback']);
 Route::put('/saveeditfeedback/{id}',[FeedbackController::class,'saveEditFeedback']);
 Route::get('/feedback/{id}/{object}',[FeedbackController::class,'showFeedbackById']);
 
+Route::get('/outlets', [OutletController::class,'index']);
+Route::get('/outlets/{id}/{object}', [OutletController::class,'showOutletsById']);
 
-
-
-Route::get('/testcompress', [ProductController::class,'testCompress']);
-Route::get('/deleteproduct/{id}', [ProductController::class,'deleteProduct']);
-
-Route::get('/add-product', [ProductController::class,'addProduct']);
-
-Route::post('/saveproduct', [ProductController::class,'saveProduct']);
-
-Route::get('/editproduct/{id}', [ProductController::class,'showEditProduct']);
-
-Route::put('/saveeditproduct/{id}',[ProductController::class,'saveEditProduct']);
 
 Route::get('/deleteoutlet/{id}', [OutletController::class,'deleteOutlet']);
 Route::get('/add-outlet', [OutletController::class,'addOutlet']);
@@ -141,8 +129,6 @@ Route::get('/routeplan/{id}',[RouteplanController::class,'showEditRoutePlan']);
 Route::put('/saveeditrouteplan/{id}',[RouteplanController::class,'saveEditRoutePlan']);
 Route::get('/routeplans/{id}/{object}',[RoutePlanController::class,'showRoutePlansById']);
 
-
-
 Route::get('/clockins', [ClockinController::class,'index']);
 Route::get('/clockin/{id}',[ClockinController::class,'showEditClockin']);
 Route::get('/clockins/{id}/{object}',[ClockinController::class,'showClockinsById']);
@@ -154,12 +140,10 @@ Route::get('/clockout/{id}',[ClockoutController::class,'showEditClockout']);
 Route::get('/clockoutsmap', [ClockoutController::class,'showClockoutsMap']);
 Route::get('/deleteclockout/{id}', [ClockoutController::class,'deleteClockout']);
 
-Route::get('/profile', [UserController::class,'showProfile']);
-
 Route::get('/visits', [VisitController::class,'index']);
 Route::get('/visit/{id}',[VisitController::class,'showEditVisit']);
 Route::get('/visitsmap', [VisitController::class,'showVisitsMap']);
-Route::get('/routes', [VisitController::class,'showRoutes']);
+Route::get('/routes', [VisitController::class,'showR]outes']);
 Route::get('/routes/{id}', [VisitController::class,'showRoutesById']);
 Route::get('/visitsanalytics', [VisitController::class,'showVisitsAnalytics']);
 Route::get('/visits/{id}/{object}',[VisitController::class,'showVisitsById']);
@@ -175,25 +159,7 @@ Route::post('/savetargetgroup', [TargetGroupController::class,'saveTargetGroup']
 Route::get('/edittargetgroup/{id}', [TargetGroupController::class,'showEditTargetGroup']);
 Route::put('/saveedittargetgroup/{id}',[TargetGroupController::class,'saveEditTargetGroup']);
 
-Route::get('/teams', [TeamController::class,'index']);
-Route::get('/addteam', [TeamController::class,'addTeam']);
-Route::get('/deleteteam/{id}', [TeamController::class,'deleteTeam']);
-Route::post('/saveteam', [TeamController::class,'saveTeam']);
-Route::get('/editteam/{id}', [TeamController::class,'showEditTeam']);
-Route::put('/saveeditteam/{id}',[TeamController::class,'saveEditTeam']);
 
-Route::get('/admins', [UserController::class,'admins']);
-Route::get('/sellers', [UserController::class,'sellers']);
-Route::get('/teamleads', [UserController::class,'teamleads']);
-Route::get('/adduserstotargetgroups', [UserController::class,'showAddUsersToTargetGroups']);
-Route::post('/pushuserstotargetgroup', [UserController::class,'addUsersToTargetGroup']);
-
-Route::get('/regions', [RegionController::class,'index']);
-Route::get('/add-region', [RegionController::class,'addRegion']);
-Route::post('/saveregion', [RegionController::class,'saveRegion']);
-Route::get('/deleteregion/{id}', [RegionController::class,'deleteRegion']);
-Route::get('/editregion/{id}', [RegionController::class,'showEditRegion']);
-Route::put('/saveeditregion/{id}',[RegionController::class,'saveEditRegion']);
 
 Route::get('/territories', [TerritoryController::class,'index']);
 Route::get('/add-territory', [TerritoryController::class,'addTerritory']);
@@ -202,28 +168,64 @@ Route::get('/deleteterritory/{id}', [TerritoryController::class,'deleteTerritory
 Route::get('/editterritory/{id}', [TerritoryController::class,'showEditTerritory']);
 Route::put('/saveeditterritory/{id}',[TerritoryController::class,'saveEditTerritory']);
 
-Route::get('/add-product', [ProductController::class,'addProduct']);
+Route::get('/profile', [UserController::class,'showProfile']);
 
-Route::get('/deleteadmin/{id}', [UserController::class,'deleteAdmin']);
-Route::post('/saveadmin', [UserController::class,'saveAdmin']);
-Route::get('/add-admin', [UserController::class,'addAdmin']);
-Route::get('/editadmin/{id}', [UserController::class,'showEditAdmin']);
-Route::put('/saveeditadmin/{id}',[UserController::class,'saveEditAdmin']);
+Route::get('/adduserstotargetgroups', [UserController::class,'showAddUsersToTargetGroups']);
+Route::post('/pushuserstotargetgroup', [UserController::class,'addUsersToTargetGroup']);
 
+Route::get('/allocateoutletstousers', [OutletController::class,'showAddOutletsToUsers']);
+Route::post('/pushoutletstouser', [OutletController::class,'pushOutletsToUser']);
+
+Route::get('/sellers', [UserController::class,'sellers']);
 Route::get('/deleteseller/{id}', [UserController::class,'deleteSeller']);
 Route::post('/saveseller', [UserController::class,'saveSeller']);
 Route::get('/add-seller', [UserController::class,'addSeller']);
 Route::get('/editseller/{id}', [UserController::class,'showEditSeller']);
 Route::put('/saveeditseller/{id}',[UserController::class,'saveEditSeller']);
 
+
+$user = Auth::user();
+// $user = auth()->user();
+
+Route::middleware(['adminOnly'])->group(function(){
+// if(auth()->user()){
+
+Route::get('/teams', [TeamController::class,'index']);
+Route::get('/addteam', [TeamController::class,'addTeam']);
+Route::get('/deleteteam/{id}', [TeamController::class,'deleteTeam']);
+Route::post('/saveteam', [TeamController::class,'saveTeam']);
+Route::get('/editteam/{id}', [TeamController::class,'showEditTeam']);
+Route::put('/saveeditteam/{id}',[TeamController::class,'saveEditTeam']);
+
+Route::get('/admins', [UserController::class,'admins']);
+Route::get('/deleteadmin/{id}', [UserController::class,'deleteAdmin']);
+Route::post('/saveadmin', [UserController::class,'saveAdmin']);
+Route::get('/add-admin', [UserController::class,'addAdmin']);
+Route::get('/editadmin/{id}', [UserController::class,'showEditAdmin']);
+Route::put('/saveeditadmin/{id}',[UserController::class,'saveEditAdmin']);
+
+Route::get('/teamleads', [UserController::class,'teamleads']);
 Route::get('/deleteteamlead/{id}', [UserController::class,'deleteTeamlead']);
 Route::get('/add-teamlead', [UserController::class,'addTeamlead']);
 Route::post('/saveteamlead', [UserController::class,'saveTeamlead']);
 Route::get('/editteamlead/{id}', [UserController::class,'showEditTeamlead']);
 Route::put('/saveeditteamlead/{id}',[UserController::class,'saveEditTeamlead']);
 
-Route::get('/changepassword/{usertype}/{id}', [UserController::class,'showChangePassword']);
+Route::get('/regions', [RegionController::class,'index']);
+Route::get('/add-region', [RegionController::class,'addRegion']);
+Route::post('/saveregion', [RegionController::class,'saveRegion']);
+Route::get('/deleteregion/{id}', [RegionController::class,'deleteRegion']);
+Route::get('/editregion/{id}', [RegionController::class,'showEditRegion']);
+Route::put('/saveeditregion/{id}',[RegionController::class,'saveEditRegion']);
 
+// }
+
+// Route::get('/changepasswordadmin/{id}', [UserController::class,'showChangePasswordAdmin']);
+// Route::put('/savepasswordadmin/{id}',[UserController::class,'saveChangePasswordAdmin']);
+
+});
+
+Route::get('/changepassword/{usertype}/{id}', [UserController::class,'showChangePassword']);
 Route::put('/savechangepassword/{id}',[UserController::class,'saveChangePassword']);
 
 Route::get('/showimage/{folder}/{image}', [ImageController::class,'showImage']);
@@ -232,7 +234,6 @@ Route::get('/run-artisan-link', function () {
     $exitCode =Artisan::call('storage:link');
     return $exitCode;
 });
-
 Route::get('/check-storage-link', function () {
     
     if (is_link(public_path('storage')) && readlink(public_path('storage')) == realpath(storage_path('app/public'))) {
@@ -242,9 +243,6 @@ Route::get('/check-storage-link', function () {
     }
 });
 
-
-
-
 });
 
 Route::get('forgot-password', [ForgotPasswordController::class, 'showForgotPasswordForm'])->name('forgot.password.get');
@@ -252,14 +250,8 @@ Route::post('forgot-password', [ForgotPasswordController::class, 'submitForgotPa
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
-
-
 Route::get('/login', [LoginController::class,'showLogin'])->name('login');
-
 Route::post('/attemptlogin', [LoginController::class,'doLogin']);
-
 Route::get('/logout', [LoginController::class,'logout']);
-
-Route::get('/signup', [SignupController::class,'showSignup']);
-
+Route::get('/signup', [SignupController::class,'showSignup'])->name('notwork');
 Route::post('/attemptsignup', [SignupController::class,'doSignup']);

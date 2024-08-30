@@ -27,7 +27,8 @@ class Clockout extends Model
         'time',
         'lat',
         'long',
-        'organization_id'
+        'organization_id',
+        'team_id'
 
     ];
     protected static function booted()

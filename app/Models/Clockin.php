@@ -23,7 +23,8 @@ class Clockin extends Model
         'time',
         'lat',
         'long',
-        'organization_id'
+        'organization_id',
+        'team_id'
 
     ];
     

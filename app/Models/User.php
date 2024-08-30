@@ -30,6 +30,7 @@ class User extends Authenticatable
         'email',
         'password',
         'organization_id',
+        'team_id',
         'image'
     ];
 
@@ -61,6 +62,10 @@ class User extends Authenticatable
         return $this->belongsTo(TargetGroup::class,'target_group_id');
     }
 
+    public function team(){
+        return $this->belongsTo(Team::class,'team_id');
+    }
+
     public function region(){
         return $this->belongsTo(Region::class,'region_id');
     }
@@ -82,7 +87,22 @@ class User extends Authenticatable
     public function scopeInOrganization($query)
     {
         $user = auth()->user();
+        
+        if($user->usertype=="admin"){
         return $query->where('organization_id', $user->organization_id);
+        }
+        //limit users access to teamleads for now
+        //combined with route limited access to urls
+        //along with menu limitations 
+        else if($user->usertype=="teamlead"){
+        return $query->where('team_id', $user->team_id)->whereNotNull('team_id');
+        }
+        else{
+        // Restrict access completely
+        return $query->whereRaw('1 = 0');
+        }
+        
+
     }
 
     

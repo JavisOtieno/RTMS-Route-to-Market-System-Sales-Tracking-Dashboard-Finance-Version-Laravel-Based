@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Team;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TeamController extends Controller
@@ -20,6 +21,7 @@ class TeamController extends Controller
 
     public function saveTeam(Request $request){
         $organization_id=auth()->user()->organization_id;
+        
        
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
@@ -33,9 +35,9 @@ class TeamController extends Controller
         $incomingFields['organization_id']=$organization_id;
         //return $incomingFields['usertype'];
 
-        Team::create($incomingFields);
+        $team= Team::create($incomingFields);
 
-        return redirect('/teams');
+        return redirect('/editteam/'.$team->id);
         
     }
     public function deleteTeam($id){
@@ -46,7 +48,8 @@ class TeamController extends Controller
 
     public function showEditTeam($id){
         $team = Team::find($id);
-        return view('team.edit',['team'=>$team]);
+        $teamsellers = User::where('team_id',$id)->where('usertype','seller')->get();
+        return view('team.edit',compact('team','teamsellers'));
     }
 
     // public function showEditTargetGroup(Request $request){
@@ -58,7 +61,7 @@ class TeamController extends Controller
     // }
 
 public function saveEditTeam($id, Request $request){
-        $organization_id=auth()->user()->organization_id;
+        // $organization_id=auth()->user()->organization_id;
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
             'description'=>'required|string|max:1048576'
@@ -66,7 +69,7 @@ public function saveEditTeam($id, Request $request){
 
         $incomingFields['name']=strip_tags($incomingFields['name']);
         $incomingFields['description']=strip_tags($incomingFields['description']);
-        $incomingFields['organization_id']=$organization_id;
+        // $incomingFields['organization_id']=$organization_id;
 
         $team=Team::find($id);
 

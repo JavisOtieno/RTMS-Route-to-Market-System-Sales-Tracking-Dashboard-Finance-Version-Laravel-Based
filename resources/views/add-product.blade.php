@@ -71,6 +71,7 @@
                                 <label for="description" class="form-label">Description</label>
                                 <textarea type="text" class="form-control" name="description" id="description" placeholder="Description" autocomplete="description" value="">{{ old('description', '') }}</textarea>
                             </div>
+                            @include('partials.team-select', ['teams' => $teams])
                             <div class="form-group">
                                 <label for="image" class="form-label">Image (Optional)</label>
                                 <div class="col-lg-12 col-sm-12 mb-12 mb-lg-0">

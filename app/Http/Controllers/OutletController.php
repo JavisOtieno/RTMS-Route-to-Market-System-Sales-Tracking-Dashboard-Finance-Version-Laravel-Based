@@ -60,6 +60,7 @@ class OutletController extends CommonController
     public function saveOutlet(Request $request){
 
         $organization_id=auth()->user()->organization_id;
+        $team_id=auth()->user()->team_id;
         
         $incomingFields=$request->validate([
             'userId'=>'required|numeric|digits_between:1,20|exists:users,id',
@@ -79,6 +80,7 @@ class OutletController extends CommonController
         $incomingFields['lat']=strip_tags($incomingFields['lat']);
         $incomingFields['long']=strip_tags($incomingFields['long']);
         $incomingFields['organization_id']=$organization_id;
+        $incomingFields['team_id']=$team_id;
         //$incomingFields['image']='';
 
         //return $request['image'];
@@ -135,7 +137,8 @@ class OutletController extends CommonController
     //     return view('edit-outlet',compact('outlet'));
     // }
     public function saveEditOutlet($id, Request $request){
-        $organization_id=auth()->user()->organization_id;
+        // $organization_id=auth()->user()->organization_id;
+        // $team_id=auth()->user()->team_id;
         $incomingFields=$request->validate([
             'userId'=>'required|numeric|digits_between:1,20|exists:users,id',
             'name'=>'required|string|max:255',
@@ -151,7 +154,8 @@ class OutletController extends CommonController
         $incomingFields['phone']=strip_tags($incomingFields['phone']);
         $incomingFields['lat']=strip_tags($incomingFields['lat']);
         $incomingFields['long']=strip_tags($incomingFields['long']);
-        $incomingFields['organization_id']=$organization_id;
+        // $incomingFields['organization_id']=$organization_id;
+        // $incomingFields['team_id']=$team_id;
         
         
 

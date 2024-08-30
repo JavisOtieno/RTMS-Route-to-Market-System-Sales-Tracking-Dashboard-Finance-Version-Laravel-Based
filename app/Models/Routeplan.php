@@ -17,7 +17,8 @@ class Routeplan extends Model
         'user_id',
         'name',
         'date',
-        'organization_id'
+        'organization_id',
+        'team_id'
 
     ];
     public function user(){

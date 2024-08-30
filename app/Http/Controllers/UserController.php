@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Team;
 use App\Models\User;
 use App\Models\Region;
+use App\Models\Territory;
 use App\Rules\PhoneNumber;
 use App\Models\TargetGroup;
-use App\Models\Territory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
@@ -20,6 +21,7 @@ class UserController extends CommonController
         $users = User::inOrganization()->get();
         return response()->json(['users'=>$users]);
     }
+
     public function admins() {
         $users = User::inOrganization()->with('targetgroup')->where('usertype','admin')->get();
 
@@ -34,6 +36,7 @@ class UserController extends CommonController
         //return $users;
         //dd($sales);
         $targetgroups = TargetGroup::withTrashed();
+
         return view('sellers', ['users'=>$users, 'targetgroups'=>$targetgroups]);
     }
 
@@ -155,11 +158,13 @@ class UserController extends CommonController
     }
 
     public function addTeamLead() {
-        return view('teamlead.create');
+        $teams = Team::all();
+        return view('teamlead.create',compact('teams'));
     }
     public function showEditTeamlead($id){
         $user = User::inOrganization()->find($id);
-        return view('teamlead.edit',compact('user'));
+        $teams = Team::all();
+        return view('teamlead.edit',compact('user','teams'));
     }
     public function deleteTeamlead($id){
         $user = User::inOrganization()->where('usertype','teamlead')->find($id);
@@ -169,6 +174,7 @@ class UserController extends CommonController
 
     public function saveTeamlead(Request $request){
         $organizationId=auth()->user()->organization_id;
+        $teamId = $this->teamIdCheckAssign($request);
        
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
@@ -191,6 +197,7 @@ class UserController extends CommonController
         $incomingFields['email']=strip_tags($incomingFields['email']);
         $incomingFields['password']=strip_tags($incomingFields['password']);
         $incomingFields['organization_id']=$organizationId;
+        $incomingFields['team_id']=$teamId;
         
 
         //return $incomingFields['usertype'];
@@ -230,7 +237,8 @@ class UserController extends CommonController
     }
 
     public function saveEditTeamlead($id, Request $request){
-        $organizationId=auth()->user()->organization_id;
+        // $organizationId=auth()->user()->organization_id;
+        $teamId = $this->teamIdCheckAssign($request);
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
             'phone'=>['required','min:10','string','max:255', new PhoneNumber],
@@ -246,7 +254,8 @@ class UserController extends CommonController
         $incomingFields['email']=strip_tags($incomingFields['email']);
         // $incomingFields['target_group_id']=strip_tags($incomingFields['target_group_id']);
         $incomingFields['phone']=strip_tags($incomingFields['phone']);
-        $incomingFields['organization_id']=$organizationId;
+        $incomingFields['team_id']=$teamId;
+        // $incomingFields['organization_id']=$organizationId;
 
         $user=User::inOrganization()->find($id);
 
@@ -319,6 +328,8 @@ class UserController extends CommonController
 
 
     public function saveSeller(Request $request){
+        $teamId = $this->teamIdCheckAssign($request);
+
         $organizationId=auth()->user()->organization_id;
        
         $incomingFields=$request->validate([
@@ -345,8 +356,10 @@ class UserController extends CommonController
         $incomingFields['email']=strip_tags($incomingFields['email']);
         $incomingFields['password']=strip_tags($incomingFields['password']);
         $incomingFields['organization_id']=$organizationId;
+        $incomingFields['team_id']=$teamId;
 
         //return $request->image;
+        // return $incomingFields;
 
 
         if($request['image']){
@@ -374,6 +387,7 @@ class UserController extends CommonController
         
 
         //return $incomingFields['usertype'];
+        // return $incomingFields['team_id'];
 
         User::create($incomingFields);
 
@@ -385,7 +399,8 @@ class UserController extends CommonController
         $targetgroups = TargetGroup::all();
         $regions = Region::all();
         $territories = Territory::all();
-        return view('add-seller',compact('regions','territories','targetgroups'));
+        $teams = Team::all();
+        return view('add-seller',compact('regions','territories','targetgroups','teams'));
     }
     public function addAdmin() {
         return view('add-admin');
@@ -396,8 +411,9 @@ class UserController extends CommonController
         $user = User::inOrganization()->find($id);
         $targetgroups = TargetGroup::all();
         $regions = Region::all();
+        $teams = Team::all();
         $territories = Territory::all();
-        return view('edit-seller',compact('user','targetgroups','regions','territories'));
+        return view('edit-seller',compact('user','targetgroups','regions','territories','teams'));
     }
     public function showEditAdmin($id){
         $user = User::inOrganization()->find($id);
@@ -415,7 +431,9 @@ class UserController extends CommonController
     // }
 
     public function saveEditSeller($id, Request $request){
-        $organizationId=auth()->user()->organization_id;
+        $teamId = $this->teamIdCheckAssign($request);
+
+        // $organizationId=auth()->user()->organization_id;
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
             'phone'=>['required','min:10','string','max:255', new PhoneNumber],
@@ -435,9 +453,10 @@ class UserController extends CommonController
         $incomingFields['email']=strip_tags($incomingFields['email']);
         $incomingFields['target_group_id']=strip_tags($incomingFields['target_group_id']);
         $incomingFields['phone']=strip_tags($incomingFields['phone']);
-        $incomingFields['organization_id']=$organizationId;
+        // $incomingFields['organization_id']=$organizationId;
         $incomingFields['region_id']=strip_tags($incomingFields['region_id']);
         $incomingFields['territory_id']=strip_tags($incomingFields['territory_id']);
+        $incomingFields['team_id']=$teamId;
 
         // return $incomingFields;
 
@@ -508,7 +527,8 @@ class UserController extends CommonController
     }
 
     public function saveEditAdmin($id, Request $request){
-        $organizationId=auth()->user()->organization_id;
+        // $organizationId=auth()->user()->organization_id;
+      
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
             'phone'=>['required','min:10','string','max:255', new PhoneNumber],
@@ -524,7 +544,7 @@ class UserController extends CommonController
         $incomingFields['email']=strip_tags($incomingFields['email']);
         // $incomingFields['target_group_id']=strip_tags($incomingFields['target_group_id']);
         $incomingFields['phone']=strip_tags($incomingFields['phone']);
-        $incomingFields['organization_id']=$organizationId;
+        // $incomingFields['organization_id']=$organizationId;
 
         $user=User::inOrganization()->find($id);
 

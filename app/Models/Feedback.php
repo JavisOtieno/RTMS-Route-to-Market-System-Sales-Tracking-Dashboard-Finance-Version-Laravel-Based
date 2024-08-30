@@ -18,7 +18,8 @@ class Feedback extends Model
         'outlet_id',
         'visit_id',
         'feedback',
-        'organization_id'
+        'organization_id',
+        'team_id'
 
     ];
     public function user(){

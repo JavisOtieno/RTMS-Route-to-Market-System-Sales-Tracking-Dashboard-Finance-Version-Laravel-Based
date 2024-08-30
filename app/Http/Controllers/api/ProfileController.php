@@ -11,7 +11,7 @@ class ProfileController extends Controller
     //
     public function showProfile(){
         $id=auth()->user()->id;
-        $user = User::inOrganization()->with('organization','region','targetgroup','territory')->find($id);
+        $user = User::inOrganization()->with('organization','team','region','targetgroup','territory')->find($id);
         return response()->json(['user'=>$user]);
         //return "here I am. You're error from the server.";
     }

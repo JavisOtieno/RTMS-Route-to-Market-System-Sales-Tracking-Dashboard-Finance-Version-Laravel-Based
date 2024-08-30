@@ -71,6 +71,7 @@
                                 <label for="description" class="form-label">Description</label>
                                 <textarea type="text" rows="6" class="form-control" name="description" id="description" placeholder="Description" autocomplete="long">{{old('description',$product['description'])}}</textarea>
                             </div>
+                            @include('partials.team-select', ['teams' => $teams])
                             
                             <div class="form-group">
                                 <label for="image" class="form-label">Image (Optional)</label>

@@ -43,6 +43,7 @@ class VisitController extends Controller
         $incomingFields['checkout_time']="";
         $incomingFields['duration']="";
         $incomingFields['organization_id']=auth()->user()->organization_id;
+        $incomingFields['team_id']=auth()->user()->team_id;
 
         $visit=Visit::create($incomingFields);
         

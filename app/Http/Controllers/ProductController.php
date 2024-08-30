@@ -3,19 +3,20 @@
 namespace App\Http\Controllers;
 
 use Imagick;
+use App\Models\Team;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use League\Glide\ServerFactory;
 use Illuminate\Support\Facades\Storage;
+use Yajra\DataTables\Facades\DataTables;
 use Spatie\ImageOptimizer\Optimizers\Svgo;
 use Spatie\ImageOptimizer\Optimizers\Optipng;
+
 use Intervention\Image\Facades\Image as Image;
 use Spatie\ImageOptimizer\Optimizers\Gifsicle;
-
 use Spatie\ImageOptimizer\Optimizers\Jpegoptim;
 use Spatie\ImageOptimizer\OptimizerChainFactory;
 use League\Glide\Responses\LaravelResponseFactory;
-use Yajra\DataTables\Facades\DataTables;
 
 
 
@@ -66,7 +67,8 @@ class ProductController extends CommonController
         return redirect('/services');
     }
     public function addProduct() {
-        return view('add-product');
+        $teams = Team::all();
+        return view('add-product',compact('teams'));
     }
     public function addService() {
         return view('add-service');
@@ -216,6 +218,7 @@ class ProductController extends CommonController
     }
 
     public function saveService(Request $request){
+        $this->teamIdCheckAssign($request);
 
         // required not necessary
         //'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
@@ -235,6 +238,7 @@ class ProductController extends CommonController
 
         
         $organization_id=auth()->user()->organization_id;
+        $team_id=auth()->user()->team_id;
         $incomingFields['name']=strip_tags($incomingFields['name']);
         $incomingFields['targettype']=strip_tags($incomingFields['targettype']);
         $incomingFields['producttype']='service';
@@ -246,6 +250,7 @@ class ProductController extends CommonController
     
         $incomingFields['description']=strip_tags($incomingFields['description']);
         $incomingFields['organization_id']=$organization_id;
+        $incomingFields['team_id']=$team_id;
         //$incomingFields['image']=strip_tags($incomingFields['image']);
 
 
@@ -296,6 +301,7 @@ class ProductController extends CommonController
     
 
     public function saveProduct(Request $request){
+        $team_id=$this->teamIdCheckAssign($request);
 
         // required not necessary
         //'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
@@ -316,11 +322,13 @@ class ProductController extends CommonController
 
         
         $organization_id=auth()->user()->organization_id;
+        $team_id=auth()->user()->team_id;
         $incomingFields['name']=strip_tags($incomingFields['name']);
         $incomingFields['price']=strip_tags($incomingFields['price']);
         $incomingFields['sku']=strip_tags($incomingFields['sku']);
         $incomingFields['stock']=strip_tags($incomingFields['stock']);
         $incomingFields['description']=strip_tags($incomingFields['description']);
+        $incomingFields['team_id']=$team_id;
         $incomingFields['organization_id']=$organization_id;
         //$incomingFields['image']=strip_tags($incomingFields['image']);
 
@@ -359,13 +367,7 @@ class ProductController extends CommonController
         }else{
             $incomingFields['image']='';   
         }
-
-
-    
-
-
-
-
+        return $incomingFields;
 
         Product::create($incomingFields);
 
@@ -380,7 +382,8 @@ class ProductController extends CommonController
 
     public function showEditProduct($id){
         $product = Product::find($id);
-        return view('edit-product',['product'=>$product]);
+        $teams = Team::all();
+        return view('edit-product',compact('product','teams'));
     }
 
     public function showEditService($id){
@@ -397,8 +400,10 @@ class ProductController extends CommonController
     // }
 
     public function saveEditProduct($id, Request $request){
+        $this->teamIdCheckAssign($request);
         //return $request;
-        $organization_id=auth()->user()->organization_id;
+        // $organization_id=auth()->user()->organization_id;
+        // $team_id=auth()->user()->team_id;
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
             'price'=>'required|numeric|digits_between:1,11',
@@ -416,7 +421,8 @@ class ProductController extends CommonController
         $incomingFields['sku']=strip_tags($incomingFields['sku']);
         $incomingFields['stock']=strip_tags($incomingFields['stock']);
         $incomingFields['description']=strip_tags($incomingFields['description']);
-        $incomingFields['organization_id']=$organization_id;
+        // $incomingFields['organization_id']=$organization_id;
+        // $incomingFields['team_id']=$team_id;
 
         $product=Product::find($id);
 
@@ -535,8 +541,9 @@ class ProductController extends CommonController
 
 
     public function saveEditService($id, Request $request){
+        $this->teamIdCheckAssign($request);
         //return $request;
-        $organization_id=auth()->user()->organization_id;
+        // $organization_id=auth()->user()->organization_id;
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
             'target'=>'required|numeric|digits_between:1,11',
@@ -552,7 +559,7 @@ class ProductController extends CommonController
         $incomingFields['target']=strip_tags($incomingFields['target']);
         $incomingFields['description']=strip_tags($incomingFields['description']);
         $incomingFields['targettype']=strip_tags($incomingFields['targettype']);
-        $incomingFields['organization_id']=$organization_id;
+        // $incomingFields['organization_id']=$organization_id;
 
         $product=Product::find($id);
 

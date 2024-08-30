@@ -62,6 +62,7 @@
                                         <th id="delete-column">Delete</th>
                                         <th>Product Name</th>
                                         <th>SKU</th>
+                                        <th>Team</th>
                                         <th>Price</th>
                                         <th>Stock</th>
                                         <th>Date</th>
@@ -80,6 +81,7 @@
                                         </td>
                                         <td>{{$product['name']}}</td>
                                         <td>{{$product['sku']}}</td>
+                                        <td>{{$product['team']==null?"None":$product['team']['name']}}</td>
                                         <td>{{'KSh '.number_format($product['price'])}}</td>
                                         <td>{{number_format($product['stock'])}}</td>
                                         <td>{{date('d-M-Y', strtotime($product['created_at']))}}</td>

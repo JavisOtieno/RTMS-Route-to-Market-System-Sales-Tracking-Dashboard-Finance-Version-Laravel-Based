@@ -79,6 +79,7 @@
                                         <th>Email</th>
                                         {{-- <th>Usertype</th> --}}
                                         <th>Targets</th>
+                                        <th>Team</th>
                                         <th>Region</th>
                                         <th>Territory</th>
                                         <th>Date</th>
@@ -105,6 +106,7 @@
                                         <td>{{$user['email']}}</td>
                                         {{-- <td>{{ucfirst($user['usertype'])}}</td> --}}
                                         <td>{{$user['targetgroup']==null?"None":'KSh '.number_format($user['targetgroup']['amount']) }}</td>
+                                        <td>{{$user['team']==null?"None":$user['team']['name']}}</td>
                                         <td>{{$user['region']==null?"None":$user['region']['name']}}</td>
                                         <td>{{$user['territory']==null?"None":$user['territory']['name'] }}</td>
                                         <td>{{date('d-M-Y', strtotime($user['created_at']))}}</td>

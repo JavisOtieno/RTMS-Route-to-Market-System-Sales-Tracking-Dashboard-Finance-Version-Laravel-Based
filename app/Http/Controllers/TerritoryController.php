@@ -50,14 +50,14 @@ class TerritoryController extends Controller
     }
 
     public function saveEditTerritory($id, Request $request){
-        $organization_id=auth()->user()->organization_id;
+        // $organization_id=auth()->user()->organization_id;
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
             'regionId'=>'required|numeric|digits_between:1,20'
         ]);
 
         $incomingFields['name']=strip_tags($incomingFields['name']);
-        $incomingFields['organization_id']=$organization_id;
+        // $incomingFields['organization_id']=$organization_id;
         $incomingFields['region_id']=strip_tags($incomingFields['regionId']);
 
         $territory=Territory::find($id);

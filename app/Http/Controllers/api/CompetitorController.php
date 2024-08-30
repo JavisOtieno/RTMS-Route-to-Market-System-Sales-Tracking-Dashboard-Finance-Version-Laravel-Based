@@ -32,7 +32,7 @@ class CompetitorController extends Controller
         $incomingFields['brand_visibility']=strip_tags($request['brandVisibility']);
         $incomingFields['pricing']=strip_tags($request['pricing']);
         $incomingFields['organization_id']=auth()->user()->organization_id;
-
+        $incomingFields['team_id']=auth()->user()->team_id;
 
         Competitor::create($incomingFields);
 

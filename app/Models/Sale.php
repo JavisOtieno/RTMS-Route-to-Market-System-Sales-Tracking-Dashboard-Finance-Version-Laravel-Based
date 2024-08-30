@@ -19,7 +19,8 @@ class Sale extends Model
         'visit_id',
         'value',
         'pieces',
-        'organization_id'
+        'organization_id',
+        'team_id'
 
     ];
     public function user(){

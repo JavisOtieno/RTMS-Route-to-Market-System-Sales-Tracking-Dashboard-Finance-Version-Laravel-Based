@@ -25,7 +25,8 @@ class Kernel extends HttpKernel
 
     protected $routeMiddleware = [
         // Other middleware...
-        'auth' => \App\Http\Middleware\CheckIfUserLoggedIn::class,
+        'authCustomCheck' => \App\Http\Middleware\CheckIfUserLoggedIn::class,
+        'adminOnly' => \App\Http\Middleware\AdminOnly::class
     ];
 
     /**

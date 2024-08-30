@@ -51,6 +51,7 @@ class OutletController extends Controller
         $incomingFields['long']=strip_tags($request['long']);
         $incomingFields['image']="";
         $incomingFields['organization_id']=auth()->user()->organization_id;
+        $incomingFields['team_id']=auth()->user()->team_id;
 
         $outlet=Outlet::create($incomingFields);
 
@@ -67,6 +68,7 @@ class OutletController extends Controller
         $incomingFields['checkout_time']="";
         $incomingFields['duration']="";
         $incomingFields['organization_id']=auth()->user()->organization_id;
+        $incomingFields['team_id']=auth()->user()->team_id;
 
         $visit=Visit::create($incomingFields);
 

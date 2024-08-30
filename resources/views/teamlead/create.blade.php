@@ -63,6 +63,7 @@
                                 <label for="email" class="form-label">Email</label>
                                 <input type="email" class="form-control" name="email" value="{{ old('email', '') }}" id="email" placeholder="Email" autocomplete="email">
                             </div>
+                            @include('partials.team-select', ['teams' => $teams])
                             {{-- <div class="form-group">
                                 <label for="admin" class="form-label">User Type</label>
                                 <select name="usertype" class="form-control form-select select2" data-bs-placeholder="Select User Type">

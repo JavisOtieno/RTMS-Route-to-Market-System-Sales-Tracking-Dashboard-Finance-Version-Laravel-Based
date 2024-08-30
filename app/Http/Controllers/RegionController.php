@@ -19,6 +19,7 @@ class RegionController extends Controller
 
     public function saveRegion(Request $request){
         $organization_id=auth()->user()->organization_id;
+        $team_id=auth()->user()->team_id;
        
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255'
@@ -29,6 +30,7 @@ class RegionController extends Controller
         
         $incomingFields['name']=strip_tags($incomingFields['name']);
         $incomingFields['organization_id']=$organization_id;
+        $incomingFields['team_id']=$team_id;
         //return $incomingFields['usertype'];
 
         Region::create($incomingFields);
@@ -47,13 +49,12 @@ class RegionController extends Controller
     }
 
     public function saveEditRegion($id, Request $request){
-        $organization_id=auth()->user()->organization_id;
+        
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
         ]);
 
         $incomingFields['name']=strip_tags($incomingFields['name']);
-        $incomingFields['organization_id']=$organization_id;
 
         $region=Region::find($id);
 

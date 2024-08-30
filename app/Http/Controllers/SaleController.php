@@ -111,6 +111,7 @@ class SaleController extends Controller
         $incomingFields['visit_id']='0';
         $incomingFields['pieces']=strip_tags($request['pieces']);
         $incomingFields['organization_id']=auth()->user()->organization_id;
+        $incomingFields['team_id']=auth()->user()->team_id;
 
         $price = Product::find($incomingFields['product_id'])['price'];
         $incomingFields['value'] = $price * $incomingFields['pieces'];
@@ -290,14 +291,14 @@ class SaleController extends Controller
 
 
     public function saveEditSale($id, Request $request){
-        $organization_id=auth()->user()->organization_id;
+        // $organization_id=auth()->user()->organization_id;
         
         $request->validate([
             'productPiecesTotal'=>'required|numeric|digits_between:1,20',
             'productValueTotalNumber'=>'required|numeric|digits_between:1,20'
         ]);
 
-        $incomingFields['organization_id']=$organization_id;
+        // $incomingFields['organization_id']=$organization_id;
 
         $incomingFields["pieces"] = $request->input('productPiecesTotal');
         $incomingFields["value"] = $request->input('productValueTotalNumber');

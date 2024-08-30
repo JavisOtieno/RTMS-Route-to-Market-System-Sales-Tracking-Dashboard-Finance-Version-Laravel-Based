@@ -21,7 +21,7 @@ class Region extends Model
     protected static function booted()
     {
         static::addGlobalScope(new OrganizationScope);
-        static::addGlobalScope(new DefaultTeamScope);
+        // static::addGlobalScope(new DefaultTeamScope);
     }
 
     public function territories()

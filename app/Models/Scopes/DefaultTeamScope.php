@@ -20,6 +20,7 @@ class DefaultTeamScope implements Scope
         // }
         
         if (Auth::check() && $user->usertype=='teamlead') {
+
             $teamId = $user->team_id;
             $builder->where('team_id', $teamId)->whereNotNull('team_id');
 
@@ -30,14 +31,17 @@ class DefaultTeamScope implements Scope
         }
         
         if (Auth::check() && $user->usertype=='seller') {
+
             $teamId = $user->team_id;
             $builder->where('team_id', $teamId);
+
             // if ($teamId === null) {
             //     $builder->where('team_id', null);
             // }else
             // {
                 // $builder->where('team_id', $user->team_id);
             // }
+            
         }
 
     }

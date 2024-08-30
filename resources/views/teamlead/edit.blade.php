@@ -61,6 +61,7 @@
                                 <label for="email" class="form-label">Email</label>
                                 <input type="text" class="form-control" name="email" id="email" placeholder="Email" value="{{old('email',$user['email'])}}" autocomplete="email">
                             </div>
+                            @include('partials.team-select', ['teams' => $teams])
                             {{-- <div class="form-group">
                                 <label for="admin" class="form-label">User Type</label>
                                 <select name="usertype" class="form-control form-select select2" data-bs-placeholder="Select User Type">

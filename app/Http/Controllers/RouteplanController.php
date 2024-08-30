@@ -147,10 +147,12 @@ class RouteplanController extends Controller
 
         
         $organization_id=auth()->user()->organization_id;
+        $team_id=auth()->user()->team_id;
         $incomingFields['name']=strip_tags($incomingFields['name']);
         $incomingFields['date']=strip_tags($incomingFields['date']);
         $incomingFields['user_id']=strip_tags($incomingFields['user_id']);
         $incomingFields['organization_id']=$organization_id;
+        $incomingFields['team_id']=$team_id;
         //$incomingFields['image']=strip_tags($incomingFields['image']);
 
         

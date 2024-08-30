@@ -70,6 +70,7 @@
                                                     <option {{old('usertype','')=="sales"? 'selected':''}} value="sales">Sales</option>
                                 </select>
                             </div> --}}
+
                             <div class="form-group">
                                 <label for="target_group_id" class="form-label">Target Group</label>
                                 <select name="target_group_id" class="form-control form-select select2" data-bs-placeholder="Select Target Group">
@@ -78,6 +79,7 @@
                                         <option {{old('target_group_id','')==$targetgroup['id']? 'selected':''}} value="{{$targetgroup['id']}}">{{$targetgroup['name']." - KSh ".number_format($targetgroup['amount'])}}</option>
                                         @endforeach
                 </select></div>
+
                 <div class="form-group">
                     <label for="region_id" class="form-label">Region</label>
                     <select name="region_id" id="region_id" class="form-control form-select select2" data-bs-placeholder="Select Region">
@@ -95,6 +97,10 @@
                 <option {{old('territory_id','')==$territory['id']? 'selected':''}} value="{{$territory['id']}}">{{$territory['name']}}</option>
                 @endforeach
 </select></div>
+
+@include('partials.team-select', ['teams' => $teams])
+
+
                             <div class="form-group">
                                 <label for="image" class="form-label">Image (Optional)</label>
                                 <div class="col-lg-12 col-sm-12 mb-4 mb-lg-0">

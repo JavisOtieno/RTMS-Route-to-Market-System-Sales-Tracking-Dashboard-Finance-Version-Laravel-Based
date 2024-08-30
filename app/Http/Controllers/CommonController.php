@@ -61,4 +61,20 @@ class CommonController extends BaseController
             return "File does not need compression ".$sourcePath."<br/>"; 
         }
     }
+
+    public function teamIdCheckAssign($request){
+        if(auth()->user()->usertype=="admin"){
+            $teamIdValid=$request->validate([
+                'team_id'=>'required|numeric|digits_between:1,20',
+            ]);
+            if($teamIdValid['team_id']==0){
+                $teamId = null;
+            }else{
+                $teamId = $teamIdValid['team_id'];
+            }
+        }else{
+        $teamId=auth()->user()->team_id;
+        }
+        return $teamId;
+    }
 }

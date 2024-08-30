@@ -19,7 +19,8 @@ class Competitor extends Model
         'visit_id',
         'brand_visibility',
         'pricing',
-        'organization_id'
+        'organization_id',
+        'team_id'
 
     ];
     public function user(){
