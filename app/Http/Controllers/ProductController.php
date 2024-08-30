@@ -46,7 +46,7 @@ class ProductController extends CommonController
         $products = Product::where('producttype', 'product')->orWhereNull('producttype')->get();
 
         //dd($sales);
-        return view('products', ['products'=>$products]);
+        return view('product.index', ['products'=>$products]);
     }
 
     public function services() {
@@ -68,7 +68,7 @@ class ProductController extends CommonController
     }
     public function addProduct() {
         $teams = Team::all();
-        return view('add-product',compact('teams'));
+        return view('product.create',compact('teams'));
     }
     public function addService() {
         return view('add-service');
@@ -383,7 +383,7 @@ class ProductController extends CommonController
     public function showEditProduct($id){
         $product = Product::find($id);
         $teams = Team::all();
-        return view('edit-product',compact('product','teams'));
+        return view('product.edit',compact('product','teams'));
     }
 
     public function showEditService($id){

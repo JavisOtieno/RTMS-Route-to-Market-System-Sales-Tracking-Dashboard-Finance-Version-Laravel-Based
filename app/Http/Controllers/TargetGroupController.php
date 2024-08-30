@@ -11,10 +11,10 @@ class TargetGroupController extends Controller
     // test commit 2
     public function index() {
         $targetgroups = TargetGroup::all();
-        return view('targetgroups', ['targetgroups'=>$targetgroups]);
+        return view('targetgroup.index', ['targetgroups'=>$targetgroups]);
     }
     public function addTargetGroup() {
-        return view('add-target-group');
+        return view('targetgroup.create');
     }
 
     public function saveTargetGroup(Request $request){
@@ -47,7 +47,7 @@ class TargetGroupController extends Controller
 
     public function showEditTargetGroup($id){
         $targetgroup = TargetGroup::find($id);
-        return view('edit-targetgroup',['targetgroup'=>$targetgroup]);
+        return view('targetgroup.edit',['targetgroup'=>$targetgroup]);
     }
 
     // public function showEditTargetGroup(Request $request){

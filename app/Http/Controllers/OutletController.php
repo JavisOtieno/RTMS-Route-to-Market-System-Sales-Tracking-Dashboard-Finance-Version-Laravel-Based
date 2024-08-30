@@ -33,7 +33,7 @@ class OutletController extends CommonController
         $outlets = Outlet::with(['user' => function ($query) {
             $query->withTrashed();
         }])->get();
-        return view('outlets', ['outlets'=>$outlets]);
+        return view('outlet.index', ['outlets'=>$outlets]);
         
     }
 
@@ -42,7 +42,7 @@ class OutletController extends CommonController
         $outlets = Outlet::with(['user' => function ($query) {
             $query->withTrashed();
         }])->where($object.'_id',$objectId)->get();
-        return view('outlets', ['outlets'=>$outlets]);
+        return view('outlet.index', ['outlets'=>$outlets]);
         
     }
 
@@ -55,7 +55,7 @@ class OutletController extends CommonController
 
     public function addOutlet() {
         $users = User::inOrganization()->where('usertype','seller')->get();
-        return view('add-outlet',['users'=>$users]);
+        return view('outlet.create',['users'=>$users]);
     }
     public function saveOutlet(Request $request){
 
@@ -127,7 +127,7 @@ class OutletController extends CommonController
         $outlet = Outlet::with(['user' => function ($query) {
             $query->withTrashed();
         }])->get()->find($id);
-        return view('edit-outlet',compact('outlet'));
+        return view('outlet.edit',compact('outlet'));
     }
     // public function showEditOutlet(Request $request){
     //     $incomingFields=$request->validate([
@@ -187,7 +187,7 @@ class OutletController extends CommonController
         
        
         $users = User::inOrganization()->where('usertype','seller')->get();
-        return view('outletsmap', compact('outlets','users') );
+        return view('outlet.map', compact('outlets','users') );
     }
 
     
