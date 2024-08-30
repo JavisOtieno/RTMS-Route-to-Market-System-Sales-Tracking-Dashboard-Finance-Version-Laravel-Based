@@ -53,7 +53,7 @@ class ProductController extends CommonController
         $products = Product::where('producttype','service')->get();
 
         //dd($sales);
-        return view('services', ['products'=>$products]);
+        return view('service.index', ['products'=>$products]);
     }
 
     public function deleteProduct($id){
@@ -71,7 +71,7 @@ class ProductController extends CommonController
         return view('product.create',compact('teams'));
     }
     public function addService() {
-        return view('add-service');
+        return view('service.create');
     }
 
 
@@ -388,7 +388,7 @@ class ProductController extends CommonController
 
     public function showEditService($id){
         $product = Product::find($id);
-        return view('edit-service',['product'=>$product]);
+        return view('service.edit',['product'=>$product]);
     }
 
     // public function showEditProduct(Request $request){
