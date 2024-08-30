@@ -59,6 +59,7 @@
                                         <th id="edit-column">View/Edit</th>
                                         <th id="delete-column">Delete</th>
                                         <th>Target Group Name</th>
+                                        <th>Team</th>
                                         <th>Amount</th>
                                         <th>Date</th>
                                         
@@ -76,6 +77,7 @@
                                         <td><a type="button" onclick="deleteItem({{$targetgroup['id']}},'Id: '+{{$targetgroup['id']}}+'<br/> Name: '+'{{$targetgroup['name']}}'+'<br/> Amount: '+'{{$targetgroup['amount']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
                                         </td>
                                         <td>{{$targetgroup['name']}}</td>
+                                        <td>{{$targetgroup['team']==null?"None":$targetgroup['team']['name']}}</td>
                                         <td>{{'KSh '.number_format($targetgroup['amount'])}}</td>
                                         <td>{{date('d-M-Y', strtotime($targetgroup['created_at']))}}</td>
                                     

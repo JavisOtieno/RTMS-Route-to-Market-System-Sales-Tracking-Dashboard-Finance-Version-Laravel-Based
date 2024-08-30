@@ -76,6 +76,7 @@
                                         <th>Check In Time</th>
                                         <th>Check Out Time</th>
                                         <th>Duration<br/>(HH:mm:ss)</th>
+                                        <th>Team</th>
                                         <th id="map-column">Map</th>
                                         <th id="delete-column">Check Out</th>
                                         <!--<th>Duration</th>-->
@@ -117,6 +118,7 @@
                                         {{-- <td><a type="button" onclick="embedMap('{{$visit['outlet']['lat']}}','{{$visit['outlet']['long']}}')"
                                             class="btn btn-success" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#largemodal">Map</a>
                                       </td> --}}
+                                      <td>{{$visit['team']==null?"None":$visit['team']['name']}}</td>
                                       <td><a type="button"
                                         onclick="loadPointOnMap({{ $visit }})"
                                         class="btn btn-success" style="margin-left: auto;color:white;" 

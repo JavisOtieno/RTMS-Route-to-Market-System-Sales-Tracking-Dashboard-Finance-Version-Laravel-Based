@@ -82,6 +82,22 @@
                                 {{-- readonly --}}
                                 <input type="text" class="form-control" name="long" id="long" placeholder="long" value="{{old('long',$outlet['long'])}}"  autocomplete="long">
                             </div>
+                            @if (auth()->user()->usertype == "admin")
+                            <div class="form-group">
+                                <label for="team_id" class="form-label">Team</label>
+                                <select name="team_id" class="form-control form-select select2" data-bs-placeholder="Select Team">
+                                    <option value="0">None</option>
+                                    @foreach($teams as $team)
+                                    {{-- <option value="{{ $team['id'] }}" {{ old('team_id', '') == $team['id'] ? 'selected' : '' }}>
+                                        {{ $team['name'] }}
+                                    </option> --}}
+                                    <option {{(isset($outlet)?old('team_id',$outlet['team']['id']):old('team_id'))==$team['id']? 'selected':''}}
+                                     value="{{$team['id']}}">{{$team['name']}}</option>
+                            
+                                    @endforeach
+                                </select>
+                            </div>
+                            @endif
 
                             <div class="form-group">
                                 <label for="dateTime" class="form-label">Date and Time Added</label>

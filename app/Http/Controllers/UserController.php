@@ -40,15 +40,15 @@ class UserController extends CommonController
         return view('seller.index', ['users'=>$users, 'targetgroups'=>$targetgroups]);
     }
 
+    
     public function showAddUsersToTargetGroups() {
         $users = User::inOrganization()->where('usertype','seller')->get();
         $targetgroups = TargetGroup::all();
         //dd($sales);
         return view('add-users-to-target-group', compact('users','targetgroups') );
     }
-    public function addUsersToTargetGroup(Request $request) {
 
-        //return $request;
+    public function addUsersToTargetGroup(Request $request) {
        
         $incomingFields=$request->validate([
             'target_group_id' => 'required|numeric|digits_between:1,20',
@@ -57,6 +57,51 @@ class UserController extends CommonController
         'usercheckboxes.required' => 'You must select at least one seller.',
         'usercheckboxes.min' => 'You must select at least one seller.',
     ]);
+    
+         
+        $selectedUsers = $request->input('usercheckboxes', []);
+        
+
+        // Process the selected items
+        foreach ($selectedUsers as $selectedUserId) {
+            $user = User::inOrganization()->find($selectedUserId);
+            $user->update($incomingFields);
+    
+        }
+        
+        return redirect('/adduserstotargetgroups');
+
+    }
+
+
+    public function showAddUsersToTeam() {
+        $users = User::inOrganization()->where('usertype','seller')->get();
+        $teams = Team::all();
+        //dd($sales);
+        return view('addsellerstoteam', compact('users','teams') );
+    }
+    public function showAddUsersToSpecificTeam($id) {
+        $users = User::inOrganization()->where('usertype','seller')->get();
+        $teams = Team::all();
+        $selectedteam = Team::find($id);
+        //dd($sales);
+        return view('addsellerstoteam', compact('users','teams','selectedteam') );
+    }
+    public function addUsersToTeam(Request $request) {
+
+        // return $request;
+       
+        $incomingFields=$request->validate([
+            'team_id' => 'required|numeric|digits_between:1,20',
+            'usercheckboxes' => 'required|array|min:1',
+    ],[
+        'usercheckboxes.required' => 'You must select at least one seller.',
+        'usercheckboxes.min' => 'You must select at least one seller.',
+    ]);
+
+    if($incomingFields['team_id']=="0"){
+        $incomingFields['team_id']=null;
+    }
     
     //    $selectedUsers = $request->input('users', []);
                 
@@ -72,7 +117,7 @@ class UserController extends CommonController
             // For example, you can mark the item as processed, delete it, etc.
         }
         
-        return redirect('/adduserstotargetgroups');
+        return redirect('/adduserstoteam');
         //dd($sales);
         //return view('add-users-to-target-group', compact('users','targetgroups') );
     }
@@ -82,6 +127,7 @@ class UserController extends CommonController
         $user->delete();
         return redirect('/sellers');
     }
+
 
 
     public function deleteAdmin($id){

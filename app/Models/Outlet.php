@@ -30,6 +30,10 @@ class Outlet extends Model
         return $this->belongsTo(User::class,'user_id');
     }
 
+    public function team(){
+        return $this->belongsTo(Team::class,'team_id');
+    }
+
     //meant for counting but found another way
     // public function sales()
     // {

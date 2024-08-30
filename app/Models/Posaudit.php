@@ -32,6 +32,9 @@ class Posaudit extends Model
     public function visit(){
         return $this->belongsTo(Visit::class,'visit_id');
     }
+    public function team(){
+        return $this->belongsTo(Team::class,'team_id');
+    }
     public function posaudititems()
     {
         return $this->hasMany(PosauditItem::class);

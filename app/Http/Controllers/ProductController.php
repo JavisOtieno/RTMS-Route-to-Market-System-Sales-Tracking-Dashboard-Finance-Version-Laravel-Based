@@ -71,7 +71,8 @@ class ProductController extends CommonController
         return view('product.create',compact('teams'));
     }
     public function addService() {
-        return view('service.create');
+        $teams = Team::all();
+        return view('service.create', compact('teams'));
     }
 
 
@@ -218,7 +219,7 @@ class ProductController extends CommonController
     }
 
     public function saveService(Request $request){
-        $this->teamIdCheckAssign($request);
+        $team_id=$this->teamIdCheckAssign($request);
 
         // required not necessary
         //'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
@@ -238,7 +239,6 @@ class ProductController extends CommonController
 
         
         $organization_id=auth()->user()->organization_id;
-        $team_id=auth()->user()->team_id;
         $incomingFields['name']=strip_tags($incomingFields['name']);
         $incomingFields['targettype']=strip_tags($incomingFields['targettype']);
         $incomingFields['producttype']='service';
@@ -301,6 +301,7 @@ class ProductController extends CommonController
     
 
     public function saveProduct(Request $request){
+        // return $teamIdValid;
         $team_id=$this->teamIdCheckAssign($request);
 
         // required not necessary
@@ -322,7 +323,6 @@ class ProductController extends CommonController
 
         
         $organization_id=auth()->user()->organization_id;
-        $team_id=auth()->user()->team_id;
         $incomingFields['name']=strip_tags($incomingFields['name']);
         $incomingFields['price']=strip_tags($incomingFields['price']);
         $incomingFields['sku']=strip_tags($incomingFields['sku']);
@@ -367,7 +367,6 @@ class ProductController extends CommonController
         }else{
             $incomingFields['image']='';   
         }
-        return $incomingFields;
 
         Product::create($incomingFields);
 
@@ -388,7 +387,8 @@ class ProductController extends CommonController
 
     public function showEditService($id){
         $product = Product::find($id);
-        return view('service.edit',['product'=>$product]);
+        $teams = Team::all();
+        return view('service.edit',compact('product','teams'));
     }
 
     // public function showEditProduct(Request $request){
@@ -400,7 +400,7 @@ class ProductController extends CommonController
     // }
 
     public function saveEditProduct($id, Request $request){
-        $this->teamIdCheckAssign($request);
+        $team_id=$this->teamIdCheckAssign($request);
         //return $request;
         // $organization_id=auth()->user()->organization_id;
         // $team_id=auth()->user()->team_id;
@@ -422,7 +422,7 @@ class ProductController extends CommonController
         $incomingFields['stock']=strip_tags($incomingFields['stock']);
         $incomingFields['description']=strip_tags($incomingFields['description']);
         // $incomingFields['organization_id']=$organization_id;
-        // $incomingFields['team_id']=$team_id;
+        $incomingFields['team_id']=$team_id;
 
         $product=Product::find($id);
 
@@ -541,7 +541,7 @@ class ProductController extends CommonController
 
 
     public function saveEditService($id, Request $request){
-        $this->teamIdCheckAssign($request);
+        $team_id=$this->teamIdCheckAssign($request);
         //return $request;
         // $organization_id=auth()->user()->organization_id;
         $incomingFields=$request->validate([
@@ -559,6 +559,7 @@ class ProductController extends CommonController
         $incomingFields['target']=strip_tags($incomingFields['target']);
         $incomingFields['description']=strip_tags($incomingFields['description']);
         $incomingFields['targettype']=strip_tags($incomingFields['targettype']);
+        $incomingFields['team_id']=$team_id;
         // $incomingFields['organization_id']=$organization_id;
 
         $product=Product::find($id);

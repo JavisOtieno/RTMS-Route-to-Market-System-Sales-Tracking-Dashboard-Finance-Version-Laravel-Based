@@ -68,6 +68,7 @@
                             <th>Seller Name</th>
                             <th>Contact Name</th>
                             <th>Phone</th>
+                            <th>Team</th>
                             <th>Date</th>
                             <th id="map-column">Map</th>
                             
@@ -86,6 +87,7 @@
                             <td>{{$outlet['user']['name']}}</td>
                             <td>{{$outlet['contact_person_name']}}</td>
                             <td>{{$outlet['phone']}}</td>
+                            <td>{{$outlet['team']==null?"None":$outlet['team']['name']}}</td>
                             <td>{{date('d-M-Y', strtotime($outlet['created_at']))}}</td>
 
                             

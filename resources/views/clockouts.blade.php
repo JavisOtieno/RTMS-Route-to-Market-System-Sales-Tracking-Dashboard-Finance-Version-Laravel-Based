@@ -85,6 +85,7 @@
                             <th>ID</th>
                             <th id="view-column">View</th>
                             <th>Name</th>
+                            <th>Team</th>
                             <th>Date</th>
                             <th>Time</th>
                             <th>Latitude</th>
@@ -103,6 +104,7 @@
                             </td>
                             <td>{{ $clockout['user'] ? $clockout['user']['name']  . ($clockout['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}
                             </td>
+                            <td>{{$clockout['team']==null?"None":$clockout['team']['name']}}</td>
                             <td>{{date('d-M-Y', strtotime($clockout['created_at']))}}</td>
                             <td>{{date('H:i', strtotime($clockout['created_at']))}}</td>
                             <td>{{$clockout['lat']}}</td>

@@ -13,10 +13,6 @@ class Clockout extends Model
     use HasFactory;
     use SoftDeletes;
 
-    public function user(){
-        //return $this->belongsTo(User::class);
-        return $this->belongsTo(User::class,'user_id');
-    }
     // public function clockin(){
     //     //return $this->belongsTo(User::class);
     //     return $this->belongsTo(Clockin::class,'clockin_id');
@@ -31,6 +27,14 @@ class Clockout extends Model
         'team_id'
 
     ];
+    public function team(){
+        return $this->belongsTo(Team::class,'team_id');
+    }
+    
+    public function user(){
+        //return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
+    }
     protected static function booted()
     {
         static::addGlobalScope(new OrganizationScope);

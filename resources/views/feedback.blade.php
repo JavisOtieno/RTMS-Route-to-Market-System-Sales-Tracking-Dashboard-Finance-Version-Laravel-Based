@@ -60,6 +60,7 @@
                             <th>Outlet Name</th>
                             <th>Feedback</th>
                             {{-- <th>Added</th> --}}
+                            <th>Team</th>
                             <th>Date</th>
                             <th>Time</th>
  
@@ -78,6 +79,7 @@
 <td>{{$feed['outlet']['name']}}</td>
 <td style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{$feed['feedback']}}</td>
 {{-- <td>{{date('d-M-Y H:i', strtotime($feed['created_at']))}}</td> --}}
+<td>{{$feed['team']==null?"None":$feed['team']['name']}}</td>
 <td>{{date('d-M-Y', strtotime($feed['created_at']))}}</td>
 <td>{{date('H:i', strtotime($feed['created_at']))}}</td>
 

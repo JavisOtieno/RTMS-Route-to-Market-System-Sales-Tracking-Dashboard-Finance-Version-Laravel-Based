@@ -173,6 +173,10 @@ Route::get('/profile', [UserController::class,'showProfile']);
 Route::get('/adduserstotargetgroups', [UserController::class,'showAddUsersToTargetGroups']);
 Route::post('/pushuserstotargetgroup', [UserController::class,'addUsersToTargetGroup']);
 
+Route::get('/adduserstoteam', [UserController::class,'showAddUsersToTeam']);
+Route::get('/addsellerstoteam/{id}', [UserController::class,'showAddUsersToSpecificTeam']);
+Route::post('/pushuserstoteam', [UserController::class,'addUsersToTeam']);
+
 Route::get('/allocateoutletstousers', [OutletController::class,'showAddOutletsToUsers']);
 Route::post('/pushoutletstouser', [OutletController::class,'pushOutletsToUser']);
 

@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Team;
 use App\Models\User;
 use App\Models\Visit;
 use App\Models\Outlet;
 use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
-use Spatie\ImageOptimizer\OptimizerChainFactory;
 use Yajra\DataTables\Facades\DataTables;
+use Spatie\ImageOptimizer\OptimizerChainFactory;
 
 class OutletController extends CommonController
 {
@@ -54,13 +55,14 @@ class OutletController extends CommonController
     }
 
     public function addOutlet() {
+        $teams = Team::all();
         $users = User::inOrganization()->where('usertype','seller')->get();
-        return view('outlet.create',['users'=>$users]);
+        return view('outlet.create',compact('users','teams'));
     }
     public function saveOutlet(Request $request){
 
         $organization_id=auth()->user()->organization_id;
-        $team_id=auth()->user()->team_id;
+        $team_id=$this->teamIdCheckAssign($request);
         
         $incomingFields=$request->validate([
             'userId'=>'required|numeric|digits_between:1,20|exists:users,id',
@@ -124,10 +126,11 @@ class OutletController extends CommonController
         
     }
     public function showEditOutlet($id){
+        $teams = Team::all();
         $outlet = Outlet::with(['user' => function ($query) {
             $query->withTrashed();
         }])->get()->find($id);
-        return view('outlet.edit',compact('outlet'));
+        return view('outlet.edit',compact('outlet','teams'));
     }
     // public function showEditOutlet(Request $request){
     //     $incomingFields=$request->validate([
@@ -139,6 +142,7 @@ class OutletController extends CommonController
     public function saveEditOutlet($id, Request $request){
         // $organization_id=auth()->user()->organization_id;
         // $team_id=auth()->user()->team_id;
+        $team_id=$this->teamIdCheckAssign($request);
         $incomingFields=$request->validate([
             'userId'=>'required|numeric|digits_between:1,20|exists:users,id',
             'name'=>'required|string|max:255',
@@ -155,7 +159,7 @@ class OutletController extends CommonController
         $incomingFields['lat']=strip_tags($incomingFields['lat']);
         $incomingFields['long']=strip_tags($incomingFields['long']);
         // $incomingFields['organization_id']=$organization_id;
-        // $incomingFields['team_id']=$team_id;
+        $incomingFields['team_id']=$team_id;
         
         
 

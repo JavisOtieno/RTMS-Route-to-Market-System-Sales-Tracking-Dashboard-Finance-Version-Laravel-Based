@@ -79,6 +79,7 @@
                                         <th>Products Sold</th>
                                         <th>Quantity</th>
                                         <th>Value</th>
+                                        <th>Team</th>
                                         <th>Date</th>
                                         <th>Time</th>
                                         {{-- <th>Added</th> --}}
@@ -125,6 +126,7 @@
                                    
                                         <td>{{$sale['pieces']}}</td>
                                         <td>{{'KSh '.number_format($sale['value'])}}</td>
+                                        <td>{{$sale['team']==null?"None":$sale['team']['name']}}</td>
                                         <td>{{date('d-M-Y', strtotime($sale['created_at']))}}</td>
                                         <td>{{date('H:i', strtotime($sale['created_at']))}}</td>
                                         {{-- <td>{{date('d-M-Y H:i', strtotime($sale['created_at']))}}</td> --}}

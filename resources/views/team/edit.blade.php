@@ -63,10 +63,10 @@
                                 <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{date('d-M-Y H:i', strtotime($team['created_at']))}}" autocomplete="dateTime">
                             </div>
 
-                            {{-- <div class="form-group">
+                            <div class="form-group">
                                 <label for="password" class="form-label">Add Sellers to Team</label>
                                 <a href="/addsellerstoteam/{{$team['id']}}" class="btn btn-info mb-0">Add Sellers</a>                            
-                            </div> --}}
+                            </div>
 
                             <div class="form-group">
                                 <label for="teamSellers" style="font-weight:bold;"  class="form-label">Sellers on team</label>

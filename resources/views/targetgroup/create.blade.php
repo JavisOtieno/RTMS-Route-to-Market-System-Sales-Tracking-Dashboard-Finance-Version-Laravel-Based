@@ -59,6 +59,22 @@
                                 <label for="amount" class="form-label">Target Amount</label>
                                 <input type="number" class="form-control" name="amount"  placeholder="Amount" value="{{ old('amount', '') }}" autocomplete="amount">
                             </div>
+                            @if (auth()->user()->usertype == "admin")
+                            <div class="form-group">
+                                <label for="team_id" class="form-label">Team</label>
+                                <select name="team_id" class="form-control form-select select2" data-bs-placeholder="Select Team">
+                                    <option value="0">None</option>
+                                    @foreach($teams as $team)
+                                    {{-- <option value="{{ $team['id'] }}" {{ old('team_id', '') == $team['id'] ? 'selected' : '' }}>
+                                        {{ $team['name'] }}
+                                    </option> --}}
+                                    <option {{(isset($targetgroup)?old('team_id',$targetgroup['team']['id']):old('team_id'))==$team['id']? 'selected':''}}
+                                     value="{{$team['id']}}">{{$team['name']}}</option>
+                            
+                                    @endforeach
+                                </select>
+                            </div>
+                            @endif
                             
                         </div>
                         <button class="btn btn-primary mt-4 mb-0">Save</button>

@@ -64,6 +64,7 @@
                             <th>Scheduled Date</th>
                             <th>Date</th>
                             <th>Time</th>
+                            <th>Team</th>
                             
                             <th id="map-column">Map</th>
                             
@@ -85,6 +86,8 @@
 <td>{{$routeplan['date']}}</td>
 <td>{{date('d-M-Y', strtotime($routeplan['created_at']))}}</td>
 <td>{{date('H:i', strtotime($routeplan['created_at']))}}</td>
+<td>{{$routeplan['team']==null?"None":$routeplan['team']['name']}}</td>
+
 
 
 <td><a type="button" 

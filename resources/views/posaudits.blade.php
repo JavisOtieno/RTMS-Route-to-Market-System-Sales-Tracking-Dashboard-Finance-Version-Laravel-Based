@@ -59,6 +59,7 @@
                             <th>Seller Name</th>
                             <th>Outlet Name</th>
                             <th>Products Audited</th>
+                            <th>Team</th>
                             <th>Date</th>
                             <th>Time</th>
                             
@@ -102,6 +103,8 @@ line-height: 1.2em;
 max-height: 1.2em;
 word-wrap: break-word;
 ">{{$posaudititems}}</td>
+<td>{{$posaudit['team']==null?"None":$posaudit['team']['name']}}</td>
+
 <td>{{date('d-M-Y', strtotime($posaudit['created_at']))}}</td>
 <td>{{date('H:i', strtotime($posaudit['created_at']))}}</td>
 

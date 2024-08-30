@@ -30,6 +30,9 @@ class Routeplan extends Model
     {
         return $this->hasMany(RouteplanItem::class);
     }
+    public function team(){
+        return $this->belongsTo(Team::class,'team_id');
+    }
     protected static function booted()
     {
         static::addGlobalScope(new OrganizationScope);

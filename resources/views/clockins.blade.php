@@ -81,6 +81,7 @@
                             <th>ID</th>
                             <th id="view-column">View</th>
                             <th>Name</th>
+                            <th>Team</th>
                             <th>Date</th>
                             <th>Time</th>
                             <th>Latitude</th>
@@ -97,6 +98,7 @@
                             <td><a type="button" href="/clockin/{{$clockin['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View</a>
                             </td>
                             <td>{{ $clockin['user'] ? $clockin['user']['name']  . ($clockin['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}</td>
+                            <td>{{$clockin['team']==null?"None":$clockin['team']['name']}}</td>
                             <td>{{date('d-M-Y', strtotime($clockin['created_at']))}}</td>
                             <td>{{date('H:i', strtotime($clockin['created_at']))}}</td>
                             <td>{{$clockin['lat']}}</td>

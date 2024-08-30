@@ -71,7 +71,22 @@
                                 <label for="description" class="form-label">Description</label>
                                 <textarea type="text" class="form-control" name="description" id="description" placeholder="Description" autocomplete="description" value="">{{ old('description', '') }}</textarea>
                             </div>
-                            @include('partials.team-select', ['teams' => $teams])
+                            @if (auth()->user()->usertype == "admin")
+                            <div class="form-group">
+                                <label for="team_id" class="form-label">Team</label>
+                                <select name="team_id" class="form-control form-select select2" data-bs-placeholder="Select Team">
+                                    <option value="0">None</option>
+                                    @foreach($teams as $team)
+                                    {{-- <option value="{{ $team['id'] }}" {{ old('team_id', '') == $team['id'] ? 'selected' : '' }}>
+                                        {{ $team['name'] }}
+                                    </option> --}}
+                                    <option {{(isset($product)?old('team_id',$product['team']['id']):old('team_id'))==$team['id']? 'selected':''}}
+                                     value="{{$team['id']}}">{{$team['name']}}</option>
+                            
+                                    @endforeach
+                                </select>
+                            </div>
+                            @endif
                             <div class="form-group">
                                 <label for="image" class="form-label">Image (Optional)</label>
                                 <div class="col-lg-12 col-sm-12 mb-12 mb-lg-0">

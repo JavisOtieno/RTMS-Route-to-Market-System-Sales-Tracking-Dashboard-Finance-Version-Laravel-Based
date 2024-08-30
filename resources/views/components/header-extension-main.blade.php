@@ -462,6 +462,7 @@
                                         @endif
                                         <li><a href="/targetgroups" class="slide-item"> Sales Target Groups</a></li>
                                         <li><a href="/adduserstotargetgroups" class="slide-item"> Add Sellers to Target Groups</a></li>
+                                        <li><a href="/adduserstoteam" class="slide-item"> Add Sellers to Team</a></li>
                                         <li><a href="/allocateoutletstousers" class="slide-item"> Allocate Outlets to Sellers</a></li>
                                         
 

@@ -40,6 +40,9 @@ class Visit extends Model
     {
         return $this->belongsTo(Clockin::class);
     }
+    public function team(){
+        return $this->belongsTo(Team::class,'team_id');
+    }
     protected static function booted()
     {
         static::addGlobalScope(new OrganizationScope);

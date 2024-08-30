@@ -33,6 +33,9 @@ class Sale extends Model
     public function visit(){
         return $this->belongsTo(Visit::class,'visit_id');
     }
+    public function team(){
+        return $this->belongsTo(Team::class,'team_id');
+    }
     // public function product(){
     //     return $this->belongsTo(Product::class,'product_id');
     // }

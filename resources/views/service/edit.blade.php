@@ -67,6 +67,19 @@
                                 <label for="target" class="form-label">Target</label>
                                 <input type="number" class="form-control" name="target" id="target" placeholder="Target" value="{{old('target',$product['target'])}}" autocomplete="target">
                             </div>
+                            @if (auth()->user()->usertype == "admin")
+                            <div class="form-group">
+                                <label for="team_id" class="form-label">Team</label>
+                                <select name="team_id" class="form-control form-select select2" data-bs-placeholder="Select Team">
+                                    <option value="0">None</option>
+                                    @foreach($teams as $team)
+                                    <option {{(isset($product)?old('team_id',$product['team']['id']):old('team_id'))==$team['id']? 'selected':''}}
+                                     value="{{$team['id']}}">{{$team['name']}}</option>
+                            
+                                    @endforeach
+                                </select>
+                            </div>
+                            @endif
 
                             <div class="form-group">
                                 <label for="description" class="form-label">Description</label>

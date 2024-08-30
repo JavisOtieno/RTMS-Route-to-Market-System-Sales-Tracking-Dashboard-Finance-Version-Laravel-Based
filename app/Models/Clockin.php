@@ -37,6 +37,9 @@ class Clockin extends Model
     {
         return $this->hasOne(Clockout::class);
     }
+    public function team(){
+        return $this->belongsTo(Team::class,'team_id');
+    }
 
         protected static function booted()
     {

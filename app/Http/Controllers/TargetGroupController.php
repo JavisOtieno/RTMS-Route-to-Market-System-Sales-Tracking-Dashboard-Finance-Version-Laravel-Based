@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Team;
 use App\Models\TargetGroup;
 use Illuminate\Http\Request;
 
-class TargetGroupController extends Controller
+class TargetGroupController extends CommonController
 {
     //
     // test commit 2
@@ -14,12 +15,14 @@ class TargetGroupController extends Controller
         return view('targetgroup.index', ['targetgroups'=>$targetgroups]);
     }
     public function addTargetGroup() {
-        return view('targetgroup.create');
+        $teams = Team::all();
+        return view('targetgroup.create',compact('teams'));
     }
 
     public function saveTargetGroup(Request $request){
         $organization_id=auth()->user()->organization_id;
-        $team_id=auth()->user()->team_id;
+        $team_id=$this->teamIdCheckAssign($request);
+        // return $team_id;
        
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
@@ -33,6 +36,7 @@ class TargetGroupController extends Controller
         $incomingFields['organization_id']=$organization_id;
         $incomingFields['team_id']=$team_id;
         //return $incomingFields['usertype'];
+        // return $incomingFields;
 
         TargetGroup::create($incomingFields);
 
@@ -47,7 +51,8 @@ class TargetGroupController extends Controller
 
     public function showEditTargetGroup($id){
         $targetgroup = TargetGroup::find($id);
-        return view('targetgroup.edit',['targetgroup'=>$targetgroup]);
+        $teams = Team::all();
+        return view('targetgroup.edit',compact('targetgroup','teams'));
     }
 
     // public function showEditTargetGroup(Request $request){
@@ -59,6 +64,7 @@ class TargetGroupController extends Controller
     // }
 
     public function saveEditTargetGroup($id, Request $request){
+        $team_id=$this->teamIdCheckAssign($request);
         // $organization_id=auth()->user()->organization_id;
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
@@ -68,6 +74,7 @@ class TargetGroupController extends Controller
         $incomingFields['name']=strip_tags($incomingFields['name']);
         $incomingFields['amount']=strip_tags($incomingFields['amount']);
         // $incomingFields['organization_id']=$organization_id;
+        $incomingFields['team_id']=$team_id;
 
         $targetgroup=TargetGroup::find($id);
 

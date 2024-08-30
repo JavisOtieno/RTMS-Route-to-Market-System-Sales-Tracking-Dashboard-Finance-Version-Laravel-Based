@@ -59,6 +59,7 @@
                                         <th>Service Name</th>
                                         <th>Target Type</th>
                                         <th>Target</th>
+                                        <th>Team</th>
                                         <th>Date</th>
                                         
                                     </tr>
@@ -77,6 +78,7 @@
                                         <td>{{$product['name']}}</td>
                                         <td>{{ucfirst($product['targettype'])}}</td>
                                         <td>{{($product['targettype']=='amount'?'KSh ':'').number_format($product['target'])}}</td>
+                                        <td>{{$product['team']==null?"None":$product['team']['name']}}</td>
                                         <td>{{date('d-M-Y', strtotime($product['created_at']))}}</td>
 
                                         

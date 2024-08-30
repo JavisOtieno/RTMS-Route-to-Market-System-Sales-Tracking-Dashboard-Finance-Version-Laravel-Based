@@ -61,6 +61,7 @@
                             <th>Outlet Name</th>
                             <th>Brand Visibility</th>
                             <th>Pricing</th>
+                            <th>Team</th>
                             <th>Date</th>
                             <th>Time</th>
                             
@@ -81,6 +82,7 @@
 <td>{{$competitor['outlet']['name']}}</td>
 <td  style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{$competitor['brand_visibility']}}</td>
 <td  style="max-width: 100px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{$competitor['pricing']}}</td>
+<td>{{$competitor['team']==null?"None":$competitor['team']['name']}}</td>
 <td>{{date('d-M-Y', strtotime($competitor['created_at']))}}</td>
 <td>{{date('H:i', strtotime($competitor['created_at']))}}</td>
 
