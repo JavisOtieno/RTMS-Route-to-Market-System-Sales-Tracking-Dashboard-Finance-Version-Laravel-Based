@@ -166,6 +166,14 @@
         </div>
     </div>
 
+    @php
+    // Determine the row counts
+    $outletsTableCount = count($outlets);
+    $salesTableCount = count($sales);
+    // Calculate the difference
+    $differenceOutletsSales = abs($productCount - $outletCount);
+    @endphp
+
     <div class="row">
         <div class="col-lg-12 col-md-12">
             <div class="card">
@@ -220,6 +228,18 @@
                             </tr>
                             @endif
 
+                            {{-- Add empty rows if necessary --}}
+                            @for($i = 0; $i < $differenceOutletsSales && 
+                            $salesTableCount < $outletsTableCount; $i++)
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            @endfor
+                            
+
                             
                         </tbody>
                     </table>
@@ -261,6 +281,17 @@
                                 <td colspan="4" style="text-align: center">No outlets so far</td>
                             </tr>
                             @endif
+
+                            {{-- Add empty rows if necessary --}}
+                            @for($i = 0; $i < $differenceOutletsSales && 
+                            $outletsTableCount < $salesTableCount; $i++)
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            @endfor
+
                             
                         </tbody>
                     </table>
@@ -271,7 +302,13 @@
     </div>
 
 
-
+    @php
+    // Determine the row counts
+    $productCount = count($topProducts);
+    $outletCount = count($topOutlets);
+    // Calculate the difference
+    $difference = abs($productCount - $outletCount);
+    @endphp
 
     <div class="row">
         <div class="col-xl-6">
@@ -306,6 +343,14 @@
                                     <td colspan="4" style="text-align: center">No sellers so far</td>
                                 </tr>
                                 @endif
+
+                                {{-- Add empty rows if necessary --}}
+                                @for($i = 0; $i < $difference && $productCount < $outletCount; $i++)
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                @endfor
     
                                 
                             </tbody>
@@ -348,6 +393,15 @@
                                     <td colspan="4" style="text-align: center">No customers so far</td>
                                 </tr>
                                 @endif
+
+                                {{-- Add empty rows if necessary --}}
+                                @for($i = 0; $i < $difference && $outletCount < $productCount; $i++)
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                @endfor
                                 
                             </tbody>
                         </table>
