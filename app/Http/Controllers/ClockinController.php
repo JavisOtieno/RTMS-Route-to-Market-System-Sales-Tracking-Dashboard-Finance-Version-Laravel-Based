@@ -20,7 +20,7 @@ class ClockinController extends Controller
             $query->withTrashed();
         }])->get();
 
-        return view('clockins', ['clockins'=>$clockins]);
+        return view('clockin.index', ['clockins'=>$clockins]);
     }
     public function showClockinsById($objectId,$object) {
         //$clockins = Clockin::all();
@@ -28,14 +28,14 @@ class ClockinController extends Controller
             $query->withTrashed();
         }])->where($object.'_id',$objectId)->get();
 
-        return view('clockins', ['clockins'=>$clockins]);
+        return view('clockin.index', ['clockins'=>$clockins]);
     }
     public function showEditClockin($id){
         // $clockin = Clockin::find($id);
         $clockin = Clockin::with(['user' => function ($query) {
             $query->withTrashed();
         }])->get()->find($id);
-        return view('edit-clockin',['clockin'=>$clockin]);
+        return view('clockin.edit',['clockin'=>$clockin]);
     }
     public function showClockinsMap(){
         $clockins = Clockin::with(['user' => function ($query) {
@@ -45,7 +45,7 @@ class ClockinController extends Controller
 
         $users = User::inOrganization()->where('usertype','seller')->get();
    
-        return view('clockinsmap', compact('clockins','users') );
+        return view('clockin.map', compact('clockins','users') );
     }
     // public function showEditClockin(Request $request){
     //     $incomingFields=$request->validate([

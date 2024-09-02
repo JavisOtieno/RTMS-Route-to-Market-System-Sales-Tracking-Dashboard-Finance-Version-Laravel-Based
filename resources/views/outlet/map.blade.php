@@ -70,7 +70,7 @@
         </div>
 
         <div class="card-body">
-            <div class="table-responsive">
+            <div>
                 <div id="googleMapOutlets" class="worldh world-map h-500" ></div>
             </div>
         </div>
