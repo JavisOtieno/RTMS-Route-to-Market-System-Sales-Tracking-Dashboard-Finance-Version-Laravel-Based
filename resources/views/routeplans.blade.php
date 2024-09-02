@@ -474,9 +474,6 @@ AIzaSyALLsNWwOC09xsRAqrK0S7dINi6BpNc7iw&callback=embedMap2"></script> --}}
         // const myPosition = { lat: -25.344, lng: 131.031 };
         // var marker = new google.maps.Marker({position: myPosition});
         // marker.setMap(map);
-
-
-
         
 
         if(routeplan.routeplanitems.length==1){

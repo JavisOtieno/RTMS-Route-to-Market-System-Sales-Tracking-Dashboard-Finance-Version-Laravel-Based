@@ -87,6 +87,13 @@
                                 <a href="/feedback/{{$clockin['id']}}/clockin" class="btn btn-info col-md-12 mt-0 mb-2">View Clockin Feedback</a>
                                 
                             </div>
+
+                            <div class="form-group">
+                                <label for="dateTime" class="form-label">Map</label>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xxl-12">
+                                <div id="googleMapClockin" class="worldh world-map h-400" ></div>
+                                </div>
+                            </div>
                             
                         </div>
                         {{-- <button class="btn btn-primary mt-4 mb-0">Save</button> --}}
@@ -120,3 +127,94 @@
 </div>
 
 @endsection
+
+<script>
+    function myMap() {
+        var clockin= @json($clockin);
+
+    if(clockin){
+        var mapProp= {
+        center:new google.maps.LatLng(Number(clockin['lat']),
+        Number(clockin['long'])),
+        zoom:10,
+        };
+    }else{
+        var mapProp= {
+        center:new google.maps.LatLng(-1.286389,36.817223),
+        zoom:10,
+        };
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+    
+    var map = new google.maps.Map(document.getElementById("googleMapClockin"),mapProp);
+
+    var lat1 = Number(clockin['lat']);
+    var long1 = Number(clockin['long']);
+    const clockinPosition = { lat: Number(lat1), lng: Number(long1) };
+    
+    var date = new Date(clockin.created_at);
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+
+            // Pad single digit minutes with a leading zero
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+
+            var clockinTime = hours + ':' + minutes;
+
+    var infoWindow = new google.maps.InfoWindow({
+                content: "<div><h3>"+( clockin['user']===null ? 'Deleted User': clockin['user']['name'])+"</h3>"+
+                    "<p>Time: "+clockinTime+"</p>"+
+                    "<p>Latitude: "+lat1+"</p>"+
+                    "<p>Longitude: "+long1+"</p>"+
+                    "</div>"
+            });
+
+
+
+    var marker = new google.maps.Marker({position: clockinPosition,
+            title: clockin['user']['name'],
+            // label: String(outlet.id),
+            // title: outlet.name
+        });
+        // google.maps.event.addListener(marker, 'click', function() {
+        //         infowindow.open(map,marker);
+        //     });
+            let isInfoWindowOpen = true;
+    infoWindow.open(map,marker);
+
+    //added the toggle functionality here because for this case the map opens up the infoview on load
+    
+    marker.addListener('click', function () {
+        if (isInfoWindowOpen) {
+            infoWindow.close(); // Close the InfoWindow if it's open
+            isInfoWindowOpen = false; // Update the state
+        } else {
+            infoWindow.open(map, marker); // Open the InfoWindow if it's closed
+            isInfoWindowOpen = true; // Update the state
+        }
+    });
+        marker.setMap(map);
+
+    });
+
+
+
+
+   // console.log(recentVisits);
+    
+    // const myPosition = { lat: -25.344, lng: 131.031 };
+    // //console.log(myPosition);
+    // const myPosition2 = { lat: Number(lat1), lng: Number(long1) };
+    // //console.log(myPosition2);
+    // var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+    // var marker = new google.maps.Marker({position: myPosition});
+    // marker.setMap(map);
+    // var marker2 = new google.maps.Marker({position: myPosition2});
+    // marker2.setMap(map);
+    }
+    
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=
+    AIzaSyALLsNWwOC09xsRAqrK0S7dINi6BpNc7iw&callback=myMap"></script>

@@ -75,12 +75,12 @@
                             <div class="form-group">
                                 <label for="lat" class="form-label">Lat</label>
                                 {{-- readonly --}}
-                                <input type="text"  class="form-control" name="lat" id="lat" placeholder="Lat" value="{{old('lat',$outlet['lat'])}}"  autocomplete="lat">
+                                <input readonly type="text"  class="form-control" name="lat" id="lat" placeholder="Lat" value="{{old('lat',$outlet['lat'])}}"  autocomplete="lat">
                             </div>
                             <div class="form-group">
                                 <label for="long" class="form-label">Long</label>
                                 {{-- readonly --}}
-                                <input type="text" class="form-control" name="long" id="long" placeholder="long" value="{{old('long',$outlet['long'])}}"  autocomplete="long">
+                                <input readonly ="text" class="form-control" name="long" id="long" placeholder="long" value="{{old('long',$outlet['long'])}}"  autocomplete="long">
                             </div>
                             @if (auth()->user()->usertype == "admin")
                             <div class="form-group">
@@ -248,8 +248,7 @@
     var marker = new google.maps.Marker({position: myPosition,
             title: outlet['name'],
             // label: String(outlet.id),
-            title: outlet.name,
-            zIndex: google.maps.Marker.MAX_ZINDEX + Number(outlet.id)
+            // title: outlet.name
         });
         // google.maps.event.addListener(marker, 'click', function() {
         //         infowindow.open(map,marker);

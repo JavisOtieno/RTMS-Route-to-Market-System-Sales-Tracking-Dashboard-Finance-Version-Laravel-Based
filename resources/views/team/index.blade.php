@@ -56,6 +56,7 @@
                                         <th id="edit-column">View/Edit</th>
                                         <th id="delete-column">Delete</th>
                                         <th>Name</th>
+                                        <th>Team Lead</th>
                                         <th>Date</th>
                                         
                                     </tr>
@@ -72,6 +73,7 @@
                                         <td><a type="button" onclick="deleteItem({{$team['id']}},'Id: '+{{$team['id']}}+'<br/> Name: '+'{{$team['name']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
                                         </td>
                                         <td>{{$team['name']}}</td>
+                                        <td>{{isset($team->teamLead)?$team->teamLead['name']:'None'}}</td>
                                         <td>{{date('d-M-Y', strtotime($team['created_at']))}}</td>
                                     
                                         

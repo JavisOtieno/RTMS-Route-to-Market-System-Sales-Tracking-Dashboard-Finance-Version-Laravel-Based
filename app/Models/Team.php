@@ -18,6 +18,11 @@ class Team extends Model
 
     ];
 
+    public function teamLead()
+    {
+        return $this->hasOne(User::class, 'team_id')->where('usertype', 'teamlead');
+    }
+
     protected static function booted()
     {
         static::addGlobalScope(new OrganizationScope);

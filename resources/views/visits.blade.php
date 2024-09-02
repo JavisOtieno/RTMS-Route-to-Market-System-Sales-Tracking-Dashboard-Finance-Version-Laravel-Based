@@ -341,10 +341,12 @@
             var infoWindow = new google.maps.InfoWindow({
                 content: `
                     <div>
-                        <h3>${visit.outlet.name}</h3>
+                        <h3>Seller: ${visit.user.name}</h3>
+                        <p><strong>Outlet Name:</strong> ${visit.outlet.name}</p>
                         <p><strong>Contact Person:</strong> ${visit.outlet.contact_person_name}</p>
                         <p><strong>Phone:</strong> ${visit.outlet.phone}</p>
                         <p><strong>Latitude:</strong> ${visit.outlet.lat}</p>
+                        <p><strong>Longitude:</strong> ${visit.outlet.long}</p>
                         <p><strong>Date:</strong> ${visitDate}</p>
                         <p><strong>Checkin Time:</strong> ${visitTime}</p>
                         <p><strong>Checkout Time:</strong> ${checkoutTime}</p>

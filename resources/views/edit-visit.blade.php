@@ -95,6 +95,13 @@
                                 <a href="/feedback/{{$visit['id']}}/visit" class="btn btn-info col-md-12 mt-0 mb-2">View Visit Feedback</a>
                             
                             </div>
+
+                            <div class="form-group">
+                                <label for="dateTime" class="form-label">Map</label>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xxl-12">
+                                <div id="googleMapVisit" class="worldh world-map h-400" ></div>
+                                </div>
+                            </div>
                             
                         </div>
                         {{-- <button class="btn btn-primary mt-4 mb-0">Save</button> --}}
@@ -129,3 +136,122 @@
 </div>
 
 @endsection
+
+
+<script>
+    function myMap() {
+        var visit= @json($visit);
+
+    if(visit){
+        var mapProp= {
+        center:new google.maps.LatLng(Number(visit['outlet']['lat']),
+        Number(visit['outlet']['long'])),
+        zoom:10,
+        };
+    }else{
+        var mapProp= {
+        center:new google.maps.LatLng(-1.286389,36.817223),
+        zoom:10,
+        };
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+    
+    var map = new google.maps.Map(document.getElementById("googleMapVisit"),mapProp);
+
+    var lat1 = Number(visit['outlet']['lat']);
+    var long1 = Number(visit['outlet']['long']);
+    const visitPosition = { lat: Number(lat1), lng: Number(long1) };
+    
+    //marker.setMap(map);
+    var checkoutTime = "";
+
+    if(visit.checkout_time==""){
+        checkoutTime="N/A";
+        //test
+    }else{
+    var checkoutDate = new Date(visit.checkout_time * 1000); // Convert to milliseconds
+    var checkoutHours = checkoutDate.getHours();
+    var minutes = checkoutDate.getMinutes();
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    checkoutTime = checkoutHours + ':' + minutes;
+    }
+
+    var date = new Date(visit.created_at);
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var day = date.getDate();
+    var month = date.getMonth() + 1; // Months are zero-based, so add 1
+    var year = date.getFullYear();
+
+    var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+    // Get month name from array
+    var monthName = monthNames[month];
+
+    var visitDate = day + '-' + monthName + '-' + year;
+
+    // Pad single digit minutes with a leading zero
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+
+    var visitTime = hours + ':' + minutes;
+
+    var infoWindow = new google.maps.InfoWindow({
+                content: "<div><h3>Seller: "+( visit['user']===null ? 'Deleted User': visit['user']['name'])+"</h3>"+
+                    "<p>Outlet: "+visit['outlet']['name']+"</p>"+
+                    "<p>Latitude: "+lat1+"</p>"+
+                    "<p>Longitude: "+long1+"</p>"+
+                    "<p>Date: "+visitDate+"</p>"+
+                    "<p>Checkin Time: "+visitTime+"</p>"+
+                    "<p>Checkout Time: "+checkoutTime+"</p>"+
+                    "</div>"
+            });
+
+
+
+    var marker = new google.maps.Marker({position: visitPosition,
+            title: visit['user']['name'],
+            // label: String(outlet.id),
+            // title: outlet.name
+        });
+        // google.maps.event.addListener(marker, 'click', function() {
+        //         infowindow.open(map,marker);
+        //     });
+            let isInfoWindowOpen = true;
+    infoWindow.open(map,marker);
+
+    //added the toggle functionality here because for this case the map opens up the infoview on load
+    
+    marker.addListener('click', function () {
+        if (isInfoWindowOpen) {
+            infoWindow.close(); // Close the InfoWindow if it's open
+            isInfoWindowOpen = false; // Update the state
+        } else {
+            infoWindow.open(map, marker); // Open the InfoWindow if it's closed
+            isInfoWindowOpen = true; // Update the state
+        }
+    });
+        marker.setMap(map);
+
+    });
+
+
+
+
+   // console.log(recentVisits);
+    
+    // const myPosition = { lat: -25.344, lng: 131.031 };
+    // //console.log(myPosition);
+    // const myPosition2 = { lat: Number(lat1), lng: Number(long1) };
+    // //console.log(myPosition2);
+    // var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+    // var marker = new google.maps.Marker({position: myPosition});
+    // marker.setMap(map);
+    // var marker2 = new google.maps.Marker({position: myPosition2});
+    // marker2.setMap(map);
+    }
+    
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=
+    AIzaSyALLsNWwOC09xsRAqrK0S7dINi6BpNc7iw&callback=myMap"></script>

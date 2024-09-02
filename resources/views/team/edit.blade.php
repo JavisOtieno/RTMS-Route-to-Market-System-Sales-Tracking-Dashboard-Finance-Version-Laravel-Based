@@ -69,6 +69,31 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="teamlead_id" class="form-label">Team Lead</label>
+                                
+                                <select name="teamlead_id" id="teamlead_id" class="form-control form-select select2" data-bs-placeholder="Select Team Lead">
+                                    <option 
+                                    {{
+                                        isset($selectedteamlead)?
+                                        (old('teamlead_id',$selectedteamlead['id'])==null? 'selected':''):
+                                         (old('teamlead_id')==null? 'selected':'')
+                                        }} 
+                                        value="0">None</option>
+                                    @foreach($teamleads as $teamlead)
+                                        <option 
+                                        {{
+                                        isset($selectedteamlead)?
+                                        (old('teamlead_id',$selectedteamlead['id'])==$teamlead['id']? 'selected':''):
+                                        (old('teamlead_id'==$teamlead['id'])? 'selected':'')
+                                        }} 
+                                        value="{{$teamlead['id']}}">{{$teamlead['name']}}</option>
+
+                                        @endforeach
+                                </select>
+                                            </div>
+                                           
+
+                            <div class="form-group">
                                 <label for="teamSellers" style="font-weight:bold;"  class="form-label">Sellers on team</label>
                                 @if(count($teamsellers)>0)
                                 <ol>

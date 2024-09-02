@@ -129,6 +129,13 @@
 
                         </div>
 
+                        <div class="form-group">
+                            <label for="dateTime" class="form-label">Map</label>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xxl-12">
+                            <div id="googleMapRouteplan" class="worldh world-map h-400" ></div>
+                            </div>
+                        </div>
+
 
 
                         {{-- <div class="sortable-list">
@@ -175,7 +182,7 @@
 
 @endsection
 
-<script>
+{{-- <script>
     document.addEventListener("DOMContentLoaded", function() {
         $(function() {
             $("#sortable").sortable({
@@ -283,4 +290,166 @@ const getDragAfterElement = (
     alert("not sure");
 };
     });
+    </script> --}}
+
+
+<script>
+    function myMap() {
+        var routeplan= @json($routeplan);
+
+        if(routeplan && routeplan['routeplanitems'] && 
+     routeplan['routeplanitems'] && 
+     routeplan['routeplanitems']['outlet'] 
+    != null){
+    var mapProp= {
+      center:new google.maps.LatLng(Number(routeplan[0]['routeplanitems'][0]['outlet']['lat']),
+      Number(routeplan['routeplanitems']['outlet']['long'])),
+      zoom:10,
+    };
+    // alert("working well");
+    }
+      else{
+        var mapProp= {
+        center:new google.maps.LatLng(-1.286389,36.817223),
+        zoom:10,
+        };
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+    var markers = [];
+    var waypoints=[];
+
+    routeplan.routeplanitems.forEach(routeplanitem => {
+            console.log(routeplanitem);
+            // Accessing outlet details
+            console.log(routeplanitem.outlet);
+            waypoints.push({ location: { lat: Number(routeplanitem.outlet.lat), lng: Number(routeplanitem.outlet.long) }, stopover: true });
+        });
+    
+    var map = new google.maps.Map(document.getElementById("googleMapRouteplan"),mapProp);
+
+    if(routeplan.routeplanitems.length==1){
+            const origin = waypoints.shift().location;
+
+            var bounds = new google.maps.LatLngBounds();
+                addMarkers(map,routeplan.routeplanitems,bounds);
+                map.fitBounds(bounds);
+
+                //alert('we are here');
+
+        }else{
+            //alert('yeah');
+            const origin = waypoints.shift().location;
+            const destination = waypoints.pop().location;
+
+            const request = {
+                origin: origin,
+                destination: destination,
+                waypoints: waypoints,
+                optimizeWaypoints: true,
+                travelMode: 'DRIVING'
+            };
+
+            var directionsService = new google.maps.DirectionsService();
+            var directionsRenderer = new google.maps.DirectionsRenderer();
+            directionsRenderer.setMap(map);
+
+        directionsService.route(request, function(result, status) {
+            if (status == 'OK') {
+
+                const route = result.routes[0];
+                let totalDistance = 0;
+
+                // Loop through each leg to calculate the total distance
+                route.legs.forEach(leg => {
+                    totalDistance += leg.distance.value; // distance.value is in meters
+                });
+
+                if (totalDistance < 50) {
+                    console.log('Route is less than 50 meters, not drawing directions.');
+                    var bounds = new google.maps.LatLngBounds();
+                    addMarkers(map,routeplan.routeplanitems,bounds);
+                    map.fitBounds(bounds);
+                } else {
+                    directionsRenderer.setDirections(result);
+                    console.log('Route drawn with result:', result);
+                    addMarkers(map,routeplan.routeplanitems);
+                }
+
+            } else {
+                console.error('Directions request failed due to ' + status);
+                 var bounds = new google.maps.LatLngBounds();
+                addMarkers(map,routeplan.routeplanitems,bounds);
+                map.fitBounds(bounds);
+            }
+        });
+
+        }
+
+
+        function addMarkers(map, routeplanitems,bounds) {
+            var itemNumber = 1;
+
+            //should be google.maps.Marker.MAX_ZINDEX + 1 but we're using 
+            //google.maps.Marker.MAX_ZINDEX + itemNumber to overlay multiple on the same for now
+
+            routeplanitems.forEach(item => {
+                //alert('adding marker');
+                var marker = new google.maps.Marker({
+                    position: { lat: parseFloat(item.outlet.lat), lng: parseFloat(item.outlet.long) },
+                    map: map,
+                    label: String(itemNumber),
+                    title: item.outlet.name,
+                    zIndex: google.maps.Marker.MAX_ZINDEX + itemNumber
+                });
+                itemNumber++;
+
+                if(bounds!=undefined){
+                const outletPosition = { lat: parseFloat(item.outlet.lat), lng: parseFloat(item.outlet.long) };
+                console.log(outletPosition);
+                // Extend the bounds to include this marker's position
+                bounds.extend(outletPosition);
+                }
+
+                //marker.setMap(map);
+
+                var infoWindow = new google.maps.InfoWindow({
+                    content: `
+                        <div>
+                            <h3>${item.outlet.name}</h3>
+                            <p><strong>Contact Person:</strong> ${item.outlet.contact_person_name}</p>
+                            <p><strong>Phone:</strong> ${item.outlet.phone}</p>
+                            <p><strong>Latitude:</strong> ${item.outlet.lat}</p>
+                            <p><strong>Longitude:</strong> ${item.outlet.long}</p>
+                            <img src="${item.outlet.image}" alt="${item.outlet.name}" style="width:100px;height:auto;"/>
+                        </div>
+                    `
+                });
+
+                marker.addListener('click', function () {
+                    infoWindow.open(map, marker);
+                });
+
+                markers.push(marker);
+
+               
+            });
+            
+        }
+
+    });
+
+
+
+
+    }
+
+
+
+
+    
+
     </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=
+    AIzaSyALLsNWwOC09xsRAqrK0S7dINi6BpNc7iw&callback=myMap"></script>

@@ -47,9 +47,19 @@ class TeamController extends Controller
     }
 
     public function showEditTeam($id){
+
         $team = Team::find($id);
+        $teamleads = User::where('usertype','teamlead')->get();
+        $selectedteamleadarray = User::where('team_id',$id)->where('usertype','teamlead')->get();
+        if(count($selectedteamleadarray)>0){
+            $selectedteamlead=$selectedteamleadarray[0];
+        }else{
+            $selectedteamlead=null;
+        }
+
+        // return $selectedteamlead;
         $teamsellers = User::where('team_id',$id)->where('usertype','seller')->get();
-        return view('team.edit',compact('team','teamsellers'));
+        return view('team.edit',compact('team','teamsellers','teamleads','selectedteamlead'));
     }
 
     // public function showEditTargetGroup(Request $request){
@@ -67,8 +77,33 @@ public function saveEditTeam($id, Request $request){
             'description'=>'required|string|max:1048576'
         ]);
 
+        $teamLeadId=$request->validate([
+            'teamlead_id'=>'required|numeric|digits_between:1,20',
+        ]);
+        if($teamLeadId['teamlead_id']==0){
+            $teamLeadId = null;
+        }else{
+            //remove previous team lead
+            $selectedteamleadarray = User::where('team_id',$id)->where('usertype','teamlead')->get();
+            if(count($selectedteamleadarray)>0){
+                $incomingFieldsTeamLead['team_id']=null;
+                $selectedteamlead=$selectedteamleadarray[0];
+                $selectedteamlead->update($incomingFieldsTeamLead);
+            }
+            
+            //make new team lead
+            $teamLeadId = $teamLeadId['teamlead_id'];
+            $incomingFieldsTeamLead['team_id']=$id;
+            $teamLead = User::find($teamLeadId);
+            $teamLead->update($incomingFieldsTeamLead);
+  
+
+        }
+        //return $teamLead;
+
         $incomingFields['name']=strip_tags($incomingFields['name']);
         $incomingFields['description']=strip_tags($incomingFields['description']);
+        
         // $incomingFields['organization_id']=$organization_id;
 
         $team=Team::find($id);

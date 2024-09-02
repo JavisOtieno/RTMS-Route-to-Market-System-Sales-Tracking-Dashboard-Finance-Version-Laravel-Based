@@ -20,14 +20,14 @@ class ClockoutController extends Controller
             $clockouts = Clockout::with(['user' => function ($query) {
                 $query->withTrashed();
             }])->get();
-            return view('clockouts', ['clockouts'=>$clockouts]);
+            return view('clockout.index', ['clockouts'=>$clockouts]);
         }
         public function showClockoutsById($objectId,$object) {
             //$clockouts = Clockout::all();
             $clockouts = Clockout::with(['user' => function ($query) {
                 $query->withTrashed();
             }])->where($object.'_id',$objectId)->get();
-            return view('clockouts', ['clockouts'=>$clockouts]);
+            return view('clockout.index', ['clockouts'=>$clockouts]);
         }
 
         public function showEditClockout($id){
@@ -35,7 +35,7 @@ class ClockoutController extends Controller
             $clockout = Clockout::with(['user' => function ($query) {
                 $query->withTrashed();
             }])->get()->find($id);
-            return view('edit-clockout',['clockout'=>$clockout]);
+            return view('clockout.edit',['clockout'=>$clockout]);
         }
 
         public function showClockoutsMap(){
@@ -46,7 +46,7 @@ class ClockoutController extends Controller
            
             $users = User::inOrganization()->where('usertype','seller')->get();
            
-            return view('clockoutsmap', compact('clockouts','users') );
+            return view('clockout.map', compact('clockouts','users') );
         }
 
         public function deleteClockout($id){
