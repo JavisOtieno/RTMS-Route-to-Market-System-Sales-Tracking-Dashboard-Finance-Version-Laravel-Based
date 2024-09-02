@@ -367,10 +367,12 @@
                                             <small class="text-muted">{{ auth()->user() ? ucfirst(auth()->user()->usertype) : '' }}</small>
                                         </div>
                                     </div>
+                                    @if(auth->user()->usertype=="admin")
                                     <div class="dropdown-divider m-0"></div>
                                     <a class="dropdown-item" href="/profile">
                                         <i class="dropdown-icon fe fe-user"></i> Profile
                                     </a>
+                                    @endif
                                     <!--
                                     <a class="dropdown-item" href="email-inbox.html">
                                         <i class="dropdown-icon fe fe-mail"></i> Inbox
