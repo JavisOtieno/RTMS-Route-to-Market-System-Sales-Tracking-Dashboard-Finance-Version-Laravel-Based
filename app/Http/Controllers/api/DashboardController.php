@@ -73,6 +73,8 @@ class DashboardController extends Controller
         $outletLong = 'undefined';
         }
 
+        $currentTime = Carbon::now()->timestamp;
+
         $user=User::inOrganization()->where('id',$userId)->get();
         if($user[0]['target_group_id']==0 || $user[0]['targetgroup']==null){
             $currentTargets=0;
@@ -98,7 +100,7 @@ class DashboardController extends Controller
         return response()->json( compact('sales','outlets','salesCount','feedbackCount',
         'outletsCount','posauditsCount','visitsCount','competitorsCount','dailySalesTotal',
         'currentTargets','clockinTime','clockoutTime','checkinTime','checkoutTime', 'clockinId',
-        'visitId','userId','outletId','outletName','outletLat','outletLong'));
+        'visitId','userId','outletId','outletName','outletLat','outletLong','currentTime'));
 
     }
 }
