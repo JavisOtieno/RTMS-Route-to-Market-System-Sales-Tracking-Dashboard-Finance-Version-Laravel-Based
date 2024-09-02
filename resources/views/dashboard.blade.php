@@ -168,10 +168,12 @@
 
     @php
     // Determine the row counts
-    $outletsTableCount = count($outlets);
-    $salesTableCount = count($sales);
+    // $outletsTableCount = count($outlets);
+    // $salesTableCount = count($sales);
+    $outletsTableCount = count($outlets) > 0 ? count($outlets) : 1;
+    $salesTableCount = count($sales) > 0 ? count($sales) : 1;
     // Calculate the difference
-    $differenceOutletsSales = abs($productCount - $outletCount);
+    $differenceOutletsSales = abs($outletsTableCount - $salesTableCount);
     @endphp
 
     <div class="row">
@@ -304,8 +306,8 @@
 
     @php
     // Determine the row counts
-    $productCount = count($topProducts);
-    $outletCount = count($topOutlets);
+    $productCount = count($topProducts) > 0 ? count($topProducts) : 1;
+    $outletCount = count($topOutlets) > 0 ? count($topOutlets) : 1;
     // Calculate the difference
     $difference = abs($productCount - $outletCount);
     @endphp
