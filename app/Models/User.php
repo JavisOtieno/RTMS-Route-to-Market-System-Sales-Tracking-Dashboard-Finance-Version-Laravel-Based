@@ -103,7 +103,7 @@ class User extends Authenticatable
         // return $query->where('team_id', $user->team_id);
         //IDEAL
 
-        return $query->where('team_id', $user->team_id)->whereNull('team_id');
+        return $query->where('team_id', $user->team_id)->orWhereNull('team_id');
         }
 
         else{
