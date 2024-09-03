@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Team;
 use App\Models\TargetGroup;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class TargetGroupController extends CommonController
 {
@@ -44,7 +45,11 @@ class TargetGroupController extends CommonController
         
     }
     public function deleteTargetGroup($id){
-        $targetgroup = TargetGroup::find($id);
+        $targetgroup = TargetGroup::findOrFail($id);
+        if (Gate::denies('delete', $targetgroup)) {
+            abort(403, 'Access denied');
+        }
+        // $targetgroup = TargetGroup::find($id);
         $targetgroup->delete();
         return redirect('/targetgroups');
     }
@@ -64,6 +69,7 @@ class TargetGroupController extends CommonController
     // }
 
     public function saveEditTargetGroup($id, Request $request){
+
         $team_id=$this->teamIdCheckAssign($request);
         // $organization_id=auth()->user()->organization_id;
         $incomingFields=$request->validate([
@@ -76,7 +82,11 @@ class TargetGroupController extends CommonController
         // $incomingFields['organization_id']=$organization_id;
         $incomingFields['team_id']=$team_id;
 
-        $targetgroup=TargetGroup::find($id);
+        // $targetgroup=TargetGroup::find($id);
+        $targetgroup = TargetGroup::findOrFail($id);
+        if (Gate::denies('delete', $targetgroup)) {
+            abort(403, 'Access denied');
+        }
 
         $targetgroup->update($incomingFields);
 

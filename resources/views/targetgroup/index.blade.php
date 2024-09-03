@@ -72,9 +72,20 @@
                                         @foreach($targetgroups as $targetgroup)
                                         <tr>
                                         <td>{{$targetgroup['id']}}</td>
-                                        <td><a type="button" href="/edittargetgroup/{{$targetgroup['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
+                                        <td>
+                                            @if(!(auth()->user()->usertype=='teamlead'&&$targetgroup['team']==null))
+                                            <a type="button" href="/edittargetgroup/{{$targetgroup['id']}}" 
+                                            class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
+                                            @else
+                                            Unauthorized
+                                            @endif
                                         </td>
-                                        <td><a type="button" onclick="deleteItem({{$targetgroup['id']}},'Id: '+{{$targetgroup['id']}}+'<br/> Name: '+'{{$targetgroup['name']}}'+'<br/> Amount: '+'{{$targetgroup['amount']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
+                                        <td>@if(!(auth()->user()->usertype=='teamlead'&&$targetgroup['team']==null))
+                                            <a type="button" onclick="deleteItem({{$targetgroup['id']}},'Id: '+{{$targetgroup['id']}}+'<br/> Name: '+'{{$targetgroup['name']}}'+'<br/> Amount: '+'{{$targetgroup['amount']}}')"  
+                                            class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
+                                            @else
+                                            Unauthorized
+                                            @endif
                                         </td>
                                         <td>{{$targetgroup['name']}}</td>
                                         <td>{{$targetgroup['team']==null?"None":$targetgroup['team']['name']}}</td>

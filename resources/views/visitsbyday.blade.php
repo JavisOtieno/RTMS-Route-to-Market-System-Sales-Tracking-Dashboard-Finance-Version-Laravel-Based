@@ -9,11 +9,11 @@
 
   <!-- PAGE-HEADER -->
   <div class="page-header">
-    <h1 class="page-title">Completed Day Routes</h1>
+    <h1 class="page-title">Day Routes</h1>
     <div>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)">RTMS</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Completed Day Routes</li>
+            <li class="breadcrumb-item active" aria-current="page">Day Routes</li>
         </ol>
     </div>
 </div>
@@ -24,7 +24,7 @@
 
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Completed Day Routes</h3>
+            <h3 class="card-title">Day Routes</h3>
         </div>
         <div class="row" style="margin: 0 10px;">
             <input type="hidden" id="tableLoaded" value="clockins"/>

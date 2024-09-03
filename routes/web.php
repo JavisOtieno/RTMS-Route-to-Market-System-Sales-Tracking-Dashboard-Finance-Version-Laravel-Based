@@ -64,6 +64,9 @@ Route::get('/editsale/{id}',[SaleController::class,'showEditSale']);
 Route::get('/sale/{id}',[SaleController::class,'showEditSale']);
 Route::put('/saveeditsale/{id}',[SaleController::class,'saveEditSale']);
 
+$user = Auth::user();
+Route::middleware(['ensureViewOnlyForTeamLeads'])->group(function () {
+
 Route::get('/products', [ProductController::class,'index']);
 Route::get('/deleteproduct/{id}', [ProductController::class,'deleteProduct']);
 Route::get('/add-product', [ProductController::class,'addProduct']);
@@ -83,6 +86,8 @@ Route::put('/saveeditservice/{id}',[ProductController::class,'saveEditService'])
 
 Route::get('/ajaxservicesyajra',[ProductController::class,'ajaxservicesYajraTest'])->name('yajratest');
 Route::get('/servicesyajra',[ProductController::class,'viewservicesYajraTest']);
+
+});
 
 Route::get('/posaudits', [PosauditController::class,'index']);
 Route::get('/deleteposaudits/{id}', [PosauditController::class,'deletePosaudit']);
@@ -143,7 +148,7 @@ Route::get('/deleteclockout/{id}', [ClockoutController::class,'deleteClockout'])
 Route::get('/visits', [VisitController::class,'index']);
 Route::get('/visit/{id}',[VisitController::class,'showEditVisit']);
 Route::get('/visitsmap', [VisitController::class,'showVisitsMap']);
-Route::get('/routes', [VisitController::class,'showR]outes']);
+Route::get('/routes', [VisitController::class,'showRoutes']);
 Route::get('/routes/{id}', [VisitController::class,'showRoutesById']);
 Route::get('/visitsanalytics', [VisitController::class,'showVisitsAnalytics']);
 Route::get('/visits/{id}/{object}',[VisitController::class,'showVisitsById']);
@@ -188,7 +193,7 @@ Route::get('/editseller/{id}', [UserController::class,'showEditSeller']);
 Route::put('/saveeditseller/{id}',[UserController::class,'saveEditSeller']);
 
 
-$user = Auth::user();
+
 // $user = auth()->user();
 
 Route::middleware(['adminOnly'])->group(function(){

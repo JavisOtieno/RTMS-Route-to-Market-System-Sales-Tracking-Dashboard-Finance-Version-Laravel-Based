@@ -71,9 +71,19 @@
                                         <tr>
                                         <td>{{$product['id']}}</td>
                                        
-                                        <td><a type="button" href="/editservice/{{$product['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
+                                        <td>
+                                            @if(!(auth()->user()->usertype=='teamlead'&&$product['team']==null))
+                                            <a type="button" href="/editservice/{{$product['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
+                                            @else
+                                            Unauthorized
+                                            @endif
                                         </td>
-                                        <td><a type="button" onclick="deleteItem({{$product['id']}},'{{$product['name']}}','{{$product['description']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
+                                        <td>
+                                            @if(!(auth()->user()->usertype=='teamlead'&&$product['team']==null))
+                                            <a type="button" onclick="deleteItem({{$product['id']}},'{{$product['name']}}','{{$product['description']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
+                                            @else
+                                            Unauthorized
+                                            @endif
                                         </td>
                                         <td>{{$product['name']}}</td>
                                         <td>{{ucfirst($product['targettype'])}}</td>

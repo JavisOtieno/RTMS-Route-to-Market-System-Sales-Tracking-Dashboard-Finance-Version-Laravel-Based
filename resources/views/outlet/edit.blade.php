@@ -91,7 +91,7 @@
                                     {{-- <option value="{{ $team['id'] }}" {{ old('team_id', '') == $team['id'] ? 'selected' : '' }}>
                                         {{ $team['name'] }}
                                     </option> --}}
-                                    <option {{(isset($outlet)?old('team_id',$outlet['team']['id']):old('team_id'))==$team['id']? 'selected':''}}
+                                    <option {{(isset($outlet)&&isset($outlet['team'])?old('team_id',$outlet['team']['id']):old('team_id'))==$team['id']? 'selected':''}}
                                      value="{{$team['id']}}">{{$team['name']}}</option>
                             
                                     @endforeach

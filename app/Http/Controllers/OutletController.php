@@ -8,6 +8,7 @@ use App\Models\Visit;
 use App\Models\Outlet;
 use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\Facades\DataTables;
 use Spatie\ImageOptimizer\OptimizerChainFactory;
 
@@ -49,7 +50,11 @@ class OutletController extends CommonController
 
     //delete outlet not allowed
     public function deleteOutlet($id){
-        $outlet = Outlet::find($id);
+        $outlet = Outlet::findOrFail($id);
+        if (Gate::denies('delete', $outlet)) {
+            abort(403, 'Access denied');
+        }
+        // $outlet = Outlet::find($id);
         $outlet->delete();
         return redirect('/outlets');
     }
@@ -160,10 +165,13 @@ class OutletController extends CommonController
         $incomingFields['long']=strip_tags($incomingFields['long']);
         // $incomingFields['organization_id']=$organization_id;
         $incomingFields['team_id']=$team_id;
-        
-        
 
-        $outlet=Outlet::find($id);
+        $outlet = Outlet::findOrFail($id);
+        if (Gate::denies('update', $outlet)) {
+            abort(403, 'Access denied');
+        }
+
+        // $outlet=Outlet::find($id);
 
         $outlet->update($incomingFields);
 

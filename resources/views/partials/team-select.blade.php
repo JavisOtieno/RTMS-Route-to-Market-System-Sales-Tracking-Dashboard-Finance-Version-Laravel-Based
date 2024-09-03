@@ -4,11 +4,12 @@
     <label for="team_id" class="form-label">Team</label>
     <select name="team_id" class="form-control form-select select2" data-bs-placeholder="Select Team">
         <option value="0">None</option>
+        
         @foreach($teams as $team)
         {{-- <option value="{{ $team['id'] }}" {{ old('team_id', '') == $team['id'] ? 'selected' : '' }}>
             {{ $team['name'] }}
         </option> --}}
-        <option {{(isset($user)?old('team_id',$user['team']['id']):old('team_id'))==$team['id']? 'selected':''}}
+        <option {{(isset($user)&&isset($user['team'])?old('team_id',$user['team']['id']):old('team_id'))==$team['id']? 'selected':''}}
          value="{{$team['id']}}">{{$team['name']}}</option>
 
         @endforeach

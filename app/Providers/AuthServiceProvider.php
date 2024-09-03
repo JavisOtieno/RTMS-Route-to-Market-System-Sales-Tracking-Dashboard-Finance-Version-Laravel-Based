@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+use App\Models\Outlet;
+use App\Models\TargetGroup;
+use App\Policies\TeamLeadPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -12,8 +15,12 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @var array<class-string, class-string>
      */
+
     protected $policies = [
         //
+    Outlet::class => TeamLeadPolicy::class,
+    TargetGroup::class => TeamLeadPolicy::class,
+
     ];
 
     /**
@@ -23,4 +30,5 @@ class AuthServiceProvider extends ServiceProvider
     {
         //
     }
+    
 }

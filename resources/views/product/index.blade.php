@@ -75,9 +75,17 @@
                                         @foreach($products as $product)
                                         <tr>
                                         <td>{{$product['id']}}</td>
-                                        <td><a type="button" href="/editproduct/{{$product['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
+                                        <td>@if(!(auth()->user()->usertype=='teamlead'&&$product['team']==null))
+                                            <a type="button" href="/editproduct/{{$product['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
+                                            @else
+                                            Unauthorized
+                                            @endif
                                         </td>
-                                        <td><a type="button" onclick="deleteItem({{$product['id']}},'{{$product['name']}}','{{$product['sku']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
+                                        <td>@if(!(auth()->user()->usertype=='teamlead'&&$product['team']==null))
+                                            <a type="button" onclick="deleteItem({{$product['id']}},'{{$product['name']}}','{{$product['sku']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
+                                            @else
+                                            Unauthorized
+                                            @endif
                                         </td>
                                         <td>{{$product['name']}}</td>
                                         <td>{{$product['sku']}}</td>
