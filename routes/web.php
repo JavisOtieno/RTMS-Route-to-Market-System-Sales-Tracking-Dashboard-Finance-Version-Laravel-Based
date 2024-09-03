@@ -180,6 +180,7 @@ Route::post('/pushuserstotargetgroup', [UserController::class,'addUsersToTargetG
 
 Route::get('/adduserstoteam', [UserController::class,'showAddUsersToTeam']);
 Route::get('/addsellerstoteam/{id}', [UserController::class,'showAddUsersToSpecificTeam']);
+
 Route::post('/pushuserstoteam', [UserController::class,'addUsersToTeam']);
 
 Route::get('/allocateoutletstousers', [OutletController::class,'showAddOutletsToUsers']);

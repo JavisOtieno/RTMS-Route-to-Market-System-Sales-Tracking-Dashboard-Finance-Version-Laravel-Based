@@ -65,6 +65,14 @@
 
                             <div class="form-group">
                                 <label for="password" class="form-label">Add Sellers to Team</label>
+                                    {{-- <td>
+                                            <form method="POST" action="{{ route('editproduct') }}">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{ $product->id }}">
+                                                <!-- Other form fields -->
+                                                <button type="submit" class="btn btn-info">View/Edit</button>
+                                            </form>
+                                        </td> --}}
                                 <a href="/addsellerstoteam/{{$team['id']}}" class="btn btn-info mb-0">Add Sellers</a>                            
                             </div>
 

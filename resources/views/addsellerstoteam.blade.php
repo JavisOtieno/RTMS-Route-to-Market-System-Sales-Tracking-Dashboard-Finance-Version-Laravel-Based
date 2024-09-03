@@ -26,7 +26,7 @@
             {{-- Then the route needs to have a name
             Route::post('/checkboxes', [CheckboxController::class, 'process'])->name('processCheckboxes'); --}}
             {{-- FORM ID IMPORTANT FOR SOME JS IN THE JS FILES--}}
-        <form action="pushuserstoteam" id="Userstotargetgroup" method="POST">
+        <form action="/pushuserstoteam" id="Userstotargetgroup" method="POST">
             @csrf
         
             <div class="col-lg-12">

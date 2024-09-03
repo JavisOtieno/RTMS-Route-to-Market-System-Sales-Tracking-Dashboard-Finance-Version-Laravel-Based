@@ -102,8 +102,9 @@ class User extends Authenticatable
         //IDEAL
         // return $query->where('team_id', $user->team_id);
         //IDEAL
-
+        //IGNORING ORGANIZATION ID SINCE TEAM INDICATES THE USER IS PART OF ORG
         return $query->where('team_id', $user->team_id)->orWhereNull('team_id');
+
         }
 
         else{
