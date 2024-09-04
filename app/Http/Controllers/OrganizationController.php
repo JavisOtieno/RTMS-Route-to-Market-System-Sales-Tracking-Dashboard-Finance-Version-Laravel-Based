@@ -11,7 +11,7 @@ class OrganizationController extends Controller
     public function index() {
         // $outlets = Outlet::all();
         $organizations = Organization::all();
-        return view('organizations', ['organizations'=>$organizations]); 
+        return view('organization.index', ['organizations'=>$organizations]); 
     }
 
 }
