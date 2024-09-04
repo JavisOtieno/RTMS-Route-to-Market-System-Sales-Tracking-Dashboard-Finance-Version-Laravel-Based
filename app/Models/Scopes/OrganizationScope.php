@@ -14,12 +14,14 @@ class OrganizationScope implements Scope
     {
         
         if (Auth::check()) {
-            $builder->where('organization_id', Auth::user()->organization_id);
+            if(Auth::user()->usertype=="systemadmin"){
+            
+            }else{
+                $builder->where('organization_id', Auth::user()->organization_id);
+            }
         }
 
-        if(Auth::user()->usertype=="systemadmin"){
-            
-        }
+        
     }
     
 }
