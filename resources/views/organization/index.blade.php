@@ -54,7 +54,6 @@
                                     <tr>
                                         <th>ID</th>
                                         <th id="edit-column">View/Edit</th>
-                                        <th id="delete-column">Delete</th>
                                         <th>Name</th>
                                         <th>Phone</th>
                                         <th>Date</th>
@@ -70,9 +69,7 @@
                                         <td>{{$organization['id']}}</td>
                                         <td><a type="button" href="/editorganization/{{$organization['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
                                         </td>
-                                        <td><a type="button" onclick="deleteItem({{$organization['id']}},'Id: '+{{$organization['id']}}+'<br/> Name: '+'{{$organization['name']}}')"  
-                                            class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
-                                        </td>
+                                        
                                         <td>{{$organization['name']}}</td>
                                         <td>{{$organization['phone']}}</td>
                                         {{-- <td>{{isset($organization->teamLead)?$team->teamLead['name']:'None'}}</td> --}}
