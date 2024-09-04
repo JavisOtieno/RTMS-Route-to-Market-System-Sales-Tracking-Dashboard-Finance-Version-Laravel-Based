@@ -51,45 +51,45 @@
                             @endif
                             <div class="form-group">
                                 <label for="name" class="form-label">Organization Name</label>
-                                <input type="text" class="form-control" name="organizationName" id="organizationName" placeholder="Organization Name"  autocomplete="organizationName">
+                                <input type="text" class="form-control" name="organizationName" value="{{old('organizationName')}}" id="organizationName" placeholder="Organization Name"  autocomplete="organizationName">
                             </div>
                             <div class="form-group">
                                 <label for="phone" class="form-label">Organization Phone</label>
-                                <input type="text" class="form-control" name="organizationPhone" id="organizationPhone" placeholder="Organization Phone"  autocomplete="organizationPhone">
+                                <input type="text" class="form-control" name="organizationPhone" value="{{old('organizationPhone')}}" id="organizationPhone" placeholder="Organization Phone"  autocomplete="organizationPhone">
                             </div>
                             <div class="form-group">
                                 <label for="phone" class="form-label">Organization Email</label>
-                                <input type="text" class="form-control" name="organizationEmail" id="organizationEmail" placeholder="Organization Email"  autocomplete="organizationEmail">
+                                <input type="text" class="form-control" name="organizationEmail" value="{{old('organizationEmail')}}" id="organizationEmail" placeholder="Organization Email"  autocomplete="organizationEmail">
                             </div>
                             <div class="form-group">
                                 <label for="phone" class="form-label">Organization Reg No</label>
-                                <input type="text" class="form-control" name="organizationRegNo" id="organizationRegNo" placeholder="Organization Reg No"  autocomplete="organizationRegNo">
+                                <input type="text" class="form-control" name="organizationRegNo" value="{{old('organizationRegNo')}}" id="organizationRegNo" placeholder="Organization Reg No"  autocomplete="organizationRegNo">
                             </div>
                             <div class="form-group">
                                 <label for="phone" class="form-label">Organization KRA Pin</label>
-                                <input type="text" class="form-control" name="name" id="organizationKRAPin" placeholder="Organization KRA Pin"  autocomplete="OrganizationKRAPin">
+                                <input type="text" class="form-control" name="name" value="{{old('organizationKRAPin')}}" id="organizationKRAPin" placeholder="Organization KRA Pin"  autocomplete="OrganizationKRAPin">
                             </div>
 
                             <div class="form-group">
                                 <label for="phone" class="form-label">Admin Name</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Admin Name"  autocomplete="name">
+                                <input type="text" class="form-control" value="{{old('name')}}" name="name" id="name" placeholder="Admin Name"  autocomplete="name">
                             </div>
                             <div class="form-group">
                                 <label for="phone" class="form-label">Admin Phone</label>
-                                <input type="text" class="form-control" name="phone"  placeholder="Admin Phone"  autocomplete="phone">
+                                <input type="text" class="form-control" name="phone" value="{{old('phone')}}"  placeholder="Admin Phone"  autocomplete="phone">
                             </div>
                             <div class="form-group">
                                 <label for="phone" class="form-label">Admin Email</label>
-                                <input type="text" class="form-control" name="email" id="email" placeholder="Admin Email"  autocomplete="email">
+                                <input type="text" class="form-control" value="{{old('email')}}" name="email" id="email" placeholder="Admin Email"  autocomplete="email">
                             </div>
                             <div class="form-group">
                                 <label for="phone" class="form-label">Password</label>
-                                <input type="password" class="form-control" name="password" id="password" placeholder="Password"  autocomplete="password">
+                                <input type="password" class="form-control" value="{{old('password')}}" name="password" id="password" placeholder="Password"  autocomplete="password">
                             </div>
 
                             <div class="form-group">
                                 <label for="phone" class="form-label">Confirm Password</label>
-                                <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Confirm Password"  autocomplete="password_confirmation">
+                                <input type="password" class="form-control" value="{{old('password_confirmation')}}" name="password_confirmation" id="password_confirmation" placeholder="Confirm Password"  autocomplete="password_confirmation">
                             </div>
                             
                             

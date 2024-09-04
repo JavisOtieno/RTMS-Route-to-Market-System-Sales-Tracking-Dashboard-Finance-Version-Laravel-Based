@@ -459,12 +459,12 @@
                                 <div class="tab-pane active" id="side1">
                                     <ul class="sidemenu-list">
                                         <li class="side-menu-label1"><a href="javascript:void(0)">Users</a></li>
-                                        @if (auth()->user()->usertype=='admin')
+                                        @if (auth()->user()->usertype=='admin'  || auth()->user()->usertype == 'systemadmin')
                                         <li><a href="/admins" class="slide-item"> Admins</a></li>
                                         <li><a href="/teamleads" class="slide-item"> Team Leads</a></li>
                                         @endif
                                         <li><a href="/sellers" class="slide-item"> Sellers</a></li>
-                                        @if (auth()->user()->usertype=='admin')
+                                        @if (auth()->user()->usertype=='admin'  || auth()->user()->usertype == 'systemadmin')
                                         <li><a href="/teams" class="slide-item"> Teams</a></li>
                                         <li><a href="/regions" class="slide-item"> Regions</a></li>
                                         <li><a href="/territories" class="slide-item"> Territories</a></li>

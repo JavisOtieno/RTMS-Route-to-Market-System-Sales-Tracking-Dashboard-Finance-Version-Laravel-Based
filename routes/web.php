@@ -234,6 +234,9 @@ Route::put('/saveeditregion/{id}',[RegionController::class,'saveEditRegion']);
 Route::middleware(['superAdminOnly'])->group(function(){
     Route::get('/organizations', [OrganizationController::class,'index']);
     Route::get('/addorganization', [OrganizationController::class,'addOrganization']);
+    Route::get('/editorganization/{id}', [OrganizationController::class,'showEditOrganization']);
+    Route::post('/saveorganization', [OrganizationController::class,'saveOrganization']);
+    Route::put('/saveeditorganization/{id}',[OrganizationController::class,'saveEditOrganization']);
 });
 
 Route::get('/changepassword/{usertype}/{id}', [UserController::class,'showChangePassword']);
