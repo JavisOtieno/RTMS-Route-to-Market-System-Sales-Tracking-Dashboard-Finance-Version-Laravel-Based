@@ -22,7 +22,7 @@ class Organization extends Model
 
     public function admin()
     {
-        return $this->hasOne(User::class, 'organization_id')->where('usertype', 'admin')->first();;
+        return $this->hasOne(User::class, 'organization_id')->where('usertype', 'admin');
     }
     
 }
