@@ -72,7 +72,7 @@
                                         </td>
                                         <td>{{$organization['name']}}</td>
                                         <td>{{$organization['phone']}}</td>
-                                        <td>{{isset($organization->admin)?$team->admin['name']:'None'}}</td>
+                                        <td>{{isset($organization->admin)?$organization->admin['name']:'None'}}</td>
                                         <td>{{date('d-M-Y', strtotime($organization['created_at']))}}</td>
                                     
                                         
