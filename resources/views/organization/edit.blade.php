@@ -71,8 +71,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="password" class="form-label">Admin</label>
-                                <a href="/editadmin/{{$organization->firstAdmin['id']}}" class="col-12 btn btn-info mb-0">Edit Admin</a>                            
+                                <label for="password" class=s"form-label">Admin</label>
+                                <a href="/editadmin/{{$organization->admin['id']}}" class="col-12 btn btn-info mb-0">Edit Admin</a>                            
                             </div>
                             
                             
