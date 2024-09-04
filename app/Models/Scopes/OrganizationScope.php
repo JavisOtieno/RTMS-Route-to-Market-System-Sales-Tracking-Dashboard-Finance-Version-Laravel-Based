@@ -12,8 +12,13 @@ class OrganizationScope implements Scope
 {
     public function apply(Builder $builder, Model $model)
     {
+        
         if (Auth::check()) {
             $builder->where('organization_id', Auth::user()->organization_id);
+        }
+
+        if(Auth::user()->usertype=="systemadmin"){
+            
         }
     }
     

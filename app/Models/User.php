@@ -91,6 +91,9 @@ class User extends Authenticatable
         if($user->usertype=="admin" ){
             return $query->where('organization_id', $user->organization_id);
         }
+        if($user->usertype=="systemadmin" ){
+            
+        }
         //limit users access to teamleads for now
         //combined with route limited access to urls
         //along with menu limitations 
@@ -104,6 +107,7 @@ class User extends Authenticatable
         //IDEAL
         //IGNORING ORGANIZATION ID SINCE TEAM INDICATES THE USER IS PART OF ORG
             return $query->where('team_id', $user->team_id)->orWhereNull('team_id');
+
         }
 
         else{
