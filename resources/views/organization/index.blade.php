@@ -10,11 +10,11 @@
 
   <!-- PAGE-HEADER -->
   <div class="page-header">
-    <h1 class="page-title">Teams</h1>
+    <h1 class="page-title">Organizations</h1>
     <div>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)">RTMS</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Teams</li>
+            <li class="breadcrumb-item active" aria-current="page">Organizations</li>
         </ol>
     </div>
 </div>
@@ -27,7 +27,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Organizations</h3>
-                        <a type="button" href="/addorganization" class="btn btn-danger col-md-3" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;">Add Team</a>
+                        <a type="button" href="/addorganization" class="btn btn-danger col-md-3" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;">Add Organization</a>
                     </div>
                     <div class="row" style="margin: 0 10px;">
                         <input type="hidden" id="tableLoaded" value="default"/>
@@ -76,7 +76,7 @@
                                         <td>{{$organization['name']}}</td>
                                         <td>{{$organization['phone']}}</td>
                                         {{-- <td>{{isset($organization->teamLead)?$team->teamLead['name']:'None'}}</td> --}}
-                                        <td>{{date('d-M-Y', strtotime($team['created_at']))}}</td>
+                                        <td>{{date('d-M-Y', strtotime($organization['created_at']))}}</td>
                                     
                                         
                                         {{-- <td>
@@ -138,7 +138,7 @@
         var itemDetails = document.getElementById("itemDetails");
         itemDetails.innerHTML = message;
         var confirmDeleteLink = document.getElementById('confirmDelete'); //or grab it by tagname etc
-        confirmDeleteLink.href = "/deleteteam/"+id;
+        confirmDeleteLink.href = "/deleteorganization/"+id;
     }
   </script>
 
