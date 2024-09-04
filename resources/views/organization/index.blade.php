@@ -56,6 +56,7 @@
                                         <th id="edit-column">View/Edit</th>
                                         <th>Name</th>
                                         <th>Phone</th>
+                                        <th>Admin</th>
                                         <th>Date</th>
                                         
                                     </tr>
@@ -69,10 +70,9 @@
                                         <td>{{$organization['id']}}</td>
                                         <td><a type="button" href="/editorganization/{{$organization['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
                                         </td>
-                                        
                                         <td>{{$organization['name']}}</td>
                                         <td>{{$organization['phone']}}</td>
-                                        {{-- <td>{{isset($organization->teamLead)?$team->teamLead['name']:'None'}}</td> --}}
+                                        <td>{{isset($organization->admin)?$team->admin['name']:'None'}}</td>
                                         <td>{{date('d-M-Y', strtotime($organization['created_at']))}}</td>
                                     
                                         

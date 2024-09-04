@@ -19,4 +19,10 @@ class Organization extends Model
         'registration_number',
         'kra_pin'
     ];
+
+    public function admin()
+    {
+        return $this->hasOne(User::class, 'organization_id')->where('usertype', 'admin');
+    }
+    
 }
