@@ -9,11 +9,11 @@
 
   <!-- PAGE-HEADER -->
   <div class="page-header">
-    <h1 class="page-title">Teams</h1>
+    <h1 class="page-title">Organizations</h1>
     <div>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)">RTMS</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Add Team</li>
+            <li class="breadcrumb-item active" aria-current="page">Add Organization</li>
         </ol>
     </div>
 </div>
@@ -23,13 +23,13 @@
 <div class="col-xl-12 row">
     <div class="card col-md-8">
         <div class="card-header">
-            <h3 class="card-title">Add Team</h3> 
+            <h3 class="card-title">Add Organization</h3> 
         </div>
         <div class="card-body">
             <!--<p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p>-->
             
                 
-                    <form action="/saveteam" method="POST">
+                    <form action="/saveorganization" method="POST">
                         @csrf
                         @method('POST')
                         <div class="">
@@ -50,40 +50,46 @@
                             </div>
                             @endif
                             <div class="form-group">
-                                <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Name"  autocomplete="name">
+                                <label for="name" class="form-label">Organization Name</label>
+                                <input type="text" class="form-control" name="organizationName" id="organizationName" placeholder="Organization Name"  autocomplete="organizationName">
                             </div>
                             <div class="form-group">
-                                <label for="phone" class="form-label">Phone</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Name"  autocomplete="name">
+                                <label for="phone" class="form-label">Organization Phone</label>
+                                <input type="text" class="form-control" name="organizationPhone" id="organizationPhone" placeholder="Organization Phone"  autocomplete="organizationPhone">
                             </div>
                             <div class="form-group">
-                                <label for="phone" class="form-label">Email</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Name"  autocomplete="name">
+                                <label for="phone" class="form-label">Organization Email</label>
+                                <input type="text" class="form-control" name="organizationEmail" id="organizationEmail" placeholder="Organization Email"  autocomplete="organizationEmail">
                             </div>
                             <div class="form-group">
                                 <label for="phone" class="form-label">Organization Reg No</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Name"  autocomplete="name">
+                                <input type="text" class="form-control" name="organizationRegNo" id="organizationRegNo" placeholder="Organization Reg No"  autocomplete="organizationRegNo">
                             </div>
+                            <div class="form-group">
+                                <label for="phone" class="form-label">Organization KRA Pin</label>
+                                <input type="text" class="form-control" name="name" id="organizationKRAPin" placeholder="Organization KRA Pin"  autocomplete="OrganizationKRAPin">
+                            </div>
+
                             <div class="form-group">
                                 <label for="phone" class="form-label">Admin Name</label>
                                 <input type="text" class="form-control" name="name" id="name" placeholder="Admin Name"  autocomplete="name">
                             </div>
                             <div class="form-group">
                                 <label for="phone" class="form-label">Admin Phone</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Admin Phone"  autocomplete="name">
+                                <input type="text" class="form-control" name="phone" id="phone" placeholder="Admin Phone"  autocomplete="phone">
                             </div>
                             <div class="form-group">
                                 <label for="phone" class="form-label">Admin Email</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Admin Email"  autocomplete="name">
+                                <input type="text" class="form-control" name="email" id="email" placeholder="Admin Email"  autocomplete="email">
                             </div>
                             <div class="form-group">
                                 <label for="phone" class="form-label">Password</label>
-                                <input type="passoword" class="form-control" name="name" id="name" placeholder="Password"  autocomplete="name">
+                                <input type="password" class="form-control" name="password" id="password" placeholder="Password"  autocomplete="password">
                             </div>
+
                             <div class="form-group">
                                 <label for="phone" class="form-label">Confirm Password</label>
-                                <input type="password" class="form-control" name="name" id="name" placeholder="Confirm Password"  autocomplete="name">
+                                <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Confirm Password"  autocomplete="password_confirmation">
                             </div>
                             
                             
