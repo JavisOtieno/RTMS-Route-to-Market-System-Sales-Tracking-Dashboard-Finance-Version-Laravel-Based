@@ -31,7 +31,7 @@
                 
                     <form action="/saveeditorganization/{{$organization['id']}}" method="POST">
                         @csrf
-                        @method('POST')
+                        @method('PUT')
                         <div class="">
                             @if ($errors->any())
                             <div class="alert alert-danger alert-dismissible">
