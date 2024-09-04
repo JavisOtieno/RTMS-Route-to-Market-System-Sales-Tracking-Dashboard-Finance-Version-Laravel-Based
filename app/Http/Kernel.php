@@ -31,6 +31,7 @@ class Kernel extends HttpKernel
         'ensureViewOnlyForTeamLeads' => \App\Http\Middleware\EnsureViewOnlyForTeamLeads::class
     ];
 
+
     /**
      * The application's route middleware groups.
      *

@@ -42,7 +42,10 @@ class LoginController extends Controller
         
         if (Auth::attempt($credentials)) {
 
-          if(auth()->user()->usertype=='admin' || auth()->user()->usertype=='teamlead'){
+          if( 
+            auth()->user()->usertype=='systemadmin' 
+          || auth()->user()->usertype=='admin' 
+          || auth()->user()->usertype=='teamlead'){
             $request->session()->regenerate();
             return redirect()->intended('dashboard');
           }else{

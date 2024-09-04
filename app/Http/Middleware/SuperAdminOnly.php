@@ -18,7 +18,7 @@ class SuperAdminOnly
     public function handle(Request $request, Closure $next): Response
     {
 
-        if (Auth::user()->usertype=="admin" && in_array(Auth::user()->id, [1, 3])) {
+        if (Auth::user()->usertype=="systemadmin") {
             // return route('signup');   
             return $next($request);
         }
