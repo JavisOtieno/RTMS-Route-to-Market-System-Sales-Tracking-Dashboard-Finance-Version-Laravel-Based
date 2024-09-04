@@ -59,7 +59,7 @@ class OrganizationController extends Controller
 
         $user = User::create($incomingFields);
 
-        return redirect('/editorganization/'.$organization->id);
+        return redirect('/organizations');
         
     }
 

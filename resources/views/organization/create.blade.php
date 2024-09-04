@@ -67,7 +67,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="phone" class="form-label">Organization KRA Pin</label>
-                                <input type="text" class="form-control" name="name" value="{{old('organizationKRAPin')}}" id="organizationKRAPin" placeholder="Organization KRA Pin"  autocomplete="OrganizationKRAPin">
+                                <input type="text" class="form-control" name="organizationKRAPin" value="{{old('organizationKRAPin')}}" id="organizationKRAPin" placeholder="Organization KRA Pin"  autocomplete="OrganizationKRAPin">
                             </div>
 
                             <div class="form-group">
