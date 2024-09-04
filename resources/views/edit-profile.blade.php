@@ -93,7 +93,7 @@
                                         @if(auth()->user()->usertype=='admin')
                                         <div class="form-group">
                                             <label for="profile" class="form-label">Edit Profile</label>
-                                            <a href="editadmin/{{ auth()->user()->id }}" class="btn btn-info mb-0">Edit Profile</a>                            
+                                            <a href="editadmin/{{ auth()->user()->id }}" class="col-12 btn btn-info mb-0">Edit Profile</a>                            
                                         </div>
                                         @endif
                                     </div>

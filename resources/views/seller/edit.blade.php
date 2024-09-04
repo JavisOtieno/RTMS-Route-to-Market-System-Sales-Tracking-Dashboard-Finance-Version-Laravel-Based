@@ -115,21 +115,33 @@
                             </div>
                             <div class="form-group">
                                 <label for="password" class="form-label">Password</label>
-                                <a href="/changepassword/seller/{{$user['id']}}" class="btn btn-info mb-0">Change Password</a>                            
+                                <a href="/changepassword/seller/{{$user['id']}}" class="col-11 btn btn-info mb-0">Change Password</a>                            
                             </div>
 
                             <div class="form-group">
                                 <label for="sellerComponents" class="form-label">Seller Activities</label>
+                                <div class="col-12">
+                                    <div class="row">
                                 <a href="/clockins/{{$user['id']}}/user" class="btn btn-info col-md-5 mt-0 mb-2">View Seller Clockins</a>
-                                <a href="/clockouts/{{$user['id']}}/user" class="btn btn-info col-md-5 ml-4 mt-0 mb-2">View Seller Clockouts</a>
+                                <a href="/clockouts/{{$user['id']}}/user" class="btn btn-info col-md-5 offset-md-1 mt-0 mb-2">View Seller Clockouts</a>
+                                    </div>
+                                    <div class="row">
                                 <a href="/outlets/{{$user['id']}}/user" class="btn btn-info col-md-5 mt-0 mb-2">View Seller Outlets</a>
-                                <a href="/visits/{{$user['id']}}/user" class="btn btn-info col-md-5 mt-0 mb-2">View Seller Visits</a>
+                                <a href="/visits/{{$user['id']}}/user" class="btn btn-info col-md-5 offset-md-1 mt-0 mb-2">View Seller Visits</a>
+                                    </div>
+                                    <div class="row">
                                 <a href="/sales/{{$user['id']}}/user" class="btn btn-info col-md-5 mt-0 mb-2">View Seller Sales</a>
-                                <a href="/posaudits/{{$user['id']}}/user" class="btn btn-info col-md-5 mt-0 mb-2">View Seller POS Audits</a>
+                                <a href="/posaudits/{{$user['id']}}/user" class="btn btn-info col-md-5 offset-md-1 mt-0 mb-2">View Seller POS Audits</a>
+                                    </div>
+                                    <div class="row">
                                 <a href="/competitiveanalysis/{{$user['id']}}/user" class="btn col-md-5 btn-info mt-0 mb-2">View Seller Competitive Analysis</a>
-                                <a href="/feedback/{{$user['id']}}/user" class="btn btn-info col-md-5 mt-0 mb-2">View Seller Feedback</a>
+                                <a href="/feedback/{{$user['id']}}/user" class="btn btn-info col-md-5 offset-md-1 mt-0 mb-2">View Seller Feedback</a>
+                                    </div>
+                                    <div class="row">
                                 <a href="/routeplans/{{$user['id']}}/user" class="btn btn-info col-md-5 mt-0 mb-2">View Seller RoutePlans</a>
-                                <a href="/routes/{{$user['id']}}" class="btn btn-info col-md-5 mt-0 mb-2">View Seller Completed Day Routes</a>
+                                <a href="/routes/{{$user['id']}}" class="btn btn-info col-md-5 offset-md-1 mt-0 mb-2">View Seller Day Routes</a>
+                                    </div>
+                            </div>
 
                             </div>
                             

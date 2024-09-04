@@ -136,7 +136,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="password" class="form-label">Order Note</label>
-                                <a href="/download-pdf/{{$sale['id']}}" class="btn btn-info mb-0">Generate Order Note</a>                            
+                                <a href="/download-pdf/{{$sale['id']}}" class="col-12 btn btn-info mb-0">Generate Order Note</a>                            
                             </div>
                             
                         </div>

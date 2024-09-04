@@ -99,7 +99,7 @@
                             @endif
                             <div class="form-group">
                                 <label for="image" class="form-label">Image (Optional)</label>
-                                <div class="col-lg-4 col-sm-12 mb-4 mb-lg-0">
+                                <div class="col-lg-12 col-sm-12 mb-12 mb-lg-0">
                                     <input name="image" type="file" class="dropify" data-bs-height="180">
                                 </div>
                             </div>

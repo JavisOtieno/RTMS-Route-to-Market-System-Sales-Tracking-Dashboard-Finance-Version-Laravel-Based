@@ -36,6 +36,7 @@ use App\Http\Controllers\CompetitorController;
 use App\Http\Controllers\TargetGroupController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\api\RoutePlanController as ApiRoutePlanController;
+use App\Models\Organization;
 
 /*
 |--------------------------------------------------------------------------
@@ -111,7 +112,6 @@ Route::get('/feedback/{id}/{object}',[FeedbackController::class,'showFeedbackByI
 Route::get('/outlets', [OutletController::class,'index']);
 Route::get('/outlets/{id}/{object}', [OutletController::class,'showOutletsById']);
 
-
 Route::get('/deleteoutlet/{id}', [OutletController::class,'deleteOutlet']);
 Route::get('/add-outlet', [OutletController::class,'addOutlet']);
 Route::post('/saveoutlet', [OutletController::class,'saveOutlet']);
@@ -164,8 +164,6 @@ Route::post('/savetargetgroup', [TargetGroupController::class,'saveTargetGroup']
 Route::get('/edittargetgroup/{id}', [TargetGroupController::class,'showEditTargetGroup']);
 Route::put('/saveedittargetgroup/{id}',[TargetGroupController::class,'saveEditTargetGroup']);
 
-
-
 Route::get('/territories', [TerritoryController::class,'index']);
 Route::get('/add-territory', [TerritoryController::class,'addTerritory']);
 Route::post('/saveterritory', [TerritoryController::class,'saveTerritory']);
@@ -193,10 +191,7 @@ Route::get('/add-seller', [UserController::class,'addSeller']);
 Route::get('/editseller/{id}', [UserController::class,'showEditSeller']);
 Route::put('/saveeditseller/{id}',[UserController::class,'saveEditSeller']);
 
-
-
 // $user = auth()->user();
-
 Route::middleware(['adminOnly'])->group(function(){
 // if(auth()->user()){
 
@@ -233,6 +228,10 @@ Route::put('/saveeditregion/{id}',[RegionController::class,'saveEditRegion']);
 // Route::get('/changepasswordadmin/{id}', [UserController::class,'showChangePasswordAdmin']);
 // Route::put('/savepasswordadmin/{id}',[UserController::class,'saveChangePasswordAdmin']);
 
+});
+
+Route::middleware(['superAdminOnly'])->group(function(){
+    Route::post('/organizations', [Organization::class,'index']);
 });
 
 Route::get('/changepassword/{usertype}/{id}', [UserController::class,'showChangePassword']);

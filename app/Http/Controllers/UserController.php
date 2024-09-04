@@ -28,7 +28,7 @@ class UserController extends CommonController
         //return $users;
         //dd($sales);
         // $targetgroups = TargetGroup::all();
-        return view('admins', ['users'=>$users]);
+        return view('admin.index', ['users'=>$users]);
     }
     public function sellers() {
         $users = User::inOrganization()->with('targetgroup')->where('usertype','seller')->get();
@@ -449,7 +449,7 @@ class UserController extends CommonController
         return view('seller.create',compact('regions','territories','targetgroups','teams'));
     }
     public function addAdmin() {
-        return view('add-admin');
+        return view('admin.add');
     }
 
 
@@ -463,7 +463,7 @@ class UserController extends CommonController
     }
     public function showEditAdmin($id){
         $user = User::inOrganization()->find($id);
-        return view('edit-admin',compact('user'));
+        return view('admin.edit',compact('user'));
     }
 
     // public function showEditUser(Request $request){

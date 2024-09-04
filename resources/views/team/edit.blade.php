@@ -73,7 +73,7 @@
                                                 <button type="submit" class="btn btn-info">View/Edit</button>
                                             </form>
                                         </td> --}}
-                                <a href="/addsellerstoteam/{{$team['id']}}" class="btn btn-info mb-0">Add Sellers</a>                            
+                                <a href="/addsellerstoteam/{{$team['id']}}" class="col-12 btn btn-info mb-0">Add Sellers</a>                            
                             </div>
 
                             <div class="form-group">
