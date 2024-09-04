@@ -13,5 +13,8 @@ class OrganizationController extends Controller
         $organizations = Organization::all();
         return view('organization.index', ['organizations'=>$organizations]); 
     }
+    public function addOrganization(){
+        return view('organization.create');
+    }
 
 }

@@ -434,7 +434,7 @@
               <li class="slide">
                 <a class="side-menu__item has-link" data-bs-toggle="slide" href="/organizations"><i
                         class="side-menu__icon fe fe-map"></i><span
-                        class="side-menu__label">Organizatons</span></a>
+                        class="side-menu__label">Organizations</span></a>
             </li>
             @endif
               <li class="slide">
