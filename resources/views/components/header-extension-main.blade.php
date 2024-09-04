@@ -430,6 +430,13 @@
                           class="side-menu__icon fe fe-user"></i><span
                           class="side-menu__label">Users</span></a>
               </li> --}}
+              @if(auth()->user()->usertype=="systemadmin")
+              <li class="slide">
+                <a class="side-menu__item has-link" data-bs-toggle="slide" href="/organizations"><i
+                        class="side-menu__icon fe fe-map"></i><span
+                        class="side-menu__label">Organizatons</span></a>
+            </li>
+            @endif
               <li class="slide">
                 <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                         class="side-menu__icon fe fe-user"></i><span
