@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\OrganizationController;
 use App\Models\Geo;
 use App\Models\Sale;
 use App\Models\Outlet;
@@ -231,7 +232,7 @@ Route::put('/saveeditregion/{id}',[RegionController::class,'saveEditRegion']);
 });
 
 Route::middleware(['superAdminOnly'])->group(function(){
-    Route::get('/organizations', [Organization::class,'index']);
+    Route::get('/organizations', [OrganizationController::class,'index']);
 });
 
 Route::get('/changepassword/{usertype}/{id}', [UserController::class,'showChangePassword']);
