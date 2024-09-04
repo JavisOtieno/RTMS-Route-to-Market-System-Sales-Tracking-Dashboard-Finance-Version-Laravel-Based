@@ -76,7 +76,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="phone" class="form-label">Admin Phone</label>
-                                <input type="text" class="form-control" name="phone" id="phone" placeholder="Admin Phone"  autocomplete="phone">
+                                <input type="text" class="form-control" name="phone"  placeholder="Admin Phone"  autocomplete="phone">
                             </div>
                             <div class="form-group">
                                 <label for="phone" class="form-label">Admin Email</label>
