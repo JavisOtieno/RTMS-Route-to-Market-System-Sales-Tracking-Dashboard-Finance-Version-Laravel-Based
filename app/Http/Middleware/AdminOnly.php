@@ -17,7 +17,7 @@ class AdminOnly
     public function handle(Request $request, Closure $next): Response
     {
 
-        if (Auth::user()->usertype=="admin") {
+        if (Auth::user()->usertype=="admin" || Auth::user()->usertype=="sytemadmin") {
             // return route('signup');   
             return $next($request);
         }
