@@ -20,9 +20,9 @@ class Organization extends Model
         'kra_pin'
     ];
 
-    public function admin()
+    public function firstAdmin()
     {
-        return $this->hasOne(User::class, 'organization_id')->where('usertype', 'admin');
+        return $this->hasOne(User::class, 'organization_id')->where('usertype', 'admin')->first();;
     }
     
 }
