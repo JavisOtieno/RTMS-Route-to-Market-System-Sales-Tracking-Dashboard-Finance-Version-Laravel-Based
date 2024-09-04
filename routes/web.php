@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\api\OrganizationController;
+use App\Http\Controllers\OrganizationController;
 use App\Models\Geo;
 use App\Models\Sale;
 use App\Models\Outlet;
