@@ -146,7 +146,7 @@
                             </div>
                             
                         </div>
-                        <button class="btn btn-primary col-12 mt-4 mb-0">Save</button>
+                        <button class="btn btn-primary col-11 mt-4 mb-0">Save</button>
                     </form>
 
                     {{-- <div class="form-group" style="margin-top:20px;">
