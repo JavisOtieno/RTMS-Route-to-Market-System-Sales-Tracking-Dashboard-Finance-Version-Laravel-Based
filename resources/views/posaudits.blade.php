@@ -33,8 +33,16 @@
                 <input type="text" class="form-control" id="nameInput" placeholder="Name">
             </div>
             <div class="col-md-3 mb-3">
+                <label for="name" class="form-label">Product Name</label>
+                <input type="text" class="form-control" id="productNameInput" placeholder="Product Name">
+            </div>
+            <div class="col-md-3 mb-3">
                 <label for="outletName" class="form-label">Outlet Name</label>
                 <input type="text" class="form-control" id="outletNameInput" placeholder="Outlet Name">
+            </div>
+            <div class="col-md-3 mb-3">
+                <label for="teamName" class="form-label">Team</label>
+                <input type="text" class="form-control" id="teamNameInput" placeholder="Team Name">
             </div>
             <div class="col-md-3 mb-3">
                 <label for="date" class="form-label">From</label>
