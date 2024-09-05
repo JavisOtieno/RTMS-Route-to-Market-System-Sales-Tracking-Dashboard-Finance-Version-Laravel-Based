@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\api;
 
+use App\Http\Controllers\api\ApiCommonController;
 use App\Models\Visit;
 use App\Models\Outlet;
 use App\Rules\PhoneNumber;
@@ -9,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
-class OutletController extends Controller
+class OutletController extends ApiCommonController
 {
     //
     public function addoutlet(Request $request){
@@ -33,18 +34,10 @@ class OutletController extends Controller
         
         $contact_person_name=strip_tags($request['contactPersonName']);
 
-        function processName($contactnamein){
-        $contactnamein = strtolower($contactnamein);
-        $contact_person_name_array=explode(' ',$contactnamein);
-        $finalname="";
-        foreach ($contact_person_name_array as $name) {
-            $finalname=$finalname." ".ucfirst($name);
-        }
-        return trim($finalname); // Trim to remove any leading/trailing spaces
-        }
+
     
-        $incomingFields['contact_person_name']=processName($contact_person_name);
-        $incomingFields['name']=processName(strip_tags($request['outletName']));
+        $incomingFields['contact_person_name']=$this->processName($contact_person_name);
+        $incomingFields['name']=$this->processName(strip_tags($request['outletName']));
 
         $incomingFields['phone']=strip_tags($request['phone']);
         $incomingFields['lat']=strip_tags($request['lat']);
