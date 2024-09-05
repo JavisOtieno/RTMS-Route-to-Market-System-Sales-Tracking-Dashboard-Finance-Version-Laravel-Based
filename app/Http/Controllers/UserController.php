@@ -449,7 +449,7 @@ class UserController extends CommonController
         return view('seller.create',compact('regions','territories','targetgroups','teams'));
     }
     public function addAdmin() {
-        return view('admin.add');
+        return view('admin.create');
     }
 
 

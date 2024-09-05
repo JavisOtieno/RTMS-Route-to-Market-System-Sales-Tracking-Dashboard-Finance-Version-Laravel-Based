@@ -62,7 +62,7 @@
                             
                             
                         </div>
-                        <button class="btn btn-primary mt-4 mb-0">Save</button>
+                        <button class="btn btn-primary col-12 mt-4 mb-0">Save</button>
                     </form>
                 
             </div>

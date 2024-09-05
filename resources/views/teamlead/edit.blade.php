@@ -95,7 +95,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="password" class="form-label">Password</label>
-                                <a href="/changepassword/teamlead/{{$user['id']}}" class="col-12 btn btn-info mb-0">Change Password</a>                            
+                                <a href="/changepassword/teamlead/{{$user['id']}}" class="btn btn-info col-12 mb-0">Change Password</a>                            
                             </div>
                             
                         </div>
