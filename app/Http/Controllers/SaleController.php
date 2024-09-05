@@ -28,7 +28,7 @@ class SaleController extends Controller
         }]);
     }
     ])->get();
-        return view('sales', ['sales'=>$sales]);
+        return view('sale.index', ['sales'=>$sales]);
     }
 
 
@@ -59,7 +59,7 @@ class SaleController extends Controller
                 ])->where($object.'_id',$id)->get();
         }
 
-        return view('sales', ['sales'=>$sales]);
+        return view('sale.index', ['sales'=>$sales]);
 
     }
 
@@ -69,7 +69,7 @@ class SaleController extends Controller
         $outlets = Outlet::all();
         $products = Product::all();
         //dd($sales);
-        return view('add-sale', compact('users','outlets','products'));
+        return view('sale.create', compact('users','outlets','products'));
     }
 
     public function saveSale(Request $request){
@@ -134,7 +134,7 @@ class SaleController extends Controller
         $outlets = Outlet::all();
        
         //$users = User::inOrganization()->where('usertype','seller')->get();
-        return view('salesmap', compact('sales','users','outlets') );
+        return view('sale.map', compact('sales','users','outlets') );
     }
 
     public function showSalesAnalytics(){
@@ -255,7 +255,7 @@ class SaleController extends Controller
 
        
         //$users = User::inOrganization()->where('usertype','seller')->get();
-        return view('salesanalytics', compact('salesPerMonth','months','salesCount',
+        return view('sale.analytics', compact('salesPerMonth','months','salesCount',
         'salesThisMonth', 'salesThisWeek','salesToday','dates','salesPerDay','sellersByRegionCount','sellersByRegionNames',
         'topSellerSalesCount','topSellerUserNames') );
     }
@@ -278,7 +278,7 @@ class SaleController extends Controller
         }
         ])->get()->find($id);
         //$sale = Sale::find($id);
-        return view('edit-sale',['sale'=>$sale]);
+        return view('sale.edit',['sale'=>$sale]);
     }
 
     // public function showEditSale(Request $request){

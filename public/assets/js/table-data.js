@@ -529,6 +529,7 @@ $(function(e) {
 
 
 
+
         $('#nameInput').on('keyup', function() {
             //alert(this.value);
             table2.column(sellerNameColumnIndex).search(this.value).draw(); // Column index 0 for 'Name'
@@ -588,8 +589,10 @@ $(function(e) {
     else if(tableLoaded=="sales" || tableLoaded=="posaudits" || tableLoaded=="competitoranalysis" || tableLoaded=="feedback"){
     
         var nameColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text() === 'Seller Name');
+        var productNameColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text().toLowerCase().includes('product'));
         var outletNameColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text() === 'Outlet Name');
         // alert(nameColumnIndex+" "+outletNameColumnIndex)
+        alert(productNameColumnIndex);
 
         $('#nameInput').on('keyup', function() {
             // alert(this.value);
@@ -598,6 +601,10 @@ $(function(e) {
         $('#outletNameInput').on('keyup', function() {
             // alert(thzzis.value);
             table2.column(outletNameColumnIndex).search(this.value).draw(); // Column index 0 for 'Name'
+        });
+        $('#productNameInput').on('keyup', function() {
+            // alert(thzzis.value);
+            table2.column(productNameColumnIndex).search(this.value).draw(); // Column index 0 for 'Name'
         });
 
     }
