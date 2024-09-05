@@ -74,6 +74,9 @@
                                         <th>ID</th>
                                         <th id="edit-column">View/Edit</th>
                                         <th id="delete-column">Delete</th>
+                                        @if(auth()->user()->usertype == 'systemadmin')
+                                        <th>Organization</th>
+                                        @endif
                                         <th>Name</th>
                                         <th>Phone</th>
                                         <th>Email</th>
@@ -95,6 +98,9 @@
                                         </td>
                                         <td><a type="button" onclick="deleteItem({{$user['id']}},'Id: '+{{$user['id']}}+'<br/> Name: '+'{{$user['name']}}'+'<br/> Phone: '+'{{$user['phone']}}'+'<br/> Email: '+'{{$user['email']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
                                         </td>
+                                        @if(auth()->user()->usertype == 'systemadmin')
+                                        <th>{{$user['organization']['name']}}</th>
+                                        @endif
                                         <td>{{$user['name']}}</td>
                                         <td>{{$user['phone']}}</td>
                                         <td>{{$user['email']}}</td>

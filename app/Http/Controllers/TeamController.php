@@ -12,7 +12,7 @@ class TeamController extends Controller
         //
     // test commit 2
     public function index() {
-        $teams = Team::all();
+        $teams = Team::with('organization')->get();
         return view('team.index', compact('teams'));
     }
     public function addTeam() {

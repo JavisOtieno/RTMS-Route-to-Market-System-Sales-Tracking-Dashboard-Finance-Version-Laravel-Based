@@ -29,5 +29,9 @@ class Team extends Model
         // static::addGlobalScope(new DefaultTeamScope);
         
     }
+
+    public function organization(){
+        return $this->belongsTo(Organization::class,'organization_id');
+    }
     
 }

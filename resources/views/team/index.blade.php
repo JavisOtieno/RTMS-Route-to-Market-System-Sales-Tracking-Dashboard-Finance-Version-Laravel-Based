@@ -55,6 +55,9 @@
                                         <th>ID</th>
                                         <th id="edit-column">View/Edit</th>
                                         <th id="delete-column">Delete</th>
+                                        @if(auth()->user()->usertype == 'systemadmin')
+                                        <th>Organization</th>
+                                        @endif
                                         <th>Name</th>
                                         <th>Team Lead</th>
                                         <th>Date</th>
@@ -72,6 +75,9 @@
                                         </td>
                                         <td><a type="button" onclick="deleteItem({{$team['id']}},'Id: '+{{$team['id']}}+'<br/> Name: '+'{{$team['name']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
                                         </td>
+                                        @if(auth()->user()->usertype == 'systemadmin')
+                                        <th>{{$team['organization']['name']}}</th>
+                                        @endif
                                         <td>{{$team['name']}}</td>
                                         <td>{{isset($team->teamLead)?$team->teamLead['name']:'None'}}</td>
                                         <td>{{date('d-M-Y', strtotime($team['created_at']))}}</td>
