@@ -46,6 +46,10 @@
                             <input type="text" class="form-control" id="outletNameInput" placeholder="Outlet Name">
                         </div>
                         <div class="col-md-3 mb-3">
+                            <label for="teamName" class="form-label">Team</label>
+                            <input type="text" class="form-control" id="teamNameInput" placeholder="Team Name">
+                        </div>
+                        <div class="col-md-3 mb-3">
                             <label for="date" class="form-label">From</label>
                             <input type="date" class="form-control" id="dateFromInput" placeholder="Min Date">
                         </div>

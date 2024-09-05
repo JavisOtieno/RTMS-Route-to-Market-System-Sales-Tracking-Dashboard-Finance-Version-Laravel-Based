@@ -591,8 +591,11 @@ $(function(e) {
         var nameColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text() === 'Seller Name');
         var productNameColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text().toLowerCase().includes('product'));
         var outletNameColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text() === 'Outlet Name');
+        var teamNameColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text() === 'Team');
+
         // alert(nameColumnIndex+" "+outletNameColumnIndex)
-        alert(productNameColumnIndex);
+        alert(teamNameColumnIndex);
+  
 
         $('#nameInput').on('keyup', function() {
             // alert(this.value);
@@ -605,6 +608,10 @@ $(function(e) {
         $('#productNameInput').on('keyup', function() {
             // alert(thzzis.value);
             table2.column(productNameColumnIndex).search(this.value).draw(); // Column index 0 for 'Name'
+        });
+        $('#teamNameInput').on('keyup', function() {
+            // alert(thzzis.value);
+            table2.column(teamNameColumnIndex).search(this.value).draw(); // Column index 0 for 'Name'
         });
 
     }
