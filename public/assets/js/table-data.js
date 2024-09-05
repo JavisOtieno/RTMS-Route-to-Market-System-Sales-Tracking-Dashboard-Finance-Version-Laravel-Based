@@ -594,7 +594,7 @@ $(function(e) {
         var teamNameColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text() === 'Team');
 
         // alert(nameColumnIndex+" "+outletNameColumnIndex)
-        alert(teamNameColumnIndex);
+        // alert(teamNameColumnIndex);
   
 
         $('#nameInput').on('keyup', function() {
