@@ -62,8 +62,8 @@
                                 <label for="status" class="form-label">Status</label>
                                 <select name="status" class="form-control form-select select2" data-bs-placeholder="Select Status">
                                     <option value="pending" {{$offplanrequest["status"]=='pending'?'selected':'' }}>Pending</option>
-                                    <option value="approved" {{$offplanrequest["status"]=='pending'?'selected':'' }}>Approved</option>
-                                    <option value="disapproved" {{$offplanrequest["status"]=='pending'?'selected':'' }}>Disapproved</option>
+                                    <option value="approved" {{$offplanrequest["status"]=='approved'?'selected':'' }}>Approved</option>
+                                    <option value="disapproved" {{$offplanrequest["status"]=='disapproved'?'selected':'' }}>Disapproved</option>
                                 </select>
                             </div>
                    
