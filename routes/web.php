@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\OrganizationController;
 use App\Models\Geo;
 use App\Models\Sale;
 use App\Models\Outlet;
@@ -8,7 +7,9 @@ use App\Models\Product;
 use App\Models\Posaudit;
 use App\Models\Territory;
 use App\Models\Competitor;
+use App\Models\Organization;
 use App\Models\PosauditItem;
+use App\Models\Offplanrequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GeoController;
@@ -35,9 +36,10 @@ use App\Http\Controllers\RouteplanController;
 use App\Http\Controllers\TerritoryController;
 use App\Http\Controllers\CompetitorController;
 use App\Http\Controllers\TargetGroupController;
+use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\OffplanrequestController;
 use App\Http\Controllers\api\RoutePlanController as ApiRoutePlanController;
-use App\Models\Organization;
 
 /*
 |--------------------------------------------------------------------------
@@ -192,9 +194,12 @@ Route::get('/add-seller', [UserController::class,'addSeller']);
 Route::get('/editseller/{id}', [UserController::class,'showEditSeller']);
 Route::put('/saveeditseller/{id}',[UserController::class,'saveEditSeller']);
 
+Route::get('/offplanrequests', [OffplanrequestController::class,'index']);
+
 // $user = auth()->user();
 Route::middleware(['adminOnly'])->group(function(){
 // if(auth()->user()){
+
 
 Route::get('/teams', [TeamController::class,'index']);
 Route::get('/addteam', [TeamController::class,'addTeam']);

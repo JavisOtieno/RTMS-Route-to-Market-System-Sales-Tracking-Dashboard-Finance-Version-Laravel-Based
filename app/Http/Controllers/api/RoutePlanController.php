@@ -15,7 +15,7 @@ class RoutePlanController extends Controller
         $userId = auth()->id();
         $routeplan = Routeplan::where('user_id',$userId)
         ->whereDate('date',  Carbon::today()->toDateString())
-        ->with('routeplanitems.outlet')->orderBy('id', 'DESC')->get();
+        ->with('routeplanitems.outlet')->orderBy('id', 'DESC')->take(1)->get();
         return response()->json(['routeplan'=>$routeplan]);
     }
 

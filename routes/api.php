@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Models\Offplanrequest;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GeoController;
 use App\Http\Controllers\UserController;
@@ -22,6 +23,7 @@ use App\Http\Controllers\api\DashboardController;
 use App\Http\Controllers\api\RoutePlanController;
 use App\Http\Controllers\api\CompetitorController;
 use App\Http\Controllers\api\OrganizationController;
+use App\Http\Controllers\api\OffplanrequestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,6 +84,8 @@ Route::middleware(['auth:sanctum'])->group(function(){
 
     Route::get('userhasrouteplan', [RoutePlanController::class,'checkIfUserHasRoutePlanToday']);
     Route::get('routeplans',[RouteplanController::class,'index']);
+    Route::get('addoffplanrequest', [OffplanrequestController::class,'saveOffplanrequest']);
+
 
     Route::get('download-pdf-mobile/{id}', [OrderNoteController::class, 'downloadPdf']);
 
