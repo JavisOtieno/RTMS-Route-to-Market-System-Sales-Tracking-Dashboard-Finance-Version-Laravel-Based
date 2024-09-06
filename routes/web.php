@@ -195,6 +195,9 @@ Route::get('/editseller/{id}', [UserController::class,'showEditSeller']);
 Route::put('/saveeditseller/{id}',[UserController::class,'saveEditSeller']);
 
 Route::get('/offplanrequests', [OffplanrequestController::class,'index']);
+Route::get('/editoffplanrequest/{id}', [OffplanrequestController::class,'showEditOffplanrequest']);
+Route::put('/saveeditoffplanrequest/{id}',[OffplanrequestController::class,'saveEditOffplanrequest']);
+
 
 // $user = auth()->user();
 Route::middleware(['adminOnly'])->group(function(){
