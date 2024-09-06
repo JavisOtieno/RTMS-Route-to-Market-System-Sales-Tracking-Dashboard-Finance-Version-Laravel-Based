@@ -86,7 +86,7 @@
                                         @endif --}}
                                         <td>{{$offplanrequest['user']['name']}}</td>
                                         <td>{{isset($offplanrequest->routePlan['name'])?$offplanrequest->routePlan['name']:'None'}}</td>
-                                        <td>{{$offplanrequest['status']}}</td>
+                                        <td>{{ucfirst($offplanrequest['status'])}}</td>
                                         <td>{{date('d-M-Y', strtotime($offplanrequest->routePlan['created_at']))}}</td>
                                     
                                         
