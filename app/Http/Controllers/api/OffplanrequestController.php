@@ -25,14 +25,19 @@ class OffplanrequestController extends Controller
         $incomingFields['organization_id']=auth()->user()->organization_id;
         $incomingFields['team_id']=auth()->user()->team_id;
 
-        Offplanrequest::create($incomingFields);
+        $offplanrequest=Offplanrequest::create($incomingFields);
 
         $offplanStatus=array(
             "message" => "Offplan Request Saved Successfully",
+            "offplanrequestId" => $offplanrequest->id,
             "status" => "success");
 
         return response()->json($offplanStatus);
         
+    }
+    public function checkIfOffplanrequestApproved($id) {
+        $offplanrequest = Offplanrequest::find($id);
+        return response()->json($offplanrequest);
     }
 
 
