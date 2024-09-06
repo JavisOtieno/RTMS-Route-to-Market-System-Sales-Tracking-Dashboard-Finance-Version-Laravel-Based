@@ -51,11 +51,11 @@
                             @endif
                             <div class="form-group">
                                 <label for="sellerName" class="form-label">Seller Name</label>
-                                <input type="text" class="form-control" name="sellerName" value="{{old('sellerName',$offplanrequest['user']['name'])}}" id="sellerName" placeholder="Seller Name"  autocomplete="sellerName">
+                                <input type="text" class="form-control" name="sellerName" value="{{old('sellerName',$offplanrequest['user']['name'])}}" id="sellerName" placeholder="Seller Name" readonly  autocomplete="sellerName">
                             </div>
                             <div class="form-group">
                                 <label for="routeplanName" class="form-label">Route Plan Name</label>
-                                <input type="text" class="form-control" name="routeplanName" value="{{old('',$offplanrequest['routeplan']['name'])}}" id="routeplanName" placeholder="Route Plan Name"  autocomplete="routePlanName">
+                                <input type="text" class="form-control" name="routeplanName" value="{{old('',$offplanrequest['routeplan']['name'])}}" id="routeplanName" placeholder="Route Plan Name" readonly autocomplete="routePlanName">
                             </div>
                             
                             <div class="form-group">

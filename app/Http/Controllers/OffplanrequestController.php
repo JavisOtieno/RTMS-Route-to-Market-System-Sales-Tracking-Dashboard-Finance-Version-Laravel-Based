@@ -24,13 +24,9 @@ class OffplanrequestController extends Controller
     public function saveEditOffplanrequest($id, Request $request){
 
         $incomingFields=$request->validate([
-            'user_id'=>'required|numeric|digits_between:1,20|exists:users,id',
-            'routeplan_id'=>'required|numeric|digits_between:1,20|exists:routeplans,id',
             'status'=>'required|string|max:255'
         ]);
-
-        $incomingFields['user_id']=strip_tags($incomingFields['user_id']);
-        $incomingFields['routeplan_id']=strip_tags($incomingFields['routeplan_id']);
+        
         $incomingFields['status']=strip_tags($incomingFields['status']);
 
         $offplanrequest=Offplanrequest::find($id);
