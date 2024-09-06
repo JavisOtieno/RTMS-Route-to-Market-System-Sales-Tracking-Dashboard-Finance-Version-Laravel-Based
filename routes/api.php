@@ -84,7 +84,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
 
     Route::get('userhasrouteplan', [RoutePlanController::class,'checkIfUserHasRoutePlanToday']);
     Route::get('routeplans',[RouteplanController::class,'index']);
-    Route::get('addoffplanrequest', [OffplanrequestController::class,'saveOffplanrequest']);
+    Route::post('addoffplanrequest', [OffplanrequestController::class,'saveOffplanrequest']);
 
 
     Route::get('download-pdf-mobile/{id}', [OrderNoteController::class, 'downloadPdf']);
