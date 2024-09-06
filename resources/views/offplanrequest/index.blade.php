@@ -71,7 +71,8 @@
                                         @foreach($offplanrequests as $offplanrequest)
                                         <tr>
                                         <td>{{$offplanrequest['id']}}</td>
-                                        <td><a type="button" href="/editoffplanrequest/{{$offplanrequest['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
+                                        <td><a type="button" href="/editoffplanrequest/{{$offplanrequest['id']}}" 
+                                            class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
                                         </td>
                                         <td><a type="button" onclick="deleteItem({{$offplanrequest['id']}},'Id: '+{{$offplanrequest['id']}}+'<br/> Name: '+'{{$offplanrequest['user']['name']}}')"  
                                             class="btn btn-danger" 
