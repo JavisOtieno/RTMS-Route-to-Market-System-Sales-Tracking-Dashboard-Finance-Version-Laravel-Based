@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger("visit_id")->nullable();
             $table->string("status");
             $table->unsignedBigInteger("organization_id");
-            $table->unsignedBigInteger("team_id");
+            $table->unsignedBigInteger("team_id")->nullable();
             $table->timestamps();
         });
     }
