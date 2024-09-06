@@ -14,7 +14,7 @@ class OffplanrequestController extends Controller
         //$incomingFields=
         $request->validate([
             'userId'=>'required|numeric|digits_between:1,20|exists:users,id',
-            'routePlanId'=>'required|numeric|digits_between:1,20|exists:visits,id',
+            'routeplanId'=>'required|numeric|digits_between:1,20|exists:visits,id',
         ]);
 
 
