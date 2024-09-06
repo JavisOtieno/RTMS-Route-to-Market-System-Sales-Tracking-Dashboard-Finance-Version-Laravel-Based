@@ -54,9 +54,9 @@
                                         <th>ID</th>
                                         <th id="edit-column">Approve</th>
                                         <th id="delete-column">Delete</th>
-                                        @if(auth()->user()->usertype == 'systemadmin')
+                                        {{-- @if(auth()->user()->usertype == 'systemadmin')
                                         <th>Organization</th>
-                                        @endif
+                                        @endif --}}
                                         <th>Seller Name</th>
                                         <th>RoutePlan Name</th>
                                         <th>Status</th>
@@ -74,9 +74,9 @@
                                         
                                         <td><a type="button" onclick="deleteItem({{$offplanrequest['id']}},'Id: '+{{$offplanrequest['id']}}+'<br/> Name: '+'{{$offplanrequest['user']['name']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
                                         </td>
-                                        @if(auth()->user()->usertype == 'systemadmin')
+                                        {{-- @if(auth()->user()->usertype == 'systemadmin')
                                         <th>{{$offplanrequest['organization']['name']}}</th>
-                                        @endif
+                                        @endif --}}
                                         <td>{{$offplanrequest['user']['name']}}</td>
                                         <td>{{isset($offplanrequest->routePlan['name'])?$offplanrequest->routePlan['name']:'None'}}</td>
                                         <td>{{$offplanrequest['status']}}</td>
