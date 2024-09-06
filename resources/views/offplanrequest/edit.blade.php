@@ -51,7 +51,7 @@
                             @endif
                             <div class="form-group">
                                 <label for="sellerName" class="form-label">Seller Name</label>
-                                <input type="text" class="form-control" name="sellerName" value="{{old('sellerName',$offplanrequest['name'])}}" id="sellerName" placeholder="Seller Name"  autocomplete="sellerName">
+                                <input type="text" class="form-control" name="sellerName" value="{{old('sellerName',$offplanrequest['user']['name'])}}" id="sellerName" placeholder="Seller Name"  autocomplete="sellerName">
                             </div>
                             <div class="form-group">
                                 <label for="routeplanName" class="form-label">Route Plan Name</label>
