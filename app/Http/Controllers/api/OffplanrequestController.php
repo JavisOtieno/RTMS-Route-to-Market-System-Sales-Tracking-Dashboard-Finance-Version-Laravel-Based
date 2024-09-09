@@ -44,11 +44,13 @@ class OffplanrequestController extends Controller
         ->orderBy('id', 'desc')
         ->first();
         
-
+        //no need to verify user id on routeplanitem as it is already confirmed by the
+        //userrouteplan on initial mobile
         $routeplanitem=RouteplanItem::where('routeplan_id',$incomingFields['routeplan_id'])
         ->whereNotNull('visit_id')
         ->orderBy('id', 'desc')
         ->first();
+
         if($routeplanitem==null){
             // $incomingFields['visit_id']=0;
             $incomingFields['visit_id']=null;
@@ -60,21 +62,21 @@ class OffplanrequestController extends Controller
         if($lastOffPlanRequest==null){
             $offplanrequest=Offplanrequest::create($incomingFields);
             $offplanrequestId=$offplanrequest->id;
-            $message="offplan null";
+            // $message="offplan null";
         }else if($incomingFields['visit_id']!=$lastOffPlanRequest['visit_id'])
         {
             $offplanrequest=Offplanrequest::create($incomingFields);
             $offplanrequestId=$offplanrequest->id;
-            $message="offplan and incoming not equal";
+            // $message="offplan and incoming not equal";
         }else{
             $offplanrequestId=$lastOffPlanRequest->id;
-            $message = "else statement";
+            // $message = "else statement";
         }
 
         $offplanStatus=array(
             "message" => 
-            // "Offplan Request Saved Successfully ".
-                       "op ".$lastOffPlanRequest['visit_id']." rt ".$routeplanitem['visit_id']." ic".$incomingFields['routeplan_id']." m ".$message,
+            "Offplan Request Saved Successfully ",
+                    //    "op ".$lastOffPlanRequest['visit_id']." rt ".$routeplanitem['visit_id']." ic".$incomingFields['routeplan_id']." m ".$message,
             "offplanrequestId" => $offplanrequestId,
             "status" => "success");
 
