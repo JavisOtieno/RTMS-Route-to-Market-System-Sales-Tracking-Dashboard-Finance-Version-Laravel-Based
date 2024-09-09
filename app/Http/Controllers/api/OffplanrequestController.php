@@ -63,13 +63,16 @@ class OffplanrequestController extends Controller
             $offplanrequest=Offplanrequest::create($incomingFields);
             $offplanrequestId=$offplanrequest->id;
             // $message="offplan null";
-        }else if($incomingFields['visit_id']!=$lastOffPlanRequest['visit_id'])
+        }else if($incomingFields['visit_id']==$lastOffPlanRequest['visit_id']
+        && $lastOffPlanRequest['status'] == 'pending')
         {
-            $offplanrequest=Offplanrequest::create($incomingFields);
-            $offplanrequestId=$offplanrequest->id;
+            $offplanrequestId=$lastOffPlanRequest->id;
+            
             // $message="offplan and incoming not equal";
         }else{
-            $offplanrequestId=$lastOffPlanRequest->id;
+            $offplanrequest=Offplanrequest::create($incomingFields);
+            $offplanrequestId=$offplanrequest->id;
+            
             // $message = "else statement";
         }
 
