@@ -40,6 +40,7 @@ class OffplanrequestController extends Controller
         //return that request instead
 
         $lastOffPlanRequest=Offplanrequest::where('routeplan_id',$incomingFields['routeplan_id'])
+        ->where('user_id',$incomingFields['user_id'])
         ->orderBy('id', 'desc')
         ->first();
         
