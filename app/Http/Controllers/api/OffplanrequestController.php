@@ -53,8 +53,10 @@ class OffplanrequestController extends Controller
             $incomingFields['visit_id']=$routeplanitem['visit_id'];
         }
         
-        if($lastOffPlanRequest==null||
-        $incomingFields['visit_id']!=$lastOffPlanRequest['visit_id'])
+        if($lastOffPlanRequest==null){
+            $offplanrequest=Offplanrequest::create($incomingFields);
+            $offplanrequestId=$offplanrequest->id;
+        }else if($incomingFields['visit_id']!=$lastOffPlanRequest['visit_id'])
         {
             $offplanrequest=Offplanrequest::create($incomingFields);
             $offplanrequestId=$offplanrequest->id;
@@ -63,7 +65,8 @@ class OffplanrequestController extends Controller
         }
 
         $offplanStatus=array(
-            "message" => "Offplan Request Saved Successfully",
+            "message" => "Offplan Request Saved Successfully "+ $incomingFields['visit_id']+ "  "+
+            $lastOffPlanRequest['visit_id'],
             "offplanrequestId" => $offplanrequestId,
             "status" => "success");
 
