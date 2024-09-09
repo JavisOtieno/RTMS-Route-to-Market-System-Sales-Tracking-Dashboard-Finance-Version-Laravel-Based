@@ -280,7 +280,7 @@
                         <p><strong>Phone:</strong> ${outlet.phone}</p>
                         <p><strong>Latitude:</strong> ${outlet.lat}</p>
                         <p><strong>Longitude:</strong> ${outlet.long}</p>
-                        View: <a href='/editoutlet/${outlet.id}' >View outlet Details</a>
+                        <p>View: <a href='/editoutlet/${outlet.id}' >View outlet Details</a></p>
                         <img 
                         src="${outletImage}" 
                         alt="${outlet.name}" 
