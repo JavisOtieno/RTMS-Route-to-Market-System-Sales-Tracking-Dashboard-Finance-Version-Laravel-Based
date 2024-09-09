@@ -367,6 +367,7 @@
                             "<p>Seller: " + (outlet.user === null ? 'Deleted User' : outlet.user['name']) + "</p>" +
                             "<p>Latitude: " + lat1 + "</p>" +
                             "<p>Longitude: " + long1 + "</p>" +
+                            "<a href='/outlet/" + outlet.id + "'>View More Details</a>" +
                             "<p><strong>Created:</strong> "+outletDate+" "+outletTime+"</p>"+
                         
                             "</div>"
