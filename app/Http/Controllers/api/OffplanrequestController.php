@@ -45,7 +45,9 @@ class OffplanrequestController extends Controller
         
 
         $routeplanitem=RouteplanItem::where('routeplan_id',$incomingFields['routeplan_id'])
-        ->whereNotNull('visit_id')->first();
+        ->whereNotNull('visit_id')
+        ->orderBy('id', 'desc')
+        ->first();
         if($routeplanitem==null){
             // $incomingFields['visit_id']=0;
             $incomingFields['visit_id']=null;
