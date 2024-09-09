@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger("user_id");
             $table->unsignedBigInteger("routeplan_id");
+            //last visit
             $table->unsignedBigInteger("visit_id")->nullable();
             $table->string("status");
             $table->unsignedBigInteger("organization_id");

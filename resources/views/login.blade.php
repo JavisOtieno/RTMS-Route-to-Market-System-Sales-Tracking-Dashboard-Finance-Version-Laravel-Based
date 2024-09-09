@@ -44,8 +44,8 @@
         <ul>
             @foreach ($errors->all() as $error)
                 <li>
-                    @if ($error == 'The phone number must be at least 12 characters.')
-                    The phone number must be at least 10 Numbers.
+                    @if ($error == 'Any special error')
+                    Any special error
                     @else
                     {{ $error }}
                     @endif
