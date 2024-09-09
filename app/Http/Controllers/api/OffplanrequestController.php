@@ -65,7 +65,8 @@ class OffplanrequestController extends Controller
         }
 
         $offplanStatus=array(
-            "message" => "Offplan Request Saved Successfully ".
+            "message" => 
+            // "Offplan Request Saved Successfully ".
                         $lastOffPlanRequest['visit_id']." ".$routeplanitem['visit_id'],
             "offplanrequestId" => $offplanrequestId,
             "status" => "success");
