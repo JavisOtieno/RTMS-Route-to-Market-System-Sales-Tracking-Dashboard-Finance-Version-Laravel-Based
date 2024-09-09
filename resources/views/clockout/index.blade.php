@@ -331,7 +331,7 @@
                     infoWindow.close(); // Close the InfoWindow if it's open
                     isInfoWindowOpen = false; // Update the state
                 } else {
-                    infoWindow.open(map, marker)]; // Open the InfoWindow if it's closed
+                    infoWindow.open(map, marker); // Open the InfoWindow if it's closed
                     isInfoWindowOpen = true; // Update the state
                 }
             });
