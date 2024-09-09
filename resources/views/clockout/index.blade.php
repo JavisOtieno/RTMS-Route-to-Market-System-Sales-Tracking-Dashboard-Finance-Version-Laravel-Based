@@ -315,7 +315,6 @@
                         <p><strong>Time:</strong> ${clockoutTime}</p>
                         <p><strong>Latitude:</strong> ${clockout.lat}</p>
                         <p><strong>Longitude:</strong> ${clockout.long}</p>
-                        View: <a href='/clockout/${clockout.id}' >View Clockout Details</a>
                         
                     </div>
                 `
