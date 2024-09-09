@@ -267,7 +267,8 @@
                         "<p>Latitude: " + lat1 + "</p>" +
                         "<p>Longitude: " + long1 + "</p>" +
                         "<p><strong>Date:</strong> "+saleDate+"</p>"+
-                        "<p><strong>Checkin Time:</strong> "+saleTime+"</p>"+
+                        "<p><strong>Sale Time:</strong> "+saleTime+"</p>"+
+                        "View: <a target='_blank' href='/editsale/" + outlet.id + "'>View Sale Details</a>" +
                     
                         "</div>"
                 });
