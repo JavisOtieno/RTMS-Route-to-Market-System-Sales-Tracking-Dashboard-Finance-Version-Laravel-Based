@@ -51,10 +51,13 @@
                             @endif
                             <div class="form-group">
                                 <label for="userId" class="form-label">Seller Name</label>
+                                <a href="{{$outlet['user']==null?'#':editseller/$outlet['user']['id'] }}">
                                 <input type="userName" readonly class="form-control" name="userName" id="userName" placeholder="User Name" 
                                 value="{{ $outlet['user'] ? $outlet['user']['name'] . ($outlet['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}"
                                 {{-- value="{{$outlet['user']['name']}}"  --}}
                                 autocomplete="username">
+                                </a>
+
                                 <input type="hidden" readonly class="form-control" name="userId" id="userId" placeholder="User Id" 
                                 value="{{ $outlet['user'] ? $outlet['user']['id']  . ($outlet['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}" 
                                 {{-- value="{{$outlet['user']['id']}}"  --}}
