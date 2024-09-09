@@ -268,7 +268,7 @@
                         "<p>Longitude: " + long1 + "</p>" +
                         "<p><strong>Date:</strong> "+saleDate+"</p>"+
                         "<p><strong>Sale Time:</strong> "+saleTime+"</p>"+
-                        "View: <a target='_blank' href='/editsale/" + outlet.id + "'>View Sale Details</a>" +
+                        "View: <a target='_blank' href='/editsale/" + sale.id + "'>View Sale Details</a>" +
                     
                         "</div>"
                 });
