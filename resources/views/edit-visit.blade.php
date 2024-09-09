@@ -204,6 +204,7 @@
                     "<p>Date: "+visitDate+"</p>"+
                     "<p>Checkin Time: "+visitTime+"</p>"+
                     "<p>Checkout Time: "+checkoutTime+"</p>"+
+
                     "</div>"
             });
 

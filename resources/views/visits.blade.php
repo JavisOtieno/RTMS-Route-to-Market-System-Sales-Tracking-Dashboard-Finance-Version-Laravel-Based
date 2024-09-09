@@ -350,6 +350,7 @@
                         <p><strong>Date:</strong> ${visitDate}</p>
                         <p><strong>Checkin Time:</strong> ${visitTime}</p>
                         <p><strong>Checkout Time:</strong> ${checkoutTime}</p>
+                        <p>View: <a href='/visit/${visit.id}' >View Visit Details</a></p>
                     </div>
                 `
             });
