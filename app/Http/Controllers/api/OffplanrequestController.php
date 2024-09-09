@@ -40,16 +40,12 @@ class OffplanrequestController extends Controller
         //return that request instead
 
         $lastOffPlanRequest=Offplanrequest::where('routeplan_id',$incomingFields['routeplan_id'])
-        ->where('user_id',$incomingFields['user_id'])
         ->orderBy('id', 'desc')
         ->first();
         
 
         $routeplanitem=RouteplanItem::where('routeplan_id',$incomingFields['routeplan_id'])
-        ->where('user_id',$incomingFields['user_id'])
-        ->whereNotNull('visit_id')
-        ->orderBy('id', 'desc')
-        ->first();
+        ->whereNotNull('visit_id')->first();
         if($routeplanitem==null){
             // $incomingFields['visit_id']=0;
             $incomingFields['visit_id']=null;
