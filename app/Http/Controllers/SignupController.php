@@ -46,7 +46,7 @@ class SignupController extends Controller
         $incomingFieldsOrganization['email']=strip_tags($credentials['organizationEmail']);
         $incomingFieldsOrganization['registration_number']=strip_tags($credentials['organizationRegNo']);
         $incomingFieldsOrganization['kra_pin']=strip_tags($credentials['organizationKRAPin']);
-        $incomingFieldsOrganization['status']='active';
+        $incomingFieldsOrganization['status']='inactive';
 
         //return "hello";
 
