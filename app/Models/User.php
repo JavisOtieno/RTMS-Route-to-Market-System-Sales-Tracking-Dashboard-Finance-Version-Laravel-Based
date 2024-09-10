@@ -89,7 +89,7 @@ class User extends Authenticatable
         $user = auth()->user();
         
         if($user->usertype=="admin" ){
-            return $query::whereHas('organization', function($query) {
+            return $query->query()->whereHas('organization', function($query) {
                 $query->where('status', 'active');
             })->where('organization_id', $user->organization_id);
         }
@@ -100,7 +100,7 @@ class User extends Authenticatable
         //combined with route limited access to urls
         //along with menu limitations 
         else if($user->usertype=="teamlead"){
-            return $query::whereHas('organization', function($query) {
+            return $query->query()->whereHas('organization', function($query) {
                 $query->where('status', 'active');
             })->where('team_id', $user->team_id)->whereNotNull('team_id');
         }
@@ -110,7 +110,7 @@ class User extends Authenticatable
         // return $query->where('team_id', $user->team_id);
         //IDEAL
         //IGNORING ORGANIZATION ID SINCE TEAM INDICATES THE USER IS PART OF ORG
-            return $query::whereHas('organization', function($query) {
+            return $query->whereHas('organization', function($query) {
                 $query->where('status', 'active');
             })->where('team_id', $user->team_id)->orWhereNull('team_id');
 
