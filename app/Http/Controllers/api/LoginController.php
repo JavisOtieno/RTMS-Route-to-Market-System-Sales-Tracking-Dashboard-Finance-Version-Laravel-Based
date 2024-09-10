@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Organization;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -33,14 +34,21 @@ class LoginController extends Controller
             $loginStatus=array(
                 "message" => "Login Successful",
                 "status" => "success",
+                "test" => "test",
                 'authToken' =>  $user->createToken('AuthToken')->plainTextToken,
                 "userId"=>$userId);
 
             }else{
-
+                $organization = Organization::find($user->organization_id);
+                if($organization->status=="inactive"){
+                    $message = "Invalid Organization";
+                }else{
+                    $message = "Login Failed";
+                }
                 $loginStatus=array(
-                    "message" => "Login Failed",
+                    "message" => $message,
                     "status" => "failed",
+                    "test" => "test",
                     'authToken' =>  null,
                     "userId"=>null);
 
