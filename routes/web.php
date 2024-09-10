@@ -151,8 +151,8 @@ Route::get('/deleteclockout/{id}', [ClockoutController::class,'deleteClockout'])
 Route::get('/visits', [VisitController::class,'index']);
 Route::get('/visit/{id}',[VisitController::class,'showEditVisit']);
 Route::get('/visitsmap', [VisitController::class,'showVisitsMap']);
-Route::get('/routes', [VisitController::class,'showRoutes']);
-Route::get('/routes/{id}', [VisitController::class,'showRoutesById']);
+Route::get('/dayroutes', [VisitController::class,'showRoutes']);
+Route::get('/dayroutes/{id}', [VisitController::class,'showRoutesById']);
 Route::get('/visitsanalytics', [VisitController::class,'showVisitsAnalytics']);
 Route::get('/visits/{id}/{object}',[VisitController::class,'showVisitsById']);
 Route::get('/checkout/{id}', [VisitController::class,'checkout']);

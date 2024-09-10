@@ -139,7 +139,7 @@
                                     </div>
                                     <div class="row">
                                 <a href="/routeplans/{{$user['id']}}/user" class="btn btn-info col-md-5 mt-0 mb-2">View Seller RoutePlans</a>
-                                <a href="/routes/{{$user['id']}}" class="btn btn-info col-md-5 offset-md-1 mt-0 mb-2">View Seller Day Routes</a>
+                                <a href="/dayroutes/{{$user['id']}}" class="btn btn-info col-md-5 offset-md-1 mt-0 mb-2">View Seller Day Routes</a>
                                     </div>
                             </div>
 
