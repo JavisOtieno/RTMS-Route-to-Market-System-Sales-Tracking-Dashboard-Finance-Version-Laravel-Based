@@ -31,6 +31,7 @@ class OrganizationController extends Controller
             'name'=>'required|string|max:255',
             'phone'=>['required','min:10','string','max:255', new PhoneNumber],
             'email'=>'required|email|unique:users|max:255',
+            'status'=>'required|string|max:255',
             //'password'=>'required|string|max:255|min:8|confirmed',
             'password' => ['required','string','max:255','min:8','confirmed',Password::min(8)->letters()->numbers()],
         ]);
@@ -50,6 +51,7 @@ class OrganizationController extends Controller
         $incomingFieldsOrganization['email']=strip_tags($credentials['organizationEmail']);
         $incomingFieldsOrganization['registration_number']=strip_tags($credentials['organizationRegNo']);
         $incomingFieldsOrganization['kra_pin']=strip_tags($credentials['organizationKRAPin']);
+        $incomingFieldsOrganization['status']=strip_tags($credentials['status']);
 
         $organization=Organization::create($incomingFieldsOrganization);
 
@@ -77,6 +79,7 @@ class OrganizationController extends Controller
             'organizationEmail'=>'required|string|max:255',
             'organizationRegNo'=>'required|string|max:255',
             'organizationKRAPin'=>'required|string|max:11',
+            'status'=>'required|string|max:255',
   ]);
         //return 'test';
 
@@ -86,6 +89,7 @@ class OrganizationController extends Controller
         $incomingFieldsOrganization['email']=strip_tags($credentials['organizationEmail']);
         $incomingFieldsOrganization['registration_number']=strip_tags($credentials['organizationRegNo']);
         $incomingFieldsOrganization['kra_pin']=strip_tags($credentials['organizationKRAPin']);
+        $incomingFieldsOrganization['status']=strip_tags($credentials['status']);
 
         $organization=Organization::find($id);
         $organization->update($incomingFieldsOrganization);

@@ -11,10 +11,10 @@ class RegionController extends Controller
      //
      public function index() {
         $regions = Region::all();
-        return view('regions', ['regions'=>$regions]);
+        return view('region.index', ['regions'=>$regions]);
     }
     public function addRegion() {
-        return view('add-region');
+        return view('region.create');
     }
 
     public function saveRegion(Request $request){
@@ -45,7 +45,7 @@ class RegionController extends Controller
     }
     public function showEditRegion($id){
         $region = Region::find($id);
-        return view('edit-region',['region'=>$region]);
+        return view('region.edit',['region'=>$region]);
     }
 
     public function saveEditRegion($id, Request $request){

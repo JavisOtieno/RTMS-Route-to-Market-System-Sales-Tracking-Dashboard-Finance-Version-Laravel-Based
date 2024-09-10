@@ -17,7 +17,8 @@ class Organization extends Model
         'phone',
         'email',
         'registration_number',
-        'kra_pin'
+        'kra_pin',
+        'status'
     ];
 
     public function admin()

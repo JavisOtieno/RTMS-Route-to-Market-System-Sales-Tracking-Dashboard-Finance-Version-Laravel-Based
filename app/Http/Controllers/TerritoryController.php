@@ -10,11 +10,11 @@ class TerritoryController extends Controller
 {
     public function index() {
         $territories = Territory::all();
-        return view('territories', ['territories'=>$territories]);
+        return view('territory.index', ['territories'=>$territories]);
     }
     public function addTerritory() {
         $regions = Region::all();
-        return view('add-territory', ['regions'=>$regions]);
+        return view('territory.create', ['regions'=>$regions]);
     }
 
     public function saveTerritory(Request $request){
@@ -46,7 +46,7 @@ class TerritoryController extends Controller
     public function showEditTerritory($id){
         $territory = Territory::find($id);
         $regions = Region::all();
-        return view('edit-territory',compact('territory','regions'));
+        return view('territory.edit',compact('territory','regions'));
     }
 
     public function saveEditTerritory($id, Request $request){
