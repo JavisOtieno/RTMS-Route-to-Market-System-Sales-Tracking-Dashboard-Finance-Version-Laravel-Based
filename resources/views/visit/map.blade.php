@@ -278,6 +278,7 @@
                         "<p><strong>Date:</strong> "+visitDate+"</p>"+
                         "<p><strong>Checkin Time:</strong> "+visitTime+"</p>"+
                         "<p><strong>Checkout Time:</strong> "+checkoutTime+"</p>"+
+                        "View: <a target='_blank' href='/editvisit/" + visit.id + "'>View Visit Details</a>" +
                     
                         "</div>"
                 });
