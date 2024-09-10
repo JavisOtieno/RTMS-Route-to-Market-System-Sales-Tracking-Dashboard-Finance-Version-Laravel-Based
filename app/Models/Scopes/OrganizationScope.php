@@ -17,6 +17,7 @@ class OrganizationScope implements Scope
             if(Auth::user()->usertype=="systemadmin"){
             
             }else{
+                
                 $builder->where('organization_id', Auth::user()->organization_id);
             }
         }
