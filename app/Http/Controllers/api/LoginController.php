@@ -28,12 +28,23 @@ class LoginController extends Controller
 
             // $request->session()->regenerate();
             // return redirect()->intended('dashboard');
+            if($user){
 
             $loginStatus=array(
                 "message" => "Login Successful",
                 "status" => "success",
                 'authToken' =>  $user->createToken('AuthToken')->plainTextToken,
                 "userId"=>$userId);
+
+            }else{
+
+                $loginStatus=array(
+                    "message" => "Login Failed",
+                    "status" => "failed",
+                    'authToken' =>  null,
+                    "userId"=>null);
+
+            }
     
             return response()->json($loginStatus);
             
