@@ -69,7 +69,13 @@
                                 <label for="phone" class="form-label">Organization KRA Pin</label>
                                 <input type="text" class="form-control" name="organizationKRAPin" value="{{old('organizationKRAPin')}}" id="organizationKRAPin" placeholder="Organization KRA Pin"  autocomplete="OrganizationKRAPin">
                             </div>
-
+                            <div class="form-group">
+                                <label for="organizationStatus" class="form-label">Organization Status</label>
+                                <select name="organizationStatus" class="form-control form-select select2" data-bs-placeholder="Select Status">
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                </select>
+                            </div>
                             <div class="form-group">
                                 <label for="phone" class="form-label">Admin Name</label>
                                 <input type="text" class="form-control" value="{{old('name')}}" name="name" id="name" placeholder="Admin Name"  autocomplete="name">
@@ -108,8 +114,8 @@
       <div class="card-body">
         <h5 class="card-title">Quick Tips</h5>
         <ol class="card-text">
-        <li style="margin-bottom: 10px;"><strong>Name</strong>: Enter the name of the organization. It is editable and pre-filled with the existing value.</li>
-        <li style="margin-bottom: 10px;"><strong>Phone</strong>: Enter the organization phone. It is editable and pre-filled with the existing value.</li>
+        <li style="margin-bottom: 10px;"><strong>Organization Details</strong>: Enter the organization details</li>
+        <li style="margin-bottom: 10px;"><strong>Admin Details</strong>: Enter admin details</li>
         </ol>
       </div>
     </div>

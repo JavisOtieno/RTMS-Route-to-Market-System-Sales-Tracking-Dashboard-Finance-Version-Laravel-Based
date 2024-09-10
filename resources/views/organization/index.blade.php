@@ -57,6 +57,7 @@
                                         <th>Name</th>
                                         <th>Phone</th>
                                         <th>Admin</th>
+                                        <th>Status</th>
                                         <th>Date</th>
                                         
                                     </tr>
@@ -73,6 +74,7 @@
                                         <td>{{$organization['name']}}</td>
                                         <td>{{$organization['phone']}}</td>
                                         <td>{{isset($organization->admin)?$organization->admin['name']:'None'}}</td>
+                                        <td>{{ucfirst($organization['status'])}}</td>
                                         <td>{{date('d-M-Y', strtotime($organization['created_at']))}}</td>
                                     
                                         

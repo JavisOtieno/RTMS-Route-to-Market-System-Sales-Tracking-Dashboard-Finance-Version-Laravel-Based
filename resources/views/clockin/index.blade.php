@@ -285,7 +285,7 @@
                         <p><strong>Time:</strong> ${clockinTime}</p>
                         <p><strong>Latitude:</strong> ${clockin.lat}</p>
                         <p><strong>Longitude:</strong> ${clockin.long}</p>
-                        View: <a href='/clockin/${clockin.id}' >View Clockin Details</a>
+                        <p><strong>View:</strong> <a href='/clockin/${clockin.id}' >View Clockin Details</a></p>
                             
                         
                     </div>

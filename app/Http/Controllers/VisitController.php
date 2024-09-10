@@ -20,7 +20,7 @@ class VisitController extends Controller
             },'outlet' => function ($query) {
                 $query->withTrashed();
             }])->get();
-            return view('visits', ['visits'=>$visits]);
+            return view('visit.index', ['visits'=>$visits]);
         }
 
         public function showVisitsById($objectId,$object) {
@@ -30,7 +30,7 @@ class VisitController extends Controller
             },'outlet' => function ($query) {
                 $query->withTrashed();
             }])->where($object.'_id',$objectId)->get();
-            return view('visits', ['visits'=>$visits]);
+            return view('visit.index', ['visits'=>$visits]);
         }
         
 
@@ -39,7 +39,7 @@ class VisitController extends Controller
             $visit=Visit::with(['user' => function ($query) {
                 $query->withTrashed();
             }])->get()->find($id);
-            return view('edit-visit',['visit'=>$visit]);
+            return view('visit.edit',['visit'=>$visit]);
         }
 
         public function checkout($id){
@@ -66,7 +66,7 @@ class VisitController extends Controller
             $outlets = Outlet::all();
            
             //$users = User::inOrganization()->where('usertype','seller')->get();
-            return view('visitsmap', compact('visits','users','outlets') );
+            return view('visit.map', compact('visits','users','outlets') );
         }
 
         public function showVisitsAnalytics(){
@@ -134,7 +134,7 @@ class VisitController extends Controller
             $months=array_reverse($months);
            
             //$users = User::inOrganization()->where('usertype','seller')->get();
-            return view('visitsanalytics', compact('visitsPerMonth','visits','users','outlets','months','visitsCount',
+            return view('visit.analytics', compact('visitsPerMonth','visits','users','outlets','months','visitsCount',
             'visitsThisMonth', 'visitsThisWeek','visitsToday','visitsPerDay','dates','dayNames') );
         }
 

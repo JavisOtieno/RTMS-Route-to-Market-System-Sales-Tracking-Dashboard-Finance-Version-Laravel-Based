@@ -71,7 +71,15 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="password" class=s"form-label">Admin</label>
+                                <label for="organizationStatus" class="form-label">Organization Status</label>
+                                <select name="organizationStatus" class="form-control form-select select2" data-bs-placeholder="Select Status">
+                                    <option value="active" {{$organization["status"]=='active'?'selected':'' }}>Active</option>
+                                    <option value="inactive" {{$organization["status"]=='inactive'?'selected':'' }}>Inactive</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password" class="form-label">Admin</label>
                                 <a href="/editadmin/{{$organization->admin['id']}}" class="col-12 btn btn-info mb-0">Edit Admin</a>                            
                             </div>
                             
@@ -91,8 +99,8 @@
       <div class="card-body">
         <h5 class="card-title">Quick Tips</h5>
         <ol class="card-text">
-        <li style="margin-bottom: 10px;"><strong>Name</strong>: Enter the name of the organization. It is editable and pre-filled with the existing value.</li>
-        <li style="margin-bottom: 10px;"><strong>Phone</strong>: Enter the organization phone. It is editable and pre-filled with the existing value.</li>
+        <li style="margin-bottom: 10px;"><strong>Organization Details</strong>: Displays the organization details</li>
+        <li style="margin-bottom: 10px;"><strong>Admin Details</strong>: Displays the admin details</li>
         </ol>
       </div>
     </div>
