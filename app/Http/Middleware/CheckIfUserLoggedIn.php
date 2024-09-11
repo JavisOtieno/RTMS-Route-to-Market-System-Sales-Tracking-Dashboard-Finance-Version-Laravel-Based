@@ -23,11 +23,20 @@ class CheckIfUserLoggedIn
             
             return redirect()->route('login');         
         }
-        if(
-            // Auth::user()->organization->status=='inactive' ||
-            Auth::user()->usertype=='seller'
+        else if(
+            Auth::user()->organization->status=='inactive' 
         ){
-            return redirect()->route('login'); 
+            return redirect()->route('login')->withErrors([
+                'organization' => 'Organization suspended. Contact Support',
+            ])
+            ->withInput($request->only('email'));
+
+        }else if(Auth::user()->usertype=='seller'){
+            return redirect()->route('login')->withErrors([
+                'seller' => 'The provided credentials do not match our records.',
+            ])
+            ->withInput($request->only('email'));
+            
         }  
             // return route('signup');
             // return redirect()->route('signup');
