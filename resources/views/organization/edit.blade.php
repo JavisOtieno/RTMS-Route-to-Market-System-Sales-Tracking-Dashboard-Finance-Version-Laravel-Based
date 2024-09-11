@@ -82,6 +82,21 @@
                                 <label for="password" class="form-label">Admin</label>
                                 <a href="/editadmin/{{$organization->admin['id']}}" class="col-12 btn btn-info mb-0">Edit Admin</a>                            
                             </div>
+
+                            <div class="form-group">
+                                <label for="password" class="form-label">Admin</label>     
+                                <a href="/admins/{{$organization['id']}}/organization" class="btn btn-info col-md-12 mt-0 mb-2">View Organization Admins</a>
+                                <a href="/teamleads/{{$organization['id']}}/organization" class="btn btn-info col-md-12 mt-0 mb-2">View Organization Team Leads</a>   
+                                <a href="/sellers/{{$organization['id']}}/organization" class="btn btn-info col-md-12 mt-0 mb-2">View Organization Sellers</a>
+                                                    
+                      
+                     
+                            </div>
+                            
+                    
+                            
+                            
+                            
                             
                             
                             

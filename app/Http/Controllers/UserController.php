@@ -40,6 +40,36 @@ class UserController extends CommonController
         return view('seller.index', ['users'=>$users, 'targetgroups'=>$targetgroups]);
     }
 
+    public function showSellersById($objectId,$object) {
+        //$visits = Visit::all();
+        $targetgroups = TargetGroup::withTrashed();
+        $sellers=User::inOrganization()->with('targetgroup')
+        ->where($object.'_id',$objectId)->get()
+        ->where('usertype','seller')->get();
+        return view('seller.index', ['users'=>$sellers,
+         'targetgroups'=>$targetgroups]);
+    }
+
+    public function showAdminsById($objectId,$object) {
+        //$visits = Visit::all();
+
+        $admins=User::inOrganization()
+        ->where($object.'_id',$objectId)->get()
+        ->where('usertype','admin')->get();
+        return view('admin.index', ['users'=>$admins
+         ]);
+    }
+
+    public function showTeamleadsById($objectId,$object) {
+        //$visits = Visit::all();
+
+        $teamleads=User::inOrganization()
+        ->where($object.'_id',$objectId)->get()
+        ->where('usertype','teamlead')->get();
+        return view('teamlead.index', ['users'=>$teamleads
+         ]);
+    }
+
     
     public function showAddUsersToTargetGroups() {
         $users = User::inOrganization()->where('usertype','seller')->get();

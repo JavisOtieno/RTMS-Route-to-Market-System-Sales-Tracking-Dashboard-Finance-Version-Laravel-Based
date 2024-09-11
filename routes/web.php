@@ -188,6 +188,7 @@ Route::get('/allocateoutletstousers', [OutletController::class,'showAddOutletsTo
 Route::post('/pushoutletstouser', [OutletController::class,'pushOutletsToUser']);
 
 Route::get('/sellers', [UserController::class,'sellers']);
+Route::get('/sellers/{id}/{object}',[UserController::class,'showSellersById']);
 Route::get('/deleteseller/{id}', [UserController::class,'deleteSeller']);
 Route::post('/saveseller', [UserController::class,'saveSeller']);
 Route::get('/add-seller', [UserController::class,'addSeller']);
@@ -212,6 +213,7 @@ Route::get('/editteam/{id}', [TeamController::class,'showEditTeam']);
 Route::put('/saveeditteam/{id}',[TeamController::class,'saveEditTeam']);
 
 Route::get('/admins', [UserController::class,'admins']);
+Route::get('/admins/{id}/{object}',[UserController::class,'showAdminsById']);
 Route::get('/deleteadmin/{id}', [UserController::class,'deleteAdmin']);
 Route::post('/saveadmin', [UserController::class,'saveAdmin']);
 Route::get('/add-admin', [UserController::class,'addAdmin']);
@@ -219,6 +221,7 @@ Route::get('/editadmin/{id}', [UserController::class,'showEditAdmin']);
 Route::put('/saveeditadmin/{id}',[UserController::class,'saveEditAdmin']);
 
 Route::get('/teamleads', [UserController::class,'teamleads']);
+Route::get('/teamleads/{id}/{object}',[UserController::class,'showTeamleadsById']);
 Route::get('/deleteteamlead/{id}', [UserController::class,'deleteTeamlead']);
 Route::get('/add-teamlead', [UserController::class,'addTeamlead']);
 Route::post('/saveteamlead', [UserController::class,'saveTeamlead']);
