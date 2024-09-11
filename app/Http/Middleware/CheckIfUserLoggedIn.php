@@ -19,9 +19,16 @@ class CheckIfUserLoggedIn
     {
 
         if (!Auth::check()) {
-            // return route('signup');   
+            // return route('signup'); 
+            
             return redirect()->route('login');         
         }
+        if(
+            Auth::user()->organization->status=='inactive' ||
+            Auth::user()->usertype=='seller'
+        ){
+            return redirect()->route('login'); 
+        }  
             // return route('signup');
             // return redirect()->route('signup');
         
