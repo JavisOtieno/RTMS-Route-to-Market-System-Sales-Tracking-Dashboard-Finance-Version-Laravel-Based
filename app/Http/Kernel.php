@@ -28,7 +28,8 @@ class Kernel extends HttpKernel
         'authCustomCheck' => \App\Http\Middleware\CheckIfUserLoggedIn::class,
         'adminOnly' => \App\Http\Middleware\AdminOnly::class,
         'superAdminOnly' => \App\Http\Middleware\SuperAdminOnly::class,
-        'ensureViewOnlyForTeamLeads' => \App\Http\Middleware\EnsureViewOnlyForTeamLeads::class
+        'ensureViewOnlyForTeamLeads' => \App\Http\Middleware\EnsureViewOnlyForTeamLeads::class,
+        'apiLimitInactiveOrganization' => \App\Http\Middleware\ApiLimitInactiveOrganization::class
     ];
 
 

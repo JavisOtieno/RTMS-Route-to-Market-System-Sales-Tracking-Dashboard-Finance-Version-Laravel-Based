@@ -40,7 +40,7 @@ use App\Http\Controllers\api\OffplanrequestController;
 
 
 
-Route::middleware(['auth:sanctum'])->group(function(){
+Route::middleware(['auth:sanctum','apiLimitInactiveOrganization'])->group(function(){
     Route::get('dashboard',[DashboardController::class,'index']);
 
     Route::post('clockin',[ClockinController::class,'saveClockin']);
