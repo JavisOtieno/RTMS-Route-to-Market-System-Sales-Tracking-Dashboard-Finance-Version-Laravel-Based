@@ -19,8 +19,8 @@ class ApiLimitInactiveOrganization
         if(
             Auth::user()->organization->status=='inactive' 
         ){
-            
-            return response()->json(['message' => 'Unauthorized'], 401);
+
+            return response()->json(['message' => 'Organization Suspended'], 401);
 
         }
         //IDEAL NOT TO LET ADMIN ACCESS APP
