@@ -44,10 +44,17 @@ class LoginController extends Controller
 
           if( 
             auth()->user()->usertype=='systemadmin' 
-          || auth()->user()->usertype=='admin' 
-          || auth()->user()->usertype=='teamlead'){
+          || ((auth()->user()->usertype=='admin' || auth()->user()->usertype=='teamlead')
+          && auth()->user()->organization->status =='active')
+          ){
             $request->session()->regenerate();
             return redirect()->intended('dashboard');
+          }else if(auth()->user()->organization->status=='active')
+          {
+            return back()->withErrors([
+              'email' => 'Invalid Organization Details',
+              ])->onlyInput('email');
+
           }else{
 
             return back()->withErrors([
