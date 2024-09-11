@@ -24,7 +24,7 @@ class CheckIfUserLoggedIn
             return redirect()->route('login');         
         }
         if(
-            Auth::user()->organization->status=='inactive' ||
+            // Auth::user()->organization->status=='inactive' ||
             Auth::user()->usertype=='seller'
         ){
             return redirect()->route('login'); 
