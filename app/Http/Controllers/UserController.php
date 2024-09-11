@@ -44,7 +44,7 @@ class UserController extends CommonController
         //$visits = Visit::all();
         $targetgroups = TargetGroup::withTrashed();
         $sellers=User::inOrganization()->with('targetgroup')
-        ->where($object.'_id',$objectId)->get()
+        ->where($object.'_id',$objectId)
         ->where('usertype','seller')->get();
         return view('seller.index', ['users'=>$sellers,
          'targetgroups'=>$targetgroups]);
@@ -54,7 +54,7 @@ class UserController extends CommonController
         //$visits = Visit::all();
 
         $admins=User::inOrganization()
-        ->where($object.'_id',$objectId)->get()
+        ->where($object.'_id',$objectId)
         ->where('usertype','admin')->get();
         return view('admin.index', ['users'=>$admins
          ]);
@@ -64,7 +64,7 @@ class UserController extends CommonController
         //$visits = Visit::all();
 
         $teamleads=User::inOrganization()
-        ->where($object.'_id',$objectId)->get()
+        ->where($object.'_id',$objectId)
         ->where('usertype','teamlead')->get();
         return view('teamlead.index', ['users'=>$teamleads
          ]);

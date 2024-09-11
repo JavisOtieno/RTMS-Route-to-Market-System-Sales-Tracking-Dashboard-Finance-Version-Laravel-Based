@@ -84,7 +84,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="password" class="form-label">Admin</label>     
+                                <label for="password" class="form-label">Organization Users</label>     
                                 <a href="/admins/{{$organization['id']}}/organization" class="btn btn-info col-md-12 mt-0 mb-2">View Organization Admins</a>
                                 <a href="/teamleads/{{$organization['id']}}/organization" class="btn btn-info col-md-12 mt-0 mb-2">View Organization Team Leads</a>   
                                 <a href="/sellers/{{$organization['id']}}/organization" class="btn btn-info col-md-12 mt-0 mb-2">View Organization Sellers</a>
