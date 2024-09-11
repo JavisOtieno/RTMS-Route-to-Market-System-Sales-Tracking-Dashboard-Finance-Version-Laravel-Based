@@ -30,7 +30,7 @@ class LoginController extends Controller
             // $request->session()->regenerate();
             // return redirect()->intended('dashboard');
             if($user){
-
+                
             $loginStatus=array(
                 "message" => "Login Successful",
                 "status" => "success",
@@ -38,15 +38,20 @@ class LoginController extends Controller
                 'authToken' =>  $user->createToken('AuthToken')->plainTextToken,
                 "userId"=>$userId);
 
-            }else{
-                $organization = Organization::find($user->organization_id);
-                if($organization->status=="inactive"){
-                    $message = "Invalid Organization";
-                }else{
-                    $message = "Login Failed";
+                if($user->organization->status=="inactive"){
+                    $loginStatus=array(
+                        "message" => "Organization Suspended",
+                        "status" => "failed",
+                        // "test" => "test",
+                        'authToken' =>  null,
+                        "userId"=>null);
+
                 }
+
+            }else{
+               
                 $loginStatus=array(
-                    "message" => $message,
+                    "message" => "Login Failed",
                     "status" => "failed",
                     // "test" => "test",
                     'authToken' =>  null,
