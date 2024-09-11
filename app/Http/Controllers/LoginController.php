@@ -49,7 +49,7 @@ class LoginController extends Controller
           ){
             $request->session()->regenerate();
             return redirect()->intended('dashboard');
-          }else if(auth()->user()->organization->status=='active')
+          }else if(auth()->user()->organization->status=='inactive')
           {
             return back()->withErrors([
               'email' => 'Invalid Organization Details',
