@@ -85,6 +85,7 @@
                                         {{-- <th>Targets</th>
                                         <th>Region</th>
                                         <th>Territory</th> --}}
+                                        <th>Status</th>
                                         <th>Date</th>
                                         
                                         
@@ -112,6 +113,7 @@
                                         <td>{{$user['email']}}</td>
                                         <td>{{$user['team']==null?"None":$user['team']['name']}}</td>
                                         {{-- <td>{{ucfirst($user['usertype'])}}</td> --}}
+                                        <td>{{ucfirst($user['status'])}}</td>
                                         
                                         <td>{{date('d-M-Y', strtotime($user['created_at']))}}</td>
 

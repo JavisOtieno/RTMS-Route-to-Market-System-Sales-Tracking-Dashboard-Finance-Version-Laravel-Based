@@ -187,6 +187,7 @@ class UserController extends CommonController
         $incomingFields['target_group_id']=0;
         $incomingFields['region_id']=0;
         $incomingFields['territory_id']=0;
+        $incomingFields['status']='active';
         $incomingFields['email']=strip_tags($incomingFields['email']);
         $incomingFields['password']=strip_tags($incomingFields['password']);
         $incomingFields['organization_id']=$organizationId;
@@ -271,6 +272,7 @@ class UserController extends CommonController
         $incomingFields['target_group_id']=0;
         $incomingFields['region_id']=0;
         $incomingFields['territory_id']=0;
+        $incomingFields['status']='active';
         $incomingFields['email']=strip_tags($incomingFields['email']);
         $incomingFields['password']=strip_tags($incomingFields['password']);
         $incomingFields['organization_id']=$organizationId;
@@ -323,6 +325,7 @@ class UserController extends CommonController
             // 'email'=>'required|email|max:255',
             // 'email'=>'required|email|unique:users|max:255',
             'email' => 'required|email|max:255|unique:users,email,' . $id,
+            'status'=>'required|string|max:255',
             // 'target_group_id'=>'required|numeric|digits_between:1,11'
         ]);
 
@@ -332,6 +335,8 @@ class UserController extends CommonController
         // $incomingFields['target_group_id']=strip_tags($incomingFields['target_group_id']);
         $incomingFields['phone']=strip_tags($incomingFields['phone']);
         $incomingFields['team_id']=$teamId;
+        $incomingFields['status']=strip_tags($incomingFields['status']);
+        
         // $incomingFields['organization_id']=$organizationId;
 
         $user=User::inOrganization()->find($id);

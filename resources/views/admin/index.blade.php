@@ -80,6 +80,7 @@
                                         <th>Name</th>
                                         <th>Phone</th>
                                         <th>Email</th>
+                                        <th>Status</th>
                                         <th>Date</th>
                                         {{-- <th>Usertype</th> --}}
                                         {{-- <th>Targets</th> --}}
@@ -104,6 +105,7 @@
                                         <td>{{$user['name']}}</td>
                                         <td>{{$user['phone']}}</td>
                                         <td>{{$user['email']}}</td>
+                                        <td>{{ucfirst($user['status'])}}</td>
                                         <td>{{date('d-M-Y', strtotime($user['created_at']))}}</td>
                                         {{-- <td>{{ucfirst($user['usertype'])}}</td> --}}
                                         {{-- <td>{{$user['targetgroup']==null?"None":'KSh '.number_format($user['targetgroup']['amount'])}}</td> --}}

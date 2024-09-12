@@ -90,6 +90,13 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label for="status" class="form-label">Status</label>
+                                <select name="status" class="form-control form-select select2" data-bs-placeholder="Select Status">
+                                    <option value="active" {{$user["status"]=='active'?'selected':'' }}>Active</option>
+                                    <option value="inactive" {{$user["status"]=='inactive'?'selected':'' }}>Inactive</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="dateTime" class="form-label">Date and Time Added</label>
                                 <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{date('d-M-Y H:i', strtotime($user['created_at']))}}" autocomplete="dateTime">
                             </div>
