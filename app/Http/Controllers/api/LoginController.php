@@ -46,6 +46,14 @@ class LoginController extends Controller
                         'authToken' =>  null,
                         "userId"=>null);
 
+                }else if($user->status=='inactive'){
+                    $loginStatus=array(
+                    "message" => "Account Suspended",
+                        "status" => "failed",
+                        // "test" => "test",
+                        'authToken' =>  null,
+                        "userId"=>null);
+
                 }
 
             }else{

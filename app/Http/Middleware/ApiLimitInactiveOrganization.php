@@ -22,6 +22,12 @@ class ApiLimitInactiveOrganization
 
             return response()->json(['message' => 'Organization Suspended'], 401);
 
+        }else if(
+            Auth::user()->status=='inactive' 
+        ){
+
+            return response()->json(['message' => 'Seller Account Suspended'], 401);
+
         }
         //IDEAL NOT TO LET ADMIN ACCESS APP
         // else if(Auth::user()->usertype!='seller'){
