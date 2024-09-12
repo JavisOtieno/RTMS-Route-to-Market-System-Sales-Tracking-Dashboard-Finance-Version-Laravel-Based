@@ -31,7 +31,8 @@ class User extends Authenticatable
         'password',
         'organization_id',
         'team_id',
-        'image'
+        'image',
+        'status'
     ];
 
     /**
