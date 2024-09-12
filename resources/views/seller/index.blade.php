@@ -85,6 +85,7 @@
                                         <th>Team</th>
                                         <th>Region</th>
                                         <th>Territory</th>
+                                        <th>Status</th>
                                         <th>Date</th>
                                         
                                         
@@ -115,6 +116,7 @@
                                         <td>{{$user['team']==null?"None":$user['team']['name']}}</td>
                                         <td>{{$user['region']==null?"None":$user['region']['name']}}</td>
                                         <td>{{$user['territory']==null?"None":$user['territory']['name'] }}</td>
+                                        <td>{{ucfirst($user['status'])}}</td>
                                         <td>{{date('d-M-Y', strtotime($user['created_at']))}}</td>
 
                                         <!--<a class="modal-effect btn btn-primary-light d-grid mb-3" data-bs-effect="effect-scale" >Scale</a>-->

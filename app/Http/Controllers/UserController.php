@@ -176,6 +176,7 @@ class UserController extends CommonController
             //'password'=>'required|string|max:255|min:8|confirmed',
             'password' => ['required','string','max:255','min:8','confirmed',Password::min(8)->letters()->numbers()],
             // 'target_group_id'=>'required|numeric|digits_between:1,11'
+            
         ]);
         //return $incomingFields;
         
@@ -418,7 +419,7 @@ class UserController extends CommonController
             'target_group_id'=>'required|numeric|digits_between:1,20',
             'region_id'=>'required|numeric|digits_between:1,20',
             'territory_id'=>'required|numeric|digits_between:1,20',
-            'image' => 'image|mimes:jpeg,webp,png,jpg,gif,svg|max:3072'
+            'image' => 'image|mimes:jpeg,webp,png,jpg,gif,svg|max:3072',
         ]);
         //return $incomingFields;
         
@@ -433,6 +434,7 @@ class UserController extends CommonController
         $incomingFields['password']=strip_tags($incomingFields['password']);
         $incomingFields['organization_id']=$organizationId;
         $incomingFields['team_id']=$teamId;
+        $incomingFields['status']='active';
 
         //return $request->image;
         // return $incomingFields;
@@ -522,6 +524,7 @@ class UserController extends CommonController
             'target_group_id'=>'required|numeric|digits_between:1,20',
             'region_id'=>'required|numeric|digits_between:1,20',
             'territory_id'=>'required|numeric|digits_between:1,20',
+            'status'=>'required|string|max:255',
         ]);
 
         $incomingFields['name']=strip_tags($incomingFields['name']);
@@ -533,6 +536,7 @@ class UserController extends CommonController
         $incomingFields['region_id']=strip_tags($incomingFields['region_id']);
         $incomingFields['territory_id']=strip_tags($incomingFields['territory_id']);
         $incomingFields['team_id']=$teamId;
+        $incomingFields['status']=strip_tags($incomingFields['status']);
 
         // return $incomingFields;
 
