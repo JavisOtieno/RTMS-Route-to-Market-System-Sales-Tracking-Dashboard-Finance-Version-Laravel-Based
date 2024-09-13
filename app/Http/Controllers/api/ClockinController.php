@@ -29,6 +29,7 @@ class ClockinController extends Controller
         $incomingFields=[];
         $incomingFields['user_id']=strip_tags($request['userId']);
         $incomingFields['time']=strip_tags($request['time']);
+        $incomingFields['time']=time();
         $incomingFields['lat']=strip_tags($request['lat']);
         $incomingFields['long']=strip_tags($request['long']);
         $incomingFields['organization_id']=auth()->user()->organization_id;
