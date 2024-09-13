@@ -21,8 +21,8 @@ class ProductController extends Controller
             ->withSum(['saleitems as total_quantity' => function ($query) {
                 $query->whereMonth('created_at', now()->month)  // Filter by current month
                       ->whereYear('created_at', now()->year)   // Filter by current year
-                      ->select(DB::raw('SUM(quantity)'));       // Sum of 'quantity' column
-            }], 'quantity')
+                      ->select(DB::raw('SUM(pieces)'));       // Sum of 'quantity' column
+            }], 'pieces')
             ->get();
             return response()->json(['products'=>$products]);
         }
