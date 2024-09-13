@@ -41,7 +41,7 @@ class ClockoutController extends Controller
             Clockout::create([
                 'user_id' => $request['userId'],
                 'clockin_id' => $request['clockinId'],
-                'time' => $request['time'],
+                'time' => time(),
                 'lat' => $request['lat'],
                 'long' => $request['long'],
                 'organization_id' => auth()->user()->organization_id,

@@ -51,6 +51,7 @@ class OutletController extends ApiCommonController
         $incomingFields=[];
         $incomingFields['user_id']=strip_tags($request['userId']);
         $incomingFields['checkin_time']=strip_tags($request['time']);
+        $incomingFields['checkin_time']=time();
         $incomingFields['checkin_latitude']=strip_tags($request['lat']);
         $incomingFields['checkin_longitude']=strip_tags($request['long']);
         $incomingFields['outlet_id']=strip_tags($outlet['id']);

@@ -33,6 +33,7 @@ class VisitController extends Controller
         $incomingFields=[];
         $incomingFields['user_id']=strip_tags($request['userId']);
         $incomingFields['checkin_time']=strip_tags($request['time']);
+        $incomingFields['checkin_time']=time();
         $incomingFields['checkin_latitude']=strip_tags($request['lat']);
         $incomingFields['checkin_longitude']=strip_tags($request['long']);
         $incomingFields['outlet_id']=strip_tags($request['outletId']);
@@ -88,6 +89,7 @@ public function checkout($id,Request $request){
         ]);
     
     $incomingFields['checkout_time']=strip_tags($request['checkout_time']);
+    $incomingFields['checkout_time']=time();
     $incomingFields['checkout_latitude']=strip_tags($request['checkout_latitude']);
     $incomingFields['checkout_longitude']=strip_tags($request['checkout_longitude']);
     
