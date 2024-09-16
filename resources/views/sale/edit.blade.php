@@ -75,6 +75,13 @@
                                 <label for="dateTime" class="form-label">Date and Time</label>
                                 <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{date('d-M-Y H:i', strtotime($sale['created_at']))}}" autocomplete="dateTime">
                             </div>
+                            <div class="form-group">
+                                <label for="status" class="form-label">Status</label>
+                                <select name="status" class="form-control form-select select2" data-bs-placeholder="Select Status">
+                                    <option value="complete" {{$sale["status"]=='complete'?'selected':'' }}>Complete</option>
+                                    <option value="pending" {{$sale["status"]=='pending'?'selected':'' }}>Pending</option>
+                                </select>
+                            </div>
 
                             <div class="form-group">
                                 <label style="font-weight:bold;margin-bottom: 1.5rem;" for="productNames" class="form-label">Products</label>

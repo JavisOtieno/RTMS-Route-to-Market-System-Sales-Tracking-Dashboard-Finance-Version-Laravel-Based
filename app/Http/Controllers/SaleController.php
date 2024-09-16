@@ -295,13 +295,15 @@ class SaleController extends Controller
         
         $request->validate([
             'productPiecesTotal'=>'required|numeric|digits_between:1,20',
-            'productValueTotalNumber'=>'required|numeric|digits_between:1,20'
+            'productValueTotalNumber'=>'required|numeric|digits_between:1,20',
+            'status' => 'required|string|max:255'
         ]);
 
         // $incomingFields['organization_id']=$organization_id;
 
         $incomingFields["pieces"] = $request->input('productPiecesTotal');
         $incomingFields["value"] = $request->input('productValueTotalNumber');
+        $incomingFields["status"] = $request->input('status');
 
         $sale=Sale::find($id);
 
