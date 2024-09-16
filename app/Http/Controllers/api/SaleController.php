@@ -92,8 +92,8 @@ class SaleController extends Controller
         $incomingFieldsSale['team_id']=auth()->user()->team_id;
         
         
-        return $incomingFieldsSale;
-        
+        // return $incomingFieldsSale;
+
         $piecesTotal=0;
         $valueTotal=0;
         $incomingFieldsSale['pieces']=$piecesTotal;
