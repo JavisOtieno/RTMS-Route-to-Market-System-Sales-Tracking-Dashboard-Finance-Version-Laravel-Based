@@ -64,19 +64,14 @@ class SaleController extends Controller
 
 //SAVE SALE PREVIOUS CODE
 
-    public function pendingSale(Request $request){
+    public function pendingSale($id){
 
-        $request->validate([
-                'saleId'=>'required|numeric|digits_between:1,20|exists:sales,id',
-        ]);
-        
-        $saleId= $request['saleId'];
-        $sale=Sale::find($saleId);
+        $sale=Sale::find($id);
         $sale->update(['status' => 'pending']);
 
         $saleStatus=array(
             "message" => "Sale Updated Successfully",
-            "saleId" => $saleId,
+            "saleId" => $id,
             "status" => "success");
 
         return response()->json($saleStatus);
