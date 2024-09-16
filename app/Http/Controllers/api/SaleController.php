@@ -70,8 +70,16 @@ class SaleController extends Controller
                 'saleId'=>'required|numeric|digits_between:1,20|exists:sales,id',
         ]);
         
-        $sale=Sale::find($request['saleId']);
+        $saleId= $request['saleId'];
+        $sale=Sale::find($saleId);
         $sale->update(['status' => 'pending']);
+
+        $saleStatus=array(
+            "message" => "Sale Updated Successfully",
+            "saleId" => $saleId,
+            "status" => "success");
+
+        return response()->json($saleStatus);
 
     }
 
