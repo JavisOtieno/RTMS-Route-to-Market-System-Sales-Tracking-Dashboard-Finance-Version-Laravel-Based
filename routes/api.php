@@ -51,7 +51,7 @@ Route::middleware(['auth:sanctum','apiLimitInactiveOrganization'])->group(functi
     Route::put('checkout/{id}',[VisitController::class,'checkout']);
 
     Route::get('sales',[SaleController::class,'index']);
-    Route::post('makesale',[SaleController::class,'makesale']);
+    // Route::post('makesale',[SaleController::class,'makesale']);
     Route::post('addsale',[SaleController::class,'saveSale']);
     Route::post('visitsales',[SaleController::class,'visitSales']);
 

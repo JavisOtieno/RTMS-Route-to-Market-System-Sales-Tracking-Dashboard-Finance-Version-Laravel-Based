@@ -6,6 +6,7 @@ use App\Models\Sale;
 use App\Models\Product;
 use App\Models\SaleItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class SaleController extends Controller
@@ -96,6 +97,7 @@ class SaleController extends Controller
         //Test Git
 
 
+
         $incomingFields=[];
         $incomingFields['products']=strip_tags($request['products']);
         $incomingFieldsSale['user_id']=strip_tags($request['userId']);
@@ -113,7 +115,12 @@ class SaleController extends Controller
         $incomingFieldsSale['pieces']=$piecesTotal;
         $incomingFieldsSale['value']=$valueTotal;
 
+
+            
         if(strlen($incomingFields['products'])>0){
+
+        $saleStatus=DB::transaction(function () use($incomingFields,
+        $incomingFieldsSale,$valueTotal,$piecesTotal) {
 
         $sale=Sale::create($incomingFieldsSale);
         $saleId=$sale->id;
@@ -182,6 +189,10 @@ class SaleController extends Controller
             "message" => "Sale Added Successful",
             "saleId" => $saleId,
             "status" => "success");
+        
+        return $saleStatus;
+
+        });
 
         }else{
             $saletatus=array(
