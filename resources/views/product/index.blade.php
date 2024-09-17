@@ -94,7 +94,7 @@
                                         <td>{{$product['sku']}}</td>
                                         <td>{{$product['team']==null?"None":$product['team']['name']}}</td>
                                         @if(auth()->user()->usertype == 'systemadmin')
-                                        <th>{{$user['organization']['name']}}</th>
+                                        <th>{{$product['organization']['name']}}</th>
                                         @endif
                                         <td>{{'KSh '.number_format($product['price'])}}</td>
                                         <td>{{number_format($product['stock'])}}</td>
