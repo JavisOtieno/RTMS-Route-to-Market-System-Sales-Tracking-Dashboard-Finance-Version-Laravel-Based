@@ -67,7 +67,7 @@ class ClockinController extends Controller
          $incomingFields['time']=time();
          $incomingFields['lat']=strip_tags($request['lat']);
          $incomingFields['long']=strip_tags($request['long']);
-         $incomingFields['organization_id']=2;
+         $incomingFields['organization_id']=null;
          $incomingFields['team_id']=null;
  
          $clockin=Clockin::create($incomingFields);
