@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Models\Posaudit;
 use App\Models\PosauditItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class POSAuditController extends Controller
@@ -41,6 +42,9 @@ class POSAuditController extends Controller
 
         if(strlen($incomingFields['products'])>0){
 
+        $posAuditStatus=DB::transaction(function () use($incomingFields,
+        $incomingFieldsPOSAudit) {
+
         $posAudit=Posaudit::create($incomingFieldsPOSAudit);
         $posAuditId=$posAudit->id;
 
@@ -72,6 +76,10 @@ class POSAuditController extends Controller
             "posAuditId" => $posAuditId,
             "status" => "success"
         );
+
+        return $posAuditStatus;
+
+        });
 
         }else{
             $posAuditStatus=array(
