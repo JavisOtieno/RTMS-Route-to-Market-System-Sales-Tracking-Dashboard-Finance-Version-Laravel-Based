@@ -63,6 +63,9 @@
                                         <th>Product Name</th>
                                         <th>SKU</th>
                                         <th>Team</th>
+                                        @if(auth()->user()->usertype == 'systemadmin')
+                                        <th>Organization</th>
+                                        @endif
                                         <th>Price</th>
                                         <th>Stock</th>
                                         <th>Date</th>
@@ -90,6 +93,9 @@
                                         <td>{{$product['name']}}</td>
                                         <td>{{$product['sku']}}</td>
                                         <td>{{$product['team']==null?"None":$product['team']['name']}}</td>
+                                        @if(auth()->user()->usertype == 'systemadmin')
+                                        <th>{{$user['organization']['name']}}</th>
+                                        @endif
                                         <td>{{'KSh '.number_format($product['price'])}}</td>
                                         <td>{{number_format($product['stock'])}}</td>
                                         <td>{{date('d-M-Y', strtotime($product['created_at']))}}</td>

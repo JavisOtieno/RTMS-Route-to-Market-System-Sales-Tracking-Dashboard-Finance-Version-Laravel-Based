@@ -36,6 +36,9 @@ class Product extends Model
     public function team(){
         return $this->belongsTo(Team::class,'team_id');
     }
+    public function organization(){
+        return $this->belongsTo(Organization::class,'organization_id');
+    }
 
     protected static function booted()
     {
