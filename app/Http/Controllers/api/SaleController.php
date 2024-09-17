@@ -79,6 +79,20 @@ class SaleController extends Controller
 
     }
 
+    public function completeSale($id){
+
+        $sale=Sale::find($id);
+        $sale->update(['status' => 'complete']);
+
+        $saleStatus=array(
+            "message" => "Sale Updated Successfully",
+            "saleId" => $id,
+            "status" => "success");
+
+        return response()->json($saleStatus);
+
+    }
+
     public function saveSale(Request $request){
 
        

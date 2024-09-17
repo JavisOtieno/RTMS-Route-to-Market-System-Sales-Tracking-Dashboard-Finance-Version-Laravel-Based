@@ -89,9 +89,12 @@ Route::middleware(['auth:sanctum','apiLimitInactiveOrganization'])->group(functi
 
     Route::get('download-pdf-mobile/{id}', [OrderNoteController::class, 'downloadPdf']);
     Route::put('pendingsale/{id}',[SaleController::class,'pendingSale']);
+    Route::put('completesale/{id}',[SaleController::class,'completeSale']);
 
 
 });
+
+Route::post('clockintest',[ClockinController::class,'clockinTest']);
 
 
 
