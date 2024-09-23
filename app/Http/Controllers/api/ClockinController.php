@@ -28,6 +28,7 @@ class ClockinController extends Controller
 
         $incomingFields=[];
         $incomingFields['user_id']=strip_tags($request['userId']);
+        $incomingFields['user_id']=auth()->user()->id;
         $incomingFields['time']=strip_tags($request['time']);
         $incomingFields['time']=time();
         $incomingFields['lat']=strip_tags($request['lat']);
@@ -46,38 +47,38 @@ class ClockinController extends Controller
         
     }
 
-    public function clockinTest(Request $request){
+    // public function clockinTest(Request $request){
 
-        // $incomingFields=
-         $incomingFields=$request->validate([
-             //'userId'=>'required',
-             //'time'=>'required',
-             // 'lat'=>'required',
-             // 'long'=>'required'
-             'lat' => 'required|numeric|between:-90,90',
-             'long'=> 'required|numeric|between:-180,180'
-         ]);
+    //     // $incomingFields=
+    //      $incomingFields=$request->validate([
+    //          //'userId'=>'required',
+    //          //'time'=>'required',
+    //          // 'lat'=>'required',
+    //          // 'long'=>'required'
+    //          'lat' => 'required|numeric|between:-90,90',
+    //          'long'=> 'required|numeric|between:-180,180'
+    //      ]);
  
-         //Test Git
+    //      //Test Git
  
  
-         $incomingFields=[];
-         $incomingFields['user_id']=1;
-         $incomingFields['time']=strip_tags($request['time']);
-         $incomingFields['time']=time();
-         $incomingFields['lat']=strip_tags($request['lat']);
-         $incomingFields['long']=strip_tags($request['long']);
-         $incomingFields['organization_id']=1;
-         $incomingFields['team_id']=null;
+    //      $incomingFields=[];
+    //      $incomingFields['user_id']=1;
+    //      $incomingFields['time']=strip_tags($request['time']);
+    //      $incomingFields['time']=time();
+    //      $incomingFields['lat']=strip_tags($request['lat']);
+    //      $incomingFields['long']=strip_tags($request['long']);
+    //      $incomingFields['organization_id']=1;
+    //      $incomingFields['team_id']=null;
  
-         $clockin=Clockin::create($incomingFields);
+    //      $clockin=Clockin::create($incomingFields);
  
-         $clockinStatus=array(
-             "message" => "Clockin Successful",
-             "clockinId"=>$clockin['id'],
-             "status" => "success");
+    //      $clockinStatus=array(
+    //          "message" => "Clockin Successful",
+    //          "clockinId"=>$clockin['id'],
+    //          "status" => "success");
  
-         return response()->json($clockinStatus);
+    //      return response()->json($clockinStatus);
          
-     }
+    //  }
 }
