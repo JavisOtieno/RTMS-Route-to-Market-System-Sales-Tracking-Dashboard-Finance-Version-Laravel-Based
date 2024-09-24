@@ -53,7 +53,7 @@ class ClockoutController extends Controller
 
             return response()->json([
                 'status' => 200,
-                'message' => 'Clockout created successfully'
+                'message' => 'Clockout successful'
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
@@ -66,7 +66,7 @@ class ClockoutController extends Controller
 
 
         $clockoutStatus=array(
-            "message" => "Clockout Successful",
+            "message" => "Clockout created successful",
             "status" => "success");
 
         return response()->json($clockoutStatus);
