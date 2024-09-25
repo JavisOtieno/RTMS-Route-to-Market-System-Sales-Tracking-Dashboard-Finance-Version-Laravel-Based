@@ -76,13 +76,13 @@
                                     <option value="inactive">Inactive</option>
                                 </select>
                             </div>
-                            {{-- <div class="form-group">
+                            <div class="form-group">
                                 <label for="organizationProducts" class="form-label">Organization Products</label>
                                 <select name="organizationProducts" class="form-control form-select select2" data-bs-placeholder="Select Status">
                                     <option value="products">Products</option>
                                     <option value="services">Services</option>
                                 </select>
-                            </div> --}}
+                            </div>
                             {{-- <div class="form-group">
                                 <label for="organizationType" class="form-label">Organization Type</label>
                                 <select name="organizationType" class="form-control form-select select2" data-bs-placeholder="Select Type">

@@ -74,12 +74,23 @@
                                 </a>
                                 <input class="input100 border-start-0 ms-0 form-control" value="{{old('name')}}" name="name" type="text" placeholder="Admin Name" autocomplete="name">
                             </div>
+                            <div class="wrap-input100 validate-input input-group" data-bs-validate="Validz">
+                                <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
+                                    <i class="mdi mdi-apps" aria-hidden="true"></i>
+                                </a>
+                                <select name="organizationProducts" class="form-control form-select select2" data-bs-placeholder="Select Product Services Type">
+                                    <option value="products">Products</option>
+                                    <option value="services">Services</option>
+                                </select>
+                            </div>
+
                             <div class="wrap-input100 validate-input input-group" data-bs-validate="Valid phone number is required">
                                 <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
                                     <i class="zmdi zmdi-phone" aria-hidden="true"></i>
                                 </a>
                                 <input class="input100 border-start-0 ms-0 form-control" value="{{old('phone')}}" name="phone" type="text" placeholder="Admin Phone" autocomplete="phone">
                             </div>
+                             
                             <div class="wrap-input100 validate-input input-group" data-bs-validate="Valid email is required: ex@abc.xyz">
                                 <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
                                     <i class="zmdi zmdi-email" aria-hidden="true"></i>

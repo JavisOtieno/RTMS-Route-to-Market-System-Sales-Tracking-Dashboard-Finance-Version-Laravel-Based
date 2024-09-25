@@ -29,6 +29,7 @@ class OrganizationController extends Controller
             'organizationRegNo'=>'required|string|max:255',
             'organizationKRAPin'=>'required|string|max:11',
             'organizationStatus'=>'required|string|max:255',
+            'organizationProducts'=>'required|string|max:255',
             'name'=>'required|string|max:255',
             'phone'=>['required','min:10','string','max:255', new PhoneNumber],
             'email'=>'required|email|unique:users|max:255',
@@ -53,6 +54,7 @@ class OrganizationController extends Controller
         $incomingFieldsOrganization['registration_number']=strip_tags($credentials['organizationRegNo']);
         $incomingFieldsOrganization['kra_pin']=strip_tags($credentials['organizationKRAPin']);
         $incomingFieldsOrganization['status']=strip_tags($credentials['organizationStatus']);
+        $incomingFieldsOrganization['products']=strip_tags($credentials['organizationProducts']);
 
         $organization=Organization::create($incomingFieldsOrganization);
 
