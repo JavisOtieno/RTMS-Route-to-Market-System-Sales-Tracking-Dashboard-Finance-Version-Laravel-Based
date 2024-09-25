@@ -33,6 +33,7 @@ class POSAuditController extends Controller
         $incomingFields=[];
         $incomingFields['products']=strip_tags($request['products']);
         $incomingFieldsPOSAudit['user_id']=strip_tags($request['userId']);
+        $incomingFieldsPOSAudit['user_id']=auth()->id();
         $incomingFieldsPOSAudit['outlet_id']=strip_tags($request['outletId']);
         $incomingFieldsPOSAudit['visit_id']=strip_tags($request['visitId']);
         $incomingFieldsPOSAudit['image']="";

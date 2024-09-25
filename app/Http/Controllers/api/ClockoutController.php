@@ -39,7 +39,8 @@ class ClockoutController extends Controller
         DB::beginTransaction();
         try {
             Clockout::create([
-                'user_id' => $request['userId'],
+                // 'user_id' => $request['userId'],
+                'user_id' => auth()->id(),
                 'clockin_id' => $request['clockinId'],
                 'time' => time(),
                 'lat' => $request['lat'],

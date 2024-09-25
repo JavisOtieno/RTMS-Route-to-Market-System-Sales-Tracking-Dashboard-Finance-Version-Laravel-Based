@@ -89,6 +89,7 @@ public function checkout($id,Request $request){
         'checkout_longitude'=>'required|between:-180.000000000,180.000000000',
         ]);
     
+    
     $incomingFields['checkout_time']=strip_tags($request['checkout_time']);
     $incomingFields['checkout_time']=time();
     $incomingFields['checkout_latitude']=strip_tags($request['checkout_latitude']);

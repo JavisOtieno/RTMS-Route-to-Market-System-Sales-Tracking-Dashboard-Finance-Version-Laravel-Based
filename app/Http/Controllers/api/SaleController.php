@@ -115,6 +115,7 @@ class SaleController extends Controller
         $incomingFields=[];
         $incomingFields['products']=strip_tags($request['products']);
         $incomingFieldsSale['user_id']=strip_tags($request['userId']);
+        $incomingFieldsSale['user_id']=auth()->id();
         $incomingFieldsSale['outlet_id']=strip_tags($request['outletId']);
         $incomingFieldsSale['visit_id']=strip_tags($request['visitId']);
         $incomingFieldsSale['status']='complete';

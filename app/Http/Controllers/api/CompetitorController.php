@@ -27,6 +27,7 @@ class CompetitorController extends Controller
 
         $incomingFields=[];
         $incomingFields['user_id']=strip_tags($request['userId']);
+        $incomingFields['user_id']=auth()->id();
         $incomingFields['visit_id']=strip_tags($request['visitId']);
         $incomingFields['outlet_id']=strip_tags($request['outletId']);
         $incomingFields['brand_visibility']=strip_tags($request['brandVisibility']);
