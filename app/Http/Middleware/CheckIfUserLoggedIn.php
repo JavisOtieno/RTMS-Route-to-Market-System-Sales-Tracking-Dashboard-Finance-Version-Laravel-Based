@@ -31,6 +31,15 @@ class CheckIfUserLoggedIn
             ])
             ->withInput($request->only('email'));
 
+        }else if(
+            Auth::user()->status=='inactive' 
+        ){
+
+            return redirect()->route('login')->withErrors([
+                'organization' => 'Account suspended. Contact Admin',
+            ])
+            ->withInput($request->only('email'));
+
         }
         else if(Auth::user()->usertype=='seller'){
             return redirect()->route('login')->withErrors([
