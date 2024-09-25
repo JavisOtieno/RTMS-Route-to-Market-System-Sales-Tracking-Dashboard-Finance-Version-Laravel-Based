@@ -32,6 +32,7 @@ class VisitController extends Controller
 
         $incomingFields=[];
         $incomingFields['user_id']=strip_tags($request['userId']);
+        $incomingFields['user_id']=auth()->id();
         $incomingFields['checkin_time']=strip_tags($request['time']);
         $incomingFields['checkin_time']=time();
         $incomingFields['checkin_latitude']=strip_tags($request['lat']);
