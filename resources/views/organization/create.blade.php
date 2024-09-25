@@ -76,6 +76,20 @@
                                     <option value="inactive">Inactive</option>
                                 </select>
                             </div>
+                            {{-- <div class="form-group">
+                                <label for="organizationProducts" class="form-label">Organization Products</label>
+                                <select name="organizationProducts" class="form-control form-select select2" data-bs-placeholder="Select Status">
+                                    <option value="products">Products</option>
+                                    <option value="services">Services</option>
+                                </select>
+                            </div> --}}
+                            {{-- <div class="form-group">
+                                <label for="organizationType" class="form-label">Organization Type</label>
+                                <select name="organizationType" class="form-control form-select select2" data-bs-placeholder="Select Type">
+                                    <option value="type1">Type 1</option>
+                                    <option value="type2">Type 2</option>
+                                </select>
+                            </div> --}}
                             <div class="form-group">
                                 <label for="phone" class="form-label">Admin Name</label>
                                 <input type="text" class="form-control" value="{{old('name')}}" name="name" id="name" placeholder="Admin Name"  autocomplete="name">
