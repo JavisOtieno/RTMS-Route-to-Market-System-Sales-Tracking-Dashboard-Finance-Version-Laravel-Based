@@ -98,7 +98,7 @@ class DashboardController extends Controller
         //$saleItems = SaleItem::where('user_id',$userId)->with('product')->orderBy('id', 'desc')->take(5)->get();
 
         return response()->json( compact(
-        'sales','outlets','salesCount','feedbackCount','$productsType',
+        'sales','outlets','salesCount','feedbackCount','productsType',
         'outletsCount','posauditsCount','visitsCount','competitorsCount','dailySalesTotal',
         'currentTargets','clockinTime','clockoutTime','checkinTime','checkoutTime', 'clockinId',
         'visitId','userId','outletId','outletName','outletLat','outletLong','currentTime'));
