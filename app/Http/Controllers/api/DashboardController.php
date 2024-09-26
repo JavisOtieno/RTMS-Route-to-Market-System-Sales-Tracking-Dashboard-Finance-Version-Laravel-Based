@@ -83,7 +83,7 @@ class DashboardController extends Controller
             $currentTargets=$user[0]['targetgroup']['amount'];
         }
 
-        
+        $productstype = auth()->user()->organization->products;
 
         $salesCount = Sale::where('user_id',$userId)->count();
         $outletsCount = Outlet::where('user_id',$userId)->count();
@@ -97,7 +97,8 @@ class DashboardController extends Controller
         $sales = Sale::where('user_id',$userId)->with('user','outlet','visit','saleitems.product')->orderBy('id', 'desc')->take(5)->get();
         //$saleItems = SaleItem::where('user_id',$userId)->with('product')->orderBy('id', 'desc')->take(5)->get();
 
-        return response()->json( compact('sales','outlets','salesCount','feedbackCount',
+        return response()->json( compact(
+        'sales','outlets','salesCount','feedbackCount','$productstype',
         'outletsCount','posauditsCount','visitsCount','competitorsCount','dailySalesTotal',
         'currentTargets','clockinTime','clockoutTime','checkinTime','checkoutTime', 'clockinId',
         'visitId','userId','outletId','outletName','outletLat','outletLong','currentTime'));
