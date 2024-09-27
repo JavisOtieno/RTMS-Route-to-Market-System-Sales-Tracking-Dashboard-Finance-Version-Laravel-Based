@@ -31,8 +31,6 @@ class DashboardController extends Controller
         foreach($sales as $sale){
             $dailySalesTotal=$dailySalesTotal+$sale['value'];
         }
-
-
         
         $clockin=Clockin::where('user_id',$userId)->orderBy('id', 'desc')->take(1)->get();
         $clockout=Clockout::where('user_id',$userId)->orderBy('id', 'desc')->take(1)->get();
@@ -82,7 +80,7 @@ class DashboardController extends Controller
             $user=User::inOrganization()->where('id',$userId)->with('targetgroup')->get();
             $currentTargets=$user[0]['targetgroup']['amount'];
         }
-
+    
         $productsType = auth()->user()->organization->products;
 
         $salesCount = Sale::where('user_id',$userId)->count();
