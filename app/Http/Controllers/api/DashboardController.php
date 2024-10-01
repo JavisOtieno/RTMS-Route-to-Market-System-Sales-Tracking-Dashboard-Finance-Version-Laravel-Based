@@ -87,7 +87,7 @@ class DashboardController extends Controller
         $productsType = auth()->user()->organization->products;
 
         // $productstype = auth()->user()->organization->products;
-
+        //products api on dashboard to show targets
         if($productsType=="service"){
             $products = Product::orderBy('id', 'DESC')
             ->withSum(['saleitems as total_sales' => function ($query) {
