@@ -100,7 +100,7 @@ class DashboardController extends Controller
                       ->whereYear('created_at', now()->year)   // Filter by current year
                       ->select(DB::raw('SUM(pieces)'));       // Sum of 'quantity' column
             }], 'pieces')
-            // ->take(4)
+            ->take(4)
             ->get();
         }else{
             $products =[];
@@ -125,5 +125,6 @@ class DashboardController extends Controller
         'visitId','userId','outletId','outletName','outletLat','outletLong','currentTime'));
 
     }
+
 }
 
