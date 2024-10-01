@@ -86,9 +86,9 @@ class DashboardController extends Controller
     
         $productsType = auth()->user()->organization->products;
 
-        $productstype = auth()->user()->organization->products;
+        // $productstype = auth()->user()->organization->products;
 
-        if($productstype=="service"){
+        if($productsType=="service"){
             $products = Product::orderBy('id', 'DESC')
             ->withSum(['saleitems as total_sales' => function ($query) {
                 $query->whereMonth('created_at', now()->month)  // Filter by current month
