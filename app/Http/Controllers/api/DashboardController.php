@@ -88,7 +88,7 @@ class DashboardController extends Controller
 
         // $productstype = auth()->user()->organization->products;
         //products api on dashboard to show targets
-        if($productsType=="service"){
+        if($productsType!=null && $productsType!='products'){
             $products = Product::orderBy('id', 'DESC')
             ->withSum(['saleitems as total_sales' => function ($query) {
                 $query->whereMonth('created_at', now()->month)  // Filter by current month
