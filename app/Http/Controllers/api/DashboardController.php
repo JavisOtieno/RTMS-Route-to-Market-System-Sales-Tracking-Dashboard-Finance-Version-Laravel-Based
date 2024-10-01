@@ -40,6 +40,8 @@ class DashboardController extends Controller
                       ->select(DB::raw('SUM(pieces)'));       // Sum of 'quantity' column
             }], 'pieces')
             ->take(4)->get();
+        }else{
+            $products =[];
         }
         //fetch today's sales
         $sales=Sale::where('user_id',$userId)
