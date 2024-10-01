@@ -25,24 +25,7 @@ class DashboardController extends Controller
         //$salesCount = Sale::where('user_id',1)->count();
         $userId = auth()->id();
 
-        $productstype = auth()->user()->organization->products;
 
-        if($productstype=="service"){
-            $products = Product::orderBy('id', 'DESC')
-            ->withSum(['saleitems as total_sales' => function ($query) {
-                $query->whereMonth('created_at', now()->month)  // Filter by current month
-                      ->whereYear('created_at', now()->year)   // Filter by current year
-                      ->select(DB::raw('SUM(value)'));         // Sum of 'value' column
-            }], 'value')
-            ->withSum(['saleitems as total_quantity' => function ($query) {
-                $query->whereMonth('created_at', now()->month)  // Filter by current month
-                      ->whereYear('created_at', now()->year)   // Filter by current year
-                      ->select(DB::raw('SUM(pieces)'));       // Sum of 'quantity' column
-            }], 'pieces')
-            ->take(4)->get();
-        }else{
-            $products =[];
-        }
         //fetch today's sales
         $sales=Sale::where('user_id',$userId)
         ->whereDate('created_at',  Carbon::today()->toDateString())->get();
@@ -102,6 +85,26 @@ class DashboardController extends Controller
         }
     
         $productsType = auth()->user()->organization->products;
+
+        $productstype = auth()->user()->organization->products;
+
+        if($productstype=="service"){
+            $products = Product::orderBy('id', 'DESC')
+            ->withSum(['saleitems as total_sales' => function ($query) {
+                $query->whereMonth('created_at', now()->month)  // Filter by current month
+                      ->whereYear('created_at', now()->year)   // Filter by current year
+                      ->select(DB::raw('SUM(value)'));         // Sum of 'value' column
+            }], 'value')
+            ->withSum(['saleitems as total_quantity' => function ($query) {
+                $query->whereMonth('created_at', now()->month)  // Filter by current month
+                      ->whereYear('created_at', now()->year)   // Filter by current year
+                      ->select(DB::raw('SUM(pieces)'));       // Sum of 'quantity' column
+            }], 'pieces')
+            // ->take(4)
+            ->get();
+        }else{
+            $products =[];
+        }
 
         $salesCount = Sale::where('user_id',$userId)->count();
         $outletsCount = Outlet::where('user_id',$userId)->count();
