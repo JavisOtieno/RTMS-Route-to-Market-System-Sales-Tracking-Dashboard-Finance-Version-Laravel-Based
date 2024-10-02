@@ -704,7 +704,7 @@
             </li>
 
 
-        @if ( auth()->user()->organization!='service' )
+        @if ( auth()->user()->organization->products!='service' )
 
           <li class="slide">
             <a class="side-menu__item has-link" data-bs-toggle="slide" href="/posaudits"><i
