@@ -704,12 +704,14 @@
             </li>
 
 
+        @if ( auth()->user()->organization!='service' )
 
           <li class="slide">
             <a class="side-menu__item has-link" data-bs-toggle="slide" href="/posaudits"><i
                     class="side-menu__icon fe fe-search"></i><span
                     class="side-menu__label">POS Audits</span></a>
         </li>
+        @endif
         <li class="slide">
           <a class="side-menu__item has-link" data-bs-toggle="slide" href="/competitors"><i
                   class="side-menu__icon fe fe-sidebar"></i><span
