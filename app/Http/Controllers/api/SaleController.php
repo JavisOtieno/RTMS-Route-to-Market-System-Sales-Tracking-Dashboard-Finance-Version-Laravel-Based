@@ -153,7 +153,7 @@ class SaleController extends Controller
             //return $productPiecesSplit;
             $productId=$productPiecesSplit[0];
             $pieces=$productPiecesSplit[1];
-            $piecesTotal=$piecesTotal+$pieces;
+
 
             $incomingFieldsSaleItem['product_id']=$productId;
             
@@ -166,6 +166,7 @@ class SaleController extends Controller
                     $incomingFieldsSaleItem['pieces']=$pieces;
                     $incomingFieldsSaleItem['price']=0;
                     $incomingFieldsSaleItem['value']=0;
+                    $piecesTotal=$piecesTotal+$pieces;
                 }else{
                     $value=1*$pieces;
                     $valueTotal=$valueTotal+$value;
@@ -180,7 +181,8 @@ class SaleController extends Controller
             $productPrice=$product['price'];
             $incomingFieldsStock['stock']=$product['stock']-$pieces;
             $product->update($incomingFieldsStock);
-
+            
+            $piecesTotal=$piecesTotal+$pieces;
             $value=$pieces*$productPrice;
             $valueTotal=$valueTotal+$value;
             $incomingFieldsSaleItem['pieces']=$pieces;
