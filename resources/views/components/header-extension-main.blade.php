@@ -549,7 +549,6 @@
                                 </ul>
                             </div>
                         </div>
-                        @if ( auth()->user()->organization->products!='service' )
                         <div class="panel-body tabs-menu-body p-0 border-0">
                             <div class="tab-content">
                                 <div class="tab-pane active" id="side1">
@@ -564,23 +563,6 @@
                                 
                             </div>
                         </div>
-                        @else
-                        <div class="panel-body tabs-menu-body p-0 border-0">
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="side1">
-                                    <ul class="sidemenu-list">
-                                        <li class="side-menu-label1"><a href="javascript:void(0)">Customers</a></li>
-                                        <li><a href="/outlets" class="slide-item">Customers List</a></li>
-                                        <li><a href="/showoutletsmap" class="slide-item">Customers Map</a></li>
-                                        
-                                    </ul>
-    
-                                </div>
-                                
-                            </div>
-                        </div>
-                        @endif
-
                     </li>
                 </ul>
             </li>
@@ -722,14 +704,12 @@
             </li>
 
 
-        @if ( auth()->user()->organization->products!='service' )
 
           <li class="slide">
             <a class="side-menu__item has-link" data-bs-toggle="slide" href="/posaudits"><i
                     class="side-menu__icon fe fe-search"></i><span
                     class="side-menu__label">POS Audits</span></a>
         </li>
-        @endif
         <li class="slide">
           <a class="side-menu__item has-link" data-bs-toggle="slide" href="/competitors"><i
                   class="side-menu__icon fe fe-sidebar"></i><span
