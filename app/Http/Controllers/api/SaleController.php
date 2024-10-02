@@ -170,6 +170,7 @@ class SaleController extends Controller
                 }else{
                     $value=1*$pieces;
                     $valueTotal=$valueTotal+$value;
+                    $piecesTotal=$piecesTotal+1;
                     $incomingFieldsSaleItem['pieces']=1;
                     $incomingFieldsSaleItem['price']=$pieces;
                     $incomingFieldsSaleItem['value']=$pieces;
