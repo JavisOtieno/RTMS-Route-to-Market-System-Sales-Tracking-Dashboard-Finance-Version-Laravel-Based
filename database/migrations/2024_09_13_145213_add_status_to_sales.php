@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('sales', function (Blueprint $table) {
+        Schema::table('outlets', function (Blueprint $table) {
             //
             $table->string('status')->nullable()->after('team_id'); 
         });
@@ -22,7 +22,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('sales', function (Blueprint $table) {
+        Schema::table('outlets', function (Blueprint $table) {
             //
             $table->dropColumn('status');
         });
