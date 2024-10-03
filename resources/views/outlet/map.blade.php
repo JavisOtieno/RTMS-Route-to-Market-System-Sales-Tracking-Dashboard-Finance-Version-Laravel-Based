@@ -23,10 +23,10 @@
 <div class="col-xl-12">
 
     <div class="card">
-        <div class="card-header">
+        {{-- <div class="card-header">
             <h3 class="card-title">Outlets Map</h3>
             <a type="button" href="/add-outlet" class="btn btn-danger col-md-3" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;">Add Outlet</a>
-        </div>
+        </div> --}}
 
         <div class="row" style="margin: 0 10px;">
             <input type="hidden" id="tableLoaded" value="outlets"/>
