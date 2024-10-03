@@ -129,25 +129,30 @@ class SaleController extends Controller
         $valueTotal=0;
         $incomingFieldsSale['pieces']=$piecesTotal;
         $incomingFieldsSale['value']=$valueTotal;
+        $tracethrough = "start outside if";
 
 
             
         if(strlen($incomingFields['products'])>0){
 
         $saleStatus=DB::transaction(function () use($incomingFields,
-        $incomingFieldsSale,$valueTotal,$piecesTotal) {
+        $incomingFieldsSale,$valueTotal,$piecesTotal,$tracethrough) {
 
         $sale=Sale::create($incomingFieldsSale);
         $saleId=$sale->id;
 
         $incomingFieldsSaleItem['sale_id']=$saleId;
 
+        $tracethrough = "start inside if";
+
         
         //return $incomingFields['products'];
         $saleArray= explode('_',$incomingFields['products']);
         //return json_encode($posAuditArray);
+        $count = 0;
 
         foreach ($saleArray as $productPiecesString) {
+            $count ++;
             # code...
             $productPiecesSplit=explode('-',$productPiecesString);
             //return $productPiecesSplit;
@@ -167,6 +172,7 @@ class SaleController extends Controller
                     $incomingFieldsSaleItem['price']=0;
                     $incomingFieldsSaleItem['value']=0;
                     $piecesTotal=$piecesTotal+$pieces;
+                    $tracethrough +" - quantity";
                 }else{
                     $value=1*$pieces;
                     $valueTotal=$valueTotal+$value;
@@ -174,11 +180,12 @@ class SaleController extends Controller
                     $incomingFieldsSaleItem['pieces']=1;
                     $incomingFieldsSaleItem['price']=$pieces;
                     $incomingFieldsSaleItem['value']=$pieces;
+                    $tracethrough +" - amount";
                 }
                 
 
             }else{
-
+            $tracethrough +" - product";
             $productPrice=$product['price'];
             $incomingFieldsStock['stock']=$product['stock']-$pieces;
             $product->update($incomingFieldsStock);
@@ -197,6 +204,7 @@ class SaleController extends Controller
         }
 
         //Posaudit::create($incomingFields);
+        $tracethrough+"exit - pieces"+$piecesTotal+"value"+$valueTotal;
         $incomingFieldsSaleUpdate['pieces']=$piecesTotal;
         $incomingFieldsSaleUpdate['value']=$valueTotal;
         $sale->update($incomingFieldsSaleUpdate);
@@ -206,6 +214,7 @@ class SaleController extends Controller
         $saleStatus=array(
             "message" => "Sale Added Successful",
             "saleId" => $saleId,
+            "tracethrough" => $tracethrough,
             "status" => "success");
         
         return $saleStatus;
