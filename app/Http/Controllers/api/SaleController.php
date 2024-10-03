@@ -143,7 +143,7 @@ class SaleController extends Controller
 
         $incomingFieldsSaleItem['sale_id']=$saleId;
 
-        $tracethrough = "start inside if";
+        $tracethrough .= "start inside if";
 
         
         //return $incomingFields['products'];
@@ -172,7 +172,7 @@ class SaleController extends Controller
                     $incomingFieldsSaleItem['price']=0;
                     $incomingFieldsSaleItem['value']=0;
                     $piecesTotal=$piecesTotal+$pieces;
-                    $tracethrough +" - quantity";
+                    $tracethrough .=" - quantity";
                 }else{
                     $value=1*$pieces;
                     $valueTotal=$valueTotal+$value;
@@ -180,12 +180,12 @@ class SaleController extends Controller
                     $incomingFieldsSaleItem['pieces']=1;
                     $incomingFieldsSaleItem['price']=$pieces;
                     $incomingFieldsSaleItem['value']=$pieces;
-                    $tracethrough +" - amount";
+                    $tracethrough .=" - amount";
                 }
                 
 
             }else{
-            $tracethrough +" - product";
+            $tracethrough .=" - product";
             $productPrice=$product['price'];
             $incomingFieldsStock['stock']=$product['stock']-$pieces;
             $product->update($incomingFieldsStock);
@@ -204,7 +204,7 @@ class SaleController extends Controller
         }
 
         //Posaudit::create($incomingFields);
-        $tracethrough+"exit - pieces"+$piecesTotal+"value"+$valueTotal;
+        $tracethrough.="exit - pieces"+$piecesTotal+"value"+$valueTotal;
         $incomingFieldsSaleUpdate['pieces']=$piecesTotal;
         $incomingFieldsSaleUpdate['value']=$valueTotal;
         $sale->update($incomingFieldsSaleUpdate);
