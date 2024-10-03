@@ -204,7 +204,7 @@ class SaleController extends Controller
         }
 
         //Posaudit::create($incomingFields);
-        $tracethrough.="exit - pieces"+$piecesTotal+"value"+$valueTotal;
+        $tracethrough.="exit - pieces".$piecesTotal."value".$valueTotal;
         $incomingFieldsSaleUpdate['pieces']=$piecesTotal;
         $incomingFieldsSaleUpdate['value']=$valueTotal;
         $sale->update($incomingFieldsSaleUpdate);
