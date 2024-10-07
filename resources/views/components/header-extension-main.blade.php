@@ -534,8 +534,8 @@
             
             <li class="slide">
                 <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
-                        class="side-menu__icon fe fe-map-pin"></i><span
-                        class="side-menu__label">Outlets</span><i
+                        class="side-menu__icon fe fe-users"></i><span
+                        class="side-menu__label">Customers</span><i
                         class="angle fe fe-chevron-right"></i>
                 </a>
                 <ul class="slide-menu">
