@@ -147,6 +147,7 @@ Route::get('/clockouts/{id}/{object}',[ClockoutController::class,'showClockoutsB
 Route::get('/clockout/{id}',[ClockoutController::class,'showEditClockout']);
 Route::get('/clockoutsmap', [ClockoutController::class,'showClockoutsMap']);
 Route::get('/deleteclockout/{id}', [ClockoutController::class,'deleteClockout']);
+//Test
 
 Route::get('/visits', [VisitController::class,'index']);
 Route::get('/visit/{id}',[VisitController::class,'showEditVisit']);

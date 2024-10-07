@@ -19,7 +19,7 @@ class ClockoutController extends Controller
         //     'time'=>'required',
         //     'lat'=>'required',
         //     'long'=>'required'
-        'userId'=>'required|numeric|digits_between:1,20|exists:users,id',
+        // 'userId'=>'required|numeric|digits_between:1,20|exists:users,id',
         'clockinId'=>'required|numeric|digits_between:1,20|exists:clockins,id',
         'time'=>'required|string|max:255',
         'lat'=>'required|numeric|between:-90,90',
