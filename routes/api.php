@@ -87,7 +87,7 @@ Route::middleware(['auth:sanctum','apiLimitInactiveOrganization'])->group(functi
     Route::post('addoffplanrequest', [OffplanrequestController::class,'saveOffplanrequest']);
     Route::get('checkifoffplanrequestapproved/{id}',[OffplanrequestController::class,'checkIfOffplanrequestApproved']);
 
-    Route::get('download-pdf-mobile/{id}', [OrderNoteController::class, 'downloadPdf']);
+    Route::get('download-pdf-mobile/{id}', [OrderNoteController::class, 'downloadMobilePdf']);
 
     Route::put('pendingsale/{id}',[SaleController::class,'pendingSale']);
     Route::put('completesale/{id}',[SaleController::class,'completeSale']);
