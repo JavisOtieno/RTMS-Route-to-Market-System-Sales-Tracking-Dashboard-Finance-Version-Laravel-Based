@@ -9,11 +9,11 @@
 
   <!-- PAGE-HEADER -->
   <div class="page-header">
-    <h1 class="page-title">Outlets</h1>
+    <h1 class="page-title">Customers</h1>
     <div>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)">RTMS</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Outlets</li>
+            <li class="breadcrumb-item active" aria-current="page">Customers</li>
         </ol>
     </div>
 </div>
@@ -24,15 +24,15 @@
 
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Outlets</h3>
+            <h3 class="card-title">Customers</h3>
             {{-- <a type="button" href="/add-outlet" class="btn btn-danger col-md-3" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;">Add Outlet</a> --}}
         </div>
         <div class="row" style="margin: 0 10px;">
             <input type="hidden" id="tableLoaded" value="outlets"/>
             <h3 class="card-title" style="margin-top:20px;margin-block-end: 0rem;">Search by :</h3>
             <div class="col-md-2 mb-3">
-                <label for="nameInput" class="form-label">Outlet Name</label>
-                <input type="text" class="form-control" id="nameInput" placeholder="Outlet Name">
+                <label for="nameInput" class="form-label">Customer Name</label>
+                <input type="text" class="form-control" id="nameInput" placeholder="Customer Name">
             </div>
 
             <div class="col-md-2 mb-3">
