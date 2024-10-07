@@ -20,9 +20,10 @@ class RoutePlanController extends Controller
     }
 
     public function index() {
+        $userId = auth()->id();
         //$posaudits = Posaudit::all();
         //$posaudits = Posaudit::with('user','outlet','visit','posaudititems.product')->get();
-        $routeplans = Routeplan::with(['user' => function ($query) {
+        $routeplans = Routeplan::where('user_id',$userId)->with(['user' => function ($query) {
             $query->withTrashed();
         },'routeplanitems.outlet'])->orderBy('id', 'DESC')->get();
         return response()->json(['routeplans'=>$routeplans]);
