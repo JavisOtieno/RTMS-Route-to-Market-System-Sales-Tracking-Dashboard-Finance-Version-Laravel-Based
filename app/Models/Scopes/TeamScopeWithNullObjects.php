@@ -33,7 +33,7 @@ class TeamScopeWithNullObjects implements Scope
         if (Auth::check() && $user->usertype=='seller') {
 
             $teamId = $user->team_id;
-            $builder->where('user_id', $user->id)->where('team_id', $teamId)->orWhereNull('team_id');
+            $builder->where('team_id', $teamId)->orWhereNull('team_id');
 
             // if ($teamId === null) {
             //     $builder->where('team_id', null);
