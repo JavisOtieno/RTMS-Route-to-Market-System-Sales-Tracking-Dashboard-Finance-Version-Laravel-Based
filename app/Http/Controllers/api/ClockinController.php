@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\api;
 
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use App\Models\Clockin;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ClockinController extends Controller
 {
@@ -24,11 +25,26 @@ class ClockinController extends Controller
         ]);
 
         //Test Git
+        $userid = auth()->user()->id;
 
+        // Fetch the latest clock-in record for the user
+        $latestClockIn = ClockIn::where('user_id', $userid)
+        ->orderBy('created_at', 'desc')
+        ->first();
 
+        // Get today's date
+        $today = Carbon::today();
+
+        // Check if the latest clock-in exists and its date matches today
+        if ($latestClockIn && $latestClockIn->created_at->isSameDay($today)) {
+            // Do something if the latest clock-in was created today
+            return response()->json(["errors" => "Multiple Clockin Attempt",
+            'message' => 'Already clocked in today.']);
+        } else {
+        
         $incomingFields=[];
         $incomingFields['user_id']=strip_tags($request['userId']);
-        $incomingFields['user_id']=auth()->user()->id;
+        $incomingFields['user_id']=$userid;
         $incomingFields['time']=strip_tags($request['time']);
         $incomingFields['time']=time();
         $incomingFields['lat']=strip_tags($request['lat']);
@@ -44,6 +60,7 @@ class ClockinController extends Controller
             "status" => "success");
 
         return response()->json($clockinStatus);
+        }
         
     }
 

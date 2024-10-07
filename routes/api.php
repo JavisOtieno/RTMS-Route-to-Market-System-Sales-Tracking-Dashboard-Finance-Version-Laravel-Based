@@ -94,7 +94,7 @@ Route::middleware(['auth:sanctum','apiLimitInactiveOrganization'])->group(functi
 
 });
 
-Route::post('clockintest',[ClockinController::class,'clockinTest']);
+// Route::post('clockintest',[ClockinController::class,'clockinTest']);
 
 
 
