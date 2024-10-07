@@ -47,7 +47,7 @@ Route::middleware(['auth:sanctum','apiLimitInactiveOrganization'])->group(functi
     Route::post('clockout',[ClockoutController::class,'saveClockout']);
 
     Route::post('checkin',[VisitController::class,'checkin']);
-    Route::post('logcheckin',[LogController::class,'addlog']);
+    // Route::post('logcheckin',[LogController::class,'addlog']);
     Route::put('checkout/{id}',[VisitController::class,'checkout']);
 
     Route::get('sales',[SaleController::class,'index']);
@@ -88,7 +88,7 @@ Route::middleware(['auth:sanctum','apiLimitInactiveOrganization'])->group(functi
     Route::get('checkifoffplanrequestapproved/{id}',[OffplanrequestController::class,'checkIfOffplanrequestApproved']);
 
     Route::get('download-pdf-mobile/{id}', [OrderNoteController::class, 'downloadPdf']);
-    
+
     Route::put('pendingsale/{id}',[SaleController::class,'pendingSale']);
     Route::put('completesale/{id}',[SaleController::class,'completeSale']);
 
