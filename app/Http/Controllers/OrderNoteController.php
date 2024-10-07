@@ -24,7 +24,7 @@ class OrderNoteController extends Controller
 
         $dompdf = new Dompdf();
         $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
 
         return $dompdf->stream('pdf_document.pdf', ['Attachment' => 0]);
