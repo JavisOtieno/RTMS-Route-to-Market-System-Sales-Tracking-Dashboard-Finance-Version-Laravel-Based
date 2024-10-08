@@ -29,6 +29,9 @@ class RefreshToken
             // $token->forceFill([
             //     'expires_at' => now()->addMinutes(config('sanctum.expiration')),
             // ])->save();
+            Log::info('Sanctum Exp: ', ['sanctumexp' => config('sanctum.expiration')]);
+            Log::info('Now: ', ['now' => now()]);
+            Log::info('Current Time: ', ['timeplusexp' => now()->addMinutes(config('sanctum.expiration'))]);
             $token->update([
                 'expires_at' => now()->addMinutes(config('sanctum.expiration')),
             ]);
