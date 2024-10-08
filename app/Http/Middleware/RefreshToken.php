@@ -3,10 +3,11 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Symfony\Component\HttpFoundation\Response;
 
 class RefreshToken
 {
@@ -38,6 +39,8 @@ class RefreshToken
              $token->forceFill([
                 'expires_at' => now()->addMinutes(config('sanctum.expiration')),
             ])->save();
+             // Clear any cache related to the token
+            Cache::forget('token-expiration-' . $token->id);
             Log::info('Updated Token: ', ['token' => $token]);
             }else{
                 Log::info('Current Token: ', ['token' => 'else']);
