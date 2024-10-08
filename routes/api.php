@@ -46,6 +46,9 @@ Route::middleware(['auth:sanctum','apiLimitInactiveOrganization'])->group(functi
     Route::post('clockin',[ClockinController::class,'saveClockin']);
     Route::post('clockout',[ClockoutController::class,'saveClockout']);
 
+    Route::get('pendingsales',[SaleController::class,'pendingSales']);
+    Route::get('completesales',[SaleController::class,'completeSales']);
+
     Route::post('checkin',[VisitController::class,'checkin']);
     // Route::post('logcheckin',[LogController::class,'addlog']);
     Route::put('checkout/{id}',[VisitController::class,'checkout']);

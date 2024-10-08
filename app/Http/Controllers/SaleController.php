@@ -31,6 +31,26 @@ class SaleController extends Controller
         return view('sale.index', ['sales'=>$sales]);
     }
 
+    public function pendingSales(){
+        //$sales = Sale::all();
+        $userId = auth()->id();
+        $sales = Sale::where('user_id',$userId)
+        ->where('status','pending')->with('user','visit','outlet','saleitems.product')->orderBy('id', 'DESC')->get();
+        // return "nothing";
+        return response()->json(['sales'=>$sales]);
+       
+    }
+    public function completeSales(){
+        //$sales = Sale::all();
+        $userId = auth()->id();
+        $sales = Sale::where('user_id',$userId)
+        ->where('status','complete')
+        ->with('user','visit','outlet','saleitems.product')->orderBy('id', 'DESC')->get();
+        // return "nothing";
+        return response()->json(['sales'=>$sales]);
+       
+    }
+
 
 
     public function showSalesById($id,$object) {
