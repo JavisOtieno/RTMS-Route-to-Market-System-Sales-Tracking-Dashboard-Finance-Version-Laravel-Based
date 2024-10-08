@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -16,6 +17,8 @@ class ApiLimitInactiveOrganization
      */
     public function handle(Request $request, Closure $next): Response
     {
+        Log::info('Testing Log: ', ['log' => 'start']);
+        
         if(
             Auth::user()->organization->status=='inactive' 
         ){
