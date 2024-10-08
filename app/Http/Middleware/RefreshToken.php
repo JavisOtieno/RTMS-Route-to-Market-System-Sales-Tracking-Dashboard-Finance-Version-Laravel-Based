@@ -26,9 +26,12 @@ class RefreshToken
             if($user){
             $token = $request->user()->currentAccessToken();
             Log::info('Current Token: ', ['token' => $token]);
-            $token->forceFill([
+            // $token->forceFill([
+            //     'expires_at' => now()->addMinutes(config('sanctum.expiration')),
+            // ])->save();
+            $token->update([
                 'expires_at' => now()->addMinutes(config('sanctum.expiration')),
-            ])->save();
+            ]);
             }else{
                 Log::info('Current Token: ', ['token' => 'else']);
             }

@@ -17,7 +17,7 @@ class ApiLimitInactiveOrganization
      */
     public function handle(Request $request, Closure $next): Response
     {
-        Log::info('Testing Log: ', ['log' => 'start']);
+        // Log::info('Testing Log: ', ['log' => 'start']);
         
         if(
             Auth::user()->organization->status=='inactive' 
