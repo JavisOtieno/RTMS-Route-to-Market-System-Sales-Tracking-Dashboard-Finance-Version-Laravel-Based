@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Log;
 
 class RefreshToken
 {
@@ -22,6 +23,7 @@ class RefreshToken
             $user = Auth::user();
             if($user){
             $token = $request->user()->currentAccessToken();
+            Log::info('Current Token: ', ['token' => $token]);
             $token->forceFill([
                 'expires_at' => now()->addMinutes(config('sanctum.expiration')),
             ])->save();
