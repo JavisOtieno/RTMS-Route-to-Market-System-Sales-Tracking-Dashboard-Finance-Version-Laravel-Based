@@ -35,6 +35,7 @@ class RefreshToken
             $token->update([
                 'expires_at' => now()->addMinutes(config('sanctum.expiration')),
             ]);
+            Log::info('Updated Token: ', ['token' => $token]);
             }else{
                 Log::info('Current Token: ', ['token' => 'else']);
             }
