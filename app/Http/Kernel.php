@@ -29,7 +29,8 @@ class Kernel extends HttpKernel
         'adminOnly' => \App\Http\Middleware\AdminOnly::class,
         'superAdminOnly' => \App\Http\Middleware\SuperAdminOnly::class,
         'ensureViewOnlyForTeamLeads' => \App\Http\Middleware\EnsureViewOnlyForTeamLeads::class,
-        'apiLimitInactiveOrganization' => \App\Http\Middleware\ApiLimitInactiveOrganization::class
+        'apiLimitInactiveOrganization' => \App\Http\Middleware\ApiLimitInactiveOrganization::class,
+        'refresh.token' => \App\Http\Middleware\RefreshToken::class,
     ];
 
 
