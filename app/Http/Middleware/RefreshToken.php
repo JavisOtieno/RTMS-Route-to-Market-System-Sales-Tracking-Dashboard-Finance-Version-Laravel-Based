@@ -37,7 +37,8 @@ class RefreshToken
             //     'expires_at' => now()->addMinutes(config('sanctum.expiration')),
             // ]);
              $token->forceFill([
-                'expires_at' => now()->addMinutes(config('sanctum.expiration')),
+                // 'expires_at' => now()->addMinutes(config('sanctum.expiration')), now()->addMinutes(2);
+                'expires_at' => now()->addMinutes(2), 
             ])->save();
              // Clear any cache related to the token
             // Cache::forget('token-expiration-' . $token->id);
