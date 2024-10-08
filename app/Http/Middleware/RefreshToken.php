@@ -18,7 +18,9 @@ class RefreshToken
     public function handle(Request $request, Closure $next): Response
     {
         // return $next($request);
+        Log::info('Current Token: ', ['token' => 'start']);
         if (Auth::check()) {
+            Log::info('Current Token: ', ['token' => 'check']);
             // Refresh the token's expiration (e.g., add more time)
             $user = Auth::user();
             if($user){
@@ -27,6 +29,8 @@ class RefreshToken
             $token->forceFill([
                 'expires_at' => now()->addMinutes(config('sanctum.expiration')),
             ])->save();
+            }else{
+                Log::info('Current Token: ', ['token' => 'else']);
             }
         }
 
