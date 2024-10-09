@@ -112,7 +112,7 @@ Route::get('/feedback/{id}',[FeedbackController::class,'showEditFeedback']);
 Route::put('/saveeditfeedback/{id}',[FeedbackController::class,'saveEditFeedback']);
 Route::get('/feedback/{id}/{object}',[FeedbackController::class,'showFeedbackById']);
 
-Route::get('/outlets', [OutletController::class,'index']);
+Route::get('/customers', [OutletController::class,'index']);
 Route::get('/outlets/{id}/{object}', [OutletController::class,'showOutletsById']);
 
 Route::get('/deleteoutlet/{id}', [OutletController::class,'deleteOutlet']);
@@ -120,7 +120,7 @@ Route::get('/add-outlet', [OutletController::class,'addOutlet']);
 Route::post('/saveoutlet', [OutletController::class,'saveOutlet']);
 Route::get('/editoutlet/{id}',[OutletController::class,'showEditOutlet']);
 Route::put('/saveeditoutlet/{id}',[OutletController::class,'saveEditOutlet']);
-Route::get('/showoutletsmap',[OutletController::class,'showOutletsMap']);
+Route::get('/showcustomersmap',[OutletController::class,'showOutletsMap']);
 
 Route::get('/ajaxoutletsyajra',[OutletController::class,'ajaxoutletsYajraTest'])
 ->name('yajratestoutlets');
