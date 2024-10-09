@@ -554,7 +554,7 @@
                             </ul>
                         </div>
                     </div>
-                    @if ( auth()->user()->organization->products!='service' )
+                    
                     <div class="panel-body tabs-menu-body p-0 border-0">
                         <div class="tab-content">
                             <div class="tab-pane active" id="side1">
@@ -569,22 +569,7 @@
                             
                         </div>
                     </div>
-                    @else
-                    <div class="panel-body tabs-menu-body p-0 border-0">
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="side1">
-                                <ul class="sidemenu-list">
-                                    <li class="side-menu-label1"><a href="javascript:void(0)">Customers</a></li>
-                                    <li><a href="/outlets" class="slide-item">Customers List</a></li>
-                                    <li><a href="/showoutletsmap" class="slide-item">Customers Map</a></li>
-                                    
-                                </ul>
-
-                            </div>
-                            
-                        </div>
-                    </div>
-                    @endif
+                   
 
                 </li>
             </ul>
