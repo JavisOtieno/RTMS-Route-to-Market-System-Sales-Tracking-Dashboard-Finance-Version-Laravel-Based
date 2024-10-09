@@ -93,11 +93,17 @@ class DashboardController extends Controller
             ->withSum(['saleitems as total_sales' => function ($query) {
                 $query->whereMonth('created_at', now()->month)  // Filter by current month
                       ->whereYear('created_at', now()->year)   // Filter by current year
+                      ->whereHas('sale', function ($saleQuery) {
+                        $saleQuery->where('status', 'complete'); // Adjust the status as needed
+                    })
                       ->select(DB::raw('SUM(value)'));         // Sum of 'value' column
             }], 'value')
             ->withSum(['saleitems as total_quantity' => function ($query) {
                 $query->whereMonth('created_at', now()->month)  // Filter by current month
                       ->whereYear('created_at', now()->year)   // Filter by current year
+                      ->whereHas('sale', function ($saleQuery) {
+                        $saleQuery->where('status', 'complete'); // Adjust the status as needed
+                    })
                       ->select(DB::raw('SUM(pieces)'));       // Sum of 'quantity' column
             }], 'pieces')
             ->take(4)
