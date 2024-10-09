@@ -700,9 +700,9 @@
                             <div class="tab-pane active" id="side1">
                                 <ul class="sidemenu-list">
                                     <li class="side-menu-label1"><a href="javascript:void(0)">Deals</a></li>
-                                    <li><a href="/sales" class="slide-item">Deals List</a></li>
-                                    <li><a href="/salesmap" class="slide-item">Deals Map</a></li>
-                                    <li><a href="/salesanalytics" class="slide-item">Deals Analytics</a></li>
+                                    <li><a href="/deals" class="slide-item">Deals List</a></li>
+                                    <li><a href="/dealsmap" class="slide-item">Deals Map</a></li>
+                                    <li><a href="/dealsanalytics" class="slide-item">Deals Analytics</a></li>
                                 </ul>
                             </div>
                         </div>

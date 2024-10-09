@@ -57,10 +57,10 @@ Route::get('/', [DashboardController::class,'index']);
 
 Route::get('/dashboard', [DashboardController::class,'index']);
 
-Route::get('/sales', [SaleController::class,'index']);
-Route::get('/salesmap', [SaleController::class,'showSalesMap']);
+Route::get('/deals', [SaleController::class,'index']);
+Route::get('/dealsmap', [SaleController::class,'showSalesMap']);
 Route::get('/add-sale', [SaleController::class,'addSale']);
-Route::get('/salesanalytics', [SaleController::class,'showSalesAnalytics']);
+Route::get('/dealsanalytics', [SaleController::class,'showSalesAnalytics']);
 Route::get('/sales/{id}/{object}',[SaleController::class,'showSalesById']);
 Route::post('/savesale', [SaleController::class,'saveSale']);
 Route::get('/deletesale/{id}', [SaleController::class,'deleteSale']);
