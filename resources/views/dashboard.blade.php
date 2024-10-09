@@ -25,7 +25,7 @@
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="mt-2">
-                            <h6 class="">Total Sales</h6>
+                            <h6 class="">Total<br/> Sales</h6>
                             <h2 class="mb-0 number-font">{{$salesCount}}</h2>
                         </div>
                         <div class="ms-auto">
@@ -46,7 +46,7 @@
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="mt-2">
-                            <h6 class="">Total Visits</h6>
+                            <h6 class="">Total<br/> Visits</h6>
                             <h2 class="mb-0 number-font">{{$visitsNumberCount}}</h2>
                         </div>
                         <div class="ms-auto">
@@ -67,7 +67,7 @@
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="mt-2">
-                            <h6 class="">Total Customers</h6>
+                            <h6 class="">Total<br/> Customers</h6>
                             <h2 class="mb-0 number-font">{{$outletsCount}}</h2>
                         </div>
                         <div class="ms-auto">
@@ -88,7 +88,7 @@
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="mt-2">
-                            <h6 class="">Total Products</h6>
+                            <h6 class="">Total<br/> Products</h6>
                             <h2 class="mb-0 number-font">{{$productsNumberCount}}</h2>
                         </div>
                         <div class="ms-auto">
