@@ -10,11 +10,11 @@
 
   <!-- PAGE-HEADER -->
   <div class="page-header">
-    <h1 class="page-title">Sales</h1>
+    <h1 class="page-title">Deals</h1>
     <div>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)">RTMS</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Sales</li>
+            <li class="breadcrumb-item active" aria-current="page">Deals</li>
         </ol>
     </div>
 </div>
@@ -26,7 +26,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Sales Transactions</h3>
+                        <h3 class="card-title">Deals</h3>
                         
                         <!--<a type="button" href="/add-sale" class="btn btn-danger col-md-3" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;">Add Sale</a>-->
                     </div>
@@ -57,6 +57,14 @@
                             <label for="date" class="form-label">To</label>
                             <input type="date" class="form-control" id="dateToInput" placeholder="Max Date">
                         </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="status" class="form-label">Status</label>
+                            <select name="status" id="status" class="form-control form-select select2" data-bs-placeholder="Select Status">
+                                <option value="All">All</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Complete">Complete</option>
+                            </select>
+                        </div>
                         {{-- <div class="col-md-3 mb-3">
                             <label for="time" class="form-label">Clockin After</label>
                             <input type="time" class="form-control" id="timeInput" placeholder="Time">
@@ -83,13 +91,14 @@
                                         <th id="view-column">View/Edit</th>
                                         <th id="delete-column">Delete</th>
                                         <th>Seller Name</th>
-                                        <th>Outlet Name</th>
+                                        <th>Customer Name</th>
                                         <th>Products Sold</th>
                                         <th>Quantity</th>
                                         <th>Value</th>
                                         <th>Team</th>
                                         <th>Date</th>
                                         <th>Time</th>
+                                        <th>Status</th>
                                         {{-- <th>Added</th> --}}
                                         <!--<th>View/Edit</th>-->
                                         
@@ -137,6 +146,7 @@
                                         <td>{{$sale['team']==null?"None":$sale['team']['name']}}</td>
                                         <td>{{date('d-M-Y', strtotime($sale['created_at']))}}</td>
                                         <td>{{date('H:i', strtotime($sale['created_at']))}}</td>
+                                        <td>{{ucfirst($sale['status'])}}</td>
                                         {{-- <td>{{date('d-M-Y H:i', strtotime($sale['created_at']))}}</td> --}}
                                         {{-- <td><a type="button" href="/editsale/{{$sale['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
                                         </td> --}}
