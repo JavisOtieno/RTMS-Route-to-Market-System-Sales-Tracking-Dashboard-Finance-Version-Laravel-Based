@@ -67,7 +67,7 @@
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="mt-2">
-                            <h6 class="">Total Outlets</h6>
+                            <h6 class="">Total Customers</h6>
                             <h2 class="mb-0 number-font">{{$outletsCount}}</h2>
                         </div>
                         <div class="ms-auto">
@@ -204,7 +204,7 @@
                         <thead>
                             <tr>
                                 {{-- <th>ID</th> --}}
-                                <th>Outlet Name</th>
+                                <th>Customer Name</th>
                                 <th>Seller Name</th>
                                 {{-- <th>Pieces</th> --}}
                                 <th>Value</th>
@@ -253,7 +253,7 @@
     <div class="col-xl-6">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Recent Outlets</h3>
+                <h3 class="card-title">Recent Customers</h3>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -280,7 +280,7 @@
                             @else
                             <!--let datatables display no data available-->
                             <tr>
-                                <td colspan="4" style="text-align: center">No outlets so far</td>
+                                <td colspan="4" style="text-align: center">No customers so far</td>
                             </tr>
                             @endif
 
@@ -365,7 +365,7 @@
         <div class="col-xl-6">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Top Outlets</h3>
+                    <h3 class="card-title">Top Customers</h3>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -373,7 +373,7 @@
                             <thead>
                                 <tr>
                                     {{-- <th>ID</th> --}}
-                                    <th>Outlet Name</th>
+                                    <th>Customer Name</th>
                                     <th>Contact Person</th>
                                     <th>Sales</th>
                                     
