@@ -592,6 +592,7 @@ $(function(e) {
         var productNameColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text().toLowerCase().includes('product'));
         var outletNameColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text() === 'Outlet Name');
         var teamNameColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text() === 'Team');
+        var statusColumnIndex = table2.columns().header().toArray().findIndex(header => $(header).text() === 'Status');
 
         // alert(nameColumnIndex+" "+outletNameColumnIndex)
         // alert(teamNameColumnIndex);
@@ -613,6 +614,22 @@ $(function(e) {
             // alert(thzzis.value);
             table2.column(teamNameColumnIndex).search(this.value).draw(); // Column index 0 for 'Name'
         });
+        // $('#status').on('keyup', function() {
+        //     // alert(thzzis.value);
+        //     table2.column(statusColumnIndex).search(this.value).draw(); // Column index 0 for 'Name'
+        // });
+        $('#status').on('change', function() {
+            let selectedValue = this.value;  // Get the selected value from the dropdown
+            // alert(this.value)
+            if (selectedValue === 'All') {
+                table2.column(statusColumnIndex).search('').draw();  // Clear the search for the 'All' option
+            } else {
+                table2.column(statusColumnIndex).search(selectedValue).draw();  // Apply the search for specific statuses
+            }  // Apply the search to the status column
+        });
+        
+
+        
 
     }
     else if(tableLoaded=="outlets"){
