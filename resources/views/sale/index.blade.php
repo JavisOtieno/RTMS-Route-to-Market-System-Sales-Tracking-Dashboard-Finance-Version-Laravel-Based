@@ -42,8 +42,8 @@
                             <input type="text" class="form-control" id="productNameInput" placeholder="Product Name">
                         </div>
                         <div class="col-md-3 mb-3">
-                            <label for="outletName" class="form-label">Outlet Name</label>
-                            <input type="text" class="form-control" id="outletNameInput" placeholder="Outlet Name">
+                            <label for="outletName" class="form-label">Customer Name</label>
+                            <input type="text" class="form-control" id="outletNameInput" placeholder="Customer Name">
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="teamName" class="form-label">Team</label>
