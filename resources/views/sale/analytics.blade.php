@@ -33,7 +33,7 @@
                     <div class="card-body">
                         <div class="d-flex">
                             <div class="mt-2">
-                                <h6 class="">Total Deals</h6>
+                                <h6 class="">Total <br/>Deals</h6>
                                 <h2 class="mb-0 number-font">
                                     {{$salesCount}}
                                 </h2>
@@ -59,7 +59,7 @@
                     <div class="card-body">
                         <div class="d-flex">
                             <div class="mt-2">
-                                <h6 class="">Deals This Month</h6>
+                                <h6 class="">Deals <br/>This Month</h6>
                                 <h2 class="mb-0 number-font">
                                     {{$salesThisMonth}}
                                 </h2>
@@ -85,7 +85,7 @@
                     <div class="card-body">
                         <div class="d-flex">
                             <div class="mt-2">
-                                <h6 class="">Deals This Week</h6>
+                                <h6 class="">Deals <br/>This Week</h6>
                                 <h2 class="mb-0 number-font">
                                     {{$salesThisWeek}}
                                 </h2>
@@ -111,7 +111,7 @@
                     <div class="card-body">
                         <div class="d-flex">
                             <div class="mt-2">
-                                <h6 class="">Deals Today</h6>
+                                <h6 class="">Deals <br/>Today</h6>
                                 <h2 class="mb-0 number-font">
                                     {{$salesToday}}
                                 

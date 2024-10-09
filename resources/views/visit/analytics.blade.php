@@ -33,7 +33,7 @@
                     <div class="card-body">
                         <div class="d-flex">
                             <div class="mt-2">
-                                <h6 class="">Total Visits</h6>
+                                <h6 class="">Total <br/>Visits</h6>
                                 <h2 class="mb-0 number-font">
                                     {{$visitsCount}}
                                 </h2>
@@ -59,7 +59,7 @@
                     <div class="card-body">
                         <div class="d-flex">
                             <div class="mt-2">
-                                <h6 class="">Visits This Month</h6>
+                                <h6 class="">Visits <br/>This Month</h6>
                                 <h2 class="mb-0 number-font">
                                     {{$visitsThisMonth}}
                                 </h2>
@@ -85,7 +85,7 @@
                     <div class="card-body">
                         <div class="d-flex">
                             <div class="mt-2">
-                                <h6 class="">Visits This Week</h6>
+                                <h6 class="">Visits <br/>This Week</h6>
                                 <h2 class="mb-0 number-font">
                                     {{$visitsThisWeek}}
                                 </h2>
@@ -111,7 +111,7 @@
                     <div class="card-body">
                         <div class="d-flex">
                             <div class="mt-2">
-                                <h6 class="">Visits Today</h6>
+                                <h6 class="">Visits <br/>Today</h6>
                                 <h2 class="mb-0 number-font">
                                     {{$visitsToday}}
                                 
