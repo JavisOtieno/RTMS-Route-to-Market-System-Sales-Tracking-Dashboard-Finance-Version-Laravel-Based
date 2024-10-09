@@ -33,8 +33,8 @@
                 <input type="text" class="form-control" id="nameInput" placeholder="Name">
             </div>
             <div class="col-md-3 mb-3">
-                <label for="outletName" class="form-label">Outlet Name</label>
-                <input type="text" class="form-control" id="outletNameInput" placeholder="Outlet Name">
+                <label for="outletName" class="form-label">Customer Name</label>
+                <input type="text" class="form-control" id="outletNameInput" placeholder="Customer Name">
             </div>
             <div class="col-md-3 mb-3">
                 <label for="date" class="form-label">From</label>
@@ -57,7 +57,7 @@
                             <th id="view-column">View/Edit</th>
                             <th id="delete-column">Delete</th>
                             <th>Seller Name</th>
-                            <th>Outlet Name</th>
+                            <th>Customer Name</th>
                             <th>Feedback</th>
                             {{-- <th>Added</th> --}}
                             <th>Team</th>
