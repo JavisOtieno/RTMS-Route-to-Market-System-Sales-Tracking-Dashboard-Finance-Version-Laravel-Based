@@ -104,7 +104,22 @@ class SaleController extends Controller
         $sale->update(['status' => 'complete']);
 
         $saleStatus=array(
-            "message" => "Sale Updated Successfully",
+            "message" => "Deal Completed",
+            "saleId" => $id,
+            "status" => "success");
+
+        return response()->json($saleStatus);
+
+
+    }
+
+    public function cancelSale($id){
+
+        $sale=Sale::find($id);
+        $sale->update(['status' => 'cancelled']);
+
+        $saleStatus=array(
+            "message" => "Deal Cancelled",
             "saleId" => $id,
             "status" => "success");
 
@@ -114,7 +129,6 @@ class SaleController extends Controller
 
     public function saveSale(Request $request){
 
-       
         // $incomingFields=
         $request->validate([
         //     'userId'=>'required',

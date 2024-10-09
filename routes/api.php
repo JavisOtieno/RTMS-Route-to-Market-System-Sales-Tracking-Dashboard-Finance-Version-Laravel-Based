@@ -94,6 +94,7 @@ Route::middleware(['auth:sanctum','apiLimitInactiveOrganization','refresh.token'
 
     Route::put('pendingsale/{id}',[SaleController::class,'pendingSale']);
     Route::put('completesale/{id}',[SaleController::class,'completeSale']);
+    Route::put('cancelsale/{id}',[SaleController::class,'cancelSale']);
 
 
 });
