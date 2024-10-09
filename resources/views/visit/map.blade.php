@@ -43,10 +43,10 @@
             </div>
 
             <div class="col-md-3 mb-3">
-                <label for="outletFilter" class="form-label">Outlet Name</label>
+                <label for="outletFilter" class="form-label">Customer Name</label>
                 <select id="outletFilter"  class="form-control select2-show-search form-select">
                     <!-- Options will be populated dynamically -->
-                    <option value="">All Outlets</option>
+                    <option value="">All Customers</option>
                     @foreach($outlets as $outlet)
                     <option value="{{$outlet['name']}}">{{$outlet['name']}}</option>
                     @endforeach
