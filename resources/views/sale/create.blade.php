@@ -63,7 +63,7 @@
                             </div>
                            
                             <div class="form-group">
-                                <label class="form-label"> Outlets</label>
+                                <label class="form-label"> Customers</label>
                                 <select class="form-control select2-show-search form-select" name="outletId" id="outletId" data-placeholder="Choose one">
                                         <option label="Choose one"></option>
                                         @foreach($outlets as $outlet)

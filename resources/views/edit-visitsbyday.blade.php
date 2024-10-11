@@ -73,7 +73,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="visitedOutletName" class="form-label">Visited Outlets</label>
+                                <label for="visitedOutletName" class="form-label">Visited Customers</label>
                                 <ol>
                                 @foreach ($clockin['visits'] as $visit)
                                 <div class="row mb-4">

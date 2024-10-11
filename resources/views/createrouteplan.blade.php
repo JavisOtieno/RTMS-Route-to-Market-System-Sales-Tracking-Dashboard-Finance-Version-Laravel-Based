@@ -73,7 +73,7 @@
                                     </select>
                             </div>
                         </div>
-                        <input type="submit" class="btn btn-danger col-md-4" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;" value="Add Selected Outlets to Route Plan"></input>
+                        <input type="submit" class="btn btn-danger col-md-4" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;" value="Add Selected Customers to Route Plan"></input>
                     </div>
                    {{-- <div class="row" style="margin: 0 10px;">
                         <input type="hidden" id="tableLoaded" value="outletstouser"/>

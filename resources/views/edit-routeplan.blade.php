@@ -104,7 +104,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="productNames" style="font-weight:bold;margin-bottom: 1.5rem;"  class="form-label">Outlets in order</label>
+                            <label for="productNames" style="font-weight:bold;margin-bottom: 1.5rem;"  class="form-label">Customers in order</label>
                             <!--<input readonly type="text" class="form-control" name="productNames" id="productNames" placeholder="Products"  autocomplete="products">-->
                             {{-- <div class="row mb-4">
                                 <label style="font-weight:bold;" for="productName" class="col-md-6 form-label">Product Name</label>
@@ -118,7 +118,7 @@
                                 </label> --}}
                                 <div class="col-md-12">
                                     <li>
-                                    <input readonly type="text" class="form-control" id="outletName" placeholder="Outlet Name" autocomplete="outletname" 
+                                    <input readonly type="text" class="form-control" id="outletName" placeholder="Customer Name" autocomplete="outletname" 
                                     value="{{$routeplanitem['outlet'] ? $routeplanitem['outlet']['name']  . ($routeplanitem['outlet']->trashed() ? ' (Deleted Outlet)' : '') : 'Deleted Outlet'}} {{$routeplanitem['visit_id']?' - Visited ':''}}"
                                     >
                                     </li>

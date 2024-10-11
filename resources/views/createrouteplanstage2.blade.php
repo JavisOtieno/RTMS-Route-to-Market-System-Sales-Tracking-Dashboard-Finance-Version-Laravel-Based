@@ -92,7 +92,7 @@
                         </div>
 
                         <div class="sortable-list">
-                            <label for="password" class="form-label">Order Outlets ({{$outletCount}})</label>
+                            <label for="password" class="form-label">Order Customers ({{$outletCount}})</label>
                             <ul id="sortable">
                                 @foreach ($outletArray as $outlet)
                                 <li class="list-item" draggable="true" data-id="{{$outlet['id']}}">{{$outlet['name']}}</li>

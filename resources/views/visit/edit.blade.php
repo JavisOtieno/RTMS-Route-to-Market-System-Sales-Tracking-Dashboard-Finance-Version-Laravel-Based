@@ -118,7 +118,7 @@
         <h5 class="card-title">Quick Tips</h5>
         <ol class="card-text"> 
             <li style="margin-bottom: 10px;"><strong>Seller Name</strong> : Displays the name of the seller.</li>
-            <li style="margin-bottom: 10px;"><strong>Outlet Name</strong> : Diplays the name of the outlet. </li>
+            <li style="margin-bottom: 10px;"><strong>Customer Name</strong> : Diplays the name of the customer. </li>
             <li style="margin-bottom: 10px;"><strong>Checkin Time</strong> :Shows the checkin time of the visit. </li>
             <li style="margin-bottom: 10px;"><strong>Checkout Time</strong> :Shows the checkout time of the visit. </li>
             <li style="margin-bottom: 10px;"><strong>Duration</strong> : Displays the duration of the visit calculated from checkin to checkout time. If there is no checkout time, the duration is set to zero.</li>
