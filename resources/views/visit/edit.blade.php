@@ -58,7 +58,7 @@
                             </div>
                             <div class="form-group">
                                 
-                                <label for="outletName" class="form-label">Outlet Name</label>
+                                <label for="outletName" class="form-label">Customer Name</label>
                                 <input readonly type="text" class="form-control" name="outletName" id="outleName" placeholder="Outlet Name" value="{{$visit['outlet']['name']}}" autocomplete="outletname">
                             </div>
               

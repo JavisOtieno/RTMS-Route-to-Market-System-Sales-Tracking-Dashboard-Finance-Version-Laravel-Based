@@ -10,11 +10,11 @@
 
   <!-- PAGE-HEADER -->
   <div class="page-header">
-    <h1 class="page-title">Allocate Outlets To Sellers</h1>
+    <h1 class="page-title">Allocate Customers To Sellers</h1>
     <div>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)">RTMS</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Allocate Outlets To Sellers</li>
+            <li class="breadcrumb-item active" aria-current="page">Allocate Customers To Sellers</li>
         </ol>
     </div>
 </div>
@@ -77,7 +77,7 @@
                         <input type="hidden" id="tableLoaded" value="Outletstouser"/>
                         <h3 class="card-title" style="margin-top:20px;margin-block-end: 0rem;">Search by :</h3>
                         <div class="col-md-3 mb-3">
-                            <label for="nameInput" class="form-label">Outlet Name</label>
+                            <label for="nameInput" class="form-label">Customer Name</label>
                             <input type="text" class="form-control" id="nameInput" placeholder="Name">
                         </div>
                         <div class="col-md-3 mb-3">
@@ -103,7 +103,7 @@
                                         
                                         <th>ID</th>
                                         {{-- <th>Select - Outlet Name</th> --}}
-                                        <th>Outlet Name
+                                        <th>Customer Name
                                             {{-- <div class="form-group" style="margin-top:10px;" >
                                                 <label class="custom-control custom-checkbox mb-0" >
                                             <input type="checkbox" id="selectalloutlets" class="custom-control-input" name="users[]" value="">
