@@ -71,7 +71,7 @@
                                         <th>ID</th>
                                         <th id="view-column">View</th>
                                         <th>Seller Name</th>
-                                        <th>Outlet Name</th>
+                                        <th>Customer Name</th>
                                         <th>Date</th>
                                         <th>Check In Time</th>
                                         <th>Check Out Time</th>
