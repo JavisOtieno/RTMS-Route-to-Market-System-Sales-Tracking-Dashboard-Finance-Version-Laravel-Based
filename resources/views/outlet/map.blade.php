@@ -368,7 +368,7 @@
                             "<p>Latitude: " + lat1 + "</p>" +
                             "<p>Longitude: " + long1 + "</p>" +
                             "<p><strong>Created:</strong> "+outletDate+" "+outletTime+"</p>"+
-                            "View: <a target='_blank' href='/editoutlet/" + outlet.id + "'>View Outlet Details</a>" +
+                            "View: <a target='_blank' href='/editcustomer/" + outlet.id + "'>View Outlet Details</a>" +
                         
                             "</div>"
                     });

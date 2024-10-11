@@ -9,11 +9,11 @@
 
   <!-- PAGE-HEADER -->
   <div class="page-header">
-    <h1 class="page-title">Outlets</h1>
+    <h1 class="page-title">Customers</h1>
     <div>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)">RTMS</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Outlets</li>
+            <li class="breadcrumb-item active" aria-current="page">Customers</li>
         </ol>
     </div>
 </div>
@@ -23,7 +23,7 @@
 <div class="col-xl-12 row">
     <div class="card col-md-8">
         <div class="card-header">
-            <h3 class="card-title">Edit Outlet</h3> 
+            <h3 class="card-title">Edit Customer</h3> 
         </div>
         <div class="card-body">
             <!--<p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p>-->
@@ -108,12 +108,12 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="outletActivities" class="form-label">Outlet Activities</label>
-                                <a href="/visits/{{$outlet['id']}}/outlet" class="btn btn-info col-md-12 mt-0 mb-2">View Outlet Visits</a>
-                                <a href="/sales/{{$outlet['id']}}/outlet" class="btn btn-info col-md-12 mt-0 mb-2">View Outlet Sales</a>
-                                <a href="/posaudits/{{$outlet['id']}}/outlet" class="btn btn-info col-md-12 mt-0 mb-2">View Outlet POS Audits</a>
-                                <a href="/competitiveanalysis/{{$outlet['id']}}/outlet" class="btn col-md-12 btn-info mt-0 mb-2">View Outlet Competitive Analysis</a>
-                                <a href="/feedback/{{$outlet['id']}}/outlet" class="btn btn-info col-md-12 mt-0 mb-2">View Outlet Feedback</a>
+                                <label for="outletActivities" class="form-label">Customer Activities</label>
+                                <a href="/visits/{{$outlet['id']}}/outlet" class="btn btn-info col-md-12 mt-0 mb-2">View Customer Visits</a>
+                                <a href="/sales/{{$outlet['id']}}/outlet" class="btn btn-info col-md-12 mt-0 mb-2">View Customer Sales</a>
+                                <a href="/posaudits/{{$outlet['id']}}/outlet" class="btn btn-info col-md-12 mt-0 mb-2">View Customer POS Audits</a>
+                                <a href="/competitiveanalysis/{{$outlet['id']}}/outlet" class="btn col-md-12 btn-info mt-0 mb-2">View Customer Competitive Analysis</a>
+                                <a href="/feedback/{{$outlet['id']}}/outlet" class="btn btn-info col-md-12 mt-0 mb-2">View Customer Feedback</a>
                             </div>
 
                             <div class="form-group">
@@ -188,13 +188,13 @@
         <ol class="card-text">
             {{-- It is readonly and cannot be modified. --}}
             <li style="margin-bottom: 10px;"><strong>Seller Name</strong>: This field displays the name of the seller</li>
-            <li style="margin-bottom: 10px;"><strong>Name</strong>: This field displays the name of the outlet. It can be edited to update the outlet's name.</li>
-            <li style="margin-bottom: 10px;"><strong>Contact Person Name</strong>: This field displays the name of the contact person at the outlet. It can be edited to update the contact person's name.</li>
-            <li style="margin-bottom: 10px;"><strong>Phone</strong>: This field displays the phone number of the outlet. It can be edited to update the phone number.</li>
-            <li style="margin-bottom: 10px;"><strong>Lat</strong>: This field displays the latitude of the outlet's location.</li>
-            <li style="margin-bottom: 10px;"><strong>Long</strong>: This field displays the longitude of the outlet's location.</li>
-            <li style="margin-bottom: 10px;"><strong>Date and Time Added</strong>: This field displays the date and time when the outlet was added.</li>
-            <li style="margin-bottom: 10px;"><strong>Image (Optional)</strong>: This field displays an image of the outlet. </li>
+            <li style="margin-bottom: 10px;"><strong>Name</strong>: This field displays the name of the customer. It can be edited to update the customer's name.</li>
+            <li style="margin-bottom: 10px;"><strong>Contact Person Name</strong>: This field displays the name of the contact person at the customer. It can be edited to update the contact person's name.</li>
+            <li style="margin-bottom: 10px;"><strong>Phone</strong>: This field displays the phone number of the customer. It can be edited to update the phone number.</li>
+            <li style="margin-bottom: 10px;"><strong>Lat</strong>: This field displays the latitude of the customer's location.</li>
+            <li style="margin-bottom: 10px;"><strong>Long</strong>: This field displays the longitude of the customer's location.</li>
+            <li style="margin-bottom: 10px;"><strong>Date and Time Added</strong>: This field displays the date and time when the customer was added.</li>
+            <li style="margin-bottom: 10px;"><strong>Image (Optional)</strong>: This field displays an image of the customer. </li>
         </ol>
       </div>
     </div>

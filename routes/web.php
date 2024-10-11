@@ -115,10 +115,10 @@ Route::get('/feedback/{id}/{object}',[FeedbackController::class,'showFeedbackByI
 Route::get('/customers', [OutletController::class,'index']);
 Route::get('/outlets/{id}/{object}', [OutletController::class,'showOutletsById']);
 
-Route::get('/deleteoutlet/{id}', [OutletController::class,'deleteOutlet']);
-Route::get('/add-outlet', [OutletController::class,'addOutlet']);
+Route::get('/deletecustomer/{id}', [OutletController::class,'deleteOutlet']);
+Route::get('/add-customer', [OutletController::class,'addOutlet']);
 Route::post('/saveoutlet', [OutletController::class,'saveOutlet']);
-Route::get('/editoutlet/{id}',[OutletController::class,'showEditOutlet']);
+Route::get('/editcustomer/{id}',[OutletController::class,'showEditOutlet']);
 Route::put('/saveeditoutlet/{id}',[OutletController::class,'saveEditOutlet']);
 Route::get('/showcustomersmap',[OutletController::class,'showOutletsMap']);
 

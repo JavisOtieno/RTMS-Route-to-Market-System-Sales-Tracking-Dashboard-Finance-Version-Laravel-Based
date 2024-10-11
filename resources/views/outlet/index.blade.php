@@ -81,7 +81,7 @@
                             @foreach($outlets as $outlet)
                             <tr>
                             <td>{{$outlet['id']}}</td>
-                            <td><a type="button" href="/editoutlet/{{$outlet['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
+                            <td><a type="button" href="/editcustomer/{{$outlet['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
                             </td>
                             <td>{{$outlet['name']}}</td>
                             <td>{{$outlet['user']['name']}}</td>
