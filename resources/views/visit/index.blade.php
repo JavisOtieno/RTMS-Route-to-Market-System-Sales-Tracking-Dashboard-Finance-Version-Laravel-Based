@@ -26,7 +26,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Outlet Visits </h3>
+                        <h3 class="card-title">Customer Visits </h3>
                    </div>
                    <div class="row" style="margin: 0 10px;">
                     <input type="hidden" id="tableLoaded" value="visits"/>
