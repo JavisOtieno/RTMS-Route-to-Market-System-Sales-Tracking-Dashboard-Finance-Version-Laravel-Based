@@ -43,7 +43,7 @@ You can reset password from bellow link:
             margin: 20px auto;
             padding: 15px;
             background-color: #28a745;
-            color: #ffffff;
+            color: #ffffff !important; /* Force white text */
             text-align: center;
             text-decoration: none;
             border-radius: 5px;
