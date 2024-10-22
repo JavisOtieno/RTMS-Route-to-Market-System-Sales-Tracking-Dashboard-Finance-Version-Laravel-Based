@@ -36,18 +36,22 @@ class ImageController extends Controller
             $base64Image = $request->input('base64');
             $imageData = base64_decode($base64Image);
 
-                  // Validate the image format
-        if (strpos($imageData, 'image/') === false) {
-            // return response()->json(['error' => 'Invalid image format.'], 400);
-        return response()->json(['errors' => 'Invalid image format.',
-        'message' => 'Invalid image format.'],400);
-        }
+        //           // Validate the image format
+        // if (strpos($imageData, 'image/') === false) {
+        //     // return response()->json(['error' => 'Invalid image format.'], 400);
+        // return response()->json(['errors' => 'Invalid image format.',
+        // 'message' => 'Invalid image format.'],400);
+        // }
 
         // Validate the image size
         // $maxFileSize = 2 * 1024 * 1024; // 2 MB limit
         // if (strlen($imageData) > $maxFileSize) {
         //     return response()->json(['error' => 'Image exceeds the maximum size of 2 MB.'], 400);
         // }
+        if (!@imagecreatefromstring($imageData)) {
+            return response()->json(['errors' => 'Invalid image.',
+        'message' => 'Invalid image.'], 422);
+        }
 
         // Get the image MIME type
         $imageInfo = getimagesizefromstring($imageData);
