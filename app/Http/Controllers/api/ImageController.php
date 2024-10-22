@@ -36,6 +36,30 @@ class ImageController extends Controller
             $base64Image = $request->input('base64');
             $imageData = base64_decode($base64Image);
 
+                  // Validate the image format
+        if (strpos($imageData, 'image/') === false) {
+            return response()->json(['error' => 'Invalid image format.'], 400);
+        }
+
+        // Validate the image size
+        // $maxFileSize = 2 * 1024 * 1024; // 2 MB limit
+        // if (strlen($imageData) > $maxFileSize) {
+        //     return response()->json(['error' => 'Image exceeds the maximum size of 2 MB.'], 400);
+        // }
+
+        // Get the image MIME type
+        $imageInfo = getimagesizefromstring($imageData);
+        if (!$imageInfo) {
+            return response()->json(['error' => 'Invalid image data.'], 400);
+        }
+        $imageMimeType = $imageInfo['mime'];
+        $allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif'];
+
+        if (!in_array($imageMimeType, $allowedMimeTypes)) {
+            return response()->json(['error' => 'Unsupported image format.'], 400);
+        }
+
+
             //get the outlet id
             $outletPOSAuditId = $request->input('outletPOSAuditId');
     
