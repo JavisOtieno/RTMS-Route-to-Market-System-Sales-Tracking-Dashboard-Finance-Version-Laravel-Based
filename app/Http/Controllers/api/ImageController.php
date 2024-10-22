@@ -38,7 +38,9 @@ class ImageController extends Controller
 
                   // Validate the image format
         if (strpos($imageData, 'image/') === false) {
-            return response()->json(['error' => 'Invalid image format.'], 400);
+            // return response()->json(['error' => 'Invalid image format.'], 400);
+        return response()->json(['errors' => 'Invalid image format.',
+        'message' => 'Invalid image format.'],400);
         }
 
         // Validate the image size
@@ -50,13 +52,16 @@ class ImageController extends Controller
         // Get the image MIME type
         $imageInfo = getimagesizefromstring($imageData);
         if (!$imageInfo) {
-            return response()->json(['error' => 'Invalid image data.'], 400);
+            return response()->json(['errors' => 'Invalid image data.',
+        'message' => 'Invalid image data.'],400);
         }
         $imageMimeType = $imageInfo['mime'];
         $allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif'];
 
         if (!in_array($imageMimeType, $allowedMimeTypes)) {
-            return response()->json(['error' => 'Unsupported image format.'], 400);
+            return response()->json(['errors' => 'Unsupported image format.',
+            'message' => 'Unsupported image format.',
+        ], 400);
         }
 
 
