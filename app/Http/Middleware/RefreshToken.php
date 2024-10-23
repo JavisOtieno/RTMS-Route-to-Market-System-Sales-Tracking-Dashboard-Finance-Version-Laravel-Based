@@ -19,20 +19,20 @@ class RefreshToken
     public function handle(Request $request, Closure $next): Response
     {
         // return $next($request);
-        Log::info('Current Token: ', ['token' => 'start']);
+        // Log::info('Current Token: ', ['token' => 'start']);
         if (Auth::check()) {
-            Log::info('Current Token: ', ['token' => 'check']);
+            // Log::info('Current Token: ', ['token' => 'check']);
             // Refresh the token's expiration (e.g., add more time)
             $user = Auth::user();
             if($user){
             $token = $request->user()->currentAccessToken();
-            Log::info('Current Token: ', ['token' => $token]);
+            // Log::info('Current Token: ', ['token' => $token]);
             // $token->forceFill([
             //     'expires_at' => now()->addMinutes(config('sanctum.expiration')),
             // ])->save();
-            Log::info('Sanctum Exp: ', ['sanctumexp' => config('sanctum.expiration')]);
-            Log::info('Now: ', ['now' => now()]);
-            Log::info('Current Time: ', ['timeplusexp' => now()->addMinutes(config('sanctum.expiration'))]);
+            // Log::info('Sanctum Exp: ', ['sanctumexp' => config('sanctum.expiration')]);
+            // Log::info('Now: ', ['now' => now()]);
+            // Log::info('Current Time: ', ['timeplusexp' => now()->addMinutes(config('sanctum.expiration'))]);
             // $token->update([
             //     'expires_at' => now()->addMinutes(config('sanctum.expiration')),
             // ]);
@@ -42,9 +42,9 @@ class RefreshToken
             ])->save();
              // Clear any cache related to the token
             // Cache::forget('token-expiration-' . $token->id);
-            Log::info('Updated Token: ', ['token' => $token]);
+            // Log::info('Updated Token: ', ['token' => $token]);
             }else{
-                Log::info('Current Token: ', ['token' => 'else']);
+                // Log::info('Current Token: ', ['token' => 'else']);
             }
         }
 
