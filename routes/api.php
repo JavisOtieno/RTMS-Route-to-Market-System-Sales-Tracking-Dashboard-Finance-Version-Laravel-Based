@@ -54,6 +54,7 @@ Route::middleware(['auth:sanctum','apiLimitInactiveOrganization',
     Route::post('checkin',[VisitController::class,'checkin']);
     // Route::post('logcheckin',[LogController::class,'addlog']);
     Route::put('checkout/{id}',[VisitController::class,'checkout']);
+    Route::put('setlocation/{id}',[OutletController::class,'setLocation']);
 
     Route::get('sales',[SaleController::class,'index']);
     // Route::post('makesale',[SaleController::class,'makesale']);

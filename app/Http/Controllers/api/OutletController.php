@@ -89,6 +89,33 @@ class OutletController extends ApiCommonController
         return response()->json($outletStatus);
 
 }
+
+public function setLocation($id,Request $request){
+
+    $outlet=Outlet::find($id);
+    
+    $request->validate([
+        //     'userId'=>'required',
+        //     'time'=>'required',
+        //     'lat'=>'required',
+        //     'long'=>'required'
+        'lat'=>'required|between:-90.000000000,90.000000000',
+        'long'=>'required|between:-180.000000000,180.000000000',
+        ]);
+    
+    
+    $incomingFields['lat']=strip_tags($request['lat']);
+    $incomingFields['long']=strip_tags($request['long']);
+    
+    $outlet->update($incomingFields);
+    
+    $setLocationStatus=array(
+        "message" => "Set Location Successful",
+        "status" => "success");
+
+    return response()->json($setLocationStatus);
+
+}
     //
     public function index(){
         $userId = auth()->id();
