@@ -145,7 +145,7 @@ public function uploadImageEnctype(Request $request){
         $image = $request->file('image');
         $imagePath = $image->getPathName();
 
-        $compressedImagePath = storage_path('app/public/'.$folder.'/'.$imageName);
+        $compressedImagePath = storage_path('app/public/outletstest/'.$imageName);
 
         $sourcePath = $imagePath;
         $maxSizeKB = 100;
