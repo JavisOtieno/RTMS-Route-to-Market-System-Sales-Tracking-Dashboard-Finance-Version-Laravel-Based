@@ -139,7 +139,7 @@ public function uploadImageEnctype(Request $request){
             
         $imageName = time().'.jpg';
         // $folder="users";
-        $imagePathOnDB=$folder."/".$imageName;
+        $imagePathOnDB=strtolower($folder)."s/".$imageName;
         $incomingFields['image']=$imagePathOnDB;
 
         $image = $request->file('image');
