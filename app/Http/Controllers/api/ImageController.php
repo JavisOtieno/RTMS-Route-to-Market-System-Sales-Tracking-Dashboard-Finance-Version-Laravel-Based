@@ -136,8 +136,9 @@ public function uploadImageEnctype(Request $request){
     
 
     if($request['image']){
+        
             
-        $imageName = time().'.jpg';
+        $imageName = $request['ImageName'].'.jpg';
         // $folder="users";
         // $imagefolder = strtolower($folder)."s/";
         $imagePathOnDB=$folder.'/'.$imageName;
