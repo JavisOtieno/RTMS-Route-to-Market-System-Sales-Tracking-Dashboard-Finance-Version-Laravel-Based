@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Models\Outlet;
 use App\Models\Posaudit;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -136,9 +137,9 @@ public function uploadImageEnctype(Request $request){
     
 
     if($request['image']){
-        
-            
-        $imageName = $request['ImageName'].'.jpg';
+                    
+        $milliseconds = round(microtime(true) * 1000);
+        $imageName = $milliseconds.'_'. Str::random(5).'.jpg';
         // $folder="users";
         // $imagefolder = strtolower($folder)."s/";
         $imagePathOnDB=$folder.'/'.$imageName;
@@ -155,7 +156,6 @@ public function uploadImageEnctype(Request $request){
 
         $this->compressImage($sourcePath,$destinationPath,$maxSizeKB);
 
-        
     }else{
         $incomingFields['image']='';   
     }
