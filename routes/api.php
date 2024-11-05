@@ -83,7 +83,7 @@ Route::middleware(['auth:sanctum','apiLimitInactiveOrganization',
     Route::post('visitposaudits',[POSAuditController::class,'visitPOSAudits']);
 
     Route::get('visits',[VisitController::class,'index']);
-    Route::post('uploadimage', [ImageController::class,'upload']);
+    // Route::post('uploadimage', [ImageController::class,'upload']);
     Route::post('uploadmobileimage', [ImageController::class,'uploadImageEnctype']);
 
     Route::get('activities',[ActivityController::class,'index']);
