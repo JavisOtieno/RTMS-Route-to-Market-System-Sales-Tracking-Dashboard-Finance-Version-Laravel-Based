@@ -139,13 +139,14 @@ public function uploadImageEnctype(Request $request){
             
         $imageName = time().'.jpg';
         // $folder="users";
-        $imagePathOnDB=strtolower($folder)."s/".$imageName;
+        // $imagefolder = strtolower($folder)."s/";
+        $imagePathOnDB=$folder.'/'.$imageName;
         $incomingFields['image']=$imagePathOnDB;
 
         $image = $request->file('image');
         $imagePath = $image->getPathName();
 
-        $compressedImagePath = storage_path('app/public/outlets/'.$imageName);
+        $compressedImagePath = storage_path('app/public/'.$folder.'/'.$imageName);
 
         $sourcePath = $imagePath;
         $maxSizeKB = 100;
