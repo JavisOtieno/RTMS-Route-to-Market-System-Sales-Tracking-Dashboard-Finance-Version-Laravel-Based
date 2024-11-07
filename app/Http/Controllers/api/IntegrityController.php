@@ -1,62 +1,76 @@
 <?php
-
 namespace App\Http\Controllers\api;
 
-use Google\Client;
 
+use Google\Auth\AccessToken;
 use Illuminate\Http\Request;
-use Google\Service\PlayIntegrity;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\Controller;
-use Google\Service\PlayIntegrity\DecodeIntegrityTokenRequest;
+use GuzzleHttp\Client;
 
 class IntegrityController extends Controller
 {
-    public function verifyIntegrity(Request $request)
+    public function verifyToken(Request $request)
     {
-        $integrityToken = $request->input('integrityToken');
+        $token = $request->input('token');
+        $projectNumber = env('GOOGLE_PROJECT_NUMBER'); // Store this in .env
 
-        if (!$integrityToken) {
-            return response()->json(['status' => 'error', 'message' => 'Token is required'], 400);
+        // Verify token authenticity
+        $decoded = $this->decodeAndVerifyToken($token, $projectNumber);
+
+        if ($decoded) {
+            $decoded = (object) $decoded;
+            // Check app integrity claims (e.g., app package name, version)
+            $appIntegrity = $decoded->payload['appIntegrity'];
+            $deviceIntegrity = $decoded->payload['deviceIntegrity'];
+
+            // Respond based on integrity checks
+            if ($appIntegrity && $deviceIntegrity) {
+                return response()->json(['status' => 'success', 'message' => 'App integrity verified.']);
+            } else {
+                return response()->json(['status' => 'fail', 'message' => 'Integrity verification failed.']);
+            }
         }
+        return response()->json(['status' => 'error', 'message' => 'Invalid token.']);
+    }
+
+    private function decodeAndVerifyToken($token, $projectNumber)
+    {
+        $accessToken = new AccessToken(['targetAudience' => $projectNumber]);
 
         try {
-            // Initialize Google Client
-            $client = new Client();
-            $client->setAuthConfig(storage_path('app/google-service-account.json')); // path to your JSON key
-            $client->addScope('https://www.googleapis.com/auth/playintegrity');
-
-            // Initialize Play Integrity Service
-            $playIntegrityService = new PlayIntegrity($client);
-
-            // Verify the token
-            // $response = $playIntegrityService->v1->decodeIntegrityToken(
-            //     'your-package-name', // Replace with your app's package name
-            //     ['integrityToken' => $integrityToken]
-            // );
-
-            // Create DecodeIntegrityTokenRequest instance
-            $decodeRequest = new DecodeIntegrityTokenRequest();
-            $decodeRequest->setIntegrityToken($integrityToken);
-
-            // Verify the token
-            $response = $playIntegrityService->v1->decodeIntegrityToken(
-                'your-package-name', // Replace with your app's package name
-                $decodeRequest
-            );
-
-            // Check integrity verdict
-            $accountDetails = $response->getAccountDetails();
-            $appLicensingVerdict = $accountDetails->getAppLicensingVerdict();
-
-            if ($appLicensingVerdict === 'LICENSED') {
-                return response()->json(['status' => 'valid']);
-            } else {
-                return response()->json(['status' => 'invalid'], 401);
-            }
+            $decoded = $accessToken->verify($token, ['targetAudience' => $projectNumber]);
+            return $decoded;
         } catch (\Exception $e) {
-            Log::error("Integrity API error: " . $e->getMessage());
-            return response()->json(['status' => 'error', 'message' => 'Verification failed'], 500);
+            // Handle errors (e.g., token invalid, expired)
+            return null;
         }
     }
+
+
+
+public function verifyPlayIntegrityToken(Request $request)
+{
+    $token = $request->input('token'); // The token sent from the Android app
+
+    $client = new Client();
+    $response = $client->post('https://play.googleapis.com/v1/integrity/tokenVerification', [
+        'json' => [
+            'token' => $token,
+        ],
+        'headers' => [
+            'Authorization' => 'Bearer ' . env('PLAY_API_ACCESS_KEY'),
+        ]
+    ]);
+
+    $data = json_decode($response->getBody(), true);
+
+    if ($data['status'] === 'SUCCESS') {
+        // The token is valid, process further logic (e.g., authenticate the user)
+        return response()->json(['message' => 'Token verified successfully']);
+    } else {
+        return response()->json(['error' => 'Token verification failed'], 400);
+    }
+}
+
 }

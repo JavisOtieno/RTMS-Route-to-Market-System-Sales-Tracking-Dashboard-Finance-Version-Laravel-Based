@@ -26,6 +26,7 @@ use App\Http\Controllers\api\CompetitorController;
 use App\Http\Controllers\api\OrganizationController;
 use App\Http\Controllers\api\OffplanrequestController;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -39,7 +40,7 @@ use App\Http\Controllers\api\OffplanrequestController;
 
 
 
-Route::post('/verify-integrity', [IntegrityController::class, 'verifyIntegrity']);
+Route::post('/verify-integrity', [IntegrityController::class, 'verifyToken']);
 
 
 Route::middleware(['auth:sanctum','apiLimitInactiveOrganization',
