@@ -54,13 +54,14 @@ public function verifyPlayIntegrityToken(Request $request)
     $token = $request->input('token'); // The token sent from the Android app
 
     $client = new Client();
-    $response = $client->post('https://play.googleapis.com/v1/integrity/tokenVerification', [
-        'json' => [
-            'token' => $token,
-        ],
+    $response = $client->post('https://playintegrity.googleapis.com/v1/verifyIntegrityToken', [
         'headers' => [
-            'Authorization' => 'Bearer ' . env('PLAY_API_ACCESS_KEY'),
-        ]
+            'Authorization' => 'Bearer ' . env('GOOGLE_API_KEY'),
+            'Content-Type' => 'application/json',
+        ],
+        'json' => [
+            'integrityToken' => $token,
+        ],
     ]);
 
     $data = json_decode($response->getBody(), true);
