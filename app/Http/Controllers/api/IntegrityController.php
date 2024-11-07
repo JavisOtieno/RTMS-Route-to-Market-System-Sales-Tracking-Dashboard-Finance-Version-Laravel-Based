@@ -63,14 +63,16 @@ public function verifyPlayIntegrityToken(Request $request)
         ]
     ]);
 
-    $data = json_decode($response->getBody(), true);
+    return response()->json(['message' => $response->getBody()]);
 
-    if ($data['status'] === 'SUCCESS') {
-        // The token is valid, process further logic (e.g., authenticate the user)
-        return response()->json(['message' => 'Token verified successfully']);
-    } else {
-        return response()->json(['error' => 'Token verification failed'], 400);
-    }
+    // $data = json_decode($response->getBody(), true);
+
+    // if ($data['status'] === 'SUCCESS') {
+    //     // The token is valid, process further logic (e.g., authenticate the user)
+    //     return response()->json(['message' => 'Token verified successfully']);
+    // } else {
+    //     return response()->json(['error' => 'Token verification failed'], 400);
+    // }
 }
 
 }
