@@ -40,7 +40,7 @@ use App\Http\Controllers\api\OffplanrequestController;
 
 
 
-Route::post('/verify-integrity', [IntegrityController::class, 'verifyToken']);
+Route::post('/verify-integrity', [IntegrityController::class, 'verifyPlayIntegrityToken']);
 
 
 Route::middleware(['auth:sanctum','apiLimitInactiveOrganization',
