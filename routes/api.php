@@ -20,6 +20,7 @@ use App\Http\Controllers\api\ClockoutController;
 use App\Http\Controllers\api\FeedbackController;
 use App\Http\Controllers\api\POSAuditController;
 use App\Http\Controllers\api\DashboardController;
+use App\Http\Controllers\api\IntegrityController;
 use App\Http\Controllers\api\RoutePlanController;
 use App\Http\Controllers\api\CompetitorController;
 use App\Http\Controllers\api\OrganizationController;
@@ -38,6 +39,7 @@ use App\Http\Controllers\api\OffplanrequestController;
 
 
 
+Route::post('/verify-integrity', [IntegrityController::class, 'verifyIntegrity']);
 
 
 Route::middleware(['auth:sanctum','apiLimitInactiveOrganization',
