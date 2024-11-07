@@ -52,18 +52,20 @@ class IntegrityController extends Controller
 public function verifyPlayIntegrityToken(Request $request)
 {
     $token = $request->input('token'); // The token sent from the Android app
+    return response()->json(['message' => $token]);
+    
 
-    $client = new Client();
-    $response = $client->post('https://play.googleapis.com/v1/integrity/tokenVerification', [
-        'json' => [
-            'token' => $token,
-        ],
-        'headers' => [
-            'Authorization' => 'Bearer ' . env('PLAY_API_ACCESS_KEY'),
-        ]
-    ]);
+    // $client = new Client();
+    // $response = $client->post('https://play.googleapis.com/v1/integrity/tokenVerification', [
+    //     'json' => [
+    //         'token' => $token,
+    //     ],
+    //     'headers' => [
+    //         'Authorization' => 'Bearer ' . env('PLAY_API_ACCESS_KEY'),
+    //     ]
+    // ]);
 
-    return response()->json(['message' => $response->getBody()]);
+    // return response()->json(['message' => $response->getBody()]);
 
     // $data = json_decode($response->getBody(), true);
 
