@@ -60,7 +60,7 @@ public function verifyPlayIntegrityToken(Request $request)
     $client = new Client();
     $response = $client->post('https://playintegrity.googleapis.com/v1/verifyIntegrityToken', [
         'headers' => [
-            'Authorization' => 'Bearer ' . env('GOOGLE_API_KEY'),
+            'Authorization' => 'Bearer ' . "AIzaSyDEmUcq-IHxy_ANdS8fVv3s-WltS79_oAA",
             'Content-Type' => 'application/json',
         ],
         'json' => [
