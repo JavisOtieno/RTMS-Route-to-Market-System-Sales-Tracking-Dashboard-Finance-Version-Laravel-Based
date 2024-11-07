@@ -51,9 +51,8 @@ class IntegrityController extends Controller
 
 public function verifyPlayIntegrityToken(Request $request)
 {
-    // $token = $request->input('token'); // The token sent from the Android app
-    return response()->json(['message' => "test"]);
-    
+    $token = $request->input('token'); // The token sent from the Android app
+    return response()->json(['message' => $token]);
     
 
     // $client = new Client();
