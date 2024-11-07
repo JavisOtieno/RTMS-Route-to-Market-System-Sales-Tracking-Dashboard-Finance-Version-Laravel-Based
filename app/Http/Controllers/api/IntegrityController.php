@@ -2,11 +2,15 @@
 namespace App\Http\Controllers\api;
 
 
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+use GuzzleHttp\Client;
 use Google\Auth\AccessToken;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
+
 use App\Http\Controllers\Controller;
-use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Http;
+
 
 class IntegrityController extends Controller
 {
@@ -72,6 +76,32 @@ public function verifyPlayIntegrityToken(Request $request)
     } else {
         return response()->json(['error' => 'Token verification failed'], 400);
     }
+}
+
+public function verifyTokenJWT(Request $request)
+{
+ $integrityToken = $request->input('token');
+
+    if (!$integrityToken) {
+        return response()->json(['error' => 'Integrity token is required'], 400);
+    }
+
+    try {
+        // Decode the JWT token using the Google public key and RS256 algorithm
+        $publicKey = env('GOOGLE_API_PUBLIC_KEY');
+        $decodedToken = JWT::decode($integrityToken, new Key($publicKey, 'RS256'));
+
+        // Verify token claims as needed
+        if (isset($decodedToken->appIntegrity) && $decodedToken->appIntegrity->isValid) {
+            return response()->json(['status' => 'valid']);
+        } else {
+            return response()->json(['status' => 'invalid'], 401);
+        }
+
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Failed to decode token', 'message' => $e->getMessage()], 500);
+}
+
 }
 
 }
