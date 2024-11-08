@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Http;
 
 class IntegrityController extends Controller
 {
+    protected $appCheck;
+
     public function verifyToken(Request $request)
     {
         $token = $request->input('token');
@@ -103,5 +105,6 @@ public function verifyTokenJWT(Request $request)
 }
 
 }
+
 
 }
