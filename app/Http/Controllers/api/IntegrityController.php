@@ -10,11 +10,14 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Http;
+use GuzzleHttp\Exception\RequestException;
 
 
 class IntegrityController extends Controller
 {
     protected $appCheck;
+    private $client;
+    private $googleClient;
 
     public function verifyToken(Request $request)
     {
@@ -103,6 +106,45 @@ public function verifyTokenJWT(Request $request)
     } catch (\Exception $e) {
         return response()->json(['error' => 'Failed to decode token', 'message' => $e->getMessage()], 500);
 }
+
+}
+
+public function verifyTokenAgain(Request $request){
+    $integrityToken = $request->input('token');
+
+    $credentialsPath = storage_path('app/google-service-account.json');
+
+    // Set authentication credentials for Google Client
+    $this->googleClient->setAuthConfig($credentialsPath);
+    $this->googleClient->addScope('https://www.googleapis.com/auth/playintegrity');
+
+    // Generate and return the access token
+    $accessToken = $this->googleClient->fetchAccessTokenWithAssertion();
+    
+    $accessToken = $accessToken['access_token'];
+    $packageName = "com.scg.sf";
+
+    // Prepare request data
+    $url = "https://playintegrity.googleapis.com/v1/{$packageName}:decodeIntegrityToken";
+    $data = [
+        'json' => [
+            'integrity_token' => $integrityToken,
+        ],
+        'headers' => [
+            'Authorization' => 'Bearer ' . $accessToken,
+        ],
+    ];
+
+    try {
+        // Send the request to the Play Integrity API using Guzzle
+        $response = $this->client->post($url, $data);
+
+        // Return the decoded response
+        return json_decode($response->getBody(), true);
+    } catch (RequestException $e) {
+        // Handle request failure
+        return ['error' => 'Request failed', 'message' => $e->getMessage()];
+    }
 
 }
 
