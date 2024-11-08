@@ -119,7 +119,7 @@ public function verifyTokenJWT(Request $request)
 public function verifyTokenAgain(Request $request){
     $integrityToken = $request->input('token');
 
-    $credentialsPath = storage_path('app/google-service-account.json');
+    $credentialsPath = storage_path('app/majestic-disk-421209-db76d4f1a30f.json');
 
     // Set authentication credentials for Google Client
     $this->googleClient->setAuthConfig($credentialsPath);
