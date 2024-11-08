@@ -7,6 +7,7 @@ use Firebase\JWT\Key;
 use GuzzleHttp\Client;
 use Google\Auth\AccessToken;
 use Illuminate\Http\Request;
+use Google_Client;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Http;
@@ -18,6 +19,12 @@ class IntegrityController extends Controller
     protected $appCheck;
     private $client;
     private $googleClient;
+
+    public function __construct()
+    {
+        $this->client = new Client(); // Guzzle HTTP client
+        $this->googleClient = new Google_Client();
+    }
 
     public function verifyToken(Request $request)
     {
