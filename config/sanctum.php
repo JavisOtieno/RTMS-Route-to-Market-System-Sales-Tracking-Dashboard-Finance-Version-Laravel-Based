@@ -46,8 +46,8 @@ return [
     |
     */
 
-    'expiration' => 120,
-    // 'expiration' => 1,
+    // 'expiration' => 120,
+    'expiration' => 1,
     // expiration set as 1 cannot be altered by adjusting expired by using middleware
 
     /*
