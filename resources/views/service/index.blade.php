@@ -10,11 +10,11 @@
 
   <!-- PAGE-HEADER -->
   <div class="page-header">
-    <h1 class="page-title">Services</h1>
+    <h1 class="page-title">Products</h1>
     <div>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)">RTMS</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Services</li>
+            <li class="breadcrumb-item active" aria-current="page">Products</li>
         </ol>
     </div>
 </div>
@@ -147,7 +147,7 @@
     function deleteItem(id,name,description){
         //alert(id);
         var itemDetails = document.getElementById("itemDetails");
-        itemDetails.innerHTML = "Service Id: "+id+"<br/> Service Name: "+name+"<br/> Description: "+description;
+        itemDetails.innerHTML = "Product Id: "+id+"<br/> Product Name: "+name+"<br/> Description: "+description;
         var confirmDeleteLink = document.getElementById('confirmDelete'); //or grab it by tagname etc
         confirmDeleteLink.href = "/deleteservice/"+id;
     }
