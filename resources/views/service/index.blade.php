@@ -26,14 +26,14 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Services</h3>
-                        <a type="button" href="/add-service" class="btn btn-danger col-md-3" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;">Add Service</a>
+                        <h3 class="card-title">Products</h3>
+                        <a type="button" href="/add-service" class="btn btn-danger col-md-3" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;">Add Product</a>
                     </div>
                     <div class="row" style="margin: 0 10px;">
                         <input type="hidden" id="tableLoaded" value="products"/>
                         <h3 class="card-title" style="margin-top:20px;margin-block-end: 0rem;">Search by :</h3>
                         <div class="col-md-3 mb-3">
-                            <label for="nameInput" class="form-label">Service Name</label>
+                            <label for="nameInput" class="form-label">Product Name</label>
                             <input type="text" class="form-control" id="nameInput" placeholder="Product Name">
                         </div>
 
@@ -56,7 +56,7 @@
                                         <th>ID</th>
                                         <th id="edit-column">View/Edit</th>
                                         <th id="delete-column">Delete</th>
-                                        <th>Service Name</th>
+                                        <th>Product Name</th>
                                         <th>Target Type</th>
                                         <th>Target</th>
                                         <th>Team</th>

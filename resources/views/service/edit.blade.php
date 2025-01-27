@@ -52,7 +52,7 @@
                             @endif
                            
                             <div class="form-group">
-                                <label for="name" class="form-label">Service Name</label>
+                                <label for="name" class="form-label">Product Name</label>
                                 <input type="text" class="form-control" name="name" id="name" placeholder="Name" value="{{old('name',$product['name'])}}" autocomplete="name">
                             </div>
                             <div class="form-group">
