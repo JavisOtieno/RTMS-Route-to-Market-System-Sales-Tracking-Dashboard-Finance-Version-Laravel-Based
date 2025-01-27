@@ -88,7 +88,7 @@ class DashboardController extends Controller
 
         // $productstype = auth()->user()->organization->products;
         //products api on dashboard to show targets
-        if($productsType!=null && $productsType!='products'){
+        // if($productsType!=null && $productsType!='products'){
             $products = Product::orderBy('id', 'DESC')
             ->withSum(['saleitems as total_sales' => function ($query) {
                 $query->whereMonth('created_at', now()->month)  // Filter by current month
@@ -108,9 +108,9 @@ class DashboardController extends Controller
             }], 'pieces')
             ->take(4)
             ->get();
-        }else{
-            $products =[];
-        }
+        // }else{
+        //     $products =[];
+        // }
 
         $salesCount = Sale::where('user_id',$userId)->count();
         $outletsCount = Outlet::where('user_id',$userId)->count();
