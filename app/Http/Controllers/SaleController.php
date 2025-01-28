@@ -146,12 +146,24 @@ class SaleController extends Controller
     public function showSalesTargets(){
 
         $users = User::inOrganization()
-        ->with('targetgroup')
-        ->withSum(['sales as total_sales_this_month' => function ($query) {
-            $query->whereMonth('created_at', now()->month)
-                  ->whereYear('created_at', now()->year);
-        }], 'value')
-        ->where('usertype', 'seller')->get();
+        ->where('usertype', 'seller')
+        ->with(['sales.saleitems.product'])
+        ->get()
+        ->map(function ($user) {
+            // Calculate product totals (pieces and value) for the user
+            $user->product_totals = $user->sales
+                ->flatMap(fn ($sale) => $sale->saleitems) // Flatten saleitems from all sales
+                ->groupBy('product_id') // Group by product ID
+                ->map(function ($items) {
+                    $firstItem = $items->first(); // Get the product details
+                    return [
+                        'product' => $firstItem->product->name ?? 'N/A', // Product name
+                        'total_pieces' => $items->sum('pieces'), // Total pieces
+                        'total_value' => $items->sum('value'),   // Total value
+                    ];
+                });
+            return $user;
+        });
         $products = Product::all();
         $products = Product::orderBy('id', 'DESC')
         ->withSum(['saleitems as total_sales' => function ($query) {
@@ -171,6 +183,7 @@ class SaleController extends Controller
                   ->select(DB::raw('SUM(pieces)'));       // Sum of 'quantity' column
         }], 'pieces')
         ->get();
+        
         return view('sale.targets', compact('users','products') );
 
     }

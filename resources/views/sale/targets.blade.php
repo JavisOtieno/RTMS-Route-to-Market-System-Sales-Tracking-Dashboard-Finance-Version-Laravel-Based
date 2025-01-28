@@ -104,6 +104,7 @@
                                         <th>{{$user['organization']['name']}}</th>
                                         @endif
                                         <td>{{$user['name']}}</td>
+                                        
                                        
                                         {{-- <td>{{ucfirst($user['usertype'])}}</td> --}}
                                         @foreach($products as $product)
@@ -118,7 +119,8 @@
                                         <th>{{number_format($product['target'])}} units</th>
                                         @endif
                                         @endforeach
-                                       
+
+                       
                                         <td>{{ date('d-M-Y', strtotime('today')) }}</td>
                                         <td>
                                            
