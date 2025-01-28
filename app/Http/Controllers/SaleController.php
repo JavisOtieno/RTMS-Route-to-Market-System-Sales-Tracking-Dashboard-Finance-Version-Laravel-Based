@@ -17,94 +17,83 @@ class SaleController extends Controller
 {
     //
 
-    public function index()
-    {
+    public function index() {
         //$sales = Sale::with('user','visit','outlet','saleitems.product')->orderBy('id', 'DESC')->get();
         //dd($sales);
-        $sales = Sale::with([
-            'user' => function ($query) {
-                $query->withTrashed();
-            },
-            'visit',
-            'outlet',
-            'saleitems' => function ($query) {
-                $query->with(['product' => function ($query) {
-                    $query->withTrashed();
-                }]);
-            }
-        ])->get();
-        return view('sale.index', ['sales' => $sales]);
+        $sales = Sale::with(['user' => function ($query) {
+            $query->withTrashed();
+        }, 'visit','outlet','saleitems' => function ($query) {
+        $query->with(['product' => function ($query) {
+            $query->withTrashed();
+        }]);
+    }
+    ])->get();
+        return view('sale.index', ['sales'=>$sales]);
     }
 
-    public function pendingSales()
-    {
+    public function pendingSales(){
         //$sales = Sale::all();
         $userId = auth()->id();
-        $sales = Sale::where('user_id', $userId)
-            ->where('status', 'pending')->with('user', 'visit', 'outlet', 'saleitems.product')->orderBy('id', 'DESC')->get();
+        $sales = Sale::where('user_id',$userId)
+        ->where('status','pending')->with('user','visit','outlet','saleitems.product')->orderBy('id', 'DESC')->get();
         // return "nothing";
-        return response()->json(['sales' => $sales]);
+        return response()->json(['sales'=>$sales]);
+       
     }
-    public function completeSales()
-    {
+    public function completeSales(){
         //$sales = Sale::all();
         $userId = auth()->id();
-        $sales = Sale::where('user_id', $userId)
-            ->where('status', 'complete')
-            ->with('user', 'visit', 'outlet', 'saleitems.product')->orderBy('id', 'DESC')->get();
+        $sales = Sale::where('user_id',$userId)
+        ->where('status','complete')
+        ->with('user','visit','outlet','saleitems.product')->orderBy('id', 'DESC')->get();
         // return "nothing";
-        return response()->json(['sales' => $sales]);
+        return response()->json(['sales'=>$sales]);
+       
     }
 
 
 
-    public function showSalesById($id, $object)
-    {
+    public function showSalesById($id,$object) {
         //$sales = Sale::with('user','visit','outlet','saleitems.product')->orderBy('id', 'DESC')->get();
         //dd($sales);
         if ($object === 'clockin') {
 
-            $sales = Sale::whereHas('visit', function ($query) use ($id) {
-                $query->where('clockin_id', $id);
-            })->with(['user' => function ($query) {
-                $query->withTrashed();
-            }, 'visit', 'outlet', 'saleitems' => function ($query) {
-                $query->with(['product' => function ($query) {
-                    $query->withTrashed();
-                }]);
-            }])->get();
+                    $sales = Sale::whereHas('visit', function ($query) use ($id) {
+                        $query->where('clockin_id', $id);
+                    })->with(['user' => function ($query) {
+                        $query->withTrashed();
+                    }, 'visit', 'outlet', 'saleitems' => function ($query) {
+                        $query->with(['product' => function ($query) {
+                            $query->withTrashed();
+                        }]);
+                    }])->get();
         } else {
-
-            $sales = Sale::with([
-                'user' => function ($query) {
-                    $query->withTrashed();
-                },
-                'visit',
-                'outlet',
-                'saleitems' => function ($query) {
+        
+                    $sales = Sale::with(['user' => function ($query) {
+                        $query->withTrashed();
+                    }, 'visit','outlet','saleitems' => function ($query) {
                     $query->with(['product' => function ($query) {
                         $query->withTrashed();
                     }]);
                 }
-            ])->where($object . '_id', $id)->get();
+                ])->where($object.'_id',$id)->get();
         }
 
-        return view('sale.index', ['sales' => $sales]);
+        return view('sale.index', ['sales'=>$sales]);
+
     }
 
 
-    public function addSale()
-    {
+    public function addSale() {
         $users = User::inOrganization()->get();
         $outlets = Outlet::all();
         $products = Product::all();
         //dd($sales);
-        return view('sale.create', compact('users', 'outlets', 'products'));
+        return view('sale.create', compact('users','outlets','products'));
     }
 
-    public function saveSale(Request $request)
-    {
-
+    public function saveSale(Request $request){
+       
         /*
         $incomingFields=$request->validate([
             'userId'=>'required',
@@ -120,29 +109,29 @@ class SaleController extends Controller
         */
 
         $validator = Validator::make($request->all(), [
-            'userId' => 'required',
-            'outletId' => 'required',
-            'productId' => 'required',
-            'pieces' => 'required'
+            'userId'=>'required',
+            'outletId'=>'required',
+            'productId'=>'required',
+            'pieces'=>'required'
         ]);
-
+        
         if ($validator->fails()) {
             //return view('view_name');
             return Redirect::back()->withErrors($validator)->withInput($request->all());
-        }
+        } 
         // else {
         //     return view('view_name');
         // }
-
-
-        $incomingFields = [];
-        $incomingFields['user_id'] = strip_tags($request['userId']);
-        $incomingFields['outlet_id'] = strip_tags($request['outletId']);
-        $incomingFields['product_id'] = strip_tags($request['productId']);
-        $incomingFields['visit_id'] = '0';
-        $incomingFields['pieces'] = strip_tags($request['pieces']);
-        $incomingFields['organization_id'] = auth()->user()->organization_id;
-        $incomingFields['team_id'] = auth()->user()->team_id;
+        
+        
+        $incomingFields=[];
+        $incomingFields['user_id']=strip_tags($request['userId']);
+        $incomingFields['outlet_id']=strip_tags($request['outletId']);
+        $incomingFields['product_id']=strip_tags($request['productId']);
+        $incomingFields['visit_id']='0';
+        $incomingFields['pieces']=strip_tags($request['pieces']);
+        $incomingFields['organization_id']=auth()->user()->organization_id;
+        $incomingFields['team_id']=auth()->user()->team_id;
 
         $price = Product::find($incomingFields['product_id'])['price'];
         $incomingFields['value'] = $price * $incomingFields['pieces'];
@@ -152,55 +141,28 @@ class SaleController extends Controller
         Sale::create($incomingFields);
 
         return redirect('/sales');
+        
     }
-    public function showSalesTargets()
-    {
+    public function showSalesTargets(){
 
         $users = User::inOrganization()
-            ->with('targetgroup')
-            ->withSum(['sales as total_sales_this_month' => function ($query) {
-                $query->whereMonth('created_at', now()->month)
-                    ->whereYear('created_at', now()->year);
-            }], 'value')
-            ->where('usertype', 'seller')->get();
-        $data = $users->map(function ($user) {
-            // Flatten all sale items for the user, group by product_id, and calculate totals
-            $productSales = $user->sales->flatMap(function ($sale) {
-                return $sale->saleitems;
-            })->groupBy('product_id')->map(function ($saleItems, $productId) {
-                return [
-                    'product_id' => $productId,
-                    'total_value' => $saleItems->sum('value'),
-                    'total_pieces' => $saleItems->sum('pieces'),
-                ];
-            });
-        });
+        ->with('targetgroup')
+        // ->withSum(['sales as total_sales_this_month' => function ($query) {
+        //     $query->whereMonth('created_at', now()->month)
+        //           ->whereYear('created_at', now()->year);
+        // }], 'value')
+        ->with(['sales.saleitems' => function ($query) {
+            $query->selectRaw('sale_id, product_id, SUM(value) as total_value, SUM(pieces) as total_pieces')
+                  ->groupBy('sale_id', 'product_id');
+        }, 'sales.saleitems.product'])
+        ->where('usertype', 'seller')->get();
         $products = Product::all();
-        $products = Product::orderBy('id', 'DESC')
-            ->withSum(['saleitems as total_sales' => function ($query) {
-                $query->whereMonth('created_at', now()->month)  // Filter by current month
-                    ->whereYear('created_at', now()->year)   // Filter by current year
-                    ->whereHas('sale', function ($saleQuery) {
-                        $saleQuery->where('status', 'complete'); // Adjust the status as needed
-                    })
-                    ->select(DB::raw('SUM(value)'));         // Sum of 'value' column
-            }], 'value')
-            ->withSum(['saleitems as total_quantity' => function ($query) {
-                $query->whereMonth('created_at', now()->month)  // Filter by current month
-                    ->whereYear('created_at', now()->year)   // Filter by current year
-                    ->whereHas('sale', function ($saleQuery) {
-                        $saleQuery->where('status', 'complete'); // Adjust the status as needed
-                    })
-                    ->select(DB::raw('SUM(pieces)'));       // Sum of 'quantity' column
-            }], 'pieces')
-            ->get();
+        return $users;
+        return view('sale.targets', compact('users','prdoucts') );
 
-        return $data;
-        return view('sale.targets', compact('users', 'products'));
     }
 
-    public function showSalesMap()
-    {
+    public function showSalesMap(){
 
         $sales = Sale::with(['user' => function ($query) {
             $query->withTrashed();
@@ -208,13 +170,12 @@ class SaleController extends Controller
 
         $users = User::inOrganization()->get();
         $outlets = Outlet::all();
-
+       
         //$users = User::inOrganization()->where('usertype','seller')->get();
-        return view('sale.map', compact('sales', 'users', 'outlets'));
+        return view('sale.map', compact('sales','users','outlets') );
     }
 
-    public function showSalesAnalytics()
-    {
+    public function showSalesAnalytics(){
 
         $visits = Sale::with(['user' => function ($query) {
             $query->withTrashed();
@@ -225,11 +186,11 @@ class SaleController extends Controller
 
         $salesCount = Sale::all()->count();
 
-        $visitsPerMonth = array();
-        for ($i = 0; $i <= 11; $i++) {
-            $salesPerMonth[$i] = Sale::whereMonth('created_at', date('m', strtotime('-' . $i . ' month')))->count();
+        $visitsPerMonth= array();
+        for ($i=0; $i<=11; $i++){
+            $salesPerMonth[$i] = Sale::whereMonth('created_at', date('m',strtotime('-'.$i.' month')))->count();
         }
-        $salesPerMonth = array_reverse($salesPerMonth);
+        $salesPerMonth =array_reverse($salesPerMonth);
 
         $dates = [];
         $dayNames = [];
@@ -239,7 +200,7 @@ class SaleController extends Controller
             $date = now()->subDays($i);
             $dateString = $date->toDateString();
             $dayName = $date->format('l'); // Get the day name (e.g., 'Monday')
-
+            
             $dates[] = $dateString;
             $dayNames[] = $dayName;
 
@@ -255,7 +216,7 @@ class SaleController extends Controller
 
         $startOfMonth = date('Y-m-01 00:00:00'); // 1st day of the current month
         $today = date('Y-m-d 23:59:59'); // Current day
-        $salesThisMonth = Sale::whereBetween('created_at', [$startOfMonth, $today])->count();
+        $salesThisMonth =Sale::whereBetween('created_at', [$startOfMonth, $today])->count();
 
         $startOfWeek = Carbon::now()->startOfWeek(); // Start of the week (Monday)
         $today = Carbon::now()->endOfDay(); // Current day
@@ -267,105 +228,95 @@ class SaleController extends Controller
         $salesToday = Sale::whereBetween('created_at', [$startOfDay, $endOfDay])->count();
 
 
-        //get months Jan Feb Mar...Dec
+                //get months Jan Feb Mar...Dec
         for ($i = 0; $i <= 11; $i++) {
-            $months[] = date("M", strtotime(date('Y-m-01') . " -$i months"));
-        }
-        //echo "Before";
-        //print_r($months);
-        //echo "After";
-        $months = array_reverse($months);
+                    $months[] = date("M", strtotime( date( 'Y-m-01' )." -$i months"));
+                    }
+                    //echo "Before";
+                    //print_r($months);
+                    //echo "After";
+        $months=array_reverse($months);
 
 
         $sellersByRegionCount = array();
         $sellersByRegionNames = array();
-        $sellersByRegion = User::inOrganization()->with(['region' => function ($query) {
+        $sellersByRegion=User::inOrganization()->with(['region' => function ($query) {
             $query->withTrashed();
         }])->select('region_id', DB::raw('COUNT(region_id) as count'))
-            ->groupBy('region_id')
-            ->orderBy('count', 'desc')
-            ->take(5)->get();
+        ->groupBy('region_id')
+        ->orderBy('count', 'desc')
+        ->take(5)->get();
 
         $unassignedCount = 0;
 
         //return $sellersByRegion;
         foreach ($sellersByRegion as $seller) {
             # code...
-            array_push($sellersByRegionCount, $seller['count']);
-            if ($seller['region'] == null) {
-                array_push($sellersByRegionNames, "Unassigned");
-            } else {
-                array_push($sellersByRegionNames, $seller['region']['name']);
+            array_push($sellersByRegionCount,$seller['count']);
+            if($seller['region']==null){
+                array_push($sellersByRegionNames,"Unassigned");
+            }else{
+                array_push($sellersByRegionNames,$seller['region']['name']);
             }
+            
+            
+            
         }
 
-        $topSellerUserNames = [];
-        $topSellerSalesCount = [];
+        $topSellerUserNames=[];
+        $topSellerSalesCount=[];
 
-        $topSellersGraph = Sale::with(['user' => function ($query) {
+        $topSellersGraph=Sale::with(['user' => function ($query) {
             $query->withTrashed();
         }])->select('user_id', DB::raw('COUNT(user_id) as count'))
-            ->groupBy('user_id')
-            ->orderBy('count', 'desc')
-            ->take(10)->get();
+        ->groupBy('user_id')
+        ->orderBy('count', 'desc')
+        ->take(10)->get();
 
-        foreach ($topSellersGraph as $topSeller) {
+        foreach($topSellersGraph as $topSeller){
 
-
+            
             // $sellerName=$topSeller['user']['name'];
-            $sellerName = $topSeller['user'] ? $topSeller['user']['name']  . ($topSeller['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User';
-            $sellerNames = explode(' ', $sellerName);
-            if (count($sellerNames) == 1) {
-                array_push($topSellerUserNames, $sellerNames[0]);
-            } else {
-                array_push($topSellerUserNames, $sellerNames[0] . "\n" . $sellerNames[1]);
+            $sellerName=$topSeller['user'] ? $topSeller['user']['name']  . ($topSeller['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User';
+            $sellerNames=explode(' ',$sellerName);
+            if(count($sellerNames)==1){
+                array_push($topSellerUserNames,$sellerNames[0]);
+            }else{
+                array_push($topSellerUserNames,$sellerNames[0]."\n".$sellerNames[1]);
             }
+            
+            $sellerSalesCount=$topSeller['count'];
+            array_push($topSellerSalesCount,$sellerSalesCount);
 
-            $sellerSalesCount = $topSeller['count'];
-            array_push($topSellerSalesCount, $sellerSalesCount);
         }
 
 
-
+       
         //$users = User::inOrganization()->where('usertype','seller')->get();
-        return view('sale.analytics', compact(
-            'salesPerMonth',
-            'months',
-            'salesCount',
-            'salesThisMonth',
-            'salesThisWeek',
-            'salesToday',
-            'dates',
-            'salesPerDay',
-            'sellersByRegionCount',
-            'sellersByRegionNames',
-            'topSellerSalesCount',
-            'topSellerUserNames'
-        ));
+        return view('sale.analytics', compact('salesPerMonth','months','salesCount',
+        'salesThisMonth', 'salesThisWeek','salesToday','dates','salesPerDay','sellersByRegionCount','sellersByRegionNames',
+        'topSellerSalesCount','topSellerUserNames') );
     }
 
 
-    public function deleteSale($id)
-    {
+    public function deleteSale($id){
         $sale = Sale::find($id);
         $sale->delete();
         return redirect('/sales');
     }
 
-    public function showEditSale($id)
-    {
-        $sale = Sale::with([
-            'user' => function ($query) {
-                $query->withTrashed();
-            },
-            'saleitems' => function ($query) {
-                $query->with(['product' => function ($query) {
-                    $query->withTrashed();
-                }]);
-            }
+    public function showEditSale($id){
+        $sale = Sale::with(['user' => function ($query) {
+            $query->withTrashed();
+        },
+        'saleitems' => function ($query) {
+        $query->with(['product' => function ($query) {
+            $query->withTrashed();
+        }]);
+        }
         ])->get()->find($id);
         //$sale = Sale::find($id);
-        return view('sale.edit', ['sale' => $sale]);
+        return view('sale.edit',['sale'=>$sale]);
     }
 
     // public function showEditSale(Request $request){
@@ -377,13 +328,12 @@ class SaleController extends Controller
     // }
 
 
-    public function saveEditSale($id, Request $request)
-    {
+    public function saveEditSale($id, Request $request){
         // $organization_id=auth()->user()->organization_id;
-
+        
         $request->validate([
-            'productPiecesTotal' => 'required|numeric|digits_between:1,20',
-            'productValueTotalNumber' => 'required|numeric|digits_between:1,20',
+            'productPiecesTotal'=>'required|numeric|digits_between:1,20',
+            'productValueTotalNumber'=>'required|numeric|digits_between:1,20',
             'status' => 'required|string|max:255'
         ]);
 
@@ -393,7 +343,7 @@ class SaleController extends Controller
         $incomingFields["value"] = $request->input('productValueTotalNumber');
         $incomingFields["status"] = $request->input('status');
 
-        $sale = Sale::find($id);
+        $sale=Sale::find($id);
 
         $sale->update($incomingFields);
 
@@ -411,12 +361,12 @@ class SaleController extends Controller
                 ['pieces' => $pieces],
                 ['pieces' => 'required|numeric|digits_between:1,20']
             );
-
+    
             if ($validator->fails()) {
                 // Handle the validation error
                 return redirect()->back()->withErrors($validator)->withInput();
             }
-
+    
             $saleitem = SaleItem::find($id);
             if ($saleitem) {
                 $saleitem->pieces = $pieces;
@@ -435,15 +385,15 @@ class SaleController extends Controller
                 ['value' => $value],
                 ['value' => 'required|string|max:255']
             );
-
+    
             if ($validator->fails()) {
                 // Handle the validation error
                 return redirect()->back()->withErrors($validator)->withInput();
             }
-
+    
             $saleitem = SaleItem::find($id);
             if ($saleitem) {
-                $saleitem->value = str_replace("KSh. ", "", str_replace(",", "", $value));
+                $saleitem->value = str_replace("KSh. ","",str_replace(",","",$value));
                 // $salepieces = $salepieces + $pieces;
                 $saleitem->save();
             }
@@ -454,5 +404,8 @@ class SaleController extends Controller
 
 
         return redirect('/sales');
+        
     }
+    
+
 }
