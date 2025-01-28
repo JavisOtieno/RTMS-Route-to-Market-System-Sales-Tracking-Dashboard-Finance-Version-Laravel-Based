@@ -152,7 +152,8 @@ class SaleController extends Controller
                   ->whereYear('created_at', now()->year);
         }], 'value')
         ->where('usertype', 'seller')->get();
-        return view('sale.targets', compact('users') );
+        $products = Product::all();
+        return view('sale.targets', compact('users','products') );
 
     }
 

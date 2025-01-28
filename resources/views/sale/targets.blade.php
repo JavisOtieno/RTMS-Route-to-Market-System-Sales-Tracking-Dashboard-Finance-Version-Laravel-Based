@@ -79,8 +79,10 @@
                                         <th>Name</th>
                                         
                                         {{-- <th>Usertype</th> --}}
+                                        @foreach($products as $product)
                                         <th>Sales Today</th>
                                         <th>Targets</th>
+                                        @endforeach
                                         <th>Date</th>
                                         <th>Status</th>
                                         
@@ -104,10 +106,11 @@
                                         <td>{{$user['name']}}</td>
                                        
                                         {{-- <td>{{ucfirst($user['usertype'])}}</td> --}}
-                                        <td>{{$user['totalsalestoday']==null?'KSh 0':'KSh '.number_format($user['totalsalestoday'])}}</td>
-
-                                        <td>{{$user['targetgroup']==null?"None":'KSh '.number_format($user['targetgroup']['amount']) }}</td>
-                                        
+                                        @foreach($products as $product)
+                                        <th>KSh 0</th>
+                                        <th>KSh 0</th>
+                                        @endforeach
+                                       
                                         <td>{{ date('d-M-Y', strtotime('today')) }}</td>
                                         <td>
                                            
