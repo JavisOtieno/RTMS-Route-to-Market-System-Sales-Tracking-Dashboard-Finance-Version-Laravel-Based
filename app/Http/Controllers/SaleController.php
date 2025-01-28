@@ -190,15 +190,16 @@ class SaleController extends Controller
                     $total = $total +$count;
 
                     }
-                    $product_array[$product->id] = $total;
                     
                     // array_push($product_array, ['product_id' => $product->id, 'total' => $total]);
 
                 }
+                $product_array[$product->id] = $total;
 
-                $usersproductarray[$user->id] = $product_array;
+                
                 // array_push($test,$total);
             }
+            $usersproductarray[$user->id] = $product_array;
         }
         return $usersproductarray;
 
