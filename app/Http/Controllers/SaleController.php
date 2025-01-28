@@ -173,11 +173,11 @@ class SaleController extends Controller
             // array_push( $test,1);
 
             foreach ($products as $product) {
-                $sales = Sale::where('user_id', $user['id'])->get();
+                $sales = Sale::where('user_id', 3)->get();
                 array_push( $test,$user['id']);
                 $total = 0;
                 foreach ($sales as $sale) {
-                    array_push( $test,3);
+                    array_push( $test,30);
                     if($product->targettype=="amount"){
                         
                     $count = SaleItem::where('product_id', $product['id'])
