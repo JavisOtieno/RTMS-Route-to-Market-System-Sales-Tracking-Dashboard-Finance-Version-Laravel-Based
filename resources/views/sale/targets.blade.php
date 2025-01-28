@@ -124,7 +124,7 @@
                                         @if($product['targettype'] =='amount')
                                         <th>KSh {{number_format($usersproducts[$user->id][$product->id])}}</th>
                                         @else
-                                        <th>{{number_format($usersproducts[$user->id][$product->id]))}} units</th>
+                                        <th>{{number_format($usersproducts[$user->id][$product->id])}} units</th>
                                         @endif
                                         @if($product['targettype'] =='amount')
                                         <th>KSh {{number_format($product['target'])}}</th>
