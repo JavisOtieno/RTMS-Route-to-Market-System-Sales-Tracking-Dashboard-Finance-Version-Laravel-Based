@@ -167,7 +167,7 @@ class SaleController extends Controller
 
 
 
-        $usersproductarray =[];
+        $usersproducts =[];
         foreach ($users as $user) {
             // array_push( $test,1);
             $product_array = [];
@@ -199,11 +199,11 @@ class SaleController extends Controller
                 
                 // array_push($test,$total);
             }
-            $usersproductarray[$user->id] = $product_array;
+            $usersproducts[$user->id] = $product_array;
         }
-        return $usersproductarray;
+        // return $usersproductarray;
 
-        return view('sale.targets', compact('users','usersproductarray'));
+        return view('sale.targets', compact('users','usersproducts'));
     }
 
     public function showSalesMap()

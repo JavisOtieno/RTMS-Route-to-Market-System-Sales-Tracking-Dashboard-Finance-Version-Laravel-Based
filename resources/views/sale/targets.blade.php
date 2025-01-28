@@ -115,7 +115,6 @@
                                                     Total Sales Value: {{ $total['total_value'] }}
                                                 </li>
                                             @endforeach
-                                            p
                                         </ul>
                                     </td>
                                         
@@ -123,9 +122,9 @@
                                         {{-- <td>{{ucfirst($user['usertype'])}}</td> --}}
                                         @foreach($products as $product)
                                         @if($product['targettype'] =='amount')
-                                        <th>KSh {{number_format($product['total_sales'])}}</th>
+                                        <th>KSh {{number_format($usersproducts[$user->id][$product->id])}}</th>
                                         @else
-                                        <th>{{number_format($product['total_quantity'])}} units</th>
+                                        <th>{{number_format($usersproducts[$user->id][$product->id]))}} units</th>
                                         @endif
                                         @if($product['targettype'] =='amount')
                                         <th>KSh {{number_format($product['target'])}}</th>
