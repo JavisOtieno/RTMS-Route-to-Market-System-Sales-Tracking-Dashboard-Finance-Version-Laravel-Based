@@ -90,8 +90,8 @@
                                         @endif
                                         </th>
                                         @endforeach
-                                        <th>Date</th>
-                                        <th>Status</th>
+                                        <th>Month</th>
+                                        {{-- <th>Status</th> --}}
                                         
                                         
                                     </tr>
@@ -130,8 +130,8 @@
                                         @endforeach
 
                        
-                                        <td>{{ date('d-M-Y', strtotime('today')) }}</td>
-                                        <td>
+                                        <td>{{ date('M-Y', strtotime('today')) }}</td>
+                                        {{-- <td>
                                            
                                             {{ 
                                                 is_null($user['targetgroup']) 
@@ -140,7 +140,7 @@
                                                         ? 'Achieved' 
                                                         : 'Unachieved') 
                                             }}
-                                        </td>
+                                        </td> --}}
 
                                         <!--<a class="modal-effect btn btn-primary-light d-grid mb-3" data-bs-effect="effect-scale" >Scale</a>-->
                                         </tr>
