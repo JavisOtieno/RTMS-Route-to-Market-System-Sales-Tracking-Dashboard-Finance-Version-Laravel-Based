@@ -27,7 +27,7 @@
                 <div class="card">
                     <div class="card-header">
                     
-                        <h3 class="card-title">Sales Targets</h3>
+                        <h3 class="card-title">Deals Targets</h3>
                     
                         
                     </div>
