@@ -153,7 +153,7 @@ class SaleController extends Controller
         // }], 'value')
         ->with(['sales.saleitems' => function ($query) {
             $query->selectRaw('sale_id, product_id, SUM(value) as total_value, SUM(pieces) as total_pieces')
-                  ->groupBy('sale_id', 'product_id');
+                  ->groupBy('product_id');
         }, 'sales.saleitems.product'])
         ->where('usertype', 'seller')->get();
         $products = Product::all();
