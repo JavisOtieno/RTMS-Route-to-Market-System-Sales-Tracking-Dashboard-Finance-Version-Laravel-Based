@@ -165,18 +165,26 @@ class SaleController extends Controller
             ->where('usertype', 'seller')->get();
         $products = Product::all();
 
-        $results = SaleItem::select('user_id', 'product_id', DB::raw('SUM(amount) as total_amount'))
-            ->groupBy('user_id', 'product_id')
-            ->orderBy('user_id')
-            ->orderBy('product_id')
-            ->get();
 
+
+        $test =[];
         foreach ($users as $user) {
-            foreach ($products as $product) {
+            $sales = Sale::where('user_id', $user['id']);
 
+            foreach ($products as $product) {
+                foreach ($sales as $sale) {
+                    if($product->targettype=="amount"){
+                        
+                    $count = SaleItem::where('product_id', $product['id'])
+                        ->where('user_id', $user['id'])
+                        ->sum('value');
+                    array_push( $test,$count);
+                    }
+                }
             }
         }
-        return $results;
+        return $test;
+
         return view('sale.targets', compact('users'));
     }
 
