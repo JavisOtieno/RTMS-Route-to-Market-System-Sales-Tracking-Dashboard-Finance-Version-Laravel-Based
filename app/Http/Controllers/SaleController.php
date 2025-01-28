@@ -143,6 +143,18 @@ class SaleController extends Controller
         return redirect('/sales');
         
     }
+    public function showSalesTargets(){
+
+        $users = User::inOrganization()
+        ->with('targetgroup')
+        ->withSum(['sales as total_sales_this_month' => function ($query) {
+            $query->whereMonth('created_at', now()->month)
+                  ->whereYear('created_at', now()->year);
+        }], 'value')
+        ->where('usertype', 'seller')->get();
+        return view('sale.targets', compact('users') );
+
+    }
 
     public function showSalesMap(){
 
