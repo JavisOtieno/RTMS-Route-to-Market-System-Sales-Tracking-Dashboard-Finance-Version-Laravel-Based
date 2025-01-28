@@ -180,7 +180,6 @@ class SaleController extends Controller
                     if($product->targettype=="amount"){
                         
                     $count = SaleItem::where('product_id', $product['id'])
-                        ->where('user_id', $user['id'])
                         ->sum('value');
                     array_push( $test,$count);
                     }
