@@ -82,7 +82,7 @@
                                         {{-- <th>Usertype</th> --}}
                                         @foreach($products as $product)
                                         {{-- <th>Sales This Month</th> --}}
-                                        <th>{{$product->name}} Month Sales<br/> 
+                                        <th>{{$product->name}} Sales<br/> 
                                             @if($product['targettype'] =='amount')
                                         Target : KSh {{number_format($product['target'])}}
                                         @else
