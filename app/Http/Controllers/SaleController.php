@@ -170,6 +170,7 @@ class SaleController extends Controller
         $test =[];
         foreach ($users as $user) {
             $sales = Sale::where('user_id', $user['id']);
+            array_push( $test,1);
 
             foreach ($products as $product) {
                 foreach ($sales as $sale) {
