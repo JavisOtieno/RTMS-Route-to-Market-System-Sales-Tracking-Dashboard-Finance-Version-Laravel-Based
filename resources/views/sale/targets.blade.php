@@ -115,6 +115,7 @@
                                                     Total Sales Value: {{ $total['total_value'] }}
                                                 </li>
                                             @endforeach
+                                            p
                                         </ul>
                                     </td>
                                         
