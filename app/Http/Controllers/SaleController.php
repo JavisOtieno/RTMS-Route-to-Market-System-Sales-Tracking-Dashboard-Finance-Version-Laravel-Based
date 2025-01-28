@@ -167,17 +167,16 @@ class SaleController extends Controller
 
 
 
-        $test =[];
+        $usersproductarray =[];
         foreach ($users as $user) {
-            
             // array_push( $test,1);
-
+            $product_array = [];
             foreach ($products as $product) {
                 $sales = Sale::where('user_id', 3)->get();
-                array_push( $test,$user['id']);
+                // array_push( $test,$user['id']);
                 $total = 0;
                 foreach ($sales as $sale) {
-                    array_push( $test,30);
+                    // array_push( $test,30);
                     if($product->targettype=="amount"){
                         
                     $count = SaleItem::where('product_id', $product['id'])
@@ -191,13 +190,19 @@ class SaleController extends Controller
                     $total = $total +$count;
 
                     }
+                    $product_array[$product->id] = $total;
+                    
+                    // array_push($product_array, ['product_id' => $product->id, 'total' => $total]);
+
                 }
-                array_push($test,$total);
+
+                $usersproductarray[$user->id] = $total;
+                // array_push($test,$total);
             }
         }
-        return $test;
+        return $usersproductarray;
 
-        return view('sale.targets', compact('users'));
+        return view('sale.targets', compact('users','usersproductarray'));
     }
 
     public function showSalesMap()
