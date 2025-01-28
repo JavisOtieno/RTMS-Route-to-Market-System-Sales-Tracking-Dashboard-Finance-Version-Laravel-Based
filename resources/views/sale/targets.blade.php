@@ -81,8 +81,14 @@
                                         
                                         {{-- <th>Usertype</th> --}}
                                         @foreach($products as $product)
-                                        <th>Sales This Month</th>
-                                        <th>{{$product->name}} Target</th>
+                                        {{-- <th>Sales This Month</th> --}}
+                                        <th>{{$product->name}} Month Sales<br/> 
+                                            @if($product['targettype'] =='amount')
+                                        Target : KSh {{number_format($usersproducts[$user->id][$product->id])}}
+                                        @else
+                                        Target : {{number_format($usersproducts[$user->id][$product->id])}} units
+                                        @endif
+                                        </th>
                                         @endforeach
                                         <th>Date</th>
                                         <th>Status</th>
@@ -116,11 +122,11 @@
                                         @else
                                         <th>{{number_format($usersproducts[$user->id][$product->id])}} units</th>
                                         @endif
-                                        @if($product['targettype'] =='amount')
+                                        {{-- @if($product['targettype'] =='amount')
                                         <th>KSh {{number_format($product['target'])}}</th>
                                         @else
                                         <th>{{number_format($product['target'])}} units</th>
-                                        @endif
+                                        @endif --}}
                                         @endforeach
 
                        
