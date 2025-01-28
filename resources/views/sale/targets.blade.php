@@ -82,7 +82,7 @@
                                         {{-- <th>Usertype</th> --}}
                                         @foreach($products as $product)
                                         <th>Sales This Month</th>
-                                        <th>Targets</th>
+                                        <th>{{$product->name}} Target</th>
                                         @endforeach
                                         <th>Date</th>
                                         <th>Status</th>
