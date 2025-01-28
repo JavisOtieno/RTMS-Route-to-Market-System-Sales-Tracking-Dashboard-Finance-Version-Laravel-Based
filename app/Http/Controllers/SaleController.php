@@ -203,7 +203,7 @@ class SaleController extends Controller
         }
         // return $usersproductarray;
 
-        return view('sale.targets', compact('users','usersproducts'));
+        return view('sale.targets', compact('users','usersproducts','products'));
     }
 
     public function showSalesMap()
