@@ -77,7 +77,7 @@
                                         <th>Organization</th>
                                         @endif
                                         <th>Name</th>
-                                        <th>Name</th>
+                                        
                                         
                                         {{-- <th>Usertype</th> --}}
                                         @foreach($products as $product)
@@ -106,17 +106,7 @@
                                         @endif
                                         <td>{{$user['name']}}</td>
 
-                                        <td>
-                                        <ul>
-                                            @foreach ($user->product_totals as $productId => $total)
-                                                <li>
-                                                    Product: {{ $total['product'] }}<br>
-                                                    Total Pieces Sold: {{ $total['total_pieces'] }}<br>
-                                                    Total Sales Value: {{ $total['total_value'] }}
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    </td>
+                       
                                         
                                        
                                         {{-- <td>{{ucfirst($user['usertype'])}}</td> --}}
