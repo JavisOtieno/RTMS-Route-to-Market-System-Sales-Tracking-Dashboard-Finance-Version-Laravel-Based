@@ -110,6 +110,7 @@
                                         <th>KSh 0</th>
                                         @if($product.targettype =='amount')
                                         <th>KSh {{number_format($product['target'])}}</th>
+                                        @endif
                                         @endforeach
                                        
                                         <td>{{ date('d-M-Y', strtotime('today')) }}</td>
