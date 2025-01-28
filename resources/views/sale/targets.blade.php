@@ -110,6 +110,8 @@
                                         <th>KSh 0</th>
                                         @if($product['targettype'] =='amount')
                                         <th>KSh {{number_format($product['target'])}}</th>
+                                        @else
+                                        <th>{{number_format($product['target'])}} units</th>
                                         @endif
                                         @endforeach
                                        
