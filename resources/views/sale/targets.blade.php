@@ -80,7 +80,7 @@
                                         
                                         {{-- <th>Usertype</th> --}}
                                         @foreach($products as $product)
-                                        <th>Sales Today</th>
+                                        <th>Sales This Month</th>
                                         <th>Targets</th>
                                         @endforeach
                                         <th>Date</th>
@@ -107,7 +107,11 @@
                                        
                                         {{-- <td>{{ucfirst($user['usertype'])}}</td> --}}
                                         @foreach($products as $product)
-                                        <th>KSh 0</th>
+                                        @if($product['targettype'] =='amount')
+                                        <th>KSh {{number_format($product['total_sales'])}}</th>
+                                        @else
+                                        <th>{{number_format($product['total_quantity'])}} units</th>
+                                        @endif
                                         @if($product['targettype'] =='amount')
                                         <th>KSh {{number_format($product['target'])}}</th>
                                         @else
