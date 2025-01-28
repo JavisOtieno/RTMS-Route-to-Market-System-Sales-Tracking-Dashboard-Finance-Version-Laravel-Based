@@ -703,6 +703,7 @@
                                     <li><a href="/deals" class="slide-item">Deals List</a></li>
                                     <li><a href="/dealsmap" class="slide-item">Deals Map</a></li>
                                     <li><a href="/dealsanalytics" class="slide-item">Deals Analytics</a></li>
+                                    <li><a href="/dealstargets" class="slide-item">Deals Targets</a></li>
                                 </ul>
                             </div>
                         </div>
