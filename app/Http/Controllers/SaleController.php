@@ -162,7 +162,7 @@ class SaleController extends Controller
                 $query->whereMonth('created_at', now()->month)
                     ->whereYear('created_at', now()->year);
             }], 'value')
-            ->where('usertype', 'seller')->get();
+            ->get();
         $products = Product::all();
 
 
