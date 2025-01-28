@@ -147,17 +147,36 @@ class SaleController extends Controller
 
         $users = User::inOrganization()
         ->with('targetgroup')
-        // ->withSum(['sales as total_sales_this_month' => function ($query) {
-        //     $query->whereMonth('created_at', now()->month)
-        //           ->whereYear('created_at', now()->year);
-        // }], 'value')
-        ->with(['sales.saleitems' => function ($query) {
-            $query->selectRaw('sale_id, product_id, SUM(value) as total_value, SUM(pieces) as total_pieces')
-                  ->groupBy('product_id');
-        }, 'sales.saleitems.product'])
+        ->withSum(['sales as total_sales_this_month' => function ($query) {
+            $query->whereMonth('created_at', now()->month)
+                  ->whereYear('created_at', now()->year);
+        }], 'value')
+        ->with(['sales.saleitems.product'])
         ->where('usertype', 'seller')->get();
         $products = Product::all();
-        return $users;
+        $data = $users->map(function ($user) {
+            // Flatten all sale items across all sales for the user
+            $saleItems = $user->sales->flatMap(function ($sale) {
+                return $sale->saleitems;
+            });
+        
+            // Group sale items by product_id and calculate totals
+            $groupedSaleItems = $saleItems->groupBy('product_id')->map(function ($items, $productId) {
+                return [
+                    'product_id' => $productId,
+                    'total_value' => $items->sum('value'),
+                    'total_pieces' => $items->sum('pieces'),
+                    'product_name' => optional($items->first()->product)->name, // Get product name
+                ];
+            });
+        
+            return [
+                'user_id' => $user->id,
+                'name' => $user->name,
+                'sales_by_product' => $groupedSaleItems->values(), // Convert to array
+            ];
+        });
+        
         return view('sale.targets', compact('users','prdoucts') );
 
     }
