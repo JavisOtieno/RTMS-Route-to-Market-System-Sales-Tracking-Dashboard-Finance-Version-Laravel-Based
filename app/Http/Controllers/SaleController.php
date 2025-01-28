@@ -196,7 +196,7 @@ class SaleController extends Controller
 
                 }
 
-                $usersproductarray[$user->id] = $total;
+                $usersproductarray[$user->id] = $product_array;
                 // array_push($test,$total);
             }
         }
