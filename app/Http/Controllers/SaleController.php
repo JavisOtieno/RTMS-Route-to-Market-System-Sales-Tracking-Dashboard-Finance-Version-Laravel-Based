@@ -177,7 +177,7 @@ class SaleController extends Controller
             ];
         });
         
-        return view('sale.targets', compact('users','prdoucts') );
+        return view('sale.targets', compact('users','products') );
 
     }
 
