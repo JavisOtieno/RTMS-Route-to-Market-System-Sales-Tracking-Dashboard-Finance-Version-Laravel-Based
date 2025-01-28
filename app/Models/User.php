@@ -78,6 +78,10 @@ class User extends Authenticatable
     public function organization(){
         return $this->belongsTo(Organization::class,'organization_id');
     }
+    public function sales()
+    {
+        return $this->hasMany(Sale::class, 'user_id');
+    }
 
 // Results in error 500 because the scope requires the user class on Auth::user
     // protected static function booted()
