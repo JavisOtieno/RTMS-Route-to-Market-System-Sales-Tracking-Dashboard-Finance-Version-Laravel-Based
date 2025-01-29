@@ -23,7 +23,7 @@ class SignupController extends Controller
             'organizationPhone'=>'required|string|max:255',
             'organizationEmail'=>'required|string|max:255',
             'organizationRegNo'=>'required|string|max:255',
-            'organizationKRAPin'=>'required|string|max:11',
+            'organizationKRAPin'=>'required|string|size:11',
             'name'=>'required|string|max:255',
             'phone'=>['required','min:10','string','max:255', new PhoneNumber],
             'email'=>'required|email|unique:users|max:255',
