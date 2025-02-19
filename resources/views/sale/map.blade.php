@@ -9,11 +9,11 @@
 
   <!-- PAGE-HEADER -->
   <div class="page-header">
-    <h1 class="page-title">Deals Map</h1>
+    <h1 class="page-title">Sales Map</h1>
     <div>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)">RTMS</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Deals map</li>
+            <li class="breadcrumb-item active" aria-current="page">Sales map</li>
         </ol>
     </div>
 </div>
@@ -24,14 +24,14 @@
 
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Deals Map</h3>
+            <h3 class="card-title" Sales Map</h3>
             {{-- <a type="button" href="/add-visit" class="btn btn-danger col-md-3" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;">Add Outlet</a> --}}
         </div>
         <div class="row" style="margin: 0 10px;">
             <input type="hidden" id="tableLoaded" value="outlets"/>
             <h3 class="card-title" style="margin-top:20px;margin-block-end: 0rem;">Search by :</h3>
             <div class="col-md-3 mb-3">
-                <label for="nameInput" class="form-label">Seller Name</label>
+                <label for="nameInput" class="form-label">User Name</label>
                 <select id="userFilter"  class="form-control select2-show-search form-select">
                     <!-- Options will be populated dynamically -->
                     <option value="">All Users</option>

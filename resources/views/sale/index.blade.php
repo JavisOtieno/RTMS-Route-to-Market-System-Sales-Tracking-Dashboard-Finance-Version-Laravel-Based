@@ -34,7 +34,7 @@
                         <input type="hidden" id="tableLoaded" value="sales"/>
                         <h3 class="card-title" style="margin-top:20px;margin-block-end: 0rem;">Search by :</h3>
                         <div class="col-md-3 mb-3">
-                            <label for="name" class="form-label">Seller Name</label>
+                            <label for="name" class="form-label">User Name</label>
                             <input type="text" class="form-control" id="nameInput" placeholder="Name">
                         </div>
                         <div class="col-md-3 mb-3">
