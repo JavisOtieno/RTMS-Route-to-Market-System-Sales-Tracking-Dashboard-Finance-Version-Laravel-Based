@@ -99,11 +99,11 @@
                                     <button type="submit" class="btn btn-info">View/Edit</button>
                                 </form>
                             </td> --}}
-                            <td><a type="button"
+                            {{-- <td><a type="button"
                                 onclick="loadPointOnMap({{ $followup }})"
                                 class="btn btn-success" style="margin-left: auto;color:white;" 
                                 data-bs-toggle="modal" href="#largemodal">Map</a>
-                          </td>
+                          </td> --}}
                             {{-- <td><a type="button" onclick="deleteItem({{$followup['id']}},'{{$followup['name']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
                             </td> --}}
                             
