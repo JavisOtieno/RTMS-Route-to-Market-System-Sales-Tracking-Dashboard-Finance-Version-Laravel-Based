@@ -9,11 +9,11 @@
 
   <!-- PAGE-HEADER -->
   <div class="page-header">
-    <h1 class="page-title">Deals Analytics</h1>
+    <h1 class="page-title">Sales Analytics</h1>
     <div>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)">RTMS</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Deals Analytics</li>
+            <li class="breadcrumb-item active" aria-current="page">Sales Analytics</li>
         </ol>
     </div>
 </div>
@@ -24,7 +24,7 @@
 
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Deals Analytics</h3>
+            <h3 class="card-title">Sales Analytics</h3>
             {{-- <a type="button" href="/add-visit" class="btn btn-danger col-md-3" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;">Add Outlet</a> --}}
         </div>
         <div class="row" style="margin: 20px;">
@@ -33,7 +33,7 @@
                     <div class="card-body">
                         <div class="d-flex">
                             <div class="mt-2">
-                                <h6 class="">Total Deals</h6>
+                                <h6 class="">Total Sales</h6>
                                 <h2 class="mb-0 number-font">
                                     {{$salesCount}}
                                 </h2>
@@ -59,7 +59,7 @@
                     <div class="card-body">
                         <div class="d-flex">
                             <div class="mt-2">
-                                <h6 class="">Deals This Month</h6>
+                                <h6 class="">Sales This Month</h6>
                                 <h2 class="mb-0 number-font">
                                     {{$salesThisMonth}}
                                 </h2>
@@ -85,7 +85,7 @@
                     <div class="card-body">
                         <div class="d-flex">
                             <div class="mt-2">
-                                <h6 class="">Deals This Week</h6>
+                                <h6 class="">Sales This Week</h6>
                                 <h2 class="mb-0 number-font">
                                     {{$salesThisWeek}}
                                 </h2>
@@ -111,7 +111,7 @@
                     <div class="card-body">
                         <div class="d-flex">
                             <div class="mt-2">
-                                <h6 class="">Deals Today</h6>
+                                <h6 class="">Sales Today</h6>
                                 <h2 class="mb-0 number-font">
                                     {{$salesToday}}
                                 
@@ -136,11 +136,11 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <h3>Deals Over The Last 12 Months </h3>
+                <h3>Sales Over The Last 12 Months </h3>
                 <canvas id="myBarChart" width="400" height="200"></canvas>
             </div>
             <div class="table-responsive mt-4">
-                <h3>Deals Over The Last 7 Days</h3>
+                <h3>Sales Over The Last 7 Days</h3>
                 <canvas id="myLineChart" width="400" height="200"></canvas>
             </div>
             <div class="row">
@@ -314,7 +314,7 @@
             data: {
                 labels: dataDayLabels, // X-axis labels
                 datasets: [{
-                    label: 'Deals Last 7 Days',
+                    label: 'Sales Last 7 Days',
                     data: dataSalesDayGraph, // Y-axis data
                     backgroundColor: 'rgba(54, 162, 235, 0.2)', // Line color (light blue)
                     borderColor: 'rgba(54, 162, 235, 1)', // Border color (blue)

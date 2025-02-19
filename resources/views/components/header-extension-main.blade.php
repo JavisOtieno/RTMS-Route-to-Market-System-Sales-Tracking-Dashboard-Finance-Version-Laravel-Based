@@ -681,7 +681,7 @@
         <li class="slide">
             <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                     class="side-menu__icon fe fe-shopping-cart"></i><span
-                    class="side-menu__label">Deals</span><i
+                    class="side-menu__label">Sales</span><i
                     class="angle fe fe-chevron-right"></i>
             </a>
             <ul class="slide-menu">
@@ -699,11 +699,11 @@
                         <div class="tab-content">
                             <div class="tab-pane active" id="side1">
                                 <ul class="sidemenu-list">
-                                    <li class="side-menu-label1"><a href="javascript:void(0)">Deals</a></li>
-                                    <li><a href="/deals" class="slide-item">Deals List</a></li>
-                                    <li><a href="/dealsmap" class="slide-item">Deals Map</a></li>
-                                    <li><a href="/dealsanalytics" class="slide-item">Deals Analytics</a></li>
-                                    <li><a href="/dealstargets" class="slide-item">Deals Targets</a></li>
+                                    <li class="side-menu-label1"><a href="javascript:void(0)">Sales</a></li>
+                                    <li><a href="/deals" class="slide-item">Sales List</a></li>
+                                    <li><a href="/dealsmap" class="slide-item">Sales Map</a></li>
+                                    <li><a href="/dealsanalytics" class="slide-item">Sales Analytics</a></li>
+                                    <li><a href="/dealstargets" class="slide-item">Sales Targets</a></li>
                                 </ul>
                             </div>
                         </div>
