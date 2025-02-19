@@ -29,6 +29,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ClockoutController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\FollowupController;
 use App\Http\Controllers\PosauditController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OrderNoteController;
@@ -112,6 +113,13 @@ Route::get('/deletefeedback/{id}', [FeedbackController::class,'deleteFeedback'])
 Route::get('/feedback/{id}',[FeedbackController::class,'showEditFeedback']);
 Route::put('/saveeditfeedback/{id}',[FeedbackController::class,'saveEditFeedback']);
 Route::get('/feedback/{id}/{object}',[FeedbackController::class,'showFeedbackById']);
+
+
+Route::get('/followup', [FollowupController::class,'index']);
+Route::get('/deletefollowup/{id}', [FollowupController::class,'deleteFollowup']);
+Route::get('/followup/{id}',[FollowupController::class,'showEditFollowup']);
+Route::put('/saveeditfollowup/{id}',[FollowupController::class,'saveEditFollowup']);
+Route::get('/followup/{id}/{object}',[FollowupController::class,'showFollowupById']);
 
 Route::get('/customers', [OutletController::class,'index']);
 Route::get('/outlets/{id}/{object}', [OutletController::class,'showOutletsById']);

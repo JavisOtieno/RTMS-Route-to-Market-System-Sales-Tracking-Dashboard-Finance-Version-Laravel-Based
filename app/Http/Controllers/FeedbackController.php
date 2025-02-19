@@ -12,6 +12,7 @@ class FeedbackController extends Controller
         $feedback = Feedback::all();
         return response()->json(['feedback'=>$feedback]);
     }
+    
     public function index() {
         //$feedback = Feedback::all();
         $feedback = Feedback::with(['user' => function ($query) {

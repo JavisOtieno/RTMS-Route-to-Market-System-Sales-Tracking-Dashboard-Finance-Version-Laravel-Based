@@ -18,6 +18,7 @@ use App\Http\Controllers\api\ProfileController;
 use App\Http\Controllers\api\ActivityController;
 use App\Http\Controllers\api\ClockoutController;
 use App\Http\Controllers\api\FeedbackController;
+use App\Http\Controllers\api\FollowupController;
 use App\Http\Controllers\api\POSAuditController;
 use App\Http\Controllers\api\DashboardController;
 use App\Http\Controllers\api\IntegrityController;
@@ -76,6 +77,9 @@ Route::middleware(['auth:sanctum','apiLimitInactiveOrganization',
     Route::post('addfeedback',[FeedbackController::class,'saveFeedback']);
     Route::get('feedback',[FeedbackController::class,'index']);
     Route::post('visitfeedback',[FeedbackController::class,'visitFeedback']);
+
+    Route::post('addfollowup',[FollowupController::class,'saveFollowup']);
+    Route::get('followup',[FollowupController::class,'index']);
 
     Route::post('addcompetitoranalysis',[CompetitorController::class,'saveCompetitorAnalysis']);
     Route::get('competitiveanalysis',[CompetitorController::class,'index']);
