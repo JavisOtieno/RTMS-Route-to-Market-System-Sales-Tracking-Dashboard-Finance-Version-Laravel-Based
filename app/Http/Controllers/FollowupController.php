@@ -10,10 +10,10 @@ class FollowupController extends Controller
     //
     public function index() {
         //$followup = Followup::all();
-        $followup = Followup::with(['user' => function ($query) {
+        $followups = Followup::with(['user' => function ($query) {
             $query->withTrashed();
         }])->get();
-        return view('followup.index', ['followup'=>$followup]);
+        return view('followup.index', ['followups'=>$followups]);
     }
 
     public function showFollowupById($id,$object) {
