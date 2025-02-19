@@ -28,9 +28,11 @@ class Followup extends Model
         //return $this->belongsTo(User::class);
         return $this->belongsTo(User::class,'user_id');
     }
-
     public function team(){
         return $this->belongsTo(Team::class,'team_id');
+    }
+    public function outlet(){
+        return $this->belongsTo(Outlet::class,'outlet_id');
     }
 
     //meant for counting but found another way
