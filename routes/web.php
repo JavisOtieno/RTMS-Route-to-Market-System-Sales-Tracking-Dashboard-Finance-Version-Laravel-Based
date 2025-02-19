@@ -117,7 +117,7 @@ Route::get('/feedback/{id}/{object}',[FeedbackController::class,'showFeedbackByI
 
 Route::get('/followups', [FollowupController::class,'index']);
 Route::get('/deletefollowup/{id}', [FollowupController::class,'deleteFollowup']);
-Route::get('/followup/{id}',[FollowupController::class,'showEditFollowup']);
+Route::get('/editfollowup/{id}',[FollowupController::class,'showEditFollowup']);
 Route::put('/saveeditfollowup/{id}',[FollowupController::class,'saveEditFollowup']);
 Route::get('/followup/{id}/{object}',[FollowupController::class,'showFollowupById']);
 
