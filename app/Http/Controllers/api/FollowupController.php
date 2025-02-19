@@ -60,7 +60,7 @@ class FollowupController extends Controller
     public function index(){
         //$sales = Sale::all();
         $userId = auth()->id();
-        $followup = Followup::where('user_id',$userId)->orderBy('id', 'DESC')->with('user','outlet')->get();
+        $followup = Followup::where('user_id',$userId)->orderBy('id', 'DESC')->with('user')->get();
         return response()->json(['followup'=>$followup]);
     }
 
