@@ -77,7 +77,7 @@
                     </thead>
                     <tbody>
                         
-                            @if(count($)>0)
+                            @if(count($followups)>0)
                             @foreach($followups as $followup)
                             <tr>
                             <td>{{$followup['id']}}</td>
