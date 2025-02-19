@@ -70,7 +70,7 @@
                             
                             <div class="form-group">
                                 <label for="description" class="form-label">Description</label>
-                                <textarea type="text" readonly class="form-control" name="description" placeholder="Description"   autocomplete="description">value="{{old('description',$followup['description'])}}"</textarea>
+                                <textarea type="text" readonly class="form-control" name="description" placeholder="Description"   autocomplete="description">{{old('description',$followup['description'])}}</textarea>
                             </div>
                             <div class="form-group">
                                 <label for="date" class="form-label">Date</label>
