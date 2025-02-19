@@ -70,15 +70,15 @@
                             
                             <div class="form-group">
                                 <label for="description" class="form-label">Description</label>
-                                <input type="text" class="form-control" name="description" placeholder="Description" value="{{old('description',$followup['description'])}}"  autocomplete="description">
+                                <textarea type="text" readonly class="form-control" name="description" placeholder="Description"   autocomplete="description">value="{{old('description',$followup['description'])}}"</textarea>
                             </div>
                             <div class="form-group">
                                 <label for="date" class="form-label">Date</label>
-                                <input type="text" class="form-control" name="date" placeholder="Date" value="{{old('date',$followup['date'])}}"  autocomplete="date">
+                                <input type="text" readonly class="form-control" name="date" placeholder="Date" value="{{old('date',$followup['date'])}}"  autocomplete="date">
                             </div>
                             <div class="form-group">
                                 <label for="description" class="form-label">Time</label>
-                                <input type="text" class="form-control" name="time" placeholder="Time" value="{{old('time',$followup['time'])}}"  autocomplete="time">
+                                <input type="text" readonly class="form-control" name="time" placeholder="Time" value="{{old('time',$followup['time'])}}"  autocomplete="time">
                             </div>
                             
                             @if (auth()->user()->usertype == "admin")
@@ -103,69 +103,11 @@
                                 <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{date('d-M-Y H:i', strtotime($followup['created_at']))}}" autocomplete="dateTime">
                             </div>
 
-                            <div class="form-group">
-                                <label for="followupActivities" class="form-label">Followup Activities</label>
-                                <a href="/visits/{{$followup['id']}}/followup" class="btn btn-info col-md-12 mt-0 mb-2">View Followup Visits</a>
-                                <a href="/sales/{{$followup['id']}}/followup" class="btn btn-info col-md-12 mt-0 mb-2">View Followup Sales</a>
-                                <a href="/posaudits/{{$followup['id']}}/followup" class="btn btn-info col-md-12 mt-0 mb-2">View Followup POS Audits</a>
-                                <a href="/competitiveanalysis/{{$followup['id']}}/followup" class="btn col-md-12 btn-info mt-0 mb-2">View Followup Competitive Analysis</a>
-                                <a href="/feedback/{{$followup['id']}}/followup" class="btn btn-info col-md-12 mt-0 mb-2">View Followup Feedback</a>
-                            </div>
+                          
 
-                            <div class="form-group">
+                         
 
-                                <label for="image" class="form-label">Image (Optional)</label>
 
-                                {{-- <div style="margin: auto;" class="col-xl-6 col-lg-3 col-md-4 col-sm-4 col-xxl-2">
-                                    <div class="card overflow-hidden">
-                                        <a href="#"><img style="width: 100%;" src="{{url('storage/'.$followup['image'])}}" alt="img" class="file-manager-list w-100"></a>
-                                        <div class="card-footer">
-                                            <div class="d-flex">
-                                                <div class="">
-                                                    <h5 class="mb-0 fw-semibold text-break">{{$followup['name']}}</h5>
-                                                </div>
-                                                <div class="ms-auto my-auto">
-                                                    <!--<span class="text-muted mb-0">66 KB</span>-->
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
-
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xxl-12">
-                                    <div class="card overflow-hidden" style="background: #fce9ec;">
-                                        <a class="col-xl-7" style="margin: 20px auto">
-                                            @if($followup['image'])
-                                            <a href="{{url('showimage/'.$followup['image'])}}">
-                                            <img style="width: 100%;" src="{{url('storage/'.$followup['image'])}}" alt="img">
-                                            </a>
-                                            @else
-                                            <img style="width: 100%;" src="{{asset('assets/images/new-images/no-image-available.jpg')}}" alt="img">
-                                            
-                                            @endif
-                                        </a>
-
-                                        <div class="card-footer">
-                                            <div class="d-flex">
-                                                <div class="" style="margin: auto">
-                                                    <h5 style="text-align: center" class="mb-0 fw-semibold text-break">{{$followup['name']}}</h5>
-                                                </div>
-                                                {{-- <div class="ms-auto my-auto">
-                                                    <span class="text-muted mb-0">67 KB</span>
-                                                </div> --}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="form-group">
-                                <label for="dateTime" class="form-label">Map</label>
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xxl-12">
-                                <div id="googleMapOutlet" class="worldh world-map h-400" ></div>
-                                </div>
-                            </div>
 
                             
                         </div>
