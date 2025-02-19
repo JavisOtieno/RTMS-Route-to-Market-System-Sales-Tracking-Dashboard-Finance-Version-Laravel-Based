@@ -732,6 +732,11 @@
             class="side-menu__icon fe fe-rotate-ccw"></i><span
             class="side-menu__label">Feedback</span></a>
 </li>
+<li class="slide">
+    <a class="side-menu__item has-link" data-bs-toggle="slide" href="/followups"><i
+            class="side-menu__icon fe fe-refresh-cw"></i><span
+            class="side-menu__label">Follow ups</span></a>
+</li>
 
             
         </ul>
