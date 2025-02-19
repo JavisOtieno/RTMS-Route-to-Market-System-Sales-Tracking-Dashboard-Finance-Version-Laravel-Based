@@ -73,11 +73,11 @@
                                 <textarea type="text" readonly class="form-control" name="description" placeholder="Description"   autocomplete="description">{{old('description',$followup['description'])}}</textarea>
                             </div>
                             <div class="form-group">
-                                <label for="date" class="form-label">Date</label>
+                                <label for="date" class="form-label">Scheduled Date</label>
                                 <input type="text" readonly class="form-control" name="date" placeholder="Date" value="{{old('date',$followup['date'])}}"  autocomplete="date">
                             </div>
                             <div class="form-group">
-                                <label for="description" class="form-label">Time</label>
+                                <label for="description" class="form-label">Scheduled Time</label>
                                 <input type="text" readonly class="form-control" name="time" placeholder="Time" value="{{old('time',$followup['time'])}}"  autocomplete="time">
                             </div>
                             

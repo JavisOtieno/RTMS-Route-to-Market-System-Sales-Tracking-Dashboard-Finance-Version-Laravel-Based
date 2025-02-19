@@ -66,8 +66,8 @@
                             <th>View/Edit</th>
                             <th>Type</th>
                             <th>Description</th>
-                            <th>Date</th>
-                            <th>Time</th>
+                            <th>Scheduled Date</th>
+                            <th>Scheduled Time</th>
                             <th>Team</th>
                             <th>Date</th>
                         
