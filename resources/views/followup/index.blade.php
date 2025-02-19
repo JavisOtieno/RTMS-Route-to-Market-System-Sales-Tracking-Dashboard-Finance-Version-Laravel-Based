@@ -9,11 +9,11 @@
 
   <!-- PAGE-HEADER -->
   <div class="page-header">
-    <h1 class="page-title">Followups</h1>
+    <h1 class="page-title">Follow ups</h1>
     <div>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)">RTMS</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Followups</li>
+            <li class="breadcrumb-item active" aria-current="page">Follow ups</li>
         </ol>
     </div>
 </div>
@@ -24,7 +24,7 @@
 
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Followups</h3>
+            <h3 class="card-title">Follow ups</h3>
             {{-- <a type="button" href="/add-followup" class="btn btn-danger col-md-3" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;">Add Outlet</a> --}}
         </div>
         <div class="row" style="margin: 0 10px;">
