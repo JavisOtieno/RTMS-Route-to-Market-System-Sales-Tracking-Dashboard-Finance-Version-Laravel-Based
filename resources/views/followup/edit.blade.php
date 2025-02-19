@@ -9,11 +9,11 @@
 
   <!-- PAGE-HEADER -->
   <div class="page-header">
-    <h1 class="page-title">Customers</h1>
+    <h1 class="page-title">Followups</h1>
     <div>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)">RTMS</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Customers</li>
+            <li class="breadcrumb-item active" aria-current="page">Followups</li>
         </ol>
     </div>
 </div>
@@ -23,13 +23,13 @@
 <div class="col-xl-12 row">
     <div class="card col-md-8">
         <div class="card-header">
-            <h3 class="card-title">Edit Customer</h3> 
+            <h3 class="card-title">Edit Followup</h3> 
         </div>
         <div class="card-body">
             <!--<p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p>-->
             
                 
-                    <form action="/saveeditoutlet/{{$outlet['id']}}" method="POST">
+                    <form action="/saveeditfollowup/{{$followup['id']}}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="">
@@ -51,39 +51,39 @@
                             @endif
                             <div class="form-group">
                                 <label for="userId" class="form-label">Seller Name</label>
-                                <a href="{{$outlet['user']==null?'#': '/editseller/'.$outlet['user']['id'] }}">
+                                <a href="{{$followup['user']==null?'#': '/editseller/'.$followup['user']['id'] }}">
                                 <input type="userName" readonly class="form-control" name="userName" id="userName" placeholder="User Name" 
-                                value="{{ $outlet['user'] ? $outlet['user']['name'] . ($outlet['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}"
-                                {{-- value="{{$outlet['user']['name']}}"  --}}
+                                value="{{ $followup['user'] ? $followup['user']['name'] . ($followup['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}"
+                                {{-- value="{{$followup['user']['name']}}"  --}}
                                 autocomplete="username">
                                 </a>
 
                                 <input type="hidden" readonly class="form-control" name="userId" id="userId" placeholder="User Id" 
-                                value="{{ $outlet['user'] ? $outlet['user']['id']  . ($outlet['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}" 
-                                {{-- value="{{$outlet['user']['id']}}"  --}}
+                                value="{{ $followup['user'] ? $followup['user']['id']  . ($followup['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}" 
+                                {{-- value="{{$followup['user']['id']}}"  --}}
                                 autocomplete="userid">
                             </div>
                             <div class="form-group">
                                 <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Name" value="{{old('name',$outlet['name'])}}" autocomplete="name">
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Name" value="{{old('name',$followup['name'])}}" autocomplete="name">
                             </div>
                             <div class="form-group">
                                 <label for="contactPersonName" class="form-label">Contact Person Name</label>
-                                <input type="text" class="form-control" name="contactPersonName" id="contactPersonName" placeholder="Contact Person Name" value="{{old('contact_person_name',$outlet['contact_person_name'])}}"  autocomplete="contactPersonNmae">
+                                <input type="text" class="form-control" name="contactPersonName" id="contactPersonName" placeholder="Contact Person Name" value="{{old('contact_person_name',$followup['contact_person_name'])}}"  autocomplete="contactPersonNmae">
                             </div>
                             <div class="form-group">
                                 <label for="phone" class="form-label">Phone</label>
-                                <input type="text" class="form-control" name="phone" placeholder="Phone" value="{{old('phone',$outlet['phone'])}}"  autocomplete="phone">
+                                <input type="text" class="form-control" name="phone" placeholder="Phone" value="{{old('phone',$followup['phone'])}}"  autocomplete="phone">
                             </div>
                             <div class="form-group">
                                 <label for="lat" class="form-label">Lat</label>
                                 {{-- readonly --}}
-                                <input readonly type="text"  class="form-control" name="lat" id="lat" placeholder="Lat" value="{{old('lat',$outlet['lat'])}}"  autocomplete="lat">
+                                <input readonly type="text"  class="form-control" name="lat" id="lat" placeholder="Lat" value="{{old('lat',$followup['lat'])}}"  autocomplete="lat">
                             </div>
                             <div class="form-group">
                                 <label for="long" class="form-label">Long</label>
                                 {{-- readonly --}}
-                                <input readonly ="text" class="form-control" name="long" id="long" placeholder="long" value="{{old('long',$outlet['long'])}}"  autocomplete="long">
+                                <input readonly ="text" class="form-control" name="long" id="long" placeholder="long" value="{{old('long',$followup['long'])}}"  autocomplete="long">
                             </div>
                             @if (auth()->user()->usertype == "admin")
                             <div class="form-group">
@@ -94,7 +94,7 @@
                                     {{-- <option value="{{ $team['id'] }}" {{ old('team_id', '') == $team['id'] ? 'selected' : '' }}>
                                         {{ $team['name'] }}
                                     </option> --}}
-                                    <option {{(isset($outlet)&&isset($outlet['team'])?old('team_id',$outlet['team']['id']):old('team_id'))==$team['id']? 'selected':''}}
+                                    <option {{(isset($followup)&&isset($followup['team'])?old('team_id',$followup['team']['id']):old('team_id'))==$team['id']? 'selected':''}}
                                      value="{{$team['id']}}">{{$team['name']}}</option>
                             
                                     @endforeach
@@ -104,16 +104,16 @@
 
                             <div class="form-group">
                                 <label for="dateTime" class="form-label">Date and Time Added</label>
-                                <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{date('d-M-Y H:i', strtotime($outlet['created_at']))}}" autocomplete="dateTime">
+                                <input readonly type="text" class="form-control" name="dateTime" id="dateTime" placeholder="DateTime" value="{{date('d-M-Y H:i', strtotime($followup['created_at']))}}" autocomplete="dateTime">
                             </div>
 
                             <div class="form-group">
-                                <label for="outletActivities" class="form-label">Customer Activities</label>
-                                <a href="/visits/{{$outlet['id']}}/outlet" class="btn btn-info col-md-12 mt-0 mb-2">View Customer Visits</a>
-                                <a href="/sales/{{$outlet['id']}}/outlet" class="btn btn-info col-md-12 mt-0 mb-2">View Customer Sales</a>
-                                <a href="/posaudits/{{$outlet['id']}}/outlet" class="btn btn-info col-md-12 mt-0 mb-2">View Customer POS Audits</a>
-                                <a href="/competitiveanalysis/{{$outlet['id']}}/outlet" class="btn col-md-12 btn-info mt-0 mb-2">View Customer Competitive Analysis</a>
-                                <a href="/feedback/{{$outlet['id']}}/outlet" class="btn btn-info col-md-12 mt-0 mb-2">View Customer Feedback</a>
+                                <label for="followupActivities" class="form-label">Followup Activities</label>
+                                <a href="/visits/{{$followup['id']}}/followup" class="btn btn-info col-md-12 mt-0 mb-2">View Followup Visits</a>
+                                <a href="/sales/{{$followup['id']}}/followup" class="btn btn-info col-md-12 mt-0 mb-2">View Followup Sales</a>
+                                <a href="/posaudits/{{$followup['id']}}/followup" class="btn btn-info col-md-12 mt-0 mb-2">View Followup POS Audits</a>
+                                <a href="/competitiveanalysis/{{$followup['id']}}/followup" class="btn col-md-12 btn-info mt-0 mb-2">View Followup Competitive Analysis</a>
+                                <a href="/feedback/{{$followup['id']}}/followup" class="btn btn-info col-md-12 mt-0 mb-2">View Followup Feedback</a>
                             </div>
 
                             <div class="form-group">
@@ -122,11 +122,11 @@
 
                                 {{-- <div style="margin: auto;" class="col-xl-6 col-lg-3 col-md-4 col-sm-4 col-xxl-2">
                                     <div class="card overflow-hidden">
-                                        <a href="#"><img style="width: 100%;" src="{{url('storage/'.$outlet['image'])}}" alt="img" class="file-manager-list w-100"></a>
+                                        <a href="#"><img style="width: 100%;" src="{{url('storage/'.$followup['image'])}}" alt="img" class="file-manager-list w-100"></a>
                                         <div class="card-footer">
                                             <div class="d-flex">
                                                 <div class="">
-                                                    <h5 class="mb-0 fw-semibold text-break">{{$outlet['name']}}</h5>
+                                                    <h5 class="mb-0 fw-semibold text-break">{{$followup['name']}}</h5>
                                                 </div>
                                                 <div class="ms-auto my-auto">
                                                     <!--<span class="text-muted mb-0">66 KB</span>-->
@@ -139,9 +139,9 @@
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xxl-12">
                                     <div class="card overflow-hidden" style="background: #fce9ec;">
                                         <a class="col-xl-7" style="margin: 20px auto">
-                                            @if($outlet['image'])
-                                            <a href="{{url('showimage/'.$outlet['image'])}}">
-                                            <img style="width: 100%;" src="{{url('storage/'.$outlet['image'])}}" alt="img">
+                                            @if($followup['image'])
+                                            <a href="{{url('showimage/'.$followup['image'])}}">
+                                            <img style="width: 100%;" src="{{url('storage/'.$followup['image'])}}" alt="img">
                                             </a>
                                             @else
                                             <img style="width: 100%;" src="{{asset('assets/images/new-images/no-image-available.jpg')}}" alt="img">
@@ -152,7 +152,7 @@
                                         <div class="card-footer">
                                             <div class="d-flex">
                                                 <div class="" style="margin: auto">
-                                                    <h5 style="text-align: center" class="mb-0 fw-semibold text-break">{{$outlet['name']}}</h5>
+                                                    <h5 style="text-align: center" class="mb-0 fw-semibold text-break">{{$followup['name']}}</h5>
                                                 </div>
                                                 {{-- <div class="ms-auto my-auto">
                                                     <span class="text-muted mb-0">67 KB</span>
@@ -212,14 +212,14 @@
 
 <script>
     function myMap() {
-        var outlet= @json($outlet);
+        var followup= @json($followup);
 
 
 
-    if(outlet){
+    if(followup){
         var mapProp= {
-        center:new google.maps.LatLng(Number(outlet['lat']),
-        Number(outlet['long'])),
+        center:new google.maps.LatLng(Number(followup['lat']),
+        Number(followup['long'])),
         zoom:10,
         };
     }else{
@@ -233,12 +233,12 @@
     
     var map = new google.maps.Map(document.getElementById("googleMapOutlet"),mapProp);
 
-    var lat1 = Number(outlet['lat']);
-    var long1 = Number(outlet['long']);
+    var lat1 = Number(followup['lat']);
+    var long1 = Number(followup['long']);
     const myPosition = { lat: Number(lat1), lng: Number(long1) };
 
     var infoWindow = new google.maps.InfoWindow({
-                content: "<div><h3>"+outlet['name']+"</h3>"+
+                content: "<div><h3>"+followup['name']+"</h3>"+
                     "<p>Contact Person: "+( outlet['user']===null ? 'Deleted User': outlet['user']['name'])+"</p>"+
                     "<p>Contact Phone: "+outlet['phone']+"</p>"+
                     "<p>Latitude: "+lat1+"</p>"+
