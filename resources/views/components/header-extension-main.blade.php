@@ -440,7 +440,7 @@
           <li class="slide">
             <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                     class="side-menu__icon fe fe-user"></i><span
-                    class="side-menu__label">Users</span><i
+                    class="side-menu__label">User Management</span><i
                     class="angle fe fe-chevron-right"></i>
             </a>
             <ul class="slide-menu">
@@ -458,21 +458,21 @@
                         <div class="tab-content">
                             <div class="tab-pane active" id="side1">
                                 <ul class="sidemenu-list">
-                                    <li class="side-menu-label1"><a href="javascript:void(0)">Users</a></li>
+                                    <li class="side-menu-label1"><a href="javascript:void(0)">User Management</a></li>
                                     @if (auth()->user()->usertype=='admin'  || auth()->user()->usertype == 'systemadmin')
                                     <li><a href="/admins" class="slide-item"> Admins</a></li>
                                     <li><a href="/teamleads" class="slide-item"> Team Leads</a></li>
                                     @endif
-                                    <li><a href="/sellers" class="slide-item"> Sellers</a></li>
+                                    <li><a href="/sellers" class="slide-item"> Users</a></li>
                                     @if (auth()->user()->usertype=='admin'  || auth()->user()->usertype == 'systemadmin')
                                     <li><a href="/teams" class="slide-item"> Teams</a></li>
                                     <li><a href="/regions" class="slide-item"> Regions</a></li>
                                     <li><a href="/territories" class="slide-item"> Territories</a></li>
                                     @endif
                                     <li><a href="/targetgroups" class="slide-item"> Sales Target Groups</a></li>
-                                    <li><a href="/adduserstotargetgroups" class="slide-item"> Add Sellers to Target Groups</a></li>
-                                    <li><a href="/adduserstoteam" class="slide-item"> Add Sellers to Team</a></li>
-                                    <li><a href="/allocateoutletstousers" class="slide-item"> Allocate Outlets to Sellers</a></li>
+                                    <li><a href="/adduserstotargetgroups" class="slide-item"> Add Users to Target Groups</a></li>
+                                    <li><a href="/adduserstoteam" class="slide-item"> Add Users to Team</a></li>
+                                    <li><a href="/allocateoutletstousers" class="slide-item"> Allocate Outlets to Users</a></li>
                                     
 
                                     
