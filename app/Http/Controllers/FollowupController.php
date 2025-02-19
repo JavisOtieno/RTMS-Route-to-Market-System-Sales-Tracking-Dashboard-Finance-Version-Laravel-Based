@@ -13,7 +13,7 @@ class FollowupController extends Controller
         $followup = Followup::with(['user' => function ($query) {
             $query->withTrashed();
         }])->get();
-        return view('followup', ['followup'=>$followup]);
+        return view('followup.index', ['followup'=>$followup]);
     }
 
     public function showFollowupById($id,$object) {
@@ -31,21 +31,21 @@ class FollowupController extends Controller
             $query->withTrashed();
         }])->where($object.'_id',$id)->get();
     }
-        return view('followup', ['followup'=>$followup]);
+        return view('followup.show', ['followup'=>$followup]);
     }
 
 
     public function deleteFollowup($id){
         $followup = Followup::find($id);
         $followup->delete();
-        return redirect('/followup');
+        return redirect('/followups');
     }
     public function showEditFollowup($id){
         //$followup = Followup::find($id);
         $followup = Followup::with(['user' => function ($query) {
             $query->withTrashed();
         }])->get()->find($id);
-        return view('edit-followup',['followup'=>$followup]);
+        return view('followup.edit',['followup'=>$followup]);
     }
 
     public function saveEditFollowup($id, Request $request){
