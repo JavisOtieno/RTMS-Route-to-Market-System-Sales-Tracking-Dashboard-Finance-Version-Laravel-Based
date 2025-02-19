@@ -83,7 +83,7 @@
                             <td>{{$followup['id']}}</td>
                             <td><a type="button" href="/editfollowup/{{$followup['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
                             </td>
-                            <td>{{$followup['type']}}</td>
+                            <td>{{ucfirst($followup['type'])}}</td>
                             <td>{{$followup['description']}}</td>
                             <td>{{$followup['date']}}</td>
                             <td>{{$followup['time']}}</td>
