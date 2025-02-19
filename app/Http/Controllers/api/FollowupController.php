@@ -22,7 +22,8 @@ class FollowupController extends Controller
         $request->validate([
             'visitId'=>'required|numeric|digits_between:1,20|exists:visits,id',
             'outletId'=>'required|numeric|digits_between:1,20|exists:outlets,id',
-            ''=>'required',
+            // ''=>'required',
+
             'description'=>'required|string|max:3000',
             'type'=>'required|string|max:255',
             'status'=>'required|string|max:255',
