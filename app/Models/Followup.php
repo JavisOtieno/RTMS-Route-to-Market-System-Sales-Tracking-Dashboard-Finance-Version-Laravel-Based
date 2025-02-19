@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Scopes\DefaultTeamScope;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Scopes\OrganizationScope;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Followup extends Model
 {
@@ -21,6 +23,27 @@ class Followup extends Model
         'date',
         'time'
     ];
+
+    public function user(){
+        //return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
+    }
+
+    public function team(){
+        return $this->belongsTo(Team::class,'team_id');
+    }
+
+    //meant for counting but found another way
+    // public function sales()
+    // {
+    //     return $this->belongsToMany(Sale::class, 'outlets', 'outlet_id', 'id');
+    // }
+
+    protected static function booted()
+    {
+        static::addGlobalScope(new OrganizationScope);
+        static::addGlobalScope(new DefaultTeamScope);
+    }
 
 
 }
