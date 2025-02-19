@@ -65,7 +65,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="type" class="form-label">Type</label>
-                                <input type="text" class="form-control" name="type" id="type" placeholder="Type" value="{{old('type',$followup['type'])}}" autocomplete="type">
+                                <input type="text" class="form-control" name="type" id="type" placeholder="Type" readonly value="{{old('type',$followup['type'])}}" autocomplete="type">
                             </div>
                             
                             <div class="form-group">
