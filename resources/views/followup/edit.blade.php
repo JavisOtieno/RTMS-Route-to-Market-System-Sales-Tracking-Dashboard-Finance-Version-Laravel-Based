@@ -64,27 +64,23 @@
                                 autocomplete="userid">
                             </div>
                             <div class="form-group">
-                                <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Name" value="{{old('name',$followup['name'])}}" autocomplete="name">
+                                <label for="type" class="form-label">Type</label>
+                                <input type="text" class="form-control" name="type" id="type" placeholder="Type" value="{{old('type',$followup['type'])}}" autocomplete="type">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="description" class="form-label">Description</label>
+                                <input type="text" class="form-control" name="description" placeholder="Description" value="{{old('description',$followup['description'])}}"  autocomplete="description">
                             </div>
                             <div class="form-group">
-                                <label for="contactPersonName" class="form-label">Contact Person Name</label>
-                                <input type="text" class="form-control" name="contactPersonName" id="contactPersonName" placeholder="Contact Person Name" value="{{old('contact_person_name',$followup['contact_person_name'])}}"  autocomplete="contactPersonNmae">
+                                <label for="date" class="form-label">Date</label>
+                                <input type="text" class="form-control" name="date" placeholder="Date" value="{{old('date',$followup['date'])}}"  autocomplete="date">
                             </div>
                             <div class="form-group">
-                                <label for="phone" class="form-label">Phone</label>
-                                <input type="text" class="form-control" name="phone" placeholder="Phone" value="{{old('phone',$followup['phone'])}}"  autocomplete="phone">
+                                <label for="description" class="form-label">Time</label>
+                                <input type="text" class="form-control" name="time" placeholder="Time" value="{{old('time',$followup['time'])}}"  autocomplete="time">
                             </div>
-                            <div class="form-group">
-                                <label for="lat" class="form-label">Lat</label>
-                                {{-- readonly --}}
-                                <input readonly type="text"  class="form-control" name="lat" id="lat" placeholder="Lat" value="{{old('lat',$followup['lat'])}}"  autocomplete="lat">
-                            </div>
-                            <div class="form-group">
-                                <label for="long" class="form-label">Long</label>
-                                {{-- readonly --}}
-                                <input readonly ="text" class="form-control" name="long" id="long" placeholder="long" value="{{old('long',$followup['long'])}}"  autocomplete="long">
-                            </div>
+                            
                             @if (auth()->user()->usertype == "admin")
                             <div class="form-group">
                                 <label for="team_id" class="form-label">Team</label>
