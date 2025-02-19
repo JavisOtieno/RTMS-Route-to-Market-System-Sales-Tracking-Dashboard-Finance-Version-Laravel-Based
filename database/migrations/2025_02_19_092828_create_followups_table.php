@@ -26,6 +26,9 @@ return new class extends Migration
             $table->string('status');
             $table->string('date');
             $table->string('time');
+            $table->unsignedBigInteger('organization_id');
+            $table->foreign('organization_id')->references('id')->on('organizations');
+            $table->unsignedBigInteger('team_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
