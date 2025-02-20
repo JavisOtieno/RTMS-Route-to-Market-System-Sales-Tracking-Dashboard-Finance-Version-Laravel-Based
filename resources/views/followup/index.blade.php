@@ -84,7 +84,7 @@
                             <td>{{$followup['id']}}</td>
                             <td><a type="button" href="/editfollowup/{{$followup['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
                             </td>
-                            <td><a type="button" onclick="deleteItemDefault({{$followup['id']}},'{{$followup['outlet']['name']}}','{{$followup['user']['name']}}','followup')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
+                            <td><a type="button" onclick="deleteItem({{$followup['id']}},'{{$followup['outlet']['name']}}','{{$followup['type']}}')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
                             <td>{{ucfirst($followup['type'])}}</td>
                             <td>{{$followup['description']}}</td>
                             <td>{{$followup['date']}}</td>
@@ -196,10 +196,11 @@
 @endsection
 
 <script>
-    function deleteItem(id,name,sku,pieces){
+    function deleteItem(id,name,type){
         //alert(id);
         var itemDetails = document.getElementById("itemDetails");
-        itemDetails.innerHTML = "Outlet Id: "+id+"<br/> Outlet Name: "+name;
+        itemDetails.innerHTML = "Follow up Id: "+id+"<br/> Customer Name: "+name+
+        "<br/> Type: "+type;
         var confirmDeleteLink = document.getElementById('confirmDelete'); //or grab it by tagname etc
         confirmDeleteLink.href = "/deletefollowup/"+id;
     }
