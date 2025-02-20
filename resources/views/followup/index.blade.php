@@ -64,6 +64,7 @@
                         <tr>
                             <th>ID</th>
                             <th>View/Edit</th>
+                            <th>Delete</th>
                             <th>Type</th>
                             <th>Description</th>
                             <th>Scheduled Date</th>
@@ -83,6 +84,7 @@
                             <td>{{$followup['id']}}</td>
                             <td><a type="button" href="/editfollowup/{{$followup['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View/Edit</a>
                             </td>
+                            <td><a type="button" onclick="deleteItemDefault({{$feed['id']}},'{{$feed['outlet']['name']}}','{{$feed['user']['name']}}','feedback')"  class="btn btn-danger" style="margin-left: auto;color:white;" data-bs-toggle="modal" href="#modalDelete">Delete</a>
                             <td>{{ucfirst($followup['type'])}}</td>
                             <td>{{$followup['description']}}</td>
                             <td>{{$followup['date']}}</td>
