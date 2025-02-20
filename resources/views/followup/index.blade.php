@@ -65,7 +65,7 @@
                             <th>ID</th>
                             <th>View/Edit</th>
                             <th>Delete</th>
-                            <th>User</th>
+                            <th>User Name</th>
                             <th>Type</th>
                             <th>Description</th>
                             <th>Scheduled Date</th>
