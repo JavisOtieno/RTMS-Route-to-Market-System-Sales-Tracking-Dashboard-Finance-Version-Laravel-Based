@@ -57,6 +57,51 @@ class FollowupController extends Controller
         
     }
 
+    public function saveEditFollowup(Request $request,$id){
+
+
+        // $table->string('type');
+        // $table->longText('description');
+        // $table->string('status');
+        // $table->string('date');
+        // $table->string('time');
+
+       
+        //$incomingFields=
+        $request->validate([
+   
+            // ''=>'required',
+
+            'description'=>'required|string|max:3000',
+            'type'=>'required|string|max:255',
+            'status'=>'required|string|max:255',
+            // 'date'=>'required|string|max:255',
+            'time'=>'required|string|max:255', 
+        ]);
+
+
+        $incomingFields=[];
+
+        $incomingFields['description']=strip_tags($request['description']);
+        $incomingFields['type']=strip_tags($request['type']);
+        $incomingFields['status']=strip_tags($request['status']);
+        // $incomingFields['date']=strip_tags($request['date']);
+        $incomingFields['time']=strip_tags($request['time']);
+        $incomingFields['organization_id']=auth()->user()->organization_id;
+        $incomingFields['team_id']=auth()->user()->team_id;
+
+
+        $followup = Followup::find($id);
+        $followup->update($incomingFields);
+
+        $followupStatus=array(
+            "message" => "Followup Edited Successfully",
+            "status" => "success");
+
+        return response()->json($followupStatus);
+        
+    }
+
     public function index(){
         //$sales = Sale::all();
         $userId = auth()->id();
