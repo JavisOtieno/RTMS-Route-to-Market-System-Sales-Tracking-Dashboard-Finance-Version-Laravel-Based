@@ -10,11 +10,11 @@
 
   <!-- PAGE-HEADER -->
   <div class="page-header">
-    <h1 class="page-title">Allocate Customers To Sellers</h1>
+    <h1 class="page-title">Allocate Customers To User</h1>
     <div>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)">RTMS</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Allocate Customers To Sellers</li>
+            <li class="breadcrumb-item active" aria-current="page">Allocate Customers To Users</li>
         </ol>
     </div>
 </div>
@@ -48,7 +48,7 @@
                         </ul>
                     </div>
                     @endif
-                        <h3 class="card-title col-md-2">Select Seller</h3>
+                        <h3 class="card-title col-md-2">Select User</h3>
                         <div class="col-md-4" style="margin-left:20px;margin-right:20px;margin-top:10px;margin-bottom:10px;">
                             {{-- <div class="form-group" style="margin-block-end: 0rem;">
                                 
@@ -71,7 +71,7 @@
                                     </select>
                             </div>
                         </div>
-                        <input type="submit" class="btn btn-danger col-md-4" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;" value="Allocate Selected Customers To Seller"></input>
+                        <input type="submit" class="btn btn-danger col-md-4" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;" value="Allocate Selected Customers To User"></input>
                     </div>
                     <div class="row" style="margin: 0 10px;">
                         <input type="hidden" id="tableLoaded" value="Outletstouser"/>
@@ -81,7 +81,7 @@
                             <input type="text" class="form-control" id="nameInput" placeholder="Name">
                         </div>
                         <div class="col-md-3 mb-3">
-                            <label for="currentSellerInput" class="form-label">Seller</label>
+                            <label for="currentSellerInput" class="form-label">User</label>
                             <input type="text" class="form-control" id="currentSellerInput" placeholder="Seller">
                         </div>
                         
@@ -111,7 +111,7 @@
                                                 </label>
                                             </div> --}}
                                         </th>
-                                        <th>Seller</th>
+                                        <th>User</th>
                                         {{-- <th>Name</th> --}}
                                         <th>Contact Name</th>
                                         <th>Contact Phone</th>
