@@ -10,11 +10,11 @@
 
   <!-- PAGE-HEADER -->
   <div class="page-header">
-    <h1 class="page-title">Add Sellers to Team</h1>
+    <h1 class="page-title">Add Users to Team</h1>
     <div>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)">RTMS</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Add Sellers to Team</li>
+            <li class="breadcrumb-item active" aria-current="page">Add Users to Team</li>
         </ol>
     </div>
 </div>
@@ -64,7 +64,7 @@
                                     </select>
                             </div>
                         </div>
-                        <input type="submit" class="btn btn-danger col-md-4" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;" value="Add Sellers To Team"></input>
+                        <input type="submit" class="btn btn-danger col-md-4" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;" value="Add Users To Team"></input>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -74,7 +74,7 @@
                                         
                                         <th>ID</th>
                                         {{-- <th>Select - Seller Name</th> --}}
-                                        <th>Sellers
+                                        <th>Users
                                             {{-- <div class="form-group" style="margin-top:10px;" >
                                                 <label class="custom-control custom-checkbox mb-0" >
                                             <input type="checkbox" id="selectallusers" class="custom-control-input" name="users[]" value="">
