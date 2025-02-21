@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('outlet_id'); 
             $table->foreign('outlet_id')->references('id')->on('outlets');
             //$table->integer('visit_id');
-            $table->unsignedBigInteger('visit_id'); 
+            $table->unsignedBigInteger('visit_id')->nullable(); 
             $table->foreign('visit_id')->references('id')->on('visits');
             $table->string('type');
             $table->longText('description');

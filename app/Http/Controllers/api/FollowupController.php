@@ -21,7 +21,7 @@ class FollowupController extends Controller
        
         //$incomingFields=
         $request->validate([
-            'visitId'=>'required|numeric|digits_between:1,20|exists:visits,id',
+            'visitId'=>'nullable|numeric|digits_between:1,20|exists:visits,id',
             'outletId'=>'required|numeric|digits_between:1,20|exists:outlets,id',
             // ''=>'required',
 
