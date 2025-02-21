@@ -81,6 +81,7 @@ Route::middleware(['auth:sanctum','apiLimitInactiveOrganization',
     Route::post('addfollowup',[FollowupController::class,'saveFollowup']);
     Route::get('followup',[FollowupController::class,'index']);
     Route::put('editfollowup/{id}',[FollowupController::class,'saveEditFollowup']);
+    Route::post('followuponthisdate/{date}',[FollowupController::class,'followupsOnThisDate']);
 
     Route::post('addcompetitoranalysis',[CompetitorController::class,'saveCompetitorAnalysis']);
     Route::get('competitiveanalysis',[CompetitorController::class,'index']);

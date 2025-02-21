@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\api;
 
+use Carbon\Carbon;
 use App\Models\Followup;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -100,6 +101,19 @@ class FollowupController extends Controller
 
         return response()->json($followupStatus);
         
+    }
+    public function followupsOnThisDate($date){
+
+        // $incomingFields = $request->validate(['date'=>'required|string|max:255']);
+        // $selectedDate = $incomingFields['date'];
+        $date = Carbon::createFromFormat('Y-m-d', $date)->startOfDay();
+        $userId = auth()->id();
+        
+        $followups = Followup::where('user_id',$userId)->orderBy('id', 'DESC')->with('user','outlet')
+        ->whereDate('date', '=', $date)->orderBy('id', 'ASC')->get();
+
+        return response()->json(['followup'=>$followups]);
+
     }
 
     public function index(){
