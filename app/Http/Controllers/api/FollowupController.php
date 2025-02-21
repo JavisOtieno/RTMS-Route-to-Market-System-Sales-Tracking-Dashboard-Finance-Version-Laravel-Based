@@ -38,6 +38,10 @@ class FollowupController extends Controller
         $incomingFields['visit_id']=strip_tags($request['visitId']);
         $incomingFields['outlet_id']=strip_tags($request['outletId']);
 
+        if($incomingFields['visit_id']==""){
+            $incomingFields['visit_id']=null;
+        }
+
         $incomingFields['description']=strip_tags($request['description']);
         $incomingFields['type']=strip_tags($request['type']);
         $incomingFields['status']=strip_tags($request['status']);
