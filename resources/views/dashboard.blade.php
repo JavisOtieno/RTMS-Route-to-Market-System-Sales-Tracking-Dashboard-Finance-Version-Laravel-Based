@@ -220,7 +220,7 @@
                             <td>{{ $sale['user'] ? $sale['user']['name']  . ($sale['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}</td>
 
                             {{-- <td>{{$sale['pieces']}}</td> --}}
-                            <td>{{$sale['value'] > 0 ? 'KSh. ' . number_format($sale['value']) : number_format($sale['pieces']) . ' units' }}</td>
+                            <td>{{$sale['value'] > 0 ? 'KSh. ' . number_format($sale['value']) : number_format($sale['pieces']) . ($sale['pieces'] > 1? ' units':'unit') }}</td>
                             </tr>
                             @endforeach
                             @else
