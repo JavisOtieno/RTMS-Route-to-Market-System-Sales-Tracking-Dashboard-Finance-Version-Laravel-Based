@@ -216,7 +216,7 @@
                             <tr>
                             {{-- <td>{{$sale['id']}}</td> --}}
                             <td>{{$sale['outlet']['name']}}</td>
-                            <td>{{$sale['user']['name']}}</td>
+                            {{-- <td>{{$sale['user']['name']}}</td> --}}
                             <td>{{ $sale['user'] ? $sale['user']['name']  . ($sale['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}</td>
 
                             {{-- <td>{{$sale['pieces']}}</td> --}}
