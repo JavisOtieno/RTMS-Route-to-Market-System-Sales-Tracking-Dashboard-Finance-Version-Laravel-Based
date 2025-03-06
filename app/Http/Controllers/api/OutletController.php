@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\api;
 
-use App\Http\Controllers\api\ApiCommonController;
+use Carbon\Carbon;
 use App\Models\Visit;
 use App\Models\Outlet;
+use App\Models\Followup;
 use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\api\ApiCommonController;
 
 class OutletController extends ApiCommonController
 {
@@ -120,6 +122,23 @@ public function setLocation($id,Request $request){
     public function index(){
         $userId = auth()->id();
         $outlets = Outlet::where('user_id',$userId)->orderBy('id', 'DESC')->with('user')->get();
+        return response()->json(['outlets'=>$outlets]);
+    }
+
+    public function followupOutlets(){
+        $userId = auth()->id();
+        $outlets = Outlet::where('user_id',$userId)->orderBy('id', 'DESC')->with('user')->get();
+
+        $today = Carbon::today()->toDateString();
+
+        $followupVisits = Followup::where('type', 'visit')
+            ->where('user_id', $userId)
+            ->whereDate('date', $today)
+            ->with('outlet')
+            ->get();
+
+        // Extract the related outlets without a for loop:
+        $outlets = $followupVisits->pluck('outlet')->unique('id');
         return response()->json(['outlets'=>$outlets]);
     }
 

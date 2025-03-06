@@ -67,6 +67,8 @@ Route::middleware(['auth:sanctum','apiLimitInactiveOrganization',
 
     Route::post('addoutlet',[OutletController::class,'addoutlet']);
     Route::get('outlets',[OutletController::class,'index']);
+    Route::get('followupoutlets',[OutletController::class,'followupOutlets']);
+
     Route::get('products',[ProductController::class,'index']);
     Route::get('productsinstock',[ProductController::class,'productsInStock']);
 
