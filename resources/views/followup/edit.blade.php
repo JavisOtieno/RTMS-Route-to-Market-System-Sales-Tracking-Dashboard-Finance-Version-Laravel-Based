@@ -81,22 +81,22 @@
                                 <input type="text" readonly class="form-control" name="time" placeholder="Time" value="{{old('time',$followup['time'])}}"  autocomplete="time">
                             </div>
                             
-                            @if (auth()->user()->usertype == "admin")
+                            {{-- @if (auth()->user()->usertype == "admin")
                             <div class="form-group">
                                 <label for="team_id" class="form-label">Team</label>
                                 <select name="team_id" class="form-control form-select select2" data-bs-placeholder="Select Team">
                                     <option value="0">None</option>
                                     @foreach($teams as $team)
-                                    {{-- <option value="{{ $team['id'] }}" {{ old('team_id', '') == $team['id'] ? 'selected' : '' }}>
-                                        {{ $team['name'] }}
-                                    </option> --}}
+                                    // <option value="{{ $team['id'] }}" {{ old('team_id', '') == $team['id'] ? 'selected' : '' }}>
+                                    //    {{ $team['name'] }}
+                                    // </option> 
                                     <option {{(isset($followup)&&isset($followup['team'])?old('team_id',$followup['team']['id']):old('team_id'))==$team['id']? 'selected':''}}
                                      value="{{$team['id']}}">{{$team['name']}}</option>
                             
                                     @endforeach
                                 </select>
                             </div>
-                            @endif
+                            @endif --}}
 
                             <div class="form-group">
                                 <label for="dateTime" class="form-label">Date and Time Added</label>
