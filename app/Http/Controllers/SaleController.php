@@ -159,10 +159,10 @@ class SaleController extends Controller
 
         $users = User::inOrganization()
             ->with('targetgroup')
-            ->withSum(['sales as total_sales_this_month' => function ($query) {
-                $query->whereMonth('created_at', Carbon::now()->subMonth()->month)
-                    ->whereYear('created_at', now()->year);
-            }], 'value')
+            // ->withSum(['sales as total_sales_this_month' => function ($query) {
+            //     $query->whereMonth('created_at', Carbon::now()->subMonth()->month)
+            //         ->whereYear('created_at', now()->year);
+            // }], 'value')
             ->get();
 
         $products = Product::all();
@@ -170,7 +170,8 @@ class SaleController extends Controller
 
 
 // Eager load sales and sale items for all users and products
-$sales = Sale::whereIn('user_id', $users->pluck('id'))->with('saleItems')->get();
+$sales = Sale::whereMonth('created_at', now()->month)
+->whereIn('user_id', $users->pluck('id'))->with('saleItems')->get();
 
 // Initialize an array to store the product totals
 $usersproducts = [];
