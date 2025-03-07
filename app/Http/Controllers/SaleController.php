@@ -170,7 +170,7 @@ class SaleController extends Controller
 
 
 // Eager load sales and sale items for all users and products
-$sales = Sale::whereMonth('created_at', Carbon::now()->subMonth()->month)
+$sales = Sale::whereMonth('created_at', now()->month)
 ->whereIn('user_id', $users->pluck('id'))->with('saleItems')->get();
 
 // Initialize an array to store the product totals
