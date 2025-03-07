@@ -129,8 +129,9 @@
                                         @else
                                         <th>{{number_format($product['target'])}} units</th>
                                         @endif --}}
+                                        <td>{{ round($usersproducts[$user->id][$product->id] / $product['target'] * 100, 2) }}</th>
                                         @endforeach
-                                        <td>{{$usersproducts[$user->id][$product->id]/$product['target']*100}}</th>
+                                        
                                         </td>
 
                        
