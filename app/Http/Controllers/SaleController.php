@@ -221,6 +221,8 @@ $aggregatedSales = DB::table('sales')
     ->groupBy('sales.user_id', 'sale_items.product_id')
     ->get();
 
+    $targetMonth = Carbon::now()->subMonths(2);
+
     $aggregatedSales = DB::table('users')
     ->select(
         'users.id as user_id',
@@ -228,7 +230,11 @@ $aggregatedSales = DB::table('sales')
         DB::raw("COALESCE(SUM(CASE WHEN products.targettype = 'amount' THEN sale_items.value ELSE sale_items.pieces END), 0) as total")
     )
     ->crossJoin('products')
-    ->leftJoin('sales', 'sales.user_id', '=', 'users.id')
+    ->leftJoin('sales', function($join) use ($targetMonth) {
+        $join->on('sales.user_id', '=', 'users.id')
+             ->whereMonth('sales.created_at', $targetMonth->month)
+             ->whereYear('sales.created_at', $targetMonth->year);
+    })
     ->leftJoin('sale_items', function ($join) {
         $join->on('sale_items.sale_id', '=', 'sales.id')
              ->on('sale_items.product_id', '=', 'products.id');
