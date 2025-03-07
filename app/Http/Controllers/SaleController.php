@@ -245,9 +245,9 @@ $aggregatedSales = DB::table('sales')
 
     // $usersproducts = $aggregatedSales;
 
-    return $aggregatedSales;
+    // return $aggregatedSales;
 
-        // return $usersproducts;
+        return $usersproducts;
 
         return view('sale.targets', compact('users','usersproducts','products'));
     }
