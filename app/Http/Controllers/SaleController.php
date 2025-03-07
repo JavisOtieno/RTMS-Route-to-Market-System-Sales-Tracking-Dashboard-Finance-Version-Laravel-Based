@@ -236,9 +236,9 @@ $aggregatedSales = DB::table('sales')
     ->groupBy('users.id', 'products.id')
     ->get();
 
-    return $aggregatedSales;
+    // return $aggregatedSales;
 
-        // return $usersproductarray;
+        return $usersproducts;
 
         return view('sale.targets', compact('users','usersproducts','products'));
     }
