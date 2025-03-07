@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical\AggregateBase;
 
 class SaleController extends Controller
 {
@@ -171,7 +170,7 @@ class SaleController extends Controller
 
 
 // Eager load sales and sale items for all users and products
-$sales = Sale::whereMonth('created_at', Carbon::now()->subMonths(2)->month)
+$sales = Sale::whereMonth('created_at', now()->month)
 ->whereIn('user_id', $users->pluck('id'))->with('saleItems')->get();
 
 // Initialize an array to store the product totals
@@ -211,43 +210,7 @@ foreach ($users as $user) {
     $usersproducts[$user->id] = $product_array;
 }
 
-$aggregatedSales = DB::table('sales')
-    ->join('sale_items', 'sales.id', '=', 'sale_items.sale_id')
-    ->select(
-        'sales.user_id',
-        'sale_items.product_id',
-        DB::raw("SUM(CASE WHEN products.targettype = 'amount' THEN sale_items.value ELSE sale_items.pieces END) as total")
-    )
-    ->join('products', 'sale_items.product_id', '=', 'products.id')
-    ->groupBy('sales.user_id', 'sale_items.product_id')
-    ->get();
-
-    $targetMonth = Carbon::now()->subMonths(2);
-
-    $aggregatedSales = DB::table('users')
-    ->select(
-        'users.id as user_id',
-        'products.id as product_id',
-        DB::raw("COALESCE(SUM(CASE WHEN products.targettype = 'amount' THEN sale_items.value ELSE sale_items.pieces END), 0) as total")
-    )
-    ->crossJoin('products')
-    ->leftJoin('sales', function($join) use ($targetMonth) {
-        $join->on('sales.user_id', '=', 'users.id')
-             ->whereMonth('sales.created_at', $targetMonth->month)
-             ->whereYear('sales.created_at', $targetMonth->year);
-    })
-    ->leftJoin('sale_items', function ($join) {
-        $join->on('sale_items.sale_id', '=', 'sales.id')
-             ->on('sale_items.product_id', '=', 'products.id');
-    })
-    ->groupBy('users.id', 'products.id')
-    ->get();
-
-    // $usersproducts = $aggregatedSales;
-
-    // return $aggregatedSales;
-
-        return $usersproducts;
+        // return $usersproductarray;
 
         return view('sale.targets', compact('users','usersproducts','products'));
     }
