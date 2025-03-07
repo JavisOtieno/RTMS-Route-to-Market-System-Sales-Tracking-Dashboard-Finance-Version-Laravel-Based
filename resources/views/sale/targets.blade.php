@@ -89,7 +89,7 @@
                                         Target : {{number_format($product['target'])}} units
                                         @endif
                                         </th>
-                                        <th>% achieved for {{$product->name}}</th>
+                                        <th>% achieved <br/> {{$product->name}}</th>
                                         @endforeach
                                         
                                         <th>Month</th>
