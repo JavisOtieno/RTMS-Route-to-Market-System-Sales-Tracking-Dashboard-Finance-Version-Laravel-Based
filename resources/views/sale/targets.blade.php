@@ -122,7 +122,7 @@
                                             
                                             <div style="display: flex; justify-content: space-between;">
                                                 <span>KSh {{number_format($usersproducts[$user->id][$product->id])}} </span>
-                                                <span>{{$usersproducts[$user->id][$product->id]/$product['target']*100}}</span>
+                                                <span style="border-left: 1px solid #000; padding-left: 10px;">{{$usersproducts[$user->id][$product->id]/$product['target']*100}}</span>
                                             </div>
                                         </th>
                                         @else
