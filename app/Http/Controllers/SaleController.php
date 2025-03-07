@@ -210,6 +210,19 @@ foreach ($users as $user) {
     $usersproducts[$user->id] = $product_array;
 }
 
+$aggregatedSales = DB::table('sales')
+    ->join('sale_items', 'sales.id', '=', 'sale_items.sale_id')
+    ->select(
+        'sales.user_id',
+        'sale_items.product_id',
+        DB::raw("SUM(CASE WHEN products.targettype = 'amount' THEN sale_items.value ELSE sale_items.pieces END) as total")
+    )
+    ->join('products', 'sale_items.product_id', '=', 'products.id')
+    ->groupBy('sales.user_id', 'sale_items.product_id')
+    ->get();
+
+    return $aggregatedSales;
+
         // return $usersproductarray;
 
         return view('sale.targets', compact('users','usersproducts','products'));
