@@ -243,9 +243,9 @@ $aggregatedSales = DB::table('sales')
     ->groupBy('users.id', 'products.id')
     ->get();
 
-    $usersproducts = $aggregatedSales;
+    // $usersproducts = $aggregatedSales;
 
-    // return $aggregatedSales;
+    return $aggregatedSales;
 
         // return $usersproducts;
 
