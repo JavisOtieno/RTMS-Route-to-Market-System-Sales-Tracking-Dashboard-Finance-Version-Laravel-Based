@@ -130,7 +130,7 @@
                                         <th>{{number_format($product['target'])}} units</th>
                                         @endif --}}
                                         @endforeach
-                                        <td>{{$usersproducts[$user->id][$product->id]/$product['']*100}}</th>
+                                        <td>{{$usersproducts[$user->id][$product->id]/$product['target']*100}}</th>
                                         </td>
 
                        
