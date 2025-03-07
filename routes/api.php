@@ -82,6 +82,8 @@ Route::middleware(['auth:sanctum','apiLimitInactiveOrganization',
 
     Route::post('addfollowup',[FollowupController::class,'saveFollowup']);
     Route::get('followup',[FollowupController::class,'index']);
+    Route::get('pendingfollowup',[FollowupController::class,'pendingFollowup']);
+    Route::get('completefollowup',[FollowupController::class,'completeFollowup']);
     Route::put('editfollowup/{id}',[FollowupController::class,'saveEditFollowup']);
     Route::get('followuponthisdate/{date}',[FollowupController::class,'followupsOnThisDate']);
 

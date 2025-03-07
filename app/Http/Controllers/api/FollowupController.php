@@ -120,6 +120,23 @@ class FollowupController extends Controller
 
     }
 
+    public function pendingFollowup(){
+        //$sales = Sale::all();
+        $userId = auth()->id();
+        $followup = Followup::where('user_id',$userId)->
+        where('status','=','pending')->orderBy('id', 'DESC')
+        ->with('user','outlet')->get();
+        return response()->json(['followup'=>$followup]);
+    }
+    public function completeFollowup(){
+        //$sales = Sale::all();
+        $userId = auth()->id();
+        $followup = Followup::where('user_id',$userId)
+        ->where('status','complete')
+        ->orderBy('id', 'DESC')->with('user','outlet')->get();
+        return response()->json(['followup'=>$followup]);
+    }
+
     public function index(){
         //$sales = Sale::all();
         $userId = auth()->id();
