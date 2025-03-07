@@ -221,6 +221,21 @@ $aggregatedSales = DB::table('sales')
     ->groupBy('sales.user_id', 'sale_items.product_id')
     ->get();
 
+    $aggregatedSales = DB::table('users')
+    ->select(
+        'users.id as user_id',
+        'products.id as product_id',
+        DB::raw("COALESCE(SUM(CASE WHEN products.targettype = 'amount' THEN sale_items.value ELSE sale_items.pieces END), 0) as total")
+    )
+    ->crossJoin('products')
+    ->leftJoin('sales', 'sales.user_id', '=', 'users.id')
+    ->leftJoin('sale_items', function ($join) {
+        $join->on('sale_items.sale_id', '=', 'sales.id')
+             ->on('sale_items.product_id', '=', 'products.id');
+    })
+    ->groupBy('users.id', 'products.id')
+    ->get();
+
     return $aggregatedSales;
 
         // return $usersproductarray;
