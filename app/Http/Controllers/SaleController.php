@@ -155,14 +155,16 @@ class SaleController extends Controller
     }
     public function showSalesTargets()
     {
+        // $lastmonth = Carbon::now()->subMonth()->month;
 
         $users = User::inOrganization()
             ->with('targetgroup')
             ->withSum(['sales as total_sales_this_month' => function ($query) {
-                $query->whereMonth('created_at', now()->month)
+                $query->whereMonth('created_at', Carbon::now()->subMonth()->month)
                     ->whereYear('created_at', now()->year);
             }], 'value')
             ->get();
+
         $products = Product::all();
 
 
