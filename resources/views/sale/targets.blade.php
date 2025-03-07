@@ -118,7 +118,13 @@
                                         {{-- <td>{{ucfirst($user['usertype'])}}</td> --}}
                                         @foreach($products as $product)
                                         @if($product['targettype'] =='amount')
-                                        <th>KSh {{number_format($usersproducts[$user->id][$product->id])}} {{$usersproducts[$user->id][$product->id]/$product['target']*100}}</th>
+                                        <th>
+                                            
+                                            <div style="display: flex; justify-content: space-between;">
+                                                <span>KSh {{number_format($usersproducts[$user->id][$product->id])}} </span>
+                                                <span>{{$usersproducts[$user->id][$product->id]/$product['target']*100}}</span>
+                                            </div>
+                                        </th>
                                         @else
                                         <th>{{number_format($usersproducts[$user->id][$product->id])}} units</th>
                                         @endif
