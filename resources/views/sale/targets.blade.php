@@ -89,7 +89,9 @@
                                         Target : {{number_format($product['target'])}} units
                                         @endif
                                         </th>
+                                        <th>% achieved for {{$product->name}}</th>
                                         @endforeach
+                                        
                                         <th>Month</th>
                                         {{-- <th>Status</th> --}}
                                         
@@ -118,13 +120,7 @@
                                         {{-- <td>{{ucfirst($user['usertype'])}}</td> --}}
                                         @foreach($products as $product)
                                         @if($product['targettype'] =='amount')
-                                        <th>
-                                            
-                                            <div style="display: flex; justify-content: space-between;">
-                                                <span>KSh {{number_format($usersproducts[$user->id][$product->id])}} </span>
-                                                <span style="border-left: 1px solid #000; padding-left: 10px;">{{$usersproducts[$user->id][$product->id]/$product['target']*100}}</span>
-                                            </div>
-                                        </th>
+                                        <th>KSh {{number_format($usersproducts[$user->id][$product->id])}} 
                                         @else
                                         <th>{{number_format($usersproducts[$user->id][$product->id])}} units</th>
                                         @endif
@@ -134,6 +130,8 @@
                                         <th>{{number_format($product['target'])}} units</th>
                                         @endif --}}
                                         @endforeach
+                                        <td>{{$usersproducts[$user->id][$product->id]/$product['']*100}}</th>
+                                        </td>
 
                        
                                         <td>{{ date('M-Y', strtotime('today')) }}</td>
