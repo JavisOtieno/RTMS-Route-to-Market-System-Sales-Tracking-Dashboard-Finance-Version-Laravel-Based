@@ -372,6 +372,15 @@ $(function() {
             table.order([0, 'desc']).draw();
         });
     });
+
+    $('.dt-buttons .dt-button').css({
+        'background-color': '#28a745',
+        'color': '#fff',
+        'border-radius': '5px'
+    });
+
+    
+
 });
 
 
