@@ -373,11 +373,11 @@ $(function() {
         });
     });
 
-    $('.dt-buttons .dt-button').css({
-        'background-color': '#28a745',
-        'color': '#fff',
-        'border-radius': '5px'
-    });
+    // $('.dt-buttons .dt-button').css({
+    //     'background-color': '#28a745',
+    //     'color': '#fff',
+    //     'border-radius': '5px'
+    // });
 
     
 
