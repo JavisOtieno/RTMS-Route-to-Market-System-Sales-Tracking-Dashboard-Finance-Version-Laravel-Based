@@ -374,6 +374,12 @@ $(function() {
     });
 });
 
+setTimeout(function() {
+        $('.dt-buttons .btn-group').each(function() {
+            $(this).replaceWith($(this).children()); // Removes the .btn-group but keeps the buttons
+        });
+    }, 500); // Delay to ensure DataTables initializes first
+
 
 
         });

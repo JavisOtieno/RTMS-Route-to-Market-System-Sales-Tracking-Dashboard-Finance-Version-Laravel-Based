@@ -150,12 +150,16 @@ Route::get('/clockins', [ClockinController::class,'index']);
 Route::get('/clockin/{id}',[ClockinController::class,'showEditClockin']);
 Route::get('/clockins/{id}/{object}',[ClockinController::class,'showClockinsById']);
 Route::get('/clockinsmap', [ClockinController::class,'showClockinsMap']);
+Route::get('/clockinsanalytics', [ClockinController::class,'showClockinsAnalytics']);
+Route::get('/fetchclockinanalytics', [ClockinController::class,'filterClockinsAnalytics']);
+
 
 Route::get('/clockouts', [ClockoutController::class,'index']);
 Route::get('/clockouts/{id}/{object}',[ClockoutController::class,'showClockoutsById']);
 Route::get('/clockout/{id}',[ClockoutController::class,'showEditClockout']);
 Route::get('/clockoutsmap', [ClockoutController::class,'showClockoutsMap']);
 Route::get('/deleteclockout/{id}', [ClockoutController::class,'deleteClockout']);
+
 //Test
 
 Route::get('/visits', [VisitController::class,'index']);
@@ -208,6 +212,7 @@ Route::put('/saveeditseller/{id}',[UserController::class,'saveEditSeller']);
 Route::get('/offplanrequests', [OffplanrequestController::class,'index']);
 Route::get('/editoffplanrequest/{id}', [OffplanrequestController::class,'showEditOffplanrequest']);
 Route::put('/saveeditoffplanrequest/{id}',[OffplanrequestController::class,'saveEditOffplanrequest']);
+
 
 
 // $user = auth()->user();
