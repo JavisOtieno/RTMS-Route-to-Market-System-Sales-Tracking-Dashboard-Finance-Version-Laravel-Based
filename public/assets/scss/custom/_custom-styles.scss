@@ -3297,14 +3297,10 @@ table.table-bordered.dataTable thead tr:first-child td {
     fill: $dark;
 }
 
-// position: absolute;
-// inset-block-start: 0;
-// inset-inline-start: 156px;
-
 .dt-buttons.btn-group {
-    position: relative;
+    position: absolute;
     inset-block-start: 0;
-    inset-inline-start: 0px;
+    inset-inline-start: 156px;
 }
 
 .notify-time {
