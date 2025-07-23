@@ -31,7 +31,10 @@ class UserController extends CommonController
         return view('admin.index', ['users'=>$users]);
     }
     public function sellers() {
-        $users = User::inOrganization()->with('targetgroup')->where('usertype','seller')->get();
+        //eager load to prevent N+1
+        $users = User::inOrganization()
+        ->with(['targetgroup', 'team', 'region', 'territory'])
+        ->where('usertype','seller')->get();
 
         //return $users;
         //dd($sales);
