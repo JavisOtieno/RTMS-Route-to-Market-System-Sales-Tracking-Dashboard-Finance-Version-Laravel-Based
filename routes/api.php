@@ -10,7 +10,7 @@ use App\Http\Controllers\api\SaleController;
 use App\Http\Controllers\api\ImageController;
 use App\Http\Controllers\api\LoginController;
 use App\Http\Controllers\api\VisitController;
-use App\Http\Controllers\OrderNoteController;
+use App\Http\Controllers\api\OrderNoteController;
 use App\Http\Controllers\api\OutletController;
 use App\Http\Controllers\api\ClockinController;
 use App\Http\Controllers\api\ProductController;
