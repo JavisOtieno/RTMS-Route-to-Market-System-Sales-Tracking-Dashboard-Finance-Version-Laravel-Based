@@ -64,6 +64,11 @@
                                 autocomplete="userid">
                             </div>
                             <div class="form-group">
+                                
+                                <label for="outletName" class="form-label">Customer Name</label>
+                                <input readonly type="text" class="form-control" name="outletName" id="outleName" placeholder="Outlet Name" value="{{$sale['outlet']['name']}}" autocomplete="outletname">
+                            </div>
+                            <div class="form-group">
                                 <label for="type" class="form-label">Type</label>
                                 <input type="text" class="form-control" name="type" id="type" placeholder="Type" readonly value="{{old('type',ucfirst($followup['type']))}}" autocomplete="type">
                             </div>
