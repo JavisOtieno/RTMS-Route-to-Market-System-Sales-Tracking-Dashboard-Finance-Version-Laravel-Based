@@ -66,7 +66,7 @@
                             <div class="form-group">
                                 
                                 <label for="outletName" class="form-label">Customer Name</label>
-                                <input readonly type="text" class="form-control" name="outletName" id="outleName" placeholder="Outlet Name" value="{{$sale['outlet']['name']}}" autocomplete="outletname">
+                                <input readonly type="text" class="form-control" name="outletName" id="outleName" placeholder="Outlet Name" value="{{$followup['outlet']['name']}}" autocomplete="outletname">
                             </div>
                             <div class="form-group">
                                 <label for="type" class="form-label">Type</label>
