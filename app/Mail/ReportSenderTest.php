@@ -4,9 +4,11 @@ namespace App\Mail;
 
 use Carbon\Carbon;
 use App\Models\Sale;
+use App\Models\User;
 use App\Models\Visit;
 use App\Models\Outlet;
 use App\Models\Clockin;
+use App\Models\Product;
 use App\Models\Clockout;
 use App\Models\SaleItem;
 use Illuminate\Bus\Queueable;
@@ -99,24 +101,24 @@ class ReportSenderTest extends Mailable
         Carbon::yesterday())->count();
 
         $topseller = Sale::whereDate('created_at', Carbon::yesterday())
-        ->selectRaw('user_id,name, COUNT(*) as total_sales')
+        ->selectRaw('user_id, COUNT(*) as total_sales')
         ->groupBy('user_id')
         ->orderByDesc('total_sales')
         ->first();
         
         $topsellercount = $topseller->total_sales;
-        $topseller = $topseller->name;
+        $topseller = User::find($topseller->userid)->name;
 
         $topproduct = SaleItem::whereHas('sale', function ($query) {
             $query->whereDate('created_at', Carbon::yesterday());
         })
-        ->selectRaw('product_id,name, COUNT(*) as product_sales')
+        ->selectRaw('product_id, COUNT(*) as product_sales')
         ->groupBy('product_id')
         ->orderByDesc('product_sales')
         ->first();
         
         $topproductcount = $topproduct->product_sales;
-        $topproduct = $topproduct->name;
+        $topproduct = Product::find($topproduct->product_id)->name;
 
 
 
