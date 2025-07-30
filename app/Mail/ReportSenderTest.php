@@ -99,7 +99,7 @@ class ReportSenderTest extends Mailable
         Carbon::yesterday())->count();
 
         $topseller = Sale::whereDate('created_at', Carbon::yesterday())
-        ->selectRaw('user_id, COUNT(*) as total_sales')
+        ->selectRaw('user_id,name, COUNT(*) as total_sales')
         ->groupBy('user_id')
         ->orderByDesc('total_sales')
         ->first();
@@ -110,7 +110,7 @@ class ReportSenderTest extends Mailable
         $topproduct = SaleItem::whereHas('sale', function ($query) {
             $query->whereDate('created_at', Carbon::yesterday());
         })
-        ->selectRaw('product_id, COUNT(*) as product_sales')
+        ->selectRaw('product_id,name, COUNT(*) as product_sales')
         ->groupBy('product_id')
         ->orderByDesc('product_sales')
         ->first();
