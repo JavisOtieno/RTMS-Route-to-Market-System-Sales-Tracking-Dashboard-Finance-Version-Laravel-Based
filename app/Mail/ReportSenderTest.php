@@ -107,7 +107,7 @@ class ReportSenderTest extends Mailable
         ->first();
         
         $topsellercount = $topseller->total_sales;
-        $topseller = User::find($topseller->userid)->name;
+        $topseller = User::find($topseller->user_id)->name;
 
         $topproduct = SaleItem::whereHas('sale', function ($query) {
             $query->whereDate('created_at', Carbon::yesterday());
