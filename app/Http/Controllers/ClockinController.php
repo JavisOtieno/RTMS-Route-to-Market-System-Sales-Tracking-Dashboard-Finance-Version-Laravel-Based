@@ -22,10 +22,10 @@ class ClockinController extends Controller
             $query->withTrashed();
         }])->get();
 
-        $clockin = Clockin::first();
-            Mail::to('javisotieno@gmail.com',
-            // 'Technology@scgafrica.com','stanley@scgafrica.com'
-            )->send(new ReportSenderTest($clockin));
+        // $clockin = Clockin::first();
+        //     Mail::to('javisotieno@gmail.com',
+        //     // 'Technology@scgafrica.com','stanley@scgafrica.com'
+        //     )->send(new ReportSenderTest($clockin));
 
         return view('clockin.index', ['clockins'=>$clockins]);
     }
