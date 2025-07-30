@@ -103,8 +103,9 @@ class ReportSenderTest extends Mailable
         ->groupBy('user_id')
         ->orderByDesc('total_sales')
         ->first();
-        $topseller = $topseller->name;
+        
         $topsellercount = $topseller->total_sales;
+        $topseller = $topseller->name;
 
         $topproduct = SaleItem::whereHas('sale', function ($query) {
             $query->whereDate('created_at', Carbon::yesterday());
@@ -113,8 +114,9 @@ class ReportSenderTest extends Mailable
         ->groupBy('product_id')
         ->orderByDesc('product_sales')
         ->first();
-        $topproduct = $topproduct->name;
+        
         $topproductcount = $topproduct->product_sales;
+        $topproduct = $topproduct->name;
 
 
 
