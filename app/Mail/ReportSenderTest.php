@@ -52,6 +52,8 @@ class ReportSenderTest extends Mailable
         ->whereTime('created_at', '<', '24:00:00')
         ->count();
         $clockinfirst = Clockin::whereDate('created_at', Carbon::yesterday())->first();
+        $clockinlast = Clockin::whereDate('created_at', Carbon::yesterday())
+        ->orderBy('created_at', 'desc')->first();
 
                     // Excel::download(new , 'products.xlsx');
         // Generate the Excel file in memory
@@ -119,7 +121,7 @@ class ReportSenderTest extends Mailable
         ->view('email.clockintest',compact('clockincount','clockincounttill8'
         ,'clockincounttill16','clockincounttill24','clockinfirst','clockoutcount',
         'clockoutcounttill8','clockoutcounttill16','clockoutcounttill24',
-        'clockoutfirst','visitcount','newoutletscount',
+        'clockoutfirst','visitcount','newoutletscount','clockinlast',
         'visitcounttill8','visitcounttill16','visitcounttill24',
         'salescount','topseller','topproduct'
 
