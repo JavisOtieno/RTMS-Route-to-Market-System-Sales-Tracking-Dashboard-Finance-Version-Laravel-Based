@@ -103,6 +103,7 @@ class ReportSenderTest extends Mailable
         ->groupBy('user_id')
         ->orderByDesc('total_sales')
         ->first();
+        $topseller = $topseller->name;
         $topsellercount = $topseller->total_sales;
 
         $topproduct = SaleItem::whereHas('sale', function ($query) {
@@ -112,6 +113,7 @@ class ReportSenderTest extends Mailable
         ->groupBy('product_id')
         ->orderByDesc('product_sales')
         ->first();
+        $topproduct = $topproduct->name;
         $topproductcount = $topproduct->product_sales;
 
 
