@@ -29,13 +29,13 @@ class Kernel extends ConsoleKernel
 
             $clockin = Clockin::first();
             Mail::to('javisotieno@gmail.com',
-            // 'Technology@scgafrica.com','stanley@scgafrica.com'
+            'Technology@scgafrica.com','stanley@scgafrica.com'
             )->send(new ReportSenderTest($clockin));
     
         })
         // ->everyFiveMinutes();
-        ->everyMinute();
-        // ->dailyAt('08:00'); // Runs every day at 8 AM
+        // ->everyMinute();
+        ->dailyAt('08:00'); // Runs every day at 8 AM
     }
 
     /**
