@@ -6,6 +6,8 @@ use App\Models\User;
 use App\Models\Outlet;
 use App\Models\Clockin;
 use Illuminate\Http\Request;
+use App\Mail\ReportSenderTest;
+use Illuminate\Support\Facades\Mail;
 
 class ClockinController extends Controller
 {
@@ -19,6 +21,11 @@ class ClockinController extends Controller
         $clockins = Clockin::with(['user' => function ($query) {
             $query->withTrashed();
         }])->get();
+
+        $clockin = Clockin::first();
+            Mail::to('javisotieno@gmail.com',
+            // 'Technology@scgafrica.com','stanley@scgafrica.com'
+            )->send(new ReportSenderTest($clockin));
 
         return view('clockin.index', ['clockins'=>$clockins]);
     }
