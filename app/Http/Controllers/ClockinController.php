@@ -10,6 +10,8 @@ use App\Mail\ReportSenderTest;
 use Illuminate\Support\Facades\Mail;
 
 class ClockinController extends Controller
+
+//test
 {
     //
     public function apiindex(){
