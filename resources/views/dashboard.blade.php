@@ -57,7 +57,7 @@
                         </div>
                     </div>
                     <span class="text-muted fs-12"><span class="text-pink"><i
-                                class="fe fe-arrow-up-circle text-pink"></i>{{$visitsWeekCount}}</span>
+                                class="fe fe-arrow-up-circle text-pink"></i> {{$visitsWeekCount}}</span>
                         This Week</span>
                 </div>
             </div>
@@ -99,7 +99,7 @@
                         </div>
                     </div>
                     <span class="text-muted fs-12"><span class="text-warning"><i
-                                class="fe fe-arrow-up-circle text-warning"></i>{{$productsWeekCount}}</span>
+                                class="fe fe-arrow-up-circle text-warning"></i> {{$productsWeekCount}}</span>
                         This Week</span>
                 </div>
             </div>
