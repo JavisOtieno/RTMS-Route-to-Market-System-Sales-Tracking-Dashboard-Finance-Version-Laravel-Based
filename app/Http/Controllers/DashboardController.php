@@ -105,7 +105,9 @@ class DashboardController extends Controller
 
         $salesPerMonth= array();
         for ($i=0; $i<=11; $i++){
-            $salesPerMonth[$i] = Sale::whereMonth('created_at', date('m',strtotime('-'.$i.' month')))->count();
+            $salesPerMonth[$i] = Sale::
+            whereYear('created_at', date('Y'))
+            ->whereMonth('created_at', date('m',strtotime('-'.$i.' month')))->count();
         }
         $salesPerMonth =array_reverse($salesPerMonth);
 
