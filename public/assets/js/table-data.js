@@ -117,33 +117,29 @@ $(function(e) {
                 }
             },
             customizeData: function (data) {
-            let newBody = [];
+                let newBody = [];
 
-            data.body.forEach(function(row) {
-                let productInfo = row[4]; // Products Sold column index
-                if (productInfo && productInfo.includes("\n")) {
-                    let lines = productInfo.split(/\r?\n/).filter(line => line.trim() !== "");
-                    lines.forEach(function(line, index) {
-                        let newRow = [...row];
-                        newRow[4] = line; // Product name & qty
-                        if (index > 0) {
-                            // Blank out other columns except product column
-                            for (let i = 0; i < newRow.length; i++) {
-                                if (i !== 4) {
-                                    newRow[i] = "";
-                                }
-                            }
-                        }
-                        newBody.push(newRow);
-                    });
-                } else {
-                    newBody.push(row);
-                }
-            });
+                data.body.forEach(function(row) {
+     
 
-            data.body = newBody;
-        }
+                    let productInfo = row[4]; 
 
+                    if (productInfo && productInfo.includes("\n")) {
+                        let lines = productInfo.split(/\r?\n/).filter(line => line.trim() !== "");
+                        lines.forEach(function(line) {
+                            let newRow = [...row];
+                            newRow[4] = line; // Replace with just this line
+                            newBody.push(newRow);
+                        });
+                    } else {
+                        newBody.push(row);
+                    }
+                    
+                });
+
+                // Replace original data body with expanded rows
+                data.body = newBody;
+            }
         }
         
         , 
