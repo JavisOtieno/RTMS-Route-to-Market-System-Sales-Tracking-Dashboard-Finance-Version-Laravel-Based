@@ -134,6 +134,7 @@ $(function(e) {
                     } else {
                         newBody.push(row);
                     }
+                    
                 });
 
                 // Replace original data body with expanded rows
