@@ -120,12 +120,15 @@ $(function(e) {
                 let newBody = [];
 
                 data.body.forEach(function(row) {
-                    let productInfo = row[5]; // Assuming productinfo is at column index 3
-                    if (productInfo && productInfo.includes(" ")) {
-                        let lines = productInfo.split(" ");
-                        lines.forEach(function(line, index) {
+     
+
+                    let productInfo = row[4]; 
+
+                    if (productInfo && productInfo.includes("\n")) {
+                        let lines = productInfo.split(/\r?\n/).filter(line => line.trim() !== "");
+                        lines.forEach(function(line) {
                             let newRow = [...row];
-                            newRow[5] = line; // Replace productinfo with just this line
+                            newRow[4] = line; // Replace with just this line
                             newBody.push(newRow);
                         });
                     } else {
