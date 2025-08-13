@@ -138,8 +138,8 @@
                                         <td>{{ $sale['user'] ? $sale['user']['name']  . ($sale['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}
                                         </td>
                                         <td>{{$sale['outlet']['name']}}</td>
-                                        <td>{{$visit['outlet']['region']==null?"None":$visit['outlet']['region']['name']}}</td>       
-                                        <td>{{$visit['outlet']['territory']==null?"None":$visit['outlet']['territory']['name']}}</td>  
+                                        <td>{{$sale['outlet']['region']==null?"None":$sale['outlet']['region']['name']}}</td>       
+                                        <td>{{$sale['outlet']['territory']==null?"None":$sale['outlet']['territory']['name']}}</td>  
                                         {{-- <td style="white-space: pre-line;">{{$saleitems}}</td> --}}
                                         <td style="
                                             max-width: 100px;
