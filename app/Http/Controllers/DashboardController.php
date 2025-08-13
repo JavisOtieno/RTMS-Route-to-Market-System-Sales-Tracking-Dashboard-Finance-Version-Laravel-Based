@@ -30,7 +30,7 @@ class DashboardController extends Controller
         $competitorsCount = Competitor::all()->count();
         $sales = Sale::with(['user' => function ($query) {
             $query->withTrashed();
-        }])->orderBy('id', 'desc')->take(5)->get();
+        },'outlet'])->orderBy('id', 'desc')->take(5)->get();
         $outlets = Outlet::orderBy('id', 'desc')->take(5)->get();
         $month=Carbon::now()->format('M');
 
