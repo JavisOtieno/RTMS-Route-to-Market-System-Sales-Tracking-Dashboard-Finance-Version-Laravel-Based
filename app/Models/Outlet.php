@@ -32,6 +32,16 @@ class Outlet extends Model
         return $this->belongsTo(User::class,'user_id');
     }
 
+    public function region(){
+        //return $this->belongsTo(User::class);
+        return $this->belongsTo(Region::class,'region_id');
+    }
+
+    public function territory(){
+        //return $this->belongsTo(User::class);
+        return $this->belongsTo(Territory::class,'territory_id');
+    }
+
     public function team(){
         return $this->belongsTo(Team::class,'team_id');
     }
