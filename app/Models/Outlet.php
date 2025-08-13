@@ -22,6 +22,8 @@ class Outlet extends Model
         'long',
         'image',
         'organization_id',
+        'region_id',
+        'territory_id',
         'team_id'
     ];
 
