@@ -101,7 +101,7 @@ Route::middleware(['auth:sanctum','apiLimitInactiveOrganization',
 
     Route::get('activities',[ActivityController::class,'index']);
     
-    Route::get('regionsterritories',[OutletController::class,'RegionsTerritories']);
+    Route::get('regionsterritories',[OutletController::class,'regionsTerritories']);
 
     //post because it requires visit id as a parameter
     Route::post('activitieslist',[ActivityController::class,'index']);

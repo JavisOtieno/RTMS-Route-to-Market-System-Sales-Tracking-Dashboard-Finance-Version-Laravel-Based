@@ -5,7 +5,9 @@ namespace App\Http\Controllers\api;
 use Carbon\Carbon;
 use App\Models\Visit;
 use App\Models\Outlet;
+use App\Models\Region;
 use App\Models\Followup;
+use App\Models\Territory;
 use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -150,6 +152,15 @@ public function setLocation($id,Request $request){
         // Extract the related outlets without a for loop:
         $outlets = $followupVisits->pluck('outlet')->unique('id');
         return response()->json(['outlets'=>$outlets]);
+    }
+
+    public function regionsTerritories(){
+        
+        // $regionId = auth()->user()->region_id;
+        $regions = Region::orderBy('id', 'DESC')->get();
+        // $territories = Territory::where('region_id',$regionId)
+        $territories = Territory::orderBy('id', 'DESC')->get();
+        return response()->json(compact('regions','territories'));
     }
 
 }
