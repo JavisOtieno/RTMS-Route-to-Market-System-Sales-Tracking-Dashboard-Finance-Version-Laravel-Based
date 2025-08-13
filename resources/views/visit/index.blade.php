@@ -94,8 +94,9 @@
                                         </td>
                                         <td>{{ $visit['user'] ? $visit['user']['name']  . ($visit['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}</td>
                                         <td>{{$visit['outlet']['name']}}</td>
-                                        <td>{{$visit['outlet']['region']['name']}}</td>       
-                                        <td>{{$visit['outlet']['territory']['name']}}</td>       
+                                        <td>{{$visit['outlet']['region']==null?"None":$visit['outlet']['region']['name']}}</td>       
+                                        <td>{{$visit['outlet']['territory']==null?"None":$visit['outlet']['territory']['name']}}</td>       
+      
                                         <td>{{date('d-M-Y', strtotime($visit['created_at']))}}</td>
                                         <td>{{date('H:i', strtotime($visit['created_at']))}}</td>
 
