@@ -72,6 +72,8 @@
                                         <th id="view-column">View</th>
                                         <th>Seller Name</th>
                                         <th>Customer Name</th>
+                                        <th>Region</th>
+                                        <th>Territory</th>
                                         <th>Date</th>
                                         <th>Check In Time</th>
                                         <th>Check Out Time</th>
@@ -92,6 +94,8 @@
                                         </td>
                                         <td>{{ $visit['user'] ? $visit['user']['name']  . ($visit['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}</td>
                                         <td>{{$visit['outlet']['name']}}</td>
+                                        <td>{{$visit['outlet']['region']['name']}}</td>       
+                                        <td>{{$visit['outlet']['territory']['name']}}</td>       
                                         <td>{{date('d-M-Y', strtotime($visit['created_at']))}}</td>
                                         <td>{{date('H:i', strtotime($visit['created_at']))}}</td>
 
