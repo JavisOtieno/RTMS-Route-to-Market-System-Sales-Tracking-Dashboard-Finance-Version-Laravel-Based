@@ -57,6 +57,16 @@ class OutletController extends ApiCommonController
         $incomingFields['organization_id']=auth()->user()->organization_id;
         $incomingFields['team_id']=auth()->user()->team_id;
 
+        $incomingFields['region_id']=strip_tags($request['regionId']);
+        if ($incomingFields['region_id'] === 0) {
+            $incomingFields['region_id'] = null;
+        }
+
+        $incomingFields['territory_id']=strip_tags($request['territoryId']);
+        if ($incomingFields['territory_id'] === 0) {
+            $incomingFields['territory_id'] = null;
+        }
+
         $outlet=Outlet::create($incomingFields);
 
         $incomingFields=[];
