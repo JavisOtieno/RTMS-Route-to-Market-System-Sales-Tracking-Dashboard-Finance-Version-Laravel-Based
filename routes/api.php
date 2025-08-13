@@ -100,6 +100,8 @@ Route::middleware(['auth:sanctum','apiLimitInactiveOrganization',
     Route::post('uploadmobileimage', [ImageController::class,'uploadImageEnctype']);
 
     Route::get('activities',[ActivityController::class,'index']);
+    
+    Route::get('regionsterritories',[OutletController::class,'RegionsTerritories']);
 
     //post because it requires visit id as a parameter
     Route::post('activitieslist',[ActivityController::class,'index']);
