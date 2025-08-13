@@ -92,8 +92,10 @@
                                         <th id="delete-column">Delete</th>
                                         <th>Seller Name</th>
                                         <th>Customer Name</th>
+                                        <th>Region</th>
+                                        <th>Territory</th>
                                         <th>Products Sold</th>
-                                        <th>Products Full</th> {{-- HIDDEN COLUMN --}}
+                                        <th style="display: none">Products Full</th> {{-- HIDDEN COLUMN --}}
                                         <th>Quantity</th>
                                         <th>Value</th>
                                         <th>Team</th>
@@ -136,6 +138,8 @@
                                         <td>{{ $sale['user'] ? $sale['user']['name']  . ($sale['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}
                                         </td>
                                         <td>{{$sale['outlet']['name']}}</td>
+                                        <td>{{$visit['outlet']['region']==null?"None":$visit['outlet']['region']['name']}}</td>       
+                                        <td>{{$visit['outlet']['territory']==null?"None":$visit['outlet']['territory']['name']}}</td>  
                                         {{-- <td style="white-space: pre-line;">{{$saleitems}}</td> --}}
                                         <td style="
                                             max-width: 100px;
@@ -147,7 +151,7 @@
                                             max-height: 1.2em;
                                             word-wrap: break-word;">{{$saleitems}}</td>
 
-                                        <td style=" white-space:pre-line;">{{$saleitems_full}}</td>
+                                        <td style="display: none; white-space:pre-line;">{{$saleitems_full}}</td>
 
                                    
                                         <td>{{$sale['pieces']}}</td>
