@@ -95,7 +95,7 @@
                                         <th>Region</th>
                                         <th>Territory</th>
                                         <th>Products Sold</th>
-                                        <th style="display: none">Products Full</th> {{-- HIDDEN COLUMN --}}
+                                        <th style="display: none">Product</th> {{-- HIDDEN COLUMN --}}
                                         <th>Quantity</th>
                                         <th>Value</th>
                                         <th>Team</th>
