@@ -119,22 +119,21 @@ $(function(e) {
             customizeData: function (data) {
                 let newBody = [];
 
-                data.body.forEach(function(row) {
-     
+                let productColumnIndex = data.header.indexOf("Products Full"); // Replace "Product" with your exact column name
 
-                    let productInfo = row[4]; 
+                data.body.forEach(function(row) {
+                    let productInfo = row[productColumnIndex];
 
                     if (productInfo && productInfo.includes("\n")) {
                         let lines = productInfo.split(/\r?\n/).filter(line => line.trim() !== "");
                         lines.forEach(function(line) {
                             let newRow = [...row];
-                            newRow[4] = line; // Replace with just this line
+                            newRow[productColumnIndex] = line; // Replace with just this line
                             newBody.push(newRow);
                         });
                     } else {
                         newBody.push(row);
                     }
-                    
                 });
 
                 // Replace original data body with expanded rows
