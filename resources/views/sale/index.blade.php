@@ -96,6 +96,8 @@
                                         <th>Territory</th>
                                         <th>Products Sold</th>
                                         <th style="display: none">Product</th> {{-- HIDDEN COLUMN --}}
+                                        <th style="display: none">ProductQty</th>
+                                        <th style="display: none">ProductValue</th>
                                         <th>Total<br/>Quantity</th>
                                         <th>Total<br/>Value</th>
                                         <th>Team</th>
@@ -112,6 +114,8 @@
                                     @foreach($sales as $sale)
                                     <?php 
                                     $saleitems_full="";
+                                    $saleitems_qty_full="";
+                                    $saleitems_value_full="";
                                     $saleitems="";
                                     $i=1;
                                         //print_r($sale['saleitems']);
@@ -122,7 +126,9 @@
                                         $saleitemname=$saleitem['product'] ? $saleitem['product']['name']  . ($saleitem['product']->trashed() ? ' (Deleted Product)' : '') : 'Deleted Product';
                                         $saleitems=$saleitems.$saleitemname." - ".$saleitem['pieces'];
                                         $saleitems.="\n"; 
-                                        $saleitems_full .= $saleitemname . " - " . $saleitem['pieces'] . "\n";
+                                        $saleitems_full .= $saleitemname  . "\n";
+                                        $saleitems_qty_full .= $saleitem['pieces']  . "\n";
+                                        $saleitems_value_full .= $saleitem['value']  . "\n";
 
                                         //code that displays first two items
                                         // if($i%2==0){$saleitems.="\n"; }else{$saleitems.="\n"; }$i++;
@@ -152,7 +158,8 @@
                                             word-wrap: break-word;">{{$saleitems}}</td>
 
                                         <td style="display: none; white-space:pre-line;">{{$saleitems_full}}</td>
-
+                                        <td style="display: none; white-space:pre-line;">{{$saleitems_qty_full}}</td>
+                                        <td style="display: none; white-space:pre-line;">{{$saleitems_value_full}}</td>
                                    
                                         <td>{{$sale['pieces']}}</td>
                                         <td>{{'KSh '.number_format($sale['value'])}}</td>

@@ -120,22 +120,32 @@ $(function(e) {
                 let newBody = [];
 
                 let productColumnIndex = data.header.indexOf("Product"); // Replace "Product" with your exact column name
+                let productQtyColumnIndex = data.header.indexOf("ProductQty");
+                let productValueColumnIndex = data.header.indexOf("ProductValue");
 
                 // alert(productColumnIndex);
                 data.body.forEach(function(row) {
                     let productInfo = row[productColumnIndex];
+                    let productQty = row[productQtyColumnIndex];
+                    let productValue = row[productValueColumnIndex];
 
                     if (productInfo && productInfo.includes("\n")) {
                         let lines = productInfo.split(/\r?\n/).filter(line => line.trim() !== "");
-                        lines.forEach(function(line) {
+                        let linesQty = (productQty || "").split(/\r?\n/).filter(line => line.trim() !== "");
+                        let linesValue = (productValue || "").split(/\r?\n/).filter(line => line.trim() !== "");
+
+                        lines.forEach(function(line, i) {
                             let newRow = [...row];
-                            newRow[productColumnIndex] = line; // Replace with just this line
+                            newRow[productColumnIndex] = line; // Product name
+                            newRow[productQtyColumnIndex] = linesQty[i] || ""; // Matching qty
+                            newRow[productValueColumnIndex] = linesValue[i] || ""; // Matching value
                             newBody.push(newRow);
                         });
                     } else {
                         newBody.push(row);
                     }
                 });
+
 
                 // Replace original data body with expanded rows
                 data.body = newBody;
