@@ -121,6 +121,7 @@ $(function(e) {
 
                 let productColumnIndex = data.header.indexOf("Products Full"); // Replace "Product" with your exact column name
 
+                alert(productColumnIndex);
                 data.body.forEach(function(row) {
                     let productInfo = row[productColumnIndex];
 
