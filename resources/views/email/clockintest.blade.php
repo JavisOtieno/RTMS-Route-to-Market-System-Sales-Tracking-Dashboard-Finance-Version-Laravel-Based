@@ -88,8 +88,20 @@
             </tr>
             <tr>
                 <td>{{ $clockincount }}</td>
-                <td>{{ date('H:i', strtotime($clockinlast['created_at'])) }}</td>
-                <td>{{ date('H:i', strtotime($clockinfirst['created_at'])) }}</td>
+                <td>
+                @if (isset($clockinlast))
+                {{ date('H:i', strtotime($clockinlast['created_at'])) }}
+                @else
+                -
+                @endif
+            </td>
+                <td>
+                    @if (isset($clockinfirst))
+                    {{ date('H:i', strtotime($clockinfirst['created_at'])) }}
+                    @else
+                    -
+                    @endif
+                </td>
                 <td>{{ $clockincounttill8 }}</td>
                 <td>{{ $clockincounttill16 }}</td>
                 <td>{{ $clockincounttill24 }}</td>
