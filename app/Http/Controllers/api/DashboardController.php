@@ -11,6 +11,7 @@ use App\Models\Clockin;
 use App\Models\Product;
 use App\Models\Clockout;
 use App\Models\Feedback;
+use App\Models\Followup;
 use App\Models\Posaudit;
 use App\Models\SaleItem;
 use App\Models\Competitor;
@@ -118,6 +119,7 @@ class DashboardController extends Controller
         $posauditsCount = Posaudit::where('user_id',$userId)->count();
         $competitorsCount = Competitor::where('user_id',$userId)->count();
         $visitsCount = Visit::where('user_id',$userId)->count();
+        $followupsCount = Followup::where('user_id',$userId)->count();
 
         $sales = Sale::where('user_id',$userId)->orderBy('id', 'desc')->take(5)->get();
         $outlets = Outlet::where('user_id',$userId)->orderBy('id', 'desc')->take(5)->get();
@@ -127,6 +129,7 @@ class DashboardController extends Controller
         return response()->json( compact(
         'sales','outlets','salesCount','feedbackCount','productsType','products',
         'outletsCount','posauditsCount','visitsCount','competitorsCount','dailySalesTotal',
+        'followupsCount',
         'currentTargets','clockinTime','clockoutTime','checkinTime','checkoutTime', 'clockinId',
         'visitId','userId','outletId','outletName','outletLat','outletLong','currentTime'));
 
