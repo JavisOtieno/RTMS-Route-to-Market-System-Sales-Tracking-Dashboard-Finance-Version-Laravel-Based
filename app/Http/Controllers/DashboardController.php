@@ -21,13 +21,13 @@ class DashboardController extends Controller
 {
     //
     public function index() {
-        $salesCount = Sale::all()->count();
-        $visitsNumberCount = Visit::all()->count();
-        $productsNumberCount = Product::all()->count();
-        $feedbackCount = Feedback::all()->count();
-        $outletsCount = Outlet::all()->count();
-        $posauditsCount = Posaudit::all()->count();
-        $competitorsCount = Competitor::all()->count();
+        $salesCount = Sale::count(); 
+        $visitsNumberCount = Visit::count();
+        $productsNumberCount = Product::count();
+        $feedbackCount = Feedback::count();
+        $outletsCount = Outlet::count();
+        $posauditsCount = Posaudit::count();
+        $competitorsCount = Competitor::count();
         $sales = Sale::with(['user' => function ($query) {
             $query->withTrashed();
         },'outlet'])->orderBy('id', 'desc')->take(5)->get();
