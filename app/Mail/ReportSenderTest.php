@@ -106,8 +106,16 @@ class ReportSenderTest extends Mailable
         ->orderByDesc('total_sales')
         ->first();
         
-        $topsellercount = $topseller->total_sales;
-        $topseller = User::find($topseller->user_id)->name;
+        // $topsellercount = $topseller->total_sales;
+        // $topseller = User::find($topseller->user_id)->name;
+
+        if ($topseller) {
+            $topsellercount = $topseller->total_sales;
+            $topseller = User::find($topseller->user_id)?->name ?? 'Unknown';
+        } else {
+            $topsellercount = 0;
+            $topseller = 'No sales yesterday';
+        }
 
         $topproduct = SaleItem::whereHas('sale', function ($query) {
             $query->whereDate('created_at', Carbon::yesterday());
