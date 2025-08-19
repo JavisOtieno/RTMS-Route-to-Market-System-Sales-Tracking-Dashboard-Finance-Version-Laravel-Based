@@ -95,7 +95,7 @@ class DashboardController extends Controller
                 $query->whereMonth('created_at', now()->month)  // Filter by current month
                       ->whereYear('created_at', now()->year)   // Filter by current year
                       ->whereHas('sale', function ($saleQuery) {
-                        $saleQuery->where('status', 'complete'); // Adjust the status as needed
+                        $saleQuery->where('status', 'complete')->where('user_id', auth()->user()->id); // Adjust the status as needed
                     })
                       ->select(DB::raw('SUM(value)'));         // Sum of 'value' column
             }], 'value')
@@ -103,7 +103,7 @@ class DashboardController extends Controller
                 $query->whereMonth('created_at', now()->month)  // Filter by current month
                       ->whereYear('created_at', now()->year)   // Filter by current year
                       ->whereHas('sale', function ($saleQuery) {
-                        $saleQuery->where('status', 'complete'); // Adjust the status as needed
+                        $saleQuery->where('status', 'complete')->where('user_id', auth()->user()->id); // Adjust the status as needed
                     })
                       ->select(DB::raw('SUM(pieces)'));       // Sum of 'quantity' column
             }], 'pieces')
