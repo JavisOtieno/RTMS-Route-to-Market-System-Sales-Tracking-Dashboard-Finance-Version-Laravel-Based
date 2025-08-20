@@ -59,6 +59,9 @@
                                         <th>Product Name</th>
                                         <th>Target Type</th>
                                         <th>Target</th>
+                                         @if(auth()->user()->usertype == 'systemadmin')
+                                        <th>Organization</th>
+                                        @endif
                                         <th>Team</th>
                                         <th>Date</th>
                                         
@@ -89,6 +92,9 @@
                                         <td>{{ucfirst($product['targettype'])}}</td>
                                         <td>{{($product['targettype']=='amount'?'KSh ':'').number_format($product['target'])}}</td>
                                         <td>{{$product['team']==null?"None":$product['team']['name']}}</td>
+                                          @if(auth()->user()->usertype == 'systemadmin')
+                                        <th>{{$product['organization']['name']}}</th>
+                                        @endif
                                         <td>{{date('d-M-Y', strtotime($product['created_at']))}}</td>
 
                                         
