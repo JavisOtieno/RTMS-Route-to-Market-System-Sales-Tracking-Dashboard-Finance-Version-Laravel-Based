@@ -103,13 +103,13 @@ class DashboardController extends Controller
 
         //$topOutlets = Outlet::withCount('sales')->orderBy('sales_count', 'desc')->take(5)->get();
 
-        $salesPerMonth= array();
-        for ($i=0; $i<=11; $i++){
-            $salesPerMonth[$i] = Sale::
-            whereYear('created_at', date('Y'))
-            ->whereMonth('created_at', date('m',strtotime('-'.$i.' month')))->count();
-        }
-        $salesPerMonth =array_reverse($salesPerMonth);
+        // $salesPerMonth= array();
+        // for ($i=0; $i<=11; $i++){
+        //     $salesPerMonth[$i] = Sale::
+        //     whereYear('created_at', date('Y'))
+        //     ->whereMonth('created_at', date('m',strtotime('-'.$i.' month')))->count();
+        // }
+        // $salesPerMonth =array_reverse($salesPerMonth);
 
         $startMonth = now()->subMonths(11)->startOfMonth();
         $endMonth   = now()->endOfMonth();
