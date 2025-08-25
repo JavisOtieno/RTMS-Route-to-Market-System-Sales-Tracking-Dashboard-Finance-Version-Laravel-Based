@@ -99,7 +99,7 @@
                     @if (isset($clockinfirst))
                     {{ date('H:i', strtotime($clockinfirst['created_at'])) }}
                     @else
-                    -
+                    N/A
                     @endif
                 </td>
                 <td>{{ $clockincounttill8 }}</td>
@@ -122,7 +122,7 @@
         </tr>
         <tr>
             <td>{{ $clockoutcount }}</td>
-            <td>{{ date('H:i', strtotime($clockoutfirst['created_at'])) }}</td>
+            <td>{{ $clockoutfirst['created_at'] ? date('H:i', strtotime($clockoutfirst['created_at'])) : 'N/A' }}</td>
             <td>{{ $clockoutcounttill8 }}</td>
             <td>{{ $clockoutcounttill16 }}</td>
             <td>{{ $clockoutcounttill24 }}</td>
