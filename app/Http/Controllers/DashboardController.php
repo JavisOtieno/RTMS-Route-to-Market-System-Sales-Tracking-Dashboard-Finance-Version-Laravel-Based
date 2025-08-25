@@ -88,7 +88,7 @@ class DashboardController extends Controller
         //$topSellers = User::inOrganization()::withCount('sales')->orderBy('sales_count', 'desc')->take(5)->get();
         //return $topSellers;
 
-        $topOutlets=Sale::with(['user' => function ($query) {
+        $topOutlets=Sale::with(['outlet','user' => function ($query) {
             $query->withTrashed();
         }])->select('outlet_id', DB::raw('COUNT(outlet_id) as count'))
         ->groupBy('outlet_id')
