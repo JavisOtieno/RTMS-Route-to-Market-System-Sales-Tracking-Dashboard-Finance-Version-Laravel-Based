@@ -103,37 +103,41 @@ class DashboardController extends Controller
 
         //$topOutlets = Outlet::withCount('sales')->orderBy('sales_count', 'desc')->take(5)->get();
 
-        $salesPerMonth= array();
-        for ($i=0; $i<=11; $i++){
-            $salesPerMonth[$i] = Sale::
-            whereYear('created_at', date('Y'))
-            ->whereMonth('created_at', date('m',strtotime('-'.$i.' month')))->count();
-        }
-        $salesPerMonth =array_reverse($salesPerMonth);
-
-        // $startMonth = now()->subMonths(11)->startOfMonth();
-        // $endMonth   = now()->endOfMonth();
-
-        // // 1 query: counts grouped by year+month
-        // $salesRows = Sale::select(DB::raw('YEAR(created_at) as year, MONTH(created_at) as month, COUNT(*) as total'))
-        //     ->whereBetween('created_at', [$startMonth, $endMonth])
-        //     ->groupBy('year', 'month')
-        //     ->get()
-        //     ->keyBy(fn($r) => $r->year . '-' . str_pad($r->month, 2, '0', STR_PAD_LEFT));
-
-        // // build ordered arrays (oldest -> newest)
-        // $salesPerMonth = [];
-        // $months = [];
-        // for ($i = 11; $i >= 0; $i--) {
-        //     $dt = now()->subMonths($i);
-        //     $key = $dt->format('Y-m');      // e.g. "2025-08"
-        //     $months[] = $dt->format('M');   // e.g. "Aug"
-        //     $salesPerMonth[] = isset($salesRows[$key]) ? (int)$salesRows[$key]->total : 0;
+        // $salesPerMonth= array();
+        // for ($i=0; $i<=11; $i++){
+        //     $salesPerMonth[$i] = Sale::
+        //     whereYear('created_at', date('Y'))
+        //     ->whereMonth('created_at', date('m',strtotime('-'.$i.' month')))->count();
         // }
+        // $salesPerMonth =array_reverse($salesPerMonth);
 
+   $startMonth = now()->subMonths(11)->startOfMonth();  // 11 months ago
+    $endMonth   = now()->endOfMonth();                   // current month end
 
+    // Query once: counts per year+month
+    $salesRows = Sale::select(
+            DB::raw('YEAR(created_at) as year'),
+            DB::raw('MONTH(created_at) as month'),
+            DB::raw('COUNT(*) as total')
+        )
+        ->whereBetween('created_at', [$startMonth, $endMonth])
+        ->groupBy('year', 'month')
+        ->orderBy('year')
+        ->orderBy('month')
+        ->get()
+        ->keyBy(fn($r) => $r->year . '-' . str_pad($r->month, 2, '0', STR_PAD_LEFT));
 
-        //return $salesPerMonth;
+    // Build ordered arrays
+    $salesPerMonth = [];
+    $months = [];
+
+    for ($i = 11; $i >= 0; $i--) {
+        $dt = now()->subMonths($i);              // correct month
+        $key = $dt->format('Y-m');               // e.g. "2024-09"
+        $months[] = $dt->format('M');            // label: "Sep", "Oct", ...
+        $salesPerMonth[] = $salesRows[$key]->total ?? 0;
+    }
+
 
         $days = CarbonPeriod::create(now()->subDays(6), now());
         $visitsCount=[];
