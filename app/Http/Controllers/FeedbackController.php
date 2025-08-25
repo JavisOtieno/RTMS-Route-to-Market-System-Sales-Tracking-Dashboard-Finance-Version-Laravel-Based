@@ -17,7 +17,14 @@ class FeedbackController extends Controller
         //$feedback = Feedback::all();
         $feedback = Feedback::with(['user' => function ($query) {
             $query->withTrashed();
-        }])->get();
+        },
+        'outlet' => function ($query) {
+            $query->withTrashed();
+        },
+        'outlet.region',        // <--- eager load region
+        'outlet.territory',     // <--- eager load territory
+        'team', 
+        ])->get();
         return view('feedback', ['feedback'=>$feedback]);
     }
 
