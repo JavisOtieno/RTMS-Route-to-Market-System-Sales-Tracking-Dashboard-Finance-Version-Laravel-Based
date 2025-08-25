@@ -128,20 +128,7 @@ class ReportSenderTest extends Mailable
         $topproductcount = $topproduct->product_sales;
         $topproduct = Product::find($topproduct->product_id)->name;
 
-        $host = request()->getHost(); 
-        $title = '';
-
-        if (str_contains($host, 'rtmsjubilee')) {
-            $title = 'RTMS Jubilee';
-        } elseif (str_contains($host, 'rtmsab')) {
-            $title = 'RTMS Access Bank';
-        } else {
-            $title = ''; // fallback
-        }
-
-
-
-
+        $title = env('APP_TITLE', '');
 
 
         return $this->subject('Daily Report - '.$title. Carbon::yesterday()->format('Y-m-d'))
