@@ -220,13 +220,13 @@ class DashboardController extends Controller
         }
 
         //get months Jan Feb Mar...Dec
-        for ($i = 0; $i <= 11; $i++) {
-                $months[] = date("M", strtotime( date( 'Y-m-01' )." -$i months"));
-                }
-                //echo "Before";
-                //print_r($months);
-                //echo "After";
-        $months=array_reverse($months);
+        // for ($i = 0; $i <= 11; $i++) {
+        //         $months[] = date("M", strtotime( date( 'Y-m-01' )." -$i months"));
+        //         }
+        //         //echo "Before";
+        //         //print_r($months);
+        //         //echo "After";
+        // $months=array_reverse($months);
         //return $visitsCount;
 
             //return $salesGraphCount;
