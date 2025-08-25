@@ -120,13 +120,23 @@ class ReportSenderTest extends Mailable
         $topproduct = SaleItem::whereHas('sale', function ($query) {
             $query->whereDate('created_at', Carbon::yesterday());
         })
-        ->selectRaw('product_id, COUNT(*) as product_sales')
-        ->groupBy('product_id')
-        ->orderByDesc('product_sales')
-        ->first();
+                ->selectRaw('product_id, COUNT(*) as product_sales')
+                ->groupBy('product_id')
+                ->orderByDesc('product_sales')
+                ->first();
+                $topproduct = SaleItem::whereHas('sale', function ($query) {
+                $query->whereDate('created_at', Carbon::yesterday());
+            })
+            ->selectRaw('product_id, COUNT(*) as product_sales')
+            ->groupBy('product_id')
+            ->orderByDesc('product_sales')
+            ->first();
+
+        $topproductcount = $topproduct?->product_sales ?? 0;
+        $topproduct = Product::find($topproduct?->product_id)?->name ?? 'Unknown';
         
-        $topproductcount = $topproduct->product_sales;
-        $topproduct = Product::find($topproduct->product_id)->name;
+        // $topproductcount = $topproduct->product_sales;
+        // $topproduct = Product::find($topproduct->product_id)->name;
 
         $title = env('APP_TITLE', '');
 
