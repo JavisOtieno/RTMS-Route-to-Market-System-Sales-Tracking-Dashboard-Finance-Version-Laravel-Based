@@ -111,7 +111,7 @@ class ReportSenderTest extends Mailable
 
         if ($topseller) {
             $topsellercount = $topseller->total_sales;
-            $topseller = User::find($topseller->user_id)?->name ?? 'Unknown';
+            $topseller = User::find($topseller->user_id)?->name ?? 'N/A';
         } else {
             $topsellercount = 0;
             $topseller = 'No sales yesterday';
@@ -133,7 +133,7 @@ class ReportSenderTest extends Mailable
             ->first();
 
         $topproductcount = $topproduct?->product_sales ?? 0;
-        $topproduct = Product::find($topproduct?->product_id)?->name ?? 'Unknown';
+        $topproduct = Product::find($topproduct?->product_id)?->name ?? 'N/A';
         
         // $topproductcount = $topproduct->product_sales;
         // $topproduct = Product::find($topproduct->product_id)->name;
