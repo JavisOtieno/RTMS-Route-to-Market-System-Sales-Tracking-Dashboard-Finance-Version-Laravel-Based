@@ -33,9 +33,9 @@ class Kernel extends ConsoleKernel
             )->send(new ReportSenderTest($clockin));
     
         })
-        // ->everyFiveMinutes();
+        ->everyFiveMinutes();
         // ->everyMinute();
-        ->dailyAt('08:00'); // Runs every day at 8 AM
+        // ->dailyAt('08:00'); // Runs every day at 8 AM
     }
 
     /**
