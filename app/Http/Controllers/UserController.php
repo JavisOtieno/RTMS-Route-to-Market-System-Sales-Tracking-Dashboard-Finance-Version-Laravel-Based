@@ -32,10 +32,19 @@ class UserController extends CommonController
     }
     public function sellers() {
         //eager load to prevent N+1
+
+
         $users = User::inOrganization()
-        ->where('team_id',auth()->user()->team_id)
-        ->with(['targetgroup', 'team', 'region', 'territory'])
-        ->where('usertype','seller')->get();
+            ->with(['targetgroup', 'team', 'region', 'territory'])
+            ->where('usertype','seller')->get();
+
+        if(auth()->user()->usertype=="teamlead"){
+        $users = User::inOrganization()
+                    ->where('team_id',auth()->user()->team_id)
+                    ->with(['targetgroup', 'team', 'region', 'territory'])
+                    ->where('usertype','seller')->get();
+            
+        }
 
         //return $users;
         //dd($sales);
