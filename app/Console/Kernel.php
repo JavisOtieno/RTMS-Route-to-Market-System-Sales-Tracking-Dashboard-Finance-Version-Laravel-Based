@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
 
             $clockin = Clockin::first();
             Mail::to('javisotieno@gmail.com',
-            'Technology@scgafrica.com','stanley@scgafrica.com'
+            // 'Technology@scgafrica.com','stanley@scgafrica.com'
             )->send(new ReportSenderTest($clockin));
     
         })
