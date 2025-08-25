@@ -143,38 +143,38 @@ class DashboardController extends Controller
 
         }
 
-        $salesGraphCount=[];
-        $salesWeekCount=0;
+        // $salesGraphCount=[];
+        // $salesWeekCount=0;
 
-        $periodStart = now()->subDays(6)->startOfDay();
-        $periodEnd   = now()->endOfDay();
-        $days = CarbonPeriod::create($periodStart, $periodEnd);
+        // $periodStart = now()->subDays(6)->startOfDay();
+        // $periodEnd   = now()->endOfDay();
+        // $days = CarbonPeriod::create($periodStart, $periodEnd);
 
-        // --- use Sale model (it already has org-scope) to fetch daily counts (1 query) ---
-        $salesRows = Sale::select(DB::raw('DATE(created_at) as date'), DB::raw('COUNT(*) as total'))
-            ->whereBetween('created_at', [$periodStart, $periodEnd])
-            ->groupBy(DB::raw('DATE(created_at)'))
-            ->get()
-            ->keyBy('date'); // keys: 'YYYY-MM-DD'
+        // // --- use Sale model (it already has org-scope) to fetch daily counts (1 query) ---
+        // $salesRows = Sale::select(DB::raw('DATE(created_at) as date'), DB::raw('COUNT(*) as total'))
+        //     ->whereBetween('created_at', [$periodStart, $periodEnd])
+        //     ->groupBy(DB::raw('DATE(created_at)'))
+        //     ->get()
+        //     ->keyBy('date'); // keys: 'YYYY-MM-DD'
 
-        foreach ($days as $day) {
-            $d = $day->toDateString(); // 'YYYY-MM-DD'
+        // foreach ($days as $day) {
+        //     $d = $day->toDateString(); // 'YYYY-MM-DD'
 
-            // $vc = isset($visitsRows[$d])   ? (int)$visitsRows[$d]->total   : 0;
-            $sc = isset($salesRows[$d])    ? (int)$salesRows[$d]->total    : 0;
-            // $oc = isset($outletsRows[$d])  ? (int)$outletsRows[$d]->total  : 0;
-            // $pc = isset($productsRows[$d]) ? (int)$productsRows[$d]->total : 0;
+        //     // $vc = isset($visitsRows[$d])   ? (int)$visitsRows[$d]->total   : 0;
+        //     $sc = isset($salesRows[$d])    ? (int)$salesRows[$d]->total    : 0;
+        //     // $oc = isset($outletsRows[$d])  ? (int)$outletsRows[$d]->total  : 0;
+        //     // $pc = isset($productsRows[$d]) ? (int)$productsRows[$d]->total : 0;
 
-            // $visitsCount[]       = $vc;
-            $salesGraphCount[]   = $sc;
-            // $outletsGraphCount[] = $oc;
-            // $productsGraphCount[]= $pc;
+        //     // $visitsCount[]       = $vc;
+        //     $salesGraphCount[]   = $sc;
+        //     // $outletsGraphCount[] = $oc;
+        //     // $productsGraphCount[]= $pc;
 
-            // $visitsWeekCount  += $vc;
-            $salesWeekCount   += $sc;
-            // $outletsWeekCount += $oc;
-            // $productsWeekCount+= $pc;
-        }
+        //     // $visitsWeekCount  += $vc;
+        //     $salesWeekCount   += $sc;
+        //     // $outletsWeekCount += $oc;
+        //     // $productsWeekCount+= $pc;
+        // }
 
         //get months Jan Feb Mar...Dec
         for ($i = 0; $i <= 11; $i++) {
