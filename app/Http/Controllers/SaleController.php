@@ -27,6 +27,9 @@ class SaleController extends Controller
             },
             'visit',
             'outlet',
+            'outlet.region',        // <--- eager load region
+            'outlet.territory',     // <--- eager load territory
+            'team', 
             'saleitems' => function ($query) {
                 $query->with(['product' => function ($query) {
                     $query->withTrashed();
@@ -41,7 +44,11 @@ class SaleController extends Controller
         //$sales = Sale::all();
         $userId = auth()->id();
         $sales = Sale::where('user_id', $userId)
-            ->where('status', 'pending')->with('user', 'visit', 'outlet', 'saleitems.product')->orderBy('id', 'DESC')->get();
+            ->where('status', 'pending')->with('user', 'visit', 'outlet',
+            'outlet.region',        // <--- eager load region
+            'outlet.territory',     // <--- eager load territory
+            'team', 
+             'saleitems.product')->orderBy('id', 'DESC')->get();
         // return "nothing";
         return response()->json(['sales' => $sales]);
     }
@@ -51,7 +58,11 @@ class SaleController extends Controller
         $userId = auth()->id();
         $sales = Sale::where('user_id', $userId)
             ->where('status', 'complete')
-            ->with('user', 'visit', 'outlet', 'saleitems.product')->orderBy('id', 'DESC')->get();
+            ->with('user', 'visit', 'outlet',
+            'outlet.region',        // <--- eager load region
+            'outlet.territory',     // <--- eager load territory
+            'team', 
+             'saleitems.product')->orderBy('id', 'DESC')->get();
         // return "nothing";
         return response()->json(['sales' => $sales]);
     }
