@@ -19,7 +19,11 @@ class VisitController extends Controller
                 $query->withTrashed();
             },'outlet' => function ($query) {
                 $query->withTrashed();
-            }])->get();
+            },
+            'outlet.region',        // <--- eager load region
+            'outlet.territory',     // <--- eager load territory
+            'team', 
+            ])->get();
             return view('visit.index', ['visits'=>$visits]);
         }
 
