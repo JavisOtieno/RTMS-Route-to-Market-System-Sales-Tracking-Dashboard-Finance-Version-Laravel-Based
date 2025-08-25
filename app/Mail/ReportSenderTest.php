@@ -128,12 +128,23 @@ class ReportSenderTest extends Mailable
         $topproductcount = $topproduct->product_sales;
         $topproduct = Product::find($topproduct->product_id)->name;
 
+        $host = request()->getHost(); 
+        $title = '';
+
+        if (str_contains($host, 'rtmsjubilee')) {
+            $title = 'RTMS Jubilee';
+        } elseif (str_contains($host, 'rtmsab')) {
+            $title = 'RTMS Access Bank';
+        } else {
+            $title = ''; // fallback
+        }
 
 
 
 
 
-        return $this->subject('Daily Report - ' . Carbon::yesterday()->format('Y-m-d'))
+
+        return $this->subject('Daily Report - '.$title. Carbon::yesterday()->format('Y-m-d'))
         ->attachData($excelFile, 'clockins_report.xlsx', [
             'mime' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         ])
