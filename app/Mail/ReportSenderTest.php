@@ -131,7 +131,7 @@ class ReportSenderTest extends Mailable
         $title = env('APP_TITLE', '');
 
 
-        return $this->subject('Daily Report - '.$title. Carbon::yesterday()->format('Y-m-d'))
+        return $this->subject('Daily Report - '.$title.' - '. Carbon::yesterday()->format('Y-m-d'))
         ->attachData($excelFile, 'clockins_report.xlsx', [
             'mime' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         ])
