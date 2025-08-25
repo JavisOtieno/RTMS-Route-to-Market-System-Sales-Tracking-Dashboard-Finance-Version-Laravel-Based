@@ -107,7 +107,7 @@ class User extends Authenticatable
         //combined with route limited access to urls
         //along with menu limitations 
         else if($user->usertype=="teamlead"){
-            return $query->where('team_id', $user->team_id)->orWhereNull('team_id');
+            // return $query->where('team_id', $user->team_id)->orWhereNull('team_id');
             // ->whereNotNull('team_id');
             // ->whereHas('organization', function($query) {
             //     $query->where('status', 'active');
