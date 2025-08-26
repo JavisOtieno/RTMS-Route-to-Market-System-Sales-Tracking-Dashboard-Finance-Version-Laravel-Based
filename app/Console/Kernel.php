@@ -27,10 +27,22 @@ class Kernel extends ConsoleKernel
             //     Mail::to($order->customer_email)->send(new OrderShipped($order));
             // }
 
-            $clockin = Clockin::first();
-            Mail::to('javisotieno@gmail.com',
-            // 'Technology@scgafrica.com','stanley@scgafrica.com'
-            )->send(new ReportSenderTest($clockin));
+            $title = env('APP_TITLE', '');
+
+            if ($title == 'RTMS Access Bank') {
+                $clockin = Clockin::first();
+                Mail::to('javisotieno@gmail.com',
+                'Technology@scgafrica.com','stanley@scgafrica.com'
+                )->send(new ReportSenderTest($clockin));
+            }else{
+                $clockin = Clockin::first();
+                Mail::to('javisotieno@gmail.com',
+                // 'Technology@scgafrica.com','stanley@scgafrica.com'
+                )->send(new ReportSenderTest($clockin));
+
+            }
+
+
     
         })
         // ->everyFiveMinutes();
