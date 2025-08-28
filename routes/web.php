@@ -124,7 +124,6 @@ Route::get('/followup/{id}/{object}',[FollowupController::class,'showFollowupByI
 
 Route::get('/customers', [OutletController::class,'index']);
 Route::get('/outlets/{id}/{object}', [OutletController::class,'showOutletsById']);
-Route::get('/customersnew', [OutletController::class,'indexYajra']);
 Route::get('/deletecustomer/{id}', [OutletController::class,'deleteOutlet']);
 Route::get('/add-customer', [OutletController::class,'addOutlet']);
 Route::post('/saveoutlet', [OutletController::class,'saveOutlet']);
@@ -133,9 +132,10 @@ Route::put('/saveeditoutlet/{id}',[OutletController::class,'saveEditOutlet']);
 Route::get('/showcustomersmap',[OutletController::class,'showOutletsMap']);
 Route::get('/outlets/filter', [OutletController::class,'filterOutlets']);
 
+
 Route::get('/ajaxoutletsyajra',[OutletController::class,'ajaxoutletsYajraTest'])
 ->name('yajratestoutlets');
-Route::get('/outletsyajra',[OutletController::class,'viewoutletsYajraTest']);
+Route::get('/customersnew',[OutletController::class,'viewoutletsYajraTest']);
 
 Route::get('/routeplans', [RouteplanController::class,'index']);
 Route::get('/createrouteplan', [RouteplanController::class,'createRoutePlan']);
