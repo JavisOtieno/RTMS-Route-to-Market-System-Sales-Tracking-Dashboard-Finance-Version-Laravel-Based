@@ -36,6 +36,42 @@ class VisitController extends Controller
             }])->where($object.'_id',$objectId)->get();
             return view('visit.index', ['visits'=>$visits]);
         }
+                public function filterVisits(Request $request) {
+            //$visits = Visit::all();
+            $query = Visit::with(['user' => function ($query) {
+                $query->withTrashed()->with('region','territory','cluster');
+            },'outlet' => function ($query) {
+                $query->withTrashed();
+            }]); // Eager load relationships for efficiency
+
+            if ($request->user) {
+                $query->whereHas('user', function ($q) use ($request) {
+                    $q->where('name', 'like', '%' . $request->user . '%');
+                });
+            }
+
+            if ($request->outlet) {
+                $query->whereHas('outlet', function ($q) use ($request) {
+                    $q->where('name', 'like', '%' . $request->outlet . '%');
+                });
+            }
+
+            if ($request->from_date) {
+                $query->whereDate('created_at', '>=', $request->from_date);
+            }
+
+            if ($request->to_date) {
+                $query->whereDate('created_at', '<=', $request->to_date);
+            }
+                // Retrieve the current page from the request, defaulting to 1 if not set.
+            $currentPage = $request->input('page', 1);
+
+            // Explicitly pass the current page to the paginate() method.
+            $visits = $query->orderBy('id', 'DESC')->paginate(500, ['*'], 'page', $currentPage);
+
+            // $visits = $query->orderBy('id', 'DESC')->paginate(500);
+            return response()->json(['visits'=>$visits]);
+        }
         
 
         public function showEditVisit($id){
