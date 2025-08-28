@@ -27,13 +27,16 @@ class VisitController extends Controller
             ])->get();
             return view('visit.index', ['visits'=>$visits]);
         }
+        public function indexYajra() {
+            return view('visit.index');
+        }
 
-                public function visitsYajra(Request $request)
+        public function visitsYajra(Request $request)
         {
 
             $visits = Visit::with(['user' => function ($query) {
                 $query->withTrashed();
-            }],'channeltype','user.region','user.territory','user.cluster')->get();
+            }],'user.region','user.territory')->get();
             // return DataTables::of($visits)->make(true);
             $query = Visit::select(
                 'visits.*',
@@ -42,8 +45,8 @@ class VisitController extends Controller
                 // DB::raw("DATE_FORMAT(FROM_UNIXTIME(visits.checkout_time), '%H:%i:%s') as checkout_time"),
                 'regions.name as region_name',
                 'territories.name as territory_name',
-                'clusters.name as cluster_name',
-                'channel_types.name as channel_type_name',
+                // 'clusters.name as cluster_name',
+                // 'channel_types.name as channel_type_name',
                 'outlets.long as outlet_long',
                 'outlets.lat as outlet_lat',
                 'teams.name as team_name',
@@ -54,7 +57,7 @@ class VisitController extends Controller
 
             )
             ->leftJoin('outlets', 'outlets.id', '=', 'visits.outlet_id')
-            ->leftJoin('channel_types', 'channel_types.id', '=', 'outlets.channel_type_id')
+            // ->leftJoin('channel_types', 'channel_types.id', '=', 'outlets.channel_type_id')
             ->leftJoin('users', 'users.id', '=', 'visits.user_id')
             // skjdjkjfjhsjkhdfks
             ->leftJoin('teams', 'teams.id', '=', 'visits.team_id')
