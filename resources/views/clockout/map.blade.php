@@ -71,7 +71,10 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <div id="googleMapClockouts" class="worldh world-map h-500" ></div>
+                <div id="googleMapClockouts" class="worldh world-map" style="height:80vh" ></div>
+            </div>
+            <div id="paginationLinks" class="mt-3">
+                <!-- Pagination links will be dynamically injected here -->
             </div>
         </div>
     </div>
@@ -189,10 +192,10 @@
             // Extend the bounds to include this marker's position
             bounds.extend(myPosition);
 
-            // var infoContent = "<div><h3>"+visit['outlet']['name']+"</h3>"+
+            // var infoContent = "<div><h3>"+clockout['outlet']['name']+"</h3>"+
             //     "<p>Latitude: "+lat1+"</p>"+
             //     "<p>Longitude: "+long1+"</p>"+
-            //     "<p>Seller: "+visit['user']['name']+"</p>"+
+            //     "<p>Seller: "+clockout['user']['name']+"</p>"+
             // "</div>";
 
             // Create an InfoWindow
@@ -271,13 +274,15 @@
                 // $('#userFilter').select2();
     
                 // Populate user filter dropdown
-                // populateUserFilter(visits);
+                // populateUserFilter(clockouts);
     
-                // Initial map update with all visits
-                updateMap(clockouts);
+                // Initial map update with all clockouts
+                // updateMap(clockouts);
+                applyFiltersAjax();
     
                 $('#userFilter, #outletFilter, #fromDate, #toDate, #fromTime, #toTime').on('change', function() {
-                applyFilters(clockouts);
+                // applyFilters(clockouts);
+                applyFiltersAjax();
                 });
                 
     
@@ -295,11 +300,11 @@
                     var toTime = $('#toTime').val();
 
                     
-                   // var filteredVisits = selectedUser ? visits.filter(visit => visit.user.name === selectedUser ) : visits;
+                   // var filteredVisits = selectedUser ? clockouts.filter(clockout => clockout.user.name === selectedUser ) : clockouts;
                     var filteredClockouts = clockouts.filter(clockout => {
                                 const userMatches = selectedUser ? clockout.user.name === selectedUser : true;
                                 // const outletMatches = selectedOutlet ? outlet.name === selectedOutlet : true;
-                                        // Convert visit.created_at to date object
+                                        // Convert clockout.created_at to date object
                                 var clockoutDate = new Date(clockout.created_at);
     
                                 // Filter by date range
@@ -325,6 +330,179 @@
                     updateMap(filteredClockouts);
     
         }
+
+        
+        function applyFiltersAjax(page=1) {
+    // alert('test');
+    var selectedOutlet = $('#outletFilter').val();
+    var selectedUser = $('#userFilter').val();
+    var fromDate = $('#fromDate').val();
+    var toDate = $('#toDate').val();
+    var fromTime = $('#fromTime').val();
+    var toTime = $('#toTime').val();
+
+    $.ajax({
+        url: '/clockouts/filter',  // Backend route
+        type: 'GET',
+        data: {
+            user: selectedUser,
+            outlet: selectedOutlet,
+            from_date: fromDate,
+            to_date: toDate,
+            from_time: fromTime,
+            to_time: toTime,
+            page:page
+        },
+        success: function(response) {
+            updateMap(response.clockouts.data);  // Update map with filtered results
+            updatePagination(response.clockouts);  // Update pagination links
+
+        
+        },
+        error: function(error) {
+            console.error("Error fetching clockouts:", error);
+        }
+    });
+}
+
+/**
+ * Updates the pagination links based on the paginated data.
+ */
+ function updatePagination(clockouts) {
+    // alert('updating pagination');
+    var paginationHtml = '';
+
+    // Only add pagination if there are multiple pages
+    if (clockouts.total > clockouts.per_page) {
+        // alert('clockouts total > per page');
+        paginationHtml += `<ul class="pagination">`;
+
+        // Previous link
+        if (clockouts.current_page > 1) {
+            paginationHtml += `<li class="page-item page-prev">
+                <a href="#" class="page-link pagination-link" data-page="${clockouts.current_page - 1}">Previous</a>
+            </li>`;
+        }
+
+        // If there are more than 20 pages, use an ellipsis format.
+        if (clockouts.last_page > 20) {
+            // Always show the first page.
+            if (clockouts.current_page === 1) {
+                paginationHtml += `<li class="page-item active">
+                    <a class="page-link pagination-link">1</a>
+                </li>`;
+            } else {
+                paginationHtml += `<li class="page-item">
+                    <a href="#" class="page-link pagination-link" data-page="1">1</a>
+                </li>`;
+            }
+
+            var windowSize = 10; // total number of pages to display in the sliding window (excluding first and last)
+            var halfWindow = Math.floor(windowSize / 2);
+
+            // Start and end centered around the current page
+            var start = clockouts.current_page - halfWindow;
+            var end = clockouts.current_page + halfWindow;
+
+            // Adjust if the current page is near the beginning
+            if (start < 2) {
+                end += 2 - start;
+                start = 2;
+            }
+
+            // Adjust if the current page is near the end
+            if (end > clockouts.last_page - 1) {
+                start -= end - (clockouts.last_page - 1);
+                end = clockouts.last_page - 1;
+                
+                if (start < 2) {
+                    start = 2;
+                }
+            }
+
+
+            // Determine a sliding window around the current page.
+            // var range = 2; // pages before and after the current page to display
+            // var start = Math.max(2, clockouts.current_page - range);
+            // var end = Math.min(clockouts.last_page - 1, clockouts.current_page + range);
+
+            // Show ellipsis if there's a gap between page 1 and the start of the window.
+            if (start > 2) {
+                paginationHtml += `<li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>`;
+            }
+
+            // Loop through the sliding window.
+            for (var i = start; i <= end; i++) {
+                if (i === clockouts.current_page) {
+                    paginationHtml += `<li class="page-item active">
+                        <a class="page-link pagination-link">${i}</a>
+                    </li>`;
+                } else {
+                    paginationHtml += `<li class="page-item">
+                        <a href="#" class="page-link pagination-link" data-page="${i}">${i}</a>
+                    </li>`;
+                }
+            }
+
+            // Show ellipsis if there's a gap between the end of the window and the last page.
+            if (end < clockouts.last_page - 1) {
+                paginationHtml += `<li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>`;
+            }
+
+            // Always show the last page.
+            if (clockouts.current_page === clockouts.last_page) {
+                paginationHtml += `<li class="page-item active">
+                    <a class="page-link pagination-link">${clockouts.last_page}</a>
+                </li>`;
+            } else {
+                paginationHtml += `<li class="page-item">
+                    <a href="#" class="page-link pagination-link" data-page="${clockouts.last_page}">${clockouts.last_page}</a>
+                </li>`;
+            }
+
+        } else {
+            // For 20 or fewer pages, show all page links.
+            for (var i = 1; i <= clockouts.last_page; i++) {
+                if (i === clockouts.current_page) {
+                    paginationHtml += `<li class="page-item active">
+                        <a class="page-link pagination-link">${i}</a>
+                    </li>`;
+                } else {
+                    paginationHtml += `<li class="page-item">
+                        <a href="#" class="page-link pagination-link" data-page="${i}">${i}</a>
+                    </li>`;
+                }
+            }
+        }
+
+        // Next link
+        if (clockouts.current_page < clockouts.last_page) {
+            paginationHtml += `<li class="page-item page-next">
+                <a href="#" class="page-link pagination-link" data-page="${clockouts.current_page + 1}">Next</a>
+            </li>`;
+        }
+
+        paginationHtml += `</ul>`;
+    }
+    $('#paginationLinks').html(paginationHtml);
+}
+
+
+
+document.addEventListener('click', function(e) {
+  // Check if the clicked element or one of its parents has the class 'pagination-link'
+  const paginationLink = e.target.closest('.pagination-link');
+  if (paginationLink) {
+    e.preventDefault();
+    const page = paginationLink.dataset.page; // gets the data-page attribute
+    // alert(page);
+    applyFiltersAjax(page);
+  }
+});
     
         function populateUserFilter(clockouts) {
             const userFilter = document.getElementById("userFilter");
@@ -360,7 +538,7 @@
                     var hours = date.getHours();
                     var minutes = date.getMinutes();
                     var day = date.getDate();
-                    var month = date.getMonth() + 1; // Months are zero-based, so add 1
+                    var month = date.getMonth(); // Months are zero-based, so add 1
                     var year = date.getFullYear();
     
                     var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
