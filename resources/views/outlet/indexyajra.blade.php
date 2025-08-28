@@ -348,7 +348,7 @@
                         name: 'actions',
                         render: function(data, type, row) {
                             return `
-                        <a class="btn btn-info edit-btn" href="/editoutlet/${data.id}" 
+                        <a class="btn btn-info edit-btn" href="/editcustomer/${data.id}" 
                             data-id="${data.id}">View/Edit</a>
 
                     `;
