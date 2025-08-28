@@ -15,12 +15,75 @@ use Spatie\ImageOptimizer\OptimizerChainFactory;
 class OutletController extends CommonController
 {
 
-    public function ajaxOutletsYajraTest()
+    public function ajaxOutletsYajraTest(Request $request)
     {
         $outlets = Outlet::with(['user' => function ($query) {
             $query->withTrashed();
-        }])->get();
-        return DataTables::of($outlets)->make(true);
+        }],'channeltype')->get();
+        $query = Outlet::select(
+            'outlets.*',
+            // DB::raw("DATE_FORMAT(visits.created_at, '%d-%b-%Y') as date"),
+            // DB::raw("DATE_FORMAT(visits.created_at, '%H:%i:%s') as time"),
+            'regions.name as region_name',
+            'territories.name as territory_name',
+            'clusters.name as cluster_name',
+            'channel_types.name as channeltypename',
+            'teams.name as teamname',
+            'users.name as user_name',
+            'routes.name as routename',
+
+
+        )
+        ->leftJoin('users', 'users.id', '=', 'outlets.user_id')
+        ->leftJoin('regions', 'regions.id', '=', 'users.region_id')
+        ->leftJoin('territories', 'territories.id', '=', 'users.territory_id')
+        ->leftJoin('clusters', 'clusters.id', '=', 'users.cluster_id')
+        ->leftJoin('routes', 'routes.id', '=', 'outlets.route_id')
+        ->leftJoin('teams', 'teams.id', '=', 'outlets.team_id')
+        ->leftJoin('channel_types', 'channel_types.id', '=', 'outlets.channel_type_id');
+        // return $request;
+
+        $toDate = \Carbon\Carbon::parse($request->to_date)->endOfDay();
+
+        if (!empty($request->from_time)) {
+            $query->whereRaw("TIME(outlets.created_at) >= ?", [$request->from_time]);
+            }
+            if (!empty($request->to_time)) {
+                $query->whereRaw("TIME(outlets.created_at) <= ?", [$request->to_time]);
+            }
+
+            if (!empty($request->from_date)) {
+                $query->whereDate('outlets.created_at', '>=', $request->from_date);
+            }
+
+            if (!empty($request->to_date)) {
+                $query->whereDate('outlets.created_at', '<=', $request->to_date);
+            }
+
+        $outlets = $query->get();
+        // return DataTables::of($outlets)->make(true);
+        return DataTables::of($outlets)
+        ->addColumn('date', function ($outlet) {
+            return $outlet->created_at->format('d-M-Y'); // Extract Date
+        })
+        // ->addColumn('routename', function ($row) {
+        //     return $row->route ? $row->route->name : 'N/A';
+        // })
+        // ->addColumn('teamname', function ($row) {
+        //     return $row->team ? $row->team->name : 'N/A';
+        // })
+        // ->addColumn('channeltypename', function ($row) {
+        //     return $row->channeltype ? $row->channeltype->name : 'N/A';
+        // })
+        ->addColumn('time', function ($outlet) {
+            return $outlet->created_at->format('H:i:s'); // Extract Time
+        })
+        ->rawColumns(['date', 'time']) // Ensure columns are not escaped
+
+
+
+        ->make(true);
+
 
     }
 
