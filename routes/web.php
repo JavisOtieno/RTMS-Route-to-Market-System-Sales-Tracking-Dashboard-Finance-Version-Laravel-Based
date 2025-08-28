@@ -175,6 +175,8 @@ Route::get('/visitsanalytics', [VisitController::class,'showVisitsAnalytics']);
 Route::get('/visits/{id}/{object}',[VisitController::class,'showVisitsById']);
 Route::get('/visits/filter', [VisitController::class,'filterVisits']);
 Route::get('/visitsnew', [VisitController::class,'indexYajra']);
+Route::get('/visitsyajra',[VisitController::class,'visitsYajra'])
+->name('visitsyajra');
 Route::get('/checkout/{id}', [VisitController::class,'checkout']);
 
 Route::get('/ordernote/{id}',[OrderNoteController::class,'index']);
