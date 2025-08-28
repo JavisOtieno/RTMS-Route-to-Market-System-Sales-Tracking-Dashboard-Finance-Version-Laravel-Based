@@ -28,7 +28,7 @@ class VisitController extends Controller
             return view('visit.index', ['visits'=>$visits]);
         }
         public function indexYajra() {
-            return view('visit.index');
+            return view('visit.indexyajra');
         }
 
         public function visitsYajra(Request $request)
