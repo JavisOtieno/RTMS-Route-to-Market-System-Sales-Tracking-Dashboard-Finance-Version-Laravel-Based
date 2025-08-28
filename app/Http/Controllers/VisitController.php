@@ -62,13 +62,18 @@ class VisitController extends Controller
 
         public function showVisitsMap(){
 
-            $visits = Visit::with(['user' => function ($query) {
-                $query->withTrashed();
-            }, 'outlet'])->get();
+            $visits = Visit::with([
+                'user' => function ($query) {
+                    $query->withTrashed();
+                },
+                'outlet'
+            ])->orderBy('id', 'desc')->paginate(500);
 
             $users = User::inOrganization()->get();
             $outlets = Outlet::all();
-           
+
+            // return $visits;
+
             //$users = User::inOrganization()->where('usertype','seller')->get();
             return view('visit.map', compact('visits','users','outlets') );
         }
