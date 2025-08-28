@@ -562,7 +562,7 @@ document.addEventListener('click', function(e) {
                             "<p>Longitude: " + long1 + "</p>" +
                             "<p><strong>Date: </strong> "+clockoutDate+"</p>"+
                             "<p><strong>Time: </strong> "+clockoutTime+"</p>"+
-                            "View: <a target='_blank' href='/editclockout/" + clockout.id + "'>View Clockout Details</a>" +
+                            "View: <a target='_blank' href='/clockout/" + clockout.id + "'>View Clockout Details</a>" +
                             "</div>"
                     });
     

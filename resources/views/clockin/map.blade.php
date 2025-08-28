@@ -554,7 +554,7 @@ document.addEventListener('click', function(e) {
                             "<p>Longitude: " + long1 + "</p>" +
                             "<p><strong>Date: </strong> "+clockinDate+"</p>"+
                             "<p><strong>Time: </strong> "+clockinTime+"</p>"+
-                            "View: <a target='_blank' href='/editclockin/" + clockin.id + "'>View Clockin Details</a>" +
+                            "View: <a target='_blank' href='/clockin/" + clockin.id + "'>View Clockin Details</a>" +
                         
                             "</div>"
                     });
