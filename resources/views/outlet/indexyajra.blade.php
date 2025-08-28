@@ -374,14 +374,14 @@
                         data: 'teamname',
                         name: 'teamname',defaultContent: 'None' 
                     },
-                    {
-                        data: 'routename',
-                        name: 'routename',defaultContent: 'None'
-                    },
-                    {
-                        data: 'channeltypename',
-                        name: 'channeltypename',defaultContent: 'None'
-                    },
+                    // {
+                    //     data: 'routename',
+                    //     name: 'routename',defaultContent: 'None'
+                    // },
+                    // {
+                    //     data: 'channeltypename',
+                    //     name: 'channeltypename',defaultContent: 'None'
+                    // },
 
                     // { data: 'created_at', name: 'date' },
                     {
