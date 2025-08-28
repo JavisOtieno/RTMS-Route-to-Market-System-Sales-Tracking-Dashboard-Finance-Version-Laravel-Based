@@ -29,6 +29,41 @@ class ClockoutController extends Controller
             }])->where($object.'_id',$objectId)->get();
             return view('clockout.index', ['clockouts'=>$clockouts]);
         }
+                public function filterClockouts(Request $request) {
+            //$visits = Visit::all();
+            $query = Clockout::with(['user' => function ($query) {
+                $query->withTrashed();
+            }]); // Eager load relationships for efficiency
+    
+            if ($request->user) {
+                $query->whereHas('user', function ($q) use ($request) {
+                    $q->where('name', 'like', '%' . $request->user . '%');
+                });
+            }
+        
+            if ($request->from_date) {
+                $query->whereDate('created_at', '>=', $request->from_date);
+            }
+        
+            if ($request->to_date) {
+                $query->whereDate('created_at', '<=', $request->to_date);
+            }
+            if ($request->from_time) {
+                $query->whereRaw("TIME(created_at) >= ?", [$request->from_time]);
+            }
+            if ($request->to_time) {
+                $query->whereRaw("TIME(created_at) <= ?", [$request->to_time]);
+            }
+                // Retrieve the current page from the request, defaulting to 1 if not set.
+            $currentPage = $request->input('page', 1);
+            
+    
+            // Explicitly pass the current page to the paginate() method.
+            $clockouts = $query->orderBy('id', 'DESC')->paginate(500, ['*'], 'page', $currentPage);
+    
+            // $visits = $query->orderBy('id', 'DESC')->paginate(500);
+            return response()->json(['clockouts'=>$clockouts]);
+        }
 
         public function showEditClockout($id){
             //$clockout = Clockout::find($id);
