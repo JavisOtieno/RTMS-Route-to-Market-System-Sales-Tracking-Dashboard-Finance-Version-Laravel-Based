@@ -93,12 +93,13 @@
                                         <td><a type="button" href="/visit/{{$visit['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View</a>
                                         </td>
                                         <td>{{ $visit['user'] ? $visit['user']['name']  . ($visit['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}</td>
-                                        <td>{{$visit['outlet']['name']}}</td>
-                                        <td>{{$visit['outlet']['region']==null?"None":$visit['outlet']['region']['name']}}</td>       
-                                        <td>{{$visit['outlet']['territory']==null?"None":$visit['outlet']['territory']['name']}}</td>       
+                                        
+                                        <td>{{ $visit['outlet']['name']}}</td>
+                                        <td>{{ $visit['outlet']['region']==null?"None":$visit['outlet']['region']['name']}}</td>       
+                                        <td>{{ $visit['outlet']['territory']==null?"None":$visit['outlet']['territory']['name']}}</td>       
       
-                                        <td>{{date('d-M-Y', strtotime($visit['created_at']))}}</td>
-                                        <td>{{date('H:i', strtotime($visit['created_at']))}}</td>
+                                        <td>{{ date('d-M-Y', strtotime($visit['created_at']))}}</td>
+                                        <td>{{ date('H:i', strtotime($visit['created_at']))}}</td>
 
                                         @if($visit['checkout_time']=="")
                                         <td>N/A</td>
@@ -347,7 +348,7 @@
                 content: `
                     <div>
                         <h3>Seller: ${visit.user.name}</h3>
-                        <p><strong>Outlet Name:</strong> ${visit.outlet.name}</p>
+                        <p><strong>Customer Name:</strong> ${visit.outlet.name}</p>
                         <p><strong>Contact Person:</strong> ${visit.outlet.contact_person_name}</p>
                         <p><strong>Phone:</strong> ${visit.outlet.phone}</p>
                         <p><strong>Latitude:</strong> ${visit.outlet.lat}</p>

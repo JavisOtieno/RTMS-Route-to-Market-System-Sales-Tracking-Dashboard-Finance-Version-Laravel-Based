@@ -86,7 +86,7 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>View</th>
-                                        <th>Name</th>
+                                        <th>Customer Name</th>
                                         <th>Seller Name</th>
                                         <th>Contact Name</th>
                                         <th>Phone</th>
@@ -349,7 +349,7 @@
                 content: `
                     <div>
                         <h3>Seller: ${visit.user_name}</h3>
-                        <p><strong>Outlet Name:</strong> ${visit.outlet_name}</p>
+                        <p><strong>Customer Name:</strong> ${visit.outlet_name}</p>
                         <p><strong>Contact Person:</strong> ${visit.contactpersonname}</p>
                         <p><strong>Phone:</strong> ${visit.phone}</p>
                         <p><strong>Latitude:</strong> ${visit.outlet_lat}</p>
