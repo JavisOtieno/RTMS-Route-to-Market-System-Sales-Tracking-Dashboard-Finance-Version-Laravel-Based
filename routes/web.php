@@ -169,6 +169,7 @@ Route::get('/dayroutes', [VisitController::class,'showRoutes']);
 Route::get('/dayroutes/{id}', [VisitController::class,'showRoutesById']);
 Route::get('/visitsanalytics', [VisitController::class,'showVisitsAnalytics']);
 Route::get('/visits/{id}/{object}',[VisitController::class,'showVisitsById']);
+Route::get('/visits/filter', [VisitController::class,'filterVisits']);
 Route::get('/checkout/{id}', [VisitController::class,'checkout']);
 
 Route::get('/ordernote/{id}',[OrderNoteController::class,'index']);
