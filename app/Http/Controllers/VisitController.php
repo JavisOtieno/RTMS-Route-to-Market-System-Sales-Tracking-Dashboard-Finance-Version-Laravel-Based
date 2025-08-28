@@ -394,5 +394,41 @@ class VisitController extends Controller
         //     $visit = Visit::find($incomingFields['id']);
         //     return view('edit-visit',['visit'=>$visit]);
         // }
+            public function tempCalculateDurations(){
+
+            // $visits = Visit::where('user_id','=',1)->get();
+             $visits = Visit::all();
+            $results = '';
+            foreach($visits as $visit){
+
+                if(strlen($visit->checkout_time)>0){
+                $timestamp1 = (int)$visit->checkout_time;
+                $timestamp2 = (int)$visit->checkin_time;
+
+                // Calculate the time difference in seconds
+                $timeDifferenceInSeconds = $timestamp1 - $timestamp2;
+
+                // Convert to H:i:s format
+                $timeDifference = gmdate('H:i:s', $timeDifferenceInSeconds);
+
+                $createdAt = Carbon::parse($visit->created_at);
+                $modifiedTime = $createdAt->copy()->addSeconds($timeDifferenceInSeconds);
+
+                // Get only the time in HH:MM:SS format
+                $timeOnly = $modifiedTime->format('H:i:s');
+
+                $visit->checkouttimeexact = $timeOnly;
+
+            }else{
+                // $visit->duration = "";
+            }
+
+                $visit->save();
+                $results .= $visit['id'].$createdAt.' '.$modifiedTime.' '.$timeDifference.'<br>';
+            }
+
+            return $results;
+
+        }
 
 }
