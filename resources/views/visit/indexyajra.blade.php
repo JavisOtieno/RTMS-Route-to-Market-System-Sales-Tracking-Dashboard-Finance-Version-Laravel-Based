@@ -94,8 +94,8 @@
 
                                         <th>Region</th>
                                         <th>Territory</th>
-                                        <th>Cluster</th>
-                                        <th>Channel Type</th>
+                                        {{-- <th>Cluster</th> --}}
+                                        {{-- <th>Channel Type</th> --}}
 
                                         <th>Date</th>
                                         <th>Check in Time</th>
@@ -120,8 +120,8 @@
                                         
                                         <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Region" /></th>
                                         <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Territory" /></th>
-                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Cluster" /></th>
-                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Channel Type" /></th>
+                                        {{-- <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Cluster" /></th> --}}
+                                        {{-- <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Channel Type" /></th> --}}
                                         <th><input class="form-control" style="width: auto;min-width: max-content;" type="date" placeholder="Search Date" /></th>
                                         <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Checkin Time" /></th>
                                         <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Checkout Time" /></th>
@@ -458,14 +458,14 @@
                         data: 'territory_name',
                         name: 'territory_name',defaultContent: 'None'
                     },
-                    {
-                        data: 'cluster_name',
-                        name: 'cluster_name',defaultContent: 'None'
-                    },
-                    {
-                        data: 'channel_type_name',
-                        name: 'channel_type_name',defaultContent: 'None'
-                    },
+                    // {
+                    //     data: 'cluster_name',
+                    //     name: 'cluster_name',defaultContent: 'None'
+                    // },
+                    // {
+                    //     data: 'channel_type_name',
+                    //     name: 'channel_type_name',defaultContent: 'None'
+                    // },
 
                     // { data: 'created_at', name: 'date' },
                     {
