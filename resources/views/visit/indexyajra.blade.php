@@ -488,8 +488,8 @@
                         name: 'time',
                     },
                     { 
-                        data: 'checkouttimeexact',
-                        name: 'checkouttimeexact',
+                        data: 'checkout_time',
+                        name: 'checkout_time',
                         render: function(data, type, row) {
                             if (data == null || data === '') {
                                 return "Not Checked Out"; // If checkouttimeexact is empty or null
@@ -551,10 +551,10 @@
                             // alert(createdAt);
                             // alert('test'+data.checkout_time+'test')
                             
-                           if (data.checkouttimeexact !== null ) {
+                           if (data.checkout_time !== null ) {
                                 return 'Checked out';
                             }
-                            else if (data.checkouttimeexact === null && createdAt === today )
+                            else if (data.checkout_time === null && createdAt === today )
                             {
                             return `
                         <a class="btn btn-info edit-btn" href="/checkout/${data.id}" 
