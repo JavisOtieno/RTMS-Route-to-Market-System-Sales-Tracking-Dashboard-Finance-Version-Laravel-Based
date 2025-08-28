@@ -30,7 +30,7 @@ class OutletController extends CommonController
             // 'channel_types.name as channeltypename',
             'teams.name as teamname',
             'users.name as user_name',
-            'routes.name as routename',
+            // 'routes.name as routename',
 
 
         )
@@ -38,7 +38,7 @@ class OutletController extends CommonController
         ->leftJoin('regions', 'regions.id', '=', 'users.region_id')
         ->leftJoin('territories', 'territories.id', '=', 'users.territory_id')
         // ->leftJoin('clusters', 'clusters.id', '=', 'users.cluster_id')
-        ->leftJoin('routes', 'routes.id', '=', 'outlets.route_id')
+        // ->leftJoin('routes', 'routes.id', '=', 'outlets.route_id')
         ->leftJoin('teams', 'teams.id', '=', 'outlets.team_id');
         // ->leftJoin('channel_types', 'channel_types.id', '=', 'outlets.channel_type_id');
         // return $request;
