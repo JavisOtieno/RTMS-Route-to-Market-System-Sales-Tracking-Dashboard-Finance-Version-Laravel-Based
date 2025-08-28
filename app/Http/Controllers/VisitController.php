@@ -39,7 +39,7 @@ class VisitController extends Controller
                 public function filterVisits(Request $request) {
             //$visits = Visit::all();
             $query = Visit::with(['user' => function ($query) {
-                $query->withTrashed()->with('region','territory','cluster');
+                $query->withTrashed()->with('region','territory');
             },'outlet' => function ($query) {
                 $query->withTrashed();
             }]); // Eager load relationships for efficiency
