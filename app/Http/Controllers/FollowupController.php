@@ -12,7 +12,7 @@ class FollowupController extends Controller
         //$followup = Followup::all();
         $followups = Followup::with(['user' => function ($query) {
             $query->withTrashed();
-        }])->get();
+        },'outlet','team'])->get();
         return view('followup.index', ['followups'=>$followups]);
     }
 
