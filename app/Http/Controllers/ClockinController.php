@@ -63,4 +63,38 @@ class ClockinController extends Controller
     //     $clockin = Clockin::find($incomingFields['id']);
     //     return view('edit-clockin',['clockin'=>$clockin]);
     // }
+        public function filterClockins(Request $request) {
+        //$visits = Visit::all();
+        $query = Clockin::with(['user' => function ($query) {
+            $query->withTrashed();
+        }]); // Eager load relationships for efficiency
+
+        if ($request->user) {
+            $query->whereHas('user', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->user . '%');
+            });
+        }
+        if ($request->from_time) {
+        $query->whereRaw("TIME(created_at) >= ?", [$request->from_time]);
+        }
+        if ($request->to_time) {
+            $query->whereRaw("TIME(created_at) <= ?", [$request->to_time]);
+        }
+    
+        if ($request->from_date) {
+            $query->whereDate('created_at', '>=', $request->from_date);
+        }
+    
+        if ($request->to_date) {
+            $query->whereDate('created_at', '<=', $request->to_date);
+        }
+            // Retrieve the current page from the request, defaulting to 1 if not set.
+        $currentPage = $request->input('page', 1);
+
+        // Explicitly pass the current page to the paginate() method.
+        $clockins = $query->orderBy('id', 'DESC')->paginate(500, ['*'], 'page', $currentPage);
+
+        // $visits = $query->orderBy('id', 'DESC')->paginate(500);
+        return response()->json(['clockins'=>$clockins]);
+    }
 }
