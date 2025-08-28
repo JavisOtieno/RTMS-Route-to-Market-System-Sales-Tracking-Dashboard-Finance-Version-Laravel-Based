@@ -60,6 +60,7 @@ Route::get('/dashboard', [DashboardController::class,'index']);
 
 Route::get('/deals', [SaleController::class,'index']);
 Route::get('/dealsmap', [SaleController::class,'showSalesMap']);
+Route::get('/sales/filter', [SaleController::class,'filterSales']);
 Route::get('/dealstargets', [SaleController::class,'showSalesTargets']);
 Route::get('/add-sale', [SaleController::class,'addSale']);
 Route::get('/dealsanalytics', [SaleController::class,'showSalesAnalytics']);
@@ -130,6 +131,7 @@ Route::post('/saveoutlet', [OutletController::class,'saveOutlet']);
 Route::get('/editcustomer/{id}',[OutletController::class,'showEditOutlet']);
 Route::put('/saveeditoutlet/{id}',[OutletController::class,'saveEditOutlet']);
 Route::get('/showcustomersmap',[OutletController::class,'showOutletsMap']);
+Route::get('/outlets/filter', [OutletController::class,'filterOutlets']);
 
 Route::get('/ajaxoutletsyajra',[OutletController::class,'ajaxoutletsYajraTest'])
 ->name('yajratestoutlets');
@@ -159,6 +161,7 @@ Route::get('/clockouts', [ClockoutController::class,'index']);
 Route::get('/clockouts/{id}/{object}',[ClockoutController::class,'showClockoutsById']);
 Route::get('/clockout/{id}',[ClockoutController::class,'showEditClockout']);
 Route::get('/clockoutsmap', [ClockoutController::class,'showClockoutsMap']);
+Route::get('/clockouts/filter', [ClockoutController::class,'filterClockouts']);
 Route::get('/deleteclockout/{id}', [ClockoutController::class,'deleteClockout']);
 
 //Test
