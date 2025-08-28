@@ -19,15 +19,15 @@ class OutletController extends CommonController
     {
         $outlets = Outlet::with(['user' => function ($query) {
             $query->withTrashed();
-        }],'channeltype')->get();
+        }])->get();
         $query = Outlet::select(
             'outlets.*',
             // DB::raw("DATE_FORMAT(visits.created_at, '%d-%b-%Y') as date"),
             // DB::raw("DATE_FORMAT(visits.created_at, '%H:%i:%s') as time"),
             'regions.name as region_name',
             'territories.name as territory_name',
-            'clusters.name as cluster_name',
-            'channel_types.name as channeltypename',
+            // 'clusters.name as cluster_name',
+            // 'channel_types.name as channeltypename',
             'teams.name as teamname',
             'users.name as user_name',
             'routes.name as routename',
@@ -37,10 +37,10 @@ class OutletController extends CommonController
         ->leftJoin('users', 'users.id', '=', 'outlets.user_id')
         ->leftJoin('regions', 'regions.id', '=', 'users.region_id')
         ->leftJoin('territories', 'territories.id', '=', 'users.territory_id')
-        ->leftJoin('clusters', 'clusters.id', '=', 'users.cluster_id')
+        // ->leftJoin('clusters', 'clusters.id', '=', 'users.cluster_id')
         ->leftJoin('routes', 'routes.id', '=', 'outlets.route_id')
-        ->leftJoin('teams', 'teams.id', '=', 'outlets.team_id')
-        ->leftJoin('channel_types', 'channel_types.id', '=', 'outlets.channel_type_id');
+        ->leftJoin('teams', 'teams.id', '=', 'outlets.team_id');
+        // ->leftJoin('channel_types', 'channel_types.id', '=', 'outlets.channel_type_id');
         // return $request;
 
         $toDate = \Carbon\Carbon::parse($request->to_date)->endOfDay();
