@@ -747,7 +747,7 @@ class UserController extends CommonController
         }
         else if($usertype=='teamleads'){
             return redirect('/teamleads');
-            }
+            }else
         {
             return redirect('/sellers');
         }
