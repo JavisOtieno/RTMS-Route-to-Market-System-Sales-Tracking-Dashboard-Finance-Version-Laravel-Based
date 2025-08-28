@@ -258,6 +258,9 @@ Route::get('/deleteregion/{id}', [RegionController::class,'deleteRegion']);
 Route::get('/editregion/{id}', [RegionController::class,'showEditRegion']);
 Route::put('/saveeditregion/{id}',[RegionController::class,'saveEditRegion']);
 
+
+Route::get('/tempcalculatedurations', [VisitController::class,'tempCalculateDurations']);
+
 // }
 
 // Route::get('/changepasswordadmin/{id}', [UserController::class,'showChangePasswordAdmin']);
