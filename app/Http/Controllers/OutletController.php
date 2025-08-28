@@ -89,7 +89,7 @@ class OutletController extends CommonController
 
     public function viewOutletsYajraTest()
     {
-        return view('outlets.indexyajra');
+        return view('outlet.indexyajra');
     }
     //
 
