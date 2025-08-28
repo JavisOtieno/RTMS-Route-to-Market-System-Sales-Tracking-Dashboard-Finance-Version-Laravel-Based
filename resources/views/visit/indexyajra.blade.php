@@ -551,7 +551,7 @@
                             // alert(createdAt);
                             // alert('test'+data.checkout_time+'test')
                             
-                           if (data.checkout_time !== null ) {
+                           if (data.checkout_time !== null || data.checkout_time !== '') {
                                 return 'Checked out';
                             }
                             else if (data.checkout_time === null && createdAt === today )
