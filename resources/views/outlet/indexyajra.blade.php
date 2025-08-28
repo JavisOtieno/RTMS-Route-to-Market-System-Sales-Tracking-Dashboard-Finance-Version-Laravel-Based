@@ -282,6 +282,7 @@
                         <p><strong>Phone:</strong> ${outlet.phone}</p>
                         <p><strong>Latitude:</strong> ${outlet.lat}</p>
                         <p><strong>Longitude:</strong> ${outlet.long}</p>
+                        <p><strong>View: </strong><a href='/editcustomer/${outlet.id}' >View Customer Details</a></p>
                         <img 
                         src="${outletImage}" 
                         alt="${outlet.name}" 
