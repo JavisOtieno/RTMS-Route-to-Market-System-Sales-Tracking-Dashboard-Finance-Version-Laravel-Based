@@ -43,10 +43,10 @@
             </div>
 
             <div class="col-md-3 mb-3">
-                <label for="outletFilter" class="form-label">Customer Name</label>
+                <label for="outletFilter" class="form-label">Outlet Name</label>
                 <select id="outletFilter"  class="form-control select2-show-search form-select">
                     <!-- Options will be populated dynamically -->
-                    <option value="">All Customers</option>
+                    <option value="">All Outlets</option>
                     @foreach($outlets as $outlet)
                     <option value="{{$outlet['name']}}">{{$outlet['name']}}</option>
                     @endforeach
@@ -69,9 +69,16 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <div id="googleMapVisits" class="worldh world-map h-500" ></div>
+                <div id="googleMapVisits" class="worldh world-map" style="height:80vh"></div>
+            </div>
+            {{-- {{ $visits->links() }} <!-- Generates pagination links --> --}}
+                <!-- Pagination Links -->
+            <div id="paginationLinks" class="mt-3">
+                <!-- Pagination links will be dynamically injected here -->
             </div>
         </div>
+        
+
     </div>
 </div>
 
@@ -145,11 +152,12 @@
     let markers = [];  // Store marker references
 
     function myMap2() {
-        var visits = @json($visits);
+        // var visits = @json($visits);
+        // visits = visits.data;
 
-        console.log("visits 0");
-        console.log(visits[0]);
-        console.log("visits 0");
+        // console.log("visits 0");
+        // console.log(visits[0]);
+        // console.log("visits 0");
 
         var mapProp = {
             center: new google.maps.LatLng(-1.286389, 36.817223),
@@ -166,10 +174,13 @@
             // populateUserFilter(visits);
 
             // Initial map update with all visits
-            updateMap(visits);
+            // updateMap(visits);
+            applyFiltersAjax(1);
 
             $('#userFilter, #outletFilter, #fromDate, #toDate').on('change', function() {
-            applyFilters(visits);
+            // applyFilters(visits);
+            // alert('test');
+            applyFiltersAjax();
             });
             
 
@@ -178,6 +189,7 @@
     }
 
     function applyFilters(visits) {
+        // alert('test');
 
                 var selectedOutlet = $('#outletFilter').val();
                 var selectedUser = $('#userFilter').val();
@@ -200,6 +212,184 @@
                 updateMap(filteredVisits);
 
     }
+    let currentPage = 1;  // Default to page 1
+    let pageSize = 10;    // Default page size (you can adjust this based on your preference)
+
+    function applyFiltersAjax(page=1) {
+    // alert('test');
+    var selectedOutlet = $('#outletFilter').val();
+    var selectedUser = $('#userFilter').val();
+    var fromDate = $('#fromDate').val();
+    var toDate = $('#toDate').val();
+
+    $.ajax({
+        url: '/visits/filter',  // Backend route
+        type: 'GET',
+        data: {
+            user: selectedUser,
+            outlet: selectedOutlet,
+            from_date: fromDate,
+            to_date: toDate,
+            page:page
+        },
+        success: function(response) {
+            updateMap(response.visits.data);  // Update map with filtered results
+            updatePagination(response.visits);  // Update pagination links
+
+        
+        },
+        error: function(error) {
+            console.error("Error fetching visits:", error);
+        }
+    });
+}
+
+/**
+ * Updates the pagination links based on the paginated data.
+ */
+ function updatePagination(visits) {
+    // alert('updating pagination');
+    var paginationHtml = '';
+
+    // Only add pagination if there are multiple pages
+    if (visits.total > visits.per_page) {
+        // alert('visits total > per page');
+        paginationHtml += `<ul class="pagination">`;
+
+        // Previous link
+        if (visits.current_page > 1) {
+            paginationHtml += `<li class="page-item page-prev">
+                <a href="#" class="page-link pagination-link" data-page="${visits.current_page - 1}">Previous</a>
+            </li>`;
+        }
+
+        // If there are more than 20 pages, use an ellipsis format.
+        if (visits.last_page > 20) {
+            // Always show the first page.
+            if (visits.current_page === 1) {
+                paginationHtml += `<li class="page-item active">
+                    <a class="page-link pagination-link">1</a>
+                </li>`;
+            } else {
+                paginationHtml += `<li class="page-item">
+                    <a href="#" class="page-link pagination-link" data-page="1">1</a>
+                </li>`;
+            }
+
+            var windowSize = 10; // total number of pages to display in the sliding window (excluding first and last)
+            var halfWindow = Math.floor(windowSize / 2);
+
+            // Start and end centered around the current page
+            var start = visits.current_page - halfWindow;
+            var end = visits.current_page + halfWindow;
+
+            // Adjust if the current page is near the beginning
+            if (start < 2) {
+                end += 2 - start;
+                start = 2;
+            }
+
+            // Adjust if the current page is near the end
+            if (end > visits.last_page - 1) {
+                start -= end - (visits.last_page - 1);
+                end = visits.last_page - 1;
+                
+                if (start < 2) {
+                    start = 2;
+                }
+            }
+
+
+            // Determine a sliding window around the current page.
+            // var range = 2; // pages before and after the current page to display
+            // var start = Math.max(2, visits.current_page - range);
+            // var end = Math.min(visits.last_page - 1, visits.current_page + range);
+
+            // Show ellipsis if there's a gap between page 1 and the start of the window.
+            if (start > 2) {
+                paginationHtml += `<li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>`;
+            }
+
+            // Loop through the sliding window.
+            for (var i = start; i <= end; i++) {
+                if (i === visits.current_page) {
+                    paginationHtml += `<li class="page-item active">
+                        <a class="page-link pagination-link">${i}</a>
+                    </li>`;
+                } else {
+                    paginationHtml += `<li class="page-item">
+                        <a href="#" class="page-link pagination-link" data-page="${i}">${i}</a>
+                    </li>`;
+                }
+            }
+
+            // Show ellipsis if there's a gap between the end of the window and the last page.
+            if (end < visits.last_page - 1) {
+                paginationHtml += `<li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>`;
+            }
+
+            // Always show the last page.
+            if (visits.current_page === visits.last_page) {
+                paginationHtml += `<li class="page-item active">
+                    <a class="page-link pagination-link">${visits.last_page}</a>
+                </li>`;
+            } else {
+                paginationHtml += `<li class="page-item">
+                    <a href="#" class="page-link pagination-link" data-page="${visits.last_page}">${visits.last_page}</a>
+                </li>`;
+            }
+
+        } else {
+            // For 20 or fewer pages, show all page links.
+            for (var i = 1; i <= visits.last_page; i++) {
+                if (i === visits.current_page) {
+                    paginationHtml += `<li class="page-item active">
+                        <a class="page-link pagination-link">${i}</a>
+                    </li>`;
+                } else {
+                    paginationHtml += `<li class="page-item">
+                        <a href="#" class="page-link pagination-link" data-page="${i}">${i}</a>
+                    </li>`;
+                }
+            }
+        }
+
+        // Next link
+        if (visits.current_page < visits.last_page) {
+            paginationHtml += `<li class="page-item page-next">
+                <a href="#" class="page-link pagination-link" data-page="${visits.current_page + 1}">Next</a>
+            </li>`;
+        }
+
+        paginationHtml += `</ul>`;
+    }
+    $('#paginationLinks').html(paginationHtml);
+}
+
+
+
+document.addEventListener('click', function(e) {
+  // Check if the clicked element or one of its parents has the class 'pagination-link'
+  const paginationLink = e.target.closest('.pagination-link');
+  if (paginationLink) {
+    e.preventDefault();
+    const page = paginationLink.dataset.page; // gets the data-page attribute
+    // alert(page);
+    applyFiltersAjax(page);
+  }
+});
+  
+
+
+
+
+
+
+
 
     function populateUserFilter(visits) {
         const userFilter = document.getElementById("userFilter");
@@ -253,7 +443,7 @@
                 var hours = date.getHours();
                 var minutes = date.getMinutes();
                 var day = date.getDate();
-                var month = date.getMonth() + 1; // Months are zero-based, so add 1
+                var month = date.getMonth(); // Months are zero-based, so add 1
                 var year = date.getFullYear();
 
                 var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -278,7 +468,7 @@
                         "<p><strong>Date:</strong> "+visitDate+"</p>"+
                         "<p><strong>Checkin Time:</strong> "+visitTime+"</p>"+
                         "<p><strong>Checkout Time:</strong> "+checkoutTime+"</p>"+
-                        "View: <a target='_blank' href='/editvisit/" + visit.id + "'>View Visit Details</a>" +
+                        "View: <a target='_blank' href='/visit/" + visit.id + "'>View Visit Details</a>" +
                     
                         "</div>"
                 });
@@ -308,6 +498,7 @@
         markers.forEach(marker => marker.setMap(null));  // Remove each marker from the map
         markers = [];  // Clear the markers array
     }
+
 </script>
 {{-- async defer --}}
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALLsNWwOC09xsRAqrK0S7dINi6BpNc7iw&callback=myMap2" ></script>
