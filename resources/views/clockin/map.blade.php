@@ -69,7 +69,10 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <div id="googleMapClockins" class="worldh world-map h-500" ></div>
+                <div id="googleMapClockins" class="worldh world-map" style="height:80vh" ></div>
+            </div>
+            <div id="paginationLinks" class="mt-3">
+                <!-- Pagination links will be dynamically injected here -->
             </div>
         </div>
     </div>
@@ -181,16 +184,16 @@
         // var markerElement = new google.maps.marker.AdvancedMarkerElement({
         //         position: myPosition,
         //         map: map,
-        //         title: 'Visit Marker', // Add a title if needed
+        //         title: 'clockin Marker', // Add a title if needed
         //     });
 
             // Extend the bounds to include this marker's position
             bounds.extend(myPosition);
 
-            // var infoContent = "<div><h3>"+visit['outlet']['name']+"</h3>"+
+            // var infoContent = "<div><h3>"+clockin['outlet']['name']+"</h3>"+
             //     "<p>Latitude: "+lat1+"</p>"+
             //     "<p>Longitude: "+long1+"</p>"+
-            //     "<p>Seller: "+visit['user']['name']+"</p>"+
+            //     "<p>Seller: "+clockin['user']['name']+"</p>"+
             // "</div>";
 
             // Create an InfoWindow
@@ -227,7 +230,7 @@
     }
 
 });
-   // console.log(recentVisits);
+   // console.log(recentclockins);
     
     // const myPosition = { lat: -25.344, lng: 131.031 };
     // //console.log(myPosition);
@@ -269,13 +272,15 @@
                 // $('#userFilter').select2();
     
                 // Populate user filter dropdown
-                // populateUserFilter(visits);
+                // populateUserFilter(clockins);
     
-                // Initial map update with all visits
-                updateMap(clockins);
+                // Initial map update with all clockins
+                // updateMap(clockins);
+                applyFiltersAjax();
     
                 $('#userFilter, #outletFilter, #fromDate, #toDate, #fromTime, #toTime').on('change', function() {
-                applyFilters(clockins);
+                // applyFilters(clockins);
+                applyFiltersAjax();
                 });
                 
     
@@ -292,11 +297,11 @@
                     var fromTime = $('#fromTime').val(); 
                     var toTime = $('#toTime').val();
                     
-                   // var filteredVisits = selectedUser ? visits.filter(visit => visit.user.name === selectedUser ) : visits;
+                   // var filteredclockins = selectedUser ? clockins.filter(clockin => clockin.user.name === selectedUser ) : clockins;
                     var filteredClockins = clockins.filter(clockin => {
                                 const userMatches = selectedUser ? clockin.user.name === selectedUser : true;
                                 // const outletMatches = selectedOutlet ? outlet.name === selectedOutlet : true;
-                                        // Convert visit.created_at to date object
+                                        // Convert clockin.created_at to date object
                                 var clockinDate = new Date(clockin.created_at);
     
                                 // Filter by date range
@@ -322,6 +327,176 @@
                     updateMap(filteredClockins);
     
         }
+
+        function applyFiltersAjax(page=1) {
+    // alert('test');
+    var selectedUser = $('#userFilter').val();
+    var fromDate = $('#fromDate').val();
+    var toDate = $('#toDate').val();
+    var fromTime = $('#fromTime').val();
+    var toTime = $('#toTime').val();
+
+    $.ajax({
+        url: '/clockins/filter',  // Backend route
+        type: 'GET',
+        data: {
+            user: selectedUser,
+            from_date: fromDate,
+            to_date: toDate,
+            from_time: fromTime,
+            to_time: toTime,
+            page:page
+        },
+        success: function(response) {
+            updateMap(response.clockins.data);  // Update map with filtered results
+            updatePagination(response.clockins);  // Update pagination links
+
+        
+        },
+        error: function(error) {
+            console.error("Error fetching clockins:", error);
+        }
+    });
+}
+
+/**
+ * Updates the pagination links based on the paginated data.
+ */
+ function updatePagination(clockins) {
+    // alert('updating pagination');
+    var paginationHtml = '';
+
+    // Only add pagination if there are multiple pages
+    if (clockins.total > clockins.per_page) {
+        // alert('clockins total > per page');
+        paginationHtml += `<ul class="pagination">`;
+
+        // Previous link
+        if (clockins.current_page > 1) {
+            paginationHtml += `<li class="page-item page-prev">
+                <a href="#" class="page-link pagination-link" data-page="${clockins.current_page - 1}">Previous</a>
+            </li>`;
+        }
+
+        // If there are more than 20 pages, use an ellipsis format.
+        if (clockins.last_page > 20) {
+            // Always show the first page.
+            if (clockins.current_page === 1) {
+                paginationHtml += `<li class="page-item active">
+                    <a class="page-link pagination-link">1</a>
+                </li>`;
+            } else {
+                paginationHtml += `<li class="page-item">
+                    <a href="#" class="page-link pagination-link" data-page="1">1</a>
+                </li>`;
+            }
+
+            var windowSize = 10; // total number of pages to display in the sliding window (excluding first and last)
+            var halfWindow = Math.floor(windowSize / 2);
+
+            // Start and end centered around the current page
+            var start = clockins.current_page - halfWindow;
+            var end = clockins.current_page + halfWindow;
+
+            // Adjust if the current page is near the beginning
+            if (start < 2) {
+                end += 2 - start;
+                start = 2;
+            }
+
+            // Adjust if the current page is near the end
+            if (end > clockins.last_page - 1) {
+                start -= end - (clockins.last_page - 1);
+                end = clockins.last_page - 1;
+                
+                if (start < 2) {
+                    start = 2;
+                }
+            }
+
+
+            // Determine a sliding window around the current page.
+            // var range = 2; // pages before and after the current page to display
+            // var start = Math.max(2, clockins.current_page - range);
+            // var end = Math.min(clockins.last_page - 1, clockins.current_page + range);
+
+            // Show ellipsis if there's a gap between page 1 and the start of the window.
+            if (start > 2) {
+                paginationHtml += `<li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>`;
+            }
+
+            // Loop through the sliding window.
+            for (var i = start; i <= end; i++) {
+                if (i === clockins.current_page) {
+                    paginationHtml += `<li class="page-item active">
+                        <a class="page-link pagination-link">${i}</a>
+                    </li>`;
+                } else {
+                    paginationHtml += `<li class="page-item">
+                        <a href="#" class="page-link pagination-link" data-page="${i}">${i}</a>
+                    </li>`;
+                }
+            }
+
+            // Show ellipsis if there's a gap between the end of the window and the last page.
+            if (end < clockins.last_page - 1) {
+                paginationHtml += `<li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>`;
+            }
+
+            // Always show the last page.
+            if (clockins.current_page === clockins.last_page) {
+                paginationHtml += `<li class="page-item active">
+                    <a class="page-link pagination-link">${clockins.last_page}</a>
+                </li>`;
+            } else {
+                paginationHtml += `<li class="page-item">
+                    <a href="#" class="page-link pagination-link" data-page="${clockins.last_page}">${clockins.last_page}</a>
+                </li>`;
+            }
+
+        } else {
+            // For 20 or fewer pages, show all page links.
+            for (var i = 1; i <= clockins.last_page; i++) {
+                if (i === clockins.current_page) {
+                    paginationHtml += `<li class="page-item active">
+                        <a class="page-link pagination-link">${i}</a>
+                    </li>`;
+                } else {
+                    paginationHtml += `<li class="page-item">
+                        <a href="#" class="page-link pagination-link" data-page="${i}">${i}</a>
+                    </li>`;
+                }
+            }
+        }
+
+        // Next link
+        if (clockins.current_page < clockins.last_page) {
+            paginationHtml += `<li class="page-item page-next">
+                <a href="#" class="page-link pagination-link" data-page="${clockins.current_page + 1}">Next</a>
+            </li>`;
+        }
+
+        paginationHtml += `</ul>`;
+    }
+    $('#paginationLinks').html(paginationHtml);
+}
+
+
+
+document.addEventListener('click', function(e) {
+  // Check if the clicked element or one of its parents has the class 'pagination-link'
+  const paginationLink = e.target.closest('.pagination-link');
+  if (paginationLink) {
+    e.preventDefault();
+    const page = paginationLink.dataset.page; // gets the data-page attribute
+    // alert(page);
+    applyFiltersAjax(page);
+  }
+});
     
         function populateUserFilter(clockins) {
             const userFilter = document.getElementById("userFilter");
@@ -356,7 +531,7 @@
                     var hours = date.getHours();
                     var minutes = date.getMinutes();
                     var day = date.getDate();
-                    var month = date.getMonth() + 1; // Months are zero-based, so add 1
+                    var month = date.getMonth(); // Months are zero-based, so add 1
                     var year = date.getFullYear();
     
                     var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
