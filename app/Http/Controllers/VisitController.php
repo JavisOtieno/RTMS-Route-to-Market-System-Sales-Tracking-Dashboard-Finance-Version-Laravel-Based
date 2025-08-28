@@ -411,6 +411,8 @@ class VisitController extends Controller
                 // Convert to H:i:s format
                 $timeDifference = gmdate('H:i:s', $timeDifferenceInSeconds);
 
+                $visit->checkouttimeexact = $timeDifference;
+
                 $createdAt = Carbon::parse($visit->created_at);
                 $modifiedTime = $createdAt->copy()->addSeconds($timeDifferenceInSeconds);
 
