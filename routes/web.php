@@ -124,7 +124,7 @@ Route::get('/followup/{id}/{object}',[FollowupController::class,'showFollowupByI
 
 Route::get('/customers', [OutletController::class,'index']);
 Route::get('/outlets/{id}/{object}', [OutletController::class,'showOutletsById']);
-
+Route::get('/customersnew', [OutletController::class,'indexYajra']);
 Route::get('/deletecustomer/{id}', [OutletController::class,'deleteOutlet']);
 Route::get('/add-customer', [OutletController::class,'addOutlet']);
 Route::post('/saveoutlet', [OutletController::class,'saveOutlet']);
