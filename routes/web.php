@@ -151,6 +151,7 @@ Route::get('/clockin/{id}',[ClockinController::class,'showEditClockin']);
 Route::get('/clockins/{id}/{object}',[ClockinController::class,'showClockinsById']);
 Route::get('/clockinsmap', [ClockinController::class,'showClockinsMap']);
 Route::get('/clockinsanalytics', [ClockinController::class,'showClockinsAnalytics']);
+Route::get('/clockins/filter', [ClockinController::class,'filterClockins']);
 Route::get('/fetchclockinanalytics', [ClockinController::class,'filterClockinsAnalytics']);
 
 
