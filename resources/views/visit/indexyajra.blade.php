@@ -349,7 +349,7 @@
                 content: `
                     <div>
                         <h3>Seller: ${visit.user_name}</h3>
-                        <p><strong>Customer Name:</strong> ${visit.outlet_name}</p>
+                        <p><strong>Outlet Name:</strong> ${visit.outlet_name}</p>
                         <p><strong>Contact Person:</strong> ${visit.contactpersonname}</p>
                         <p><strong>Phone:</strong> ${visit.phone}</p>
                         <p><strong>Latitude:</strong> ${visit.outlet_lat}</p>
@@ -488,8 +488,8 @@
                         name: 'time',
                     },
                     { 
-                        data: 'checkout_time',
-                        name: 'checkout_time',
+                        data: 'checkouttimeexact',
+                        name: 'checkouttimeexact',
                         render: function(data, type, row) {
                             if (data == null || data === '') {
                                 return "Not Checked Out"; // If checkouttimeexact is empty or null
@@ -551,10 +551,10 @@
                             // alert(createdAt);
                             // alert('test'+data.checkout_time+'test')
                             
-                           if (data.checkout_time !== null || data.checkout_time !== '') {
+                           if (data.checkouttimeexact !== null ) {
                                 return 'Checked out';
                             }
-                            else if (data.checkout_time === null && createdAt === today )
+                            else if (data.checkouttimeexact === null && createdAt === today )
                             {
                             return `
                         <a class="btn btn-info edit-btn" href="/checkout/${data.id}" 
