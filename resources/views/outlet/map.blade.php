@@ -24,8 +24,8 @@
 
     <div class="card">
         {{-- <div class="card-header">
-            <h3 class="card-title">Customers Map</h3>
-            <a type="button" href="/add-outlet" class="btn btn-danger col-md-3" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;">Add Customer</a>
+            <h3 class="card-title">Outlets Map</h3>
+            <a type="button" href="/add-outlet" class="btn btn-danger col-md-3" style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;">Add Outlet</a>
         </div> --}}
 
         <div class="row" style="margin: 0 10px;">
@@ -71,7 +71,10 @@
 
         <div class="card-body">
             <div>
-                <div id="googleMapOutlets" class="worldh world-map h-500" ></div>
+                <div id="googleMapOutlets" class="worldh world-map" style="height:80vh"></div>
+            </div>
+            <div id="paginationLinks" class="mt-3">
+                <!-- Pagination links will be dynamically injected here -->
             </div>
         </div>
     </div>
@@ -128,7 +131,7 @@
     function deleteItem(id,name,sku,pieces){
         //alert(id);
         var itemDetails = document.getElementById("itemDetails");
-        itemDetails.innerHTML = "Outlet Id: "+id+"<br/> Outlet Name: "+name;
+        itemDetails.innerHTML = "Customer Id: "+id+"<br/> Customer Name: "+name;
         var confirmDeleteLink = document.getElementById('confirmDelete'); //or grab it by tagname etc
         confirmDeleteLink.href = "/deleteoutlet/"+id;
     }
@@ -137,7 +140,7 @@
         var mapEmbedFrame = document.getElementById("mapEmbededForNow");
         mapEmbedFrame.src = "https://maps.google.com/maps?q="+lat+","+long+"&hl=es;z=14&amp&output=embed";
         //var confirmDeleteLink = document.getElementById('confirmDelete'); //or grab it by tagname etc
-        //confirmDeleteLink.href = "/deletesale/"+id;
+        //confirmDeleteLink.href = "/deleteoutlet/"+id;
     }
   </script>
 
@@ -277,10 +280,12 @@
                 // populateUserFilter(visits);
     
                 // Initial map update with all visits
-                updateMap(outlets);
+                // updateMap(outlets);
+                applyFiltersAjax();
     
                 $('#userFilter, #outletFilter, #fromDate, #toDate').on('change', function() {
-                applyFilters(outlets);
+                // applyFilters(outlets);
+                applyFiltersAjax();
                 });
                 
     
@@ -311,6 +316,174 @@
                     updateMap(filteredOutlets);
     
         }
+
+        function applyFiltersAjax(page=1) {
+    // alert('test');
+    var selectedOutlet = $('#outletFilter').val();
+    var selectedUser = $('#userFilter').val();
+    var fromDate = $('#fromDate').val();
+    var toDate = $('#toDate').val();
+
+    $.ajax({
+        url: '/outlets/filter',  // Backend route
+        type: 'GET',
+        data: {
+            user: selectedUser,
+            outlet: selectedOutlet,
+            from_date: fromDate,
+            to_date: toDate,
+            page:page
+        },
+        success: function(response) {
+            updateMap(response.outlets.data);  // Update map with filtered results
+            updatePagination(response.outlets);  // Update pagination links
+
+        
+        },
+        error: function(error) {
+            console.error("Error fetching outlets:", error);
+        }
+    });
+}
+
+/**''
+ * Updates the pagination links based on the paginated data.
+ */
+ function updatePagination(outlets) {
+    // alert('updating pagination');
+    var paginationHtml = '';
+
+    // Only add pagination if there are multiple pages
+    if (outlets.total > outlets.per_page) {
+        // alert('outlets total > per page');
+        paginationHtml += `<ul class="pagination">`;
+
+        // Previous link
+        if (outlets.current_page > 1) {
+            paginationHtml += `<li class="page-item page-prev">
+                <a href="#" class="page-link pagination-link" data-page="${outlets.current_page - 1}">Previous</a>
+            </li>`;
+        }
+
+        // If there are more than 20 pages, use an ellipsis format.
+        if (outlets.last_page > 20) {
+            // Always show the first page.
+            if (outlets.current_page === 1) {
+                paginationHtml += `<li class="page-item active">
+                    <a class="page-link pagination-link">1</a>
+                </li>`;
+            } else {
+                paginationHtml += `<li class="page-item">
+                    <a href="#" class="page-link pagination-link" data-page="1">1</a>
+                </li>`;
+            }
+
+            var windowSize = 10; // total number of pages to display in the sliding window (excluding first and last)
+            var halfWindow = Math.floor(windowSize / 2);
+
+            // Start and end centered around the current page
+            var start = outlets.current_page - halfWindow;
+            var end = outlets.current_page + halfWindow;
+
+            // Adjust if the current page is near the beginning
+            if (start < 2) {
+                end += 2 - start;
+                start = 2;
+            }
+
+            // Adjust if the current page is near the end
+            if (end > outlets.last_page - 1) {
+                start -= end - (outlets.last_page - 1);
+                end = outlets.last_page - 1;
+                
+                if (start < 2) {
+                    start = 2;
+                }
+            }
+
+
+            // Determine a sliding window around the current page.
+            // var range = 2; // pages before and after the current page to display
+            // var start = Math.max(2, outlets.current_page - range);
+            // var end = Math.min(outlets.last_page - 1, outlets.current_page + range);
+
+            // Show ellipsis if there's a gap between page 1 and the start of the window.
+            if (start > 2) {
+                paginationHtml += `<li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>`;
+            }
+
+            // Loop through the sliding window.
+            for (var i = start; i <= end; i++) {
+                if (i === outlets.current_page) {
+                    paginationHtml += `<li class="page-item active">
+                        <a class="page-link pagination-link">${i}</a>
+                    </li>`;
+                } else {
+                    paginationHtml += `<li class="page-item">
+                        <a href="#" class="page-link pagination-link" data-page="${i}">${i}</a>
+                    </li>`;
+                }
+            }
+
+            // Show ellipsis if there's a gap between the end of the window and the last page.
+            if (end < outlets.last_page - 1) {
+                paginationHtml += `<li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>`;
+            }
+
+            // Always show the last page.
+            if (outlets.current_page === outlets.last_page) {
+                paginationHtml += `<li class="page-item active">
+                    <a class="page-link pagination-link">${outlets.last_page}</a>
+                </li>`;
+            } else {
+                paginationHtml += `<li class="page-item">
+                    <a href="#" class="page-link pagination-link" data-page="${outlets.last_page}">${outlets.last_page}</a>
+                </li>`;
+            }
+
+        } else {
+            // For 20 or fewer pages, show all page links.
+            for (var i = 1; i <= outlets.last_page; i++) {
+                if (i === outlets.current_page) {
+                    paginationHtml += `<li class="page-item active">
+                        <a class="page-link pagination-link">${i}</a>
+                    </li>`;
+                } else {
+                    paginationHtml += `<li class="page-item">
+                        <a href="#" class="page-link pagination-link" data-page="${i}">${i}</a>
+                    </li>`;
+                }
+            }
+        }
+
+        // Next link
+        if (outlets.current_page < outlets.last_page) {
+            paginationHtml += `<li class="page-item page-next">
+                <a href="#" class="page-link pagination-link" data-page="${outlets.current_page + 1}">Next</a>
+            </li>`;
+        }
+
+        paginationHtml += `</ul>`;
+    }
+    $('#paginationLinks').html(paginationHtml);
+}
+
+
+
+document.addEventListener('click', function(e) {
+  // Check if the clicked element or one of its parents has the class 'pagination-link'
+  const paginationLink = e.target.closest('.pagination-link');
+  if (paginationLink) {
+    e.preventDefault();
+    const page = paginationLink.dataset.page; // gets the data-page attribute
+    // alert(page);
+    applyFiltersAjax(page);
+  }
+});
     
         function populateUserFilter(outlets) {
             const userFilter = document.getElementById("userFilter");
@@ -345,7 +518,7 @@
                     var hours = date.getHours();
                     var minutes = date.getMinutes();
                     var day = date.getDate();
-                    var month = date.getMonth() + 1; // Months are zero-based, so add 1
+                    var month = date.getMonth(); // Months are zero-based, so add 1
                     var year = date.getFullYear();
     
                     var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -368,7 +541,7 @@
                             "<p>Latitude: " + lat1 + "</p>" +
                             "<p>Longitude: " + long1 + "</p>" +
                             "<p><strong>Created:</strong> "+outletDate+" "+outletTime+"</p>"+
-                            "View: <a target='_blank' href='/editcustomer/" + outlet.id + "'>View Outlet Details</a>" +
+                            "View: <a target='_blank' href='/editcustomer/" + outlet.id + "'>View Customer Details</a>" +
                         
                             "</div>"
                     });
