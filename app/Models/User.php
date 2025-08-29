@@ -70,11 +70,17 @@ class User extends Authenticatable
     public function region(){
         return $this->belongsTo(Region::class,'region_id');
     }
-
+    public function clockins()
+    {
+        return $this->hasMany(Clockin::class);
+    }
+    public function visits()
+    {
+        return $this->hasMany(Clockin::class);
+    }
     public function territory(){
         return $this->belongsTo(Territory::class,'territory_id');
     }
-
     public function organization(){
         return $this->belongsTo(Organization::class,'organization_id');
     }
@@ -136,6 +142,7 @@ class User extends Authenticatable
         
 
     }
+
 
     
 }

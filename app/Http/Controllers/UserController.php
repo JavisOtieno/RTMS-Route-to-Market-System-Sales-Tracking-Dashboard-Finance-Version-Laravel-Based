@@ -53,6 +53,37 @@ class UserController extends CommonController
         return view('seller.index', ['users'=>$users, 'targetgroups'=>$targetgroups]);
     }
 
+        public function sellersreport() {
+        //eager load to prevent N+1
+
+
+        $users = User::inOrganization()
+            ->with(['targetgroup', 'team', 'region', 'territory'])
+            ->where('usertype','seller')
+            ->withCount(['clockins as total_clockins'])
+            ->withCount(['visits as total_visits'])
+            ->withCount(['sales as total_sales'])
+            ->get();
+
+        if(auth()->user()->usertype=="teamlead"){
+        $users = User::inOrganization()
+                    ->where('team_id',auth()->user()->team_id)
+                    ->with(['targetgroup', 'team', 'region', 'territory'])
+                    ->where('usertype','seller')
+                    ->withCount(['clockins as total_clockins'])
+                    ->withCount(['visits as total_visits'])
+                    ->withCount(['sales as total_sales'])
+                    ->get();
+            
+        }
+
+        //return $users;
+        //dd($sales);
+       
+
+        return view('seller.indexreport', ['users'=>$users]);
+    }
+
     public function showSellersById($objectId,$object) {
         //$visits = Visit::all();
         $targetgroups = TargetGroup::withTrashed();
