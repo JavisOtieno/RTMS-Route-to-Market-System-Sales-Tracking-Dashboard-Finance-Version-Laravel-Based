@@ -93,6 +93,24 @@ class UserController extends CommonController
                         $q->whereDate('created_at', '<=', $to);
                     }
                 },
+                'sales as total_sales_complete' => function ($q) use ($from, $to) {
+                    $q->where('status', 'complete');
+                    if ($from) {
+                        $q->whereDate('created_at', '>=', $from);
+                    }
+                    if ($to) {
+                        $q->whereDate('created_at', '<=', $to);
+                    }
+                },
+                'sales as total_sales_incomplete' => function ($q) use ($from, $to) {
+                    $q->where('status', 'pending');
+                    if ($from) {
+                        $q->whereDate('created_at', '>=', $from);
+                    }
+                    if ($to) {
+                        $q->whereDate('created_at', '<=', $to);
+                    }
+                },
             ])
             ->get();
 
@@ -322,7 +340,7 @@ class UserController extends CommonController
             'phone'=>['required','min:10','string','max:255', new PhoneNumber],
             // 'usertype'=>'required|string|max:255',
             'email'=>'required|email|unique:users|max:255',
-            //'password'=>'required|string|max:255|min:8|confirmed',
+            //'password'=>'required|string','max:255','min:8','confirmed',Password::min(8)->letters()->numbers()],
             'password' => ['required','string','max:255','min:8','confirmed',Password::min(8)->letters()->numbers()],
             // 'target_group_id'=>'required|numeric|digits_between:1,11'
         ]);
