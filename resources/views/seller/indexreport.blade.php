@@ -103,6 +103,7 @@
                                         <th>Sales</th>
                                         <th>Sales Complete</th>
                                         <th>Sales Incomplete</th>
+                                        <th>% Complete</th>
                                         {{-- <th>Usertype</th> --}}
                                         <th>Targets</th>
                                         <th>Team</th>
@@ -139,6 +140,12 @@
                                         <td>{{$user['total_sales']}}</td>
                                         <td>{{$user['total_sales_complete'] ?? 0}}</td>
                                         <td>{{$user['total_sales_incomplete'] ?? 0}}</td>
+                                        @php
+                                            $totalSales = $user['total_sales'] ?? 0;
+                                            $completeSales = $user['total_sales_complete'] ?? 0;
+                                            $percentComplete = $totalSales > 0 ? round(($completeSales / $totalSales) * 100) : 0;
+                                        @endphp
+                                        <td>{{$percentComplete}}%</td>
                                         {{-- <td>{{ucfirst($user['usertype'])}}</td> --}}
                                         <td>{{$user['targetgroup']==null?"None":'KSh '.number_format($user['targetgroup']['amount']) }}</td>
                                         <td>{{$user['team']==null?"None":$user['team']['name']}}</td>
