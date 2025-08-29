@@ -145,13 +145,15 @@
                                   @endif
                                       <td>
                                         @if(isset($visit['followups']) && count($visit['followups']) > 0)
-                                            <ul style="padding-left: 16px; margin: 0;">
+                                        {{-- style="padding-left: 16px; margin: 0;"     --}}
+                                        <ul >
                                                 @foreach($visit['followups'] as $followup)
                                                     <li>
                                                         <strong>{{ ucfirst($followup['type'] ?? 'Followup') }}:</strong>
                                                         {{-- {{ $followup['description'] ?? '' }} --}}
                                                         @if(!empty($followup['status']))
-                                                            <span class="badge bg-light text-dark" style="margin-left: 4px;">{{ ucfirst($followup['status']) }}</span>
+                                                        {{-- class="badge bg-light text-dark" --}}
+                                                            <span  style="margin-left: 4px;">{{ ucfirst($followup['status']) }}</span>
                                                         @endif
                                                     </li>
                                                 @endforeach
