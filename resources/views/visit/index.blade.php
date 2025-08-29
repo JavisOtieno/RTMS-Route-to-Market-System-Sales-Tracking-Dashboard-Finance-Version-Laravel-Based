@@ -62,7 +62,7 @@
         
                     </div> --}}
                     
-                </div>
+                   </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="responsive-datatable" class="table table-bordered text-nowrap border-bottom">
@@ -81,6 +81,7 @@
                                         <th>Team</th>
                                         <th id="map-column">Map</th>
                                         <th id="delete-column">Check Out</th>
+                                        <th>Followups</th>
                                         <!--<th>Duration</th>-->
                                     </tr>
                                 </thead>
@@ -90,14 +91,14 @@
                                         @foreach($visits as $visit)
                                         <tr>
                                         <td>{{$visit['id']}}</td>
-                                        <td><a type="button" href="/visit/{{$visit['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View</a>
+                                        <td><a type="buttdon" href="/visit/{{$visit['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View</a>
                                         </td>
                                         <td>{{ $visit['user'] ? $visit['user']['name']  . ($visit['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}</td>
                                         
                                         <td>{{ $visit['outlet']['name']}}</td>
                                         <td>{{ $visit['outlet']['region']==null?"None":$visit['outlet']['region']['name']}}</td>       
                                         <td>{{ $visit['outlet']['territory']==null?"None":$visit['outlet']['territory']['name']}}</td>       
-      
+         
                                         <td>{{ date('d-M-Y', strtotime($visit['created_at']))}}</td>
                                         <td>{{ date('H:i', strtotime($visit['created_at']))}}</td>
 
@@ -142,6 +143,23 @@
                                   @else
                                   <td>Checked out</td>
                                   @endif
+                                      <td>
+                                        @if(isset($visit['followups']) && count($visit['followups']) > 0)
+                                            <ul style="padding-left: 16px; margin: 0;">
+                                                @foreach($visit['followups'] as $followup)
+                                                    <li>
+                                                        <strong>{{ ucfirst($followup['type'] ?? 'Followup') }}:</strong>
+                                                        {{-- {{ $followup['description'] ?? '' }} --}}
+                                                        @if(!empty($followup['status']))
+                                                            <span class="badge bg-light text-dark" style="margin-left: 4px;">{{ ucfirst($followup['status']) }}</span>
+                                                        @endif
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        @else
+                                            <span>None</span>
+                                        @endif
+                                      </td>
                                         <!--<td>$visit['duration']</td>-->
                                         <!--<a class="modal-effect btn btn-primary-light d-grid mb-3" data-bs-effect="effect-scale" >Scale</a>-->
                                         </tr>
@@ -160,6 +178,7 @@
 
 
                         
+
 
 
 
@@ -230,6 +249,7 @@
                                     
                                 </div>
                             </div>
+
 
 
 
@@ -383,6 +403,7 @@
 
     }
     
+
 
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=

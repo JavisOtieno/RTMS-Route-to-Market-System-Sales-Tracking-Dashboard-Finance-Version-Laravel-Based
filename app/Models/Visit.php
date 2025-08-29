@@ -43,6 +43,26 @@ class Visit extends Model
     public function team(){
         return $this->belongsTo(Team::class,'team_id');
     }
+    public function sales()
+    {
+        return $this->hasMany(Sale::class);
+    }
+    public function competitors()
+    {
+        return $this->hasMany(Competitor::class);
+    }
+    public function posaudits()
+    {
+        return $this->hasMany(Posaudit::class);
+    }
+    public function feedbacks()
+    {
+        return $this->hasMany(Feedback::class);
+    }
+    public function followups()
+    {
+        return $this->hasMany(Followup::class);
+    }
     protected static function booted()
     {
         static::addGlobalScope(new OrganizationScope);
