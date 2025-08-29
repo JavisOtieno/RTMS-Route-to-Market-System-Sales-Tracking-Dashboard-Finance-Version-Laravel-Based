@@ -81,9 +81,8 @@
                                         <th>Team</th>
                                         <th id="map-column">Map</th>
                                         <th id="delete-column">Check Out</th>
-                                        <th>Sales</th>
                                         <th>Followups</th>
-                                        
+                                        <th>Sales</th>
                                         <!--<th>Duration</th>-->
                                     </tr>
                                 </thead>
@@ -144,25 +143,6 @@
                                   </td>
                                   @else
                                   <td>Checked out</td>
-                                   <td>
-                                        @if(isset($visit['sales']) && count($visit['sales']) > 0)
-                                            <ul>
-                                                @foreach($visit['sales'] as $sale)
-                                                    @if(isset($sale['saleitems']) && count($sale['saleitems']) > 0)
-                                                        @foreach($sale['saleitems'] as $item)
-                                                            <li>
-                                                                {{ $item['product']['name'] ?? 'Product' }} - {{ $item['pieces'] ?? 0 }} pcs @ KSh {{ number_format($item['price'] ?? 0) }} = KSh {{ number_format($item['value'] ?? 0) }}
-                                                            </li>
-                                                        @endforeach
-                                                    @else
-                                                        <li>Sale recorded (no items)</li>
-                                                    @endif
-                                                @endforeach
-                                            </ul>
-                                        @else
-                                            <span>None</span>
-                                        @endif
-                                      </td>
                                   @endif
                                       <td>
                                         @if(isset($visit['followups']) && count($visit['followups']) > 0)
@@ -183,7 +163,25 @@
                                             <span>None</span>
                                         @endif
                                       </td>
-                                     
+                                      <td>
+                                        @if(isset($visit['sales']) && count($visit['sales']) > 0)
+                                            <ul>
+                                                @foreach($visit['sales'] as $sale)
+                                                    @if(isset($sale['saleitems']) && count($sale['saleitems']) > 0)
+                                                        @foreach($sale['saleitems'] as $item)
+                                                            <li>
+                                                                {{ $item['product']['name'] ?? 'Product' }} - {{ $item['pieces'] ?? 0 }} pcs @ KSh {{ number_format($item['price'] ?? 0) }} = KSh {{ number_format($item['value'] ?? 0) }}
+                                                            </li>
+                                                        @endforeach
+                                                    @else
+                                                        <li>Sale recorded (no items)</li>
+                                                    @endif
+                                                @endforeach
+                                            </ul>
+                                        @else
+                                            <span>None</span>
+                                        @endif
+                                      </td>
                                         <!--<td>$visit['duration']</td>-->
                                         <!--<a class="modal-effect btn btn-primary-light d-grid mb-3" data-bs-effect="effect-scale" >Scale</a>-->
                                         </tr>
