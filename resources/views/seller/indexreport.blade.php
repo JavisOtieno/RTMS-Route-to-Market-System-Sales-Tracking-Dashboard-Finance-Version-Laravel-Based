@@ -33,7 +33,7 @@
                         
                     </div>
                     <div class="row" style="margin: 0 10px;">
-                        <input type="hidden" id="tableLoaded" value="users"/>
+                        <input type="hidden" id="tableLoaded" value="usersreport"/>
                         <h3 class="card-title" style="margin-top:20px;margin-block-end: 0rem;">Search by :</h3>
                         <div class="col-md-3 mb-3">
                             <label for="name" class="form-label">Name</label>
@@ -51,6 +51,17 @@
                             <label for="date" class="form-label">To</label>
                             <input type="date" class="form-control" id="dateToInput" placeholder="Max Date">
                         </div>
+
+                          <div class="col-md-3 mb-3">
+                            <label for="date" class="form-label">From</label>
+                            <input type="date" class="form-control" id="dateFromCountInput" placeholder="Min Date">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="date" class="form-label">To</label>
+                            <input type="date" class="form-control" id="dateToCountInput" placeholder="Max Date">
+                        </div>
+                        <button class="btn btn-primary col-3 mt-4 mb-0">Filter</button>
+
                         {{-- <div class="col-md-3 mb-3">
                             <label for="email" class="form-label">Email</label>
                             <input type="text" class="form-control" id="emailInput" placeholder="Email">
