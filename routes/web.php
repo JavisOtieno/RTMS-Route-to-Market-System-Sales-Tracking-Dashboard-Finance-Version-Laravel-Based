@@ -210,6 +210,7 @@ Route::get('/allocateoutletstousers', [OutletController::class,'showAddOutletsTo
 Route::post('/pushoutletstouser', [OutletController::class,'pushOutletsToUser']);
 
 Route::get('/sellers', [UserController::class,'sellers']);
+Route::get('/sellersreport', [UserController::class,'sellersreport']);
 Route::get('/sellers/{id}/{object}',[UserController::class,'showSellersById']);
 Route::get('/deleteseller/{id}', [UserController::class,'deleteSeller']);
 Route::post('/saveseller', [UserController::class,'saveSeller']);
