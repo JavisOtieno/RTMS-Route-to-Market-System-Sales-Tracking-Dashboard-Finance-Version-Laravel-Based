@@ -80,6 +80,9 @@
                                         <th>Name</th>
                                         <th>Phone</th>
                                         <th>Email</th>
+                                        <th>Clockins</th>
+                                        <th>Visits</th>
+                                        <th>Sales</th>
                                         {{-- <th>Usertype</th> --}}
                                         <th>Targets</th>
                                         <th>Team</th>
@@ -111,6 +114,9 @@
                                         <td>{{$user['name']}}</td>
                                         <td>{{$user['phone']}}</td>
                                         <td>{{$user['email']}}</td>
+                                        <td>{{$user['total_clockins']}}</td>
+                                        <td>{{$user['total_visits']}}</td>
+                                        <td>{{$user['total_sales']}}</td>
                                         {{-- <td>{{ucfirst($user['usertype'])}}</td> --}}
                                         <td>{{$user['targetgroup']==null?"None":'KSh '.number_format($user['targetgroup']['amount']) }}</td>
                                         <td>{{$user['team']==null?"None":$user['team']['name']}}</td>
