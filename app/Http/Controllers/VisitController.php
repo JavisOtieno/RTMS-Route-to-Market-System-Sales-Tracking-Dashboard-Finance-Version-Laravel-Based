@@ -25,6 +25,7 @@ class VisitController extends Controller
             'outlet.territory',     // <--- eager load territory
             'team', 
             'followups',
+            'sales.saleitems.product',
             ])->get();
             return view('visit.index', ['visits'=>$visits]);
         }
@@ -207,7 +208,7 @@ class VisitController extends Controller
                 $query->withTrashed();
             },'outlet' => function ($query) {
                 $query->withTrashed();
-            }, 'followups'])
+            }, 'followups', 'sales.saleitems.product'])
             ->where($object.'_id',$objectId)->get();
             return view('visit.index', ['visits'=>$visits]);
         }
