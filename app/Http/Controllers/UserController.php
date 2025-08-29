@@ -53,29 +53,48 @@ class UserController extends CommonController
         return view('seller.index', ['users'=>$users, 'targetgroups'=>$targetgroups]);
     }
 
-        public function sellersreport() {
+        public function sellersreport(Request $request) {
         //eager load to prevent N+1
 
+        $from = $request->query('from');
+        $to = $request->query('to');
 
-        $users = User::inOrganization()
+        $baseQuery = User::inOrganization()
             ->with(['targetgroup', 'team', 'region', 'territory'])
-            ->where('usertype','seller')
-            ->withCount(['clockins as total_clockins'])
-            ->withCount(['visits as total_visits'])
-            ->withCount(['sales as total_sales'])
-            ->get();
+            ->where('usertype','seller');
 
         if(auth()->user()->usertype=="teamlead"){
-        $users = User::inOrganization()
-                    ->where('team_id',auth()->user()->team_id)
-                    ->with(['targetgroup', 'team', 'region', 'territory'])
-                    ->where('usertype','seller')
-                    ->withCount(['clockins as total_clockins'])
-                    ->withCount(['visits as total_visits'])
-                    ->withCount(['sales as total_sales'])
-                    ->get();
-            
+            $baseQuery->where('team_id',auth()->user()->team_id);
         }
+
+        $users = $baseQuery
+            ->withCount([
+                'clockins as total_clockins' => function ($q) use ($from, $to) {
+                    if ($from) {
+                        $q->whereDate('created_at', '>=', $from);
+                    }
+                    if ($to) {
+                        $q->whereDate('created_at', '<=', $to);
+                    }
+                },
+                'visits as total_visits' => function ($q) use ($from, $to) {
+                    if ($from) {
+                        $q->whereDate('created_at', '>=', $from);
+                    }
+                    if ($to) {
+                        $q->whereDate('created_at', '<=', $to);
+                    }
+                },
+                'sales as total_sales' => function ($q) use ($from, $to) {
+                    if ($from) {
+                        $q->whereDate('created_at', '>=', $from);
+                    }
+                    if ($to) {
+                        $q->whereDate('created_at', '<=', $to);
+                    }
+                },
+            ])
+            ->get();
 
         //return $users;
         //dd($sales);
@@ -368,7 +387,7 @@ class UserController extends CommonController
             //'usertype'=>'required|string|max:255',
             // 'email'=>'required|email|max:255',
             // 'email'=>'required|email|unique:users|max:255',
-            'email' => 'required|email|max:255|unique:users,email,' . $id,
+            'email' => 'required|email|max:255|unique:users,email,'.$id,
             'status'=>'required|string|max:255',
             // 'target_group_id'=>'required|numeric|digits_between:1,11'
         ]);

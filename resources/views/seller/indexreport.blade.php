@@ -52,16 +52,7 @@
                             <input type="date" class="form-control" id="dateToInput" placeholder="Max Date">
                         </div>
 
-                          <div class="col-md-3 mb-3">
-                            <label for="date" class="form-label">From</label>
-                            <input type="date" class="form-control" id="dateFromCountInput" placeholder="Min Date">
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="date" class="form-label">To</label>
-                            <input type="date" class="form-control" id="dateToCountInput" placeholder="Max Date">
-                        </div>
-                        <button class="btn btn-primary col-3 mt-4 mb-0">Filter</button>
-
+                    
                         {{-- <div class="col-md-3 mb-3">
                             <label for="email" class="form-label">Email</label>
                             <input type="text" class="form-control" id="emailInput" placeholder="Email">
@@ -76,6 +67,22 @@
                             </select>
 
                         </div> --}}
+                    </div>
+                    <div class="row" style="margin: 0 10px 10px 10px;">
+                        <form method="GET" action="{{ url('/sellersreport') }}" class="row g-3 align-items-end">
+                            <div class="col-md-3">
+                                <label for="from" class="form-label">Counts From</label>
+                                <input type="date" id="from" name="from" class="form-control" value="{{ request('from') }}">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="to" class="form-label">Counts To</label>
+                                <input type="date" id="to" name="to" class="form-control" value="{{ request('to') }}">
+                            </div>
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-primary" style="margin-top: 6px;">Apply</button>
+                                <a href="{{ url('/sellersreport') }}" class="btn btn-light" style="margin-top: 6px;">Reset</a>
+                            </div>
+                        </form>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -167,6 +174,7 @@
 
 
 
+
     </div>
 </div>
 
@@ -249,7 +257,7 @@
     // });
     // $('#responsive-datatable tbody').on('click', 'tr', function () {
     //     var data = table.row(this).data();
-    //     alert('You clicked on ' + data[0] + '\'s row');
+    //     alert('You clicked on ' + data[0] + "'s row");
     // });
                 </script>
 
