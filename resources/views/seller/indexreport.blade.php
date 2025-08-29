@@ -104,6 +104,11 @@
                                         <th>Sales Complete</th>
                                         <th>Sales Incomplete</th>
                                         <th>% Complete</th>
+                                        @if(isset($products))
+                                            @foreach($products as $product)
+                                                <th>{{ $product->name }} ({{ strtolower($product->targettype) == 'amount' ? 'Amount' : 'Units' }})</th>
+                                            @endforeach
+                                        @endif
                                         {{-- <th>Usertype</th> --}}
                                         <th>Targets</th>
                                         <th>Team</th>
@@ -146,6 +151,24 @@
                                             $percentComplete = $totalSales > 0 ? round(($completeSales / $totalSales) * 100) : 0;
                                         @endphp
                                         <td>{{$percentComplete}}%</td>
+                                        @if(isset($products))
+                                            @foreach($products as $product)
+                                                @php
+                                                    $metrics = $userProductMetrics[$user['id']][$product->id] ?? null;
+                                                @endphp
+                                                <td>
+                                                    @if($metrics)
+                                                        @if(strtolower($product->targettype) == 'amount')
+                                                            {{ 'KSh '.number_format($metrics['value']) }}
+                                                        @else
+                                                            {{ $metrics['pieces'] }}
+                                                        @endif
+                                                    @else
+                                                        0
+                                                    @endif
+                                                </td>
+                                            @endforeach
+                                        @endif
                                         {{-- <td>{{ucfirst($user['usertype'])}}</td> --}}
                                         <td>{{$user['targetgroup']==null?"None":'KSh '.number_format($user['targetgroup']['amount']) }}</td>
                                         <td>{{$user['team']==null?"None":$user['team']['name']}}</td>

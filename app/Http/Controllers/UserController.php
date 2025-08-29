@@ -11,6 +11,8 @@ use App\Models\TargetGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
+use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends CommonController
 {
@@ -114,11 +116,42 @@ class UserController extends CommonController
             ])
             ->get();
 
-        //return $users;
-        //dd($sales);
-       
+        // Build per-user per-product aggregates for COMPLETE sales only (with date filters)
+        $productAggregates = DB::table('sales')
+            ->join('sale_items', 'sale_items.sale_id', '=', 'sales.id')
+            ->join('products', 'products.id', '=', 'sale_items.product_id')
+            ->select(
+                'sales.user_id as user_id',
+                'sale_items.product_id as product_id',
+                DB::raw('SUM(sale_items.pieces) as total_pieces'),
+                DB::raw('SUM(sale_items.value) as total_value')
+            )
+            ->where('sales.status', 'complete')
+            ->when($from, function ($q) use ($from) {
+                $q->whereDate('sales.created_at', '>=', $from);
+            })
+            ->when($to, function ($q) use ($to) {
+                $q->whereDate('sales.created_at', '<=', $to);
+            })
+            ->groupBy('sales.user_id', 'sale_items.product_id')
+            ->get();
 
-        return view('seller.indexreport', ['users'=>$users]);
+        $userProductMetrics = [];
+        foreach ($productAggregates as $row) {
+            $userId = $row->user_id;
+            $productId = $row->product_id;
+            if (!isset($userProductMetrics[$userId])) {
+                $userProductMetrics[$userId] = [];
+            }
+            $userProductMetrics[$userId][$productId] = [
+                'pieces' => (int) $row->total_pieces,
+                'value' => (float) $row->total_value,
+            ];
+        }
+
+        $products = Product::all();
+
+        return view('seller.indexreport', ['users'=>$users, 'products'=>$products, 'userProductMetrics'=>$userProductMetrics]);
     }
 
     public function showSellersById($objectId,$object) {
@@ -500,7 +533,7 @@ class UserController extends CommonController
             'phone'=>['required','min:10','string','max:255', new PhoneNumber],
             // 'usertype'=>'required|string|max:255',
             'email'=>'required|email|unique:users|max:255',
-            //'password'=>'required|string|max:255|min:8|confirmed',
+            //'password'=>'required|string','max:255','min:8','confirmed',Password::min(8)->letters()->numbers()],
             'password' => ['required','string','max:255','min:8','confirmed',Password::min(8)->letters()->numbers()],
             'target_group_id'=>'required|numeric|digits_between:1,20',
             'region_id'=>'required|numeric|digits_between:1,20',
@@ -606,7 +639,7 @@ class UserController extends CommonController
             // 'email'=>'required|email|unique:users|max:255',
             
             'image' => 'image|mimes:jpeg,webp,png,jpg,gif,svg|max:3072',
-            'email' => 'required|email|max:255|unique:users,email,' . $id,
+            'email' => 'required|email|max:255|unique:users,email,'.$id,
             'target_group_id'=>'required|numeric|digits_between:1,20',
             'region_id'=>'required|numeric|digits_between:1,20',
             'territory_id'=>'required|numeric|digits_between:1,20',
