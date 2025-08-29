@@ -26,6 +26,7 @@ class VisitController extends Controller
             'team', 
             'followups',
             'sales.saleitems.product',
+            'feedbacks',
             ])->get();
             return view('visit.index', ['visits'=>$visits]);
         }
@@ -208,7 +209,7 @@ class VisitController extends Controller
                 $query->withTrashed();
             },'outlet' => function ($query) {
                 $query->withTrashed();
-            }, 'followups', 'sales.saleitems.product'])
+            }, 'followups', 'sales.saleitems.product', 'feedbacks'])
             ->where($object.'_id',$objectId)->get();
             return view('visit.index', ['visits'=>$visits]);
         }

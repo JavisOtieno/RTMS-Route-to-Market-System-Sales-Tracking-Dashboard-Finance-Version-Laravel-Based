@@ -84,6 +84,7 @@
                                         
                                         <th>Sales</th>
                                         <th>Followups</th>
+                                        <th>Feedback</th>
                                         <!--<th>Duration</th>-->
                                     </tr>
                                 </thead>
@@ -100,7 +101,7 @@
                                         <td>{{ $visit['outlet']['name']}}</td>
                                         <td>{{ $visit['outlet']['region']==null?"None":$visit['outlet']['region']['name']}}</td>       
                                         <td>{{ $visit['outlet']['territory']==null?"None":$visit['outlet']['territory']['name']}}</td>       
-          
+         
                                         <td>{{ date('d-M-Y', strtotime($visit['created_at']))}}</td>
                                         <td>{{ date('H:i', strtotime($visit['created_at']))}}</td>
 
@@ -145,7 +146,7 @@
                                   @else
                                   <td>Checked out</td>
                                   @endif
-                                     <td>
+                                      <td>
                                         @if(isset($visit['sales']) && count($visit['sales']) > 0)
                                             <ul>
                                                 @foreach($visit['sales'] as $sale)
@@ -183,7 +184,21 @@
                                             <span>None</span>
                                         @endif
                                       </td>
-                                   
+                                      <td>
+                                        <!-- consider removing loop since most of the time
+                                            feedback will only be collected once-->
+                                        @if(isset($visit['feedbacks']) && count($visit['feedbacks']) > 0)
+                                            <ul>
+                                                @foreach($visit['feedbacks'] as $feedback)
+                                                    <li>
+                                                        {{ $feedback['feedback'] ?? '' }}
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        @else
+                                            <span>None</span>
+                                        @endif
+                                      </td>
                                         <!--<td>$visit['duration']</td>-->
                                         <!--<a class="modal-effect btn btn-primary-light d-grid mb-3" data-bs-effect="effect-scale" >Scale</a>-->
                                         </tr>
