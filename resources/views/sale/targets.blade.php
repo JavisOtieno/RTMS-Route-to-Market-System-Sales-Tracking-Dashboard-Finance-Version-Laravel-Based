@@ -120,21 +120,13 @@
                                         {{-- <td>{{ucfirst($user['usertype'])}}</td> --}}
                                         @foreach($products as $product)
                                         @if($product['targettype'] =='amount')
-                                        <th>KSh {{number_format($usersproducts[$user->id][$product->id])}} 
+                                        <td>KSh {{number_format($usersproducts[$user->id][$product->id])}}</td>
                                         @else
-                                        <th>{{number_format($usersproducts[$user->id][$product->id])}} units</th>
+                                        <td>{{number_format($usersproducts[$user->id][$product->id])}} units</td>
                                         @endif
-                                        {{-- @if($product['targettype'] =='amount')
-                                        <th>KSh {{number_format($product['target'])}}</th>
-                                        @else
-                                        <th>{{number_format($product['target'])}} units</th>
-                                        @endif --}}
-                                        <td>{{ round($usersproducts[$user->id][$product->id] / $product['target'] * 100, 2) }}</th>
+                                        <td>{{ $product['target'] > 0 ? round($usersproducts[$user->id][$product->id] / $product['target'] * 100, 2) : 0 }}</td>
                                         @endforeach
                                         
-                                        </td>
-
-                       
                                         <td>{{ date('M-Y', strtotime('today')) }}</td>
                                         {{-- <td>
                                            
@@ -175,6 +167,7 @@
 
 
                         
+
 
 
 
@@ -260,7 +253,7 @@
     // });
     // $('#responsive-datatable tbody').on('click', 'tr', function () {
     //     var data = table.row(this).data();
-    //     alert('You clicked on ' + data[0] + '\'s row');
+    //     alert('You clicked on ' + data[0] + "'s row");
     // });
                 </script>
 

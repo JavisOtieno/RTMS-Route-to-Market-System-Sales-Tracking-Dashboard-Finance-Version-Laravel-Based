@@ -214,50 +214,50 @@ class SaleController extends Controller
 
         $products = Product::all();
 
+        // Eager load ONLY current month & year COMPLETE sales and sale items for all users
+        $sales = Sale::whereMonth('created_at', now()->month)
+            ->whereYear('created_at', now()->year)
+            ->where('status', 'complete')
+            ->whereIn('user_id', $users->pluck('id'))
+            ->with('saleitems')
+            ->get();
 
+        // Initialize an array to store the product totals
+        $usersproducts = [];
 
-// Eager load sales and sale items for all users and products
-$sales = Sale::whereMonth('created_at', now()->month)
-->whereIn('user_id', $users->pluck('id'))->with('saleItems')->get();
+        foreach ($users as $user) {
+            $product_array = [];
 
-// Initialize an array to store the product totals
-$usersproducts = [];
+            // Filter sales for the current user
+            $user_sales = $sales->where('user_id', $user->id);
 
-foreach ($users as $user) {
-    $product_array = [];
+            // Loop over each product for the current user
+            foreach ($products as $product) {
+                $total = 0;
 
-    // Filter sales for the current user
-    $user_sales = $sales->where('user_id', $user->id);
-
-    // Loop over each product for the current user
-    foreach ($products as $product) {
-        $total = 0;
-
-        // Loop through all the sales for this user
-        foreach ($user_sales as $sale) {
-            // Loop through all sale items for the current sale
-            foreach ($sale->saleItems as $saleItem) {
-                // Check if the sale item matches the current product
-                if ($saleItem->product_id == $product->id) {
-                    // Calculate total based on product target type
-                    if ($product->targettype == "amount") {
-                        $total += $saleItem->value;
-                    } elseif ($product->targettype == "quantity") {
-                        $total += $saleItem->pieces;
+                // Loop through all the sales for this user
+                foreach ($user_sales as $sale) {
+                    // Loop through all sale items for the current sale
+                    foreach ($sale->saleitems as $saleItem) {
+                        // Check if the sale item matches the current product
+                        if ($saleItem->product_id == $product->id) {
+                            // Calculate total based on product target type
+                            if ($product->targettype == "amount") {
+                                $total += $saleItem->value;
+                            } elseif ($product->targettype == "quantity") {
+                                $total += $saleItem->pieces;
+                            }
+                        }
                     }
                 }
+
+                // Store the calculated total for the product
+                $product_array[$product->id] = $total;
             }
+
+            // Store the totals for the current user
+            $usersproducts[$user->id] = $product_array;
         }
-
-        // Store the calculated total for the product
-        $product_array[$product->id] = $total;
-    }
-
-    // Store the totals for the current user
-    $usersproducts[$user->id] = $product_array;
-}
-
-        // return $usersproductarray;
 
         return view('sale.targets', compact('users','usersproducts','products'));
     }
