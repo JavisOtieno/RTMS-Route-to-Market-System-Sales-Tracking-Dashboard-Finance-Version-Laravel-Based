@@ -86,7 +86,7 @@
                                             @if($product['targettype'] =='amount')
                                         Target : KSh {{number_format($product['target'])}}
                                         @else
-                                        Target : {{number_format($product['target'])}} units
+                                        Target : {{number_format($product['target'])}}
                                         @endif
                                         </th>
                                         <th>% achieved <br/> {{$product->name}}</th>
@@ -119,12 +119,13 @@
                                        
                                         {{-- <td>{{ucfirst($user['usertype'])}}</td> --}}
                                         @foreach($products as $product)
+                                        @php $val = $usersproducts[$user->id][$product->id] ?? 0; @endphp
                                         @if($product['targettype'] =='amount')
-                                        <td>KSh {{number_format($usersproducts[$user->id][$product->id])}}</td>
+                                        <td data-order="{{$val}}">KSh {{number_format($val)}}</td>
                                         @else
-                                        <td>{{number_format($usersproducts[$user->id][$product->id])}} units</td>
+                                        <td data-order="{{$val}}">{{number_format($val)}}</td>
                                         @endif
-                                        <td>{{ $product['target'] > 0 ? round($usersproducts[$user->id][$product->id] / $product['target'] * 100, 2) : 0 }}</td>
+                                        <td>{{ $product['target'] > 0 ? round($val / $product['target'] * 100, 2) : 0 }}</td>
                                         @endforeach
                                         
                                         <td>{{ date('M-Y', strtotime('today')) }}</td>
@@ -244,7 +245,7 @@
      
     //         //         // Event listener for user input
     //         //         input.addEventListener('keyup', () => {
-    //         //             if (column.search() !== this.value) {
+    //         //             if (column.search) {
     //         //                 column.search(input.value).draw();
     //         //             }
     //         //         });
