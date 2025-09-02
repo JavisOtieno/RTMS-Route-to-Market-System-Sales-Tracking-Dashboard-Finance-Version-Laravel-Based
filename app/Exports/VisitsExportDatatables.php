@@ -45,6 +45,9 @@ class VisitsExportDatatables implements FromQuery, WithHeadings, WithChunkReadin
                     })
                     ->orWhereHas('outlet', function ($q) use ($search) {
                         $q->where('lat', 'like', "%{$search}%")
+                         ->orWhere('contact_person_name', 'like', "%{$search}%")
+                          ->orWhere('name', 'like', "%{$search}%")
+                          ->orWhere('phone', 'like', "%{$search}%")
                           ->orWhere('long', 'like', "%{$search}%");
                     });
             });
@@ -153,9 +156,104 @@ class VisitsExportDatatables implements FromQuery, WithHeadings, WithChunkReadin
             }
         }
 
+        
+
         Log::info('Export Query:', ['sql' => $query->toSql(), 'bindings' => $query->getBindings()]);
 
         return $query;
+
+
+
+            // parse inputs (in Africa/Nairobi timezone)
+    $tz = 'Africa/Nairobi';
+    $dateFrom = !empty($filters['dateFrom']) ? Carbon::parse($filters['dateFrom'], $tz) : null;
+    $dateTo   = !empty($filters['dateTo'])   ? Carbon::parse($filters['dateTo'], $tz)   : null;
+    $timeFrom = !empty($filters['timeFrom']) ? $filters['timeFrom'] : null;
+    $timeTo   = !empty($filters['timeTo'])   ? $filters['timeTo'] : null;
+
+    // Helper to convert local Carbon to UTC string for DB comparison
+    $toUtcString = function (Carbon $c) {
+        return $c->copy()->setTimezone('UTC')->toDateTimeString();
+    };
+
+    // 1) If a date range is provided (with or without times) => build datetimes and use where/whereBetween
+    if ($dateFrom || $dateTo) {
+        if ($dateFrom) {
+            $start = $timeFrom
+                ? Carbon::parse($dateFrom->toDateString() . ' ' . $timeFrom, $tz)
+                : $dateFrom->copy()->startOfDay();
+        }
+
+        if ($dateTo) {
+            $end = $timeTo
+                ? Carbon::parse($dateTo->toDateString() . ' ' . $timeTo, $tz)
+                : $dateTo->copy()->endOfDay();
+        }
+
+        if (isset($start) && isset($end)) {
+            $query->whereBetween('visits.created_at', [
+                $toUtcString($start),
+                $toUtcString($end),
+            ]);
+        } elseif (isset($start)) {
+            $query->where('visits.created_at', '>=', $toUtcString($start));
+        } elseif (isset($end)) {
+            $query->where('visits.created_at', '<=', $toUtcString($end));
+        }
+
+        return $query;
+    }
+
+    // 2) If only time filters are provided -> apply to TIME(visits.created_at) across all dates
+    if ($timeFrom || $timeTo) {
+        // Convert the time(s) from Nairobi -> UTC (so DB TIME() comparisons match local intent)
+        // we use today's date as anchor to convert offsets
+        $anchor = Carbon::today($tz)->toDateString();
+
+        if ($timeFrom) {
+            $timeFromUtc = Carbon::parse($anchor . ' ' . $timeFrom, $tz)
+                ->setTimezone('UTC')
+                ->format('H:i:s');
+        } else {
+            $timeFromUtc = null;
+        }
+
+        if ($timeTo) {
+            $timeToUtc = Carbon::parse($anchor . ' ' . $timeTo, $tz)
+                ->setTimezone('UTC')
+                ->format('H:i:s');
+        } else {
+            $timeToUtc = null;
+        }
+
+        // If both times present
+        if ($timeFromUtc && $timeToUtc) {
+            if ($timeFromUtc <= $timeToUtc) {
+                // simple between
+                $query->whereRaw('TIME(visits.created_at) BETWEEN ? AND ?', [$timeFromUtc, $timeToUtc]);
+            } else {
+                // spans midnight (e.g. 22:00 -> 04:00) => TIME >= timeFrom OR TIME <= timeTo
+                $query->where(function ($q) use ($timeFromUtc, $timeToUtc) {
+                    $q->whereRaw('TIME(visits.created_at) >= ?', [$timeFromUtc])
+                      ->orWhereRaw('TIME(visits.created_at) <= ?', [$timeToUtc]);
+                });
+            }
+
+            return $query;
+        }
+
+        // single-sided time filters
+        if ($timeFromUtc) {
+            $query->whereRaw('TIME(visits.created_at) >= ?', [$timeFromUtc]);
+        } elseif ($timeToUtc) {
+            $query->whereRaw('TIME(visits.created_at) <= ?', [$timeToUtc]);
+        }
+
+        return $query;
+    }
+
+    // 3) nothing provided => no filtering on created_at
+    return $query;
     }
 
     public function map($visit): array

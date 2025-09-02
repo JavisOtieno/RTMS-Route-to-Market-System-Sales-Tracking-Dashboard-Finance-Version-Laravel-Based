@@ -103,9 +103,9 @@
                                         <th>Duration</th>
                                         <th class="no-export">Map</th>
                                         <th id="delete-column">Check Out</th>
-                                        <th>Sales</th>
+                                        {{-- <th>Sales</th>
                                         <th>Followups</th>
-                                        <th>Feedback</th>
+                                        <th>Feedback</th> --}}
 
                                         {{-- <th id="map-column">Map</th> --}}
 
@@ -576,24 +576,24 @@
                         searchable: false,
                         exportable: false
                     },
-                    {
-                        data: 'sales_list',
-                        name: 'sales_list',
-                        orderable: false,
-                        searchable: false
-                    },
-                    {
-                        data: 'followups_list',
-                        name: 'followups_list',
-                        orderable: false,
-                        searchable: false
-                    },
-                    {
-                        data: 'feedbacks_list',
-                        name: 'feedbacks_list',
-                        orderable: false,
-                        searchable: false
-                    },
+                    // {
+                    //     data: 'sales_list',
+                    //     name: 'sales_list',
+                    //     orderable: false,
+                    //     searchable: false
+                    // },
+                    // {
+                    //     data: 'followups_list',
+                    //     name: 'followups_list',
+                    //     orderable: false,
+                    //     searchable: false
+                    // },
+                    // {
+                    //     data: 'feedbacks_list',
+                    //     name: 'feedbacks_list',
+                    //     orderable: false,
+                    //     searchable: false
+                    // },
 
 
                 ],

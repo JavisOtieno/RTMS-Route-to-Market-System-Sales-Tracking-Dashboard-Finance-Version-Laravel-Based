@@ -101,49 +101,51 @@ class VisitController extends Controller
             ->addColumn('time', function ($visit) {
                 return $visit->created_at->format('H:i:s');
             })
-            ->addColumn('sales_list', function ($visit) {
-                if (!isset($visit->sales) || count($visit->sales) === 0) {
-                    return '<span>None</span>';
-                }
-                $items = [];
-                foreach ($visit->sales as $sale) {
-                    if (isset($sale->saleitems) && count($sale->saleitems) > 0) {
-                        foreach ($sale->saleitems as $item) {
-                            $productName = $item->product->name ?? 'Product';
-                            $pieces = $item->pieces ?? 0;
-                            $price = number_format((float)($item->price ?? 0));
-                            $value = number_format((float)($item->value ?? 0));
-                            $items[] = "$productName - {$pieces} pcs @ KSh {$price} = KSh {$value}";
-                        }
-                    } else {
-                        $items[] = 'Sale recorded (no items)';
-                    }
-                }
-                return '<ul><li>' . implode('</li><li>', array_map('e', $items)) . '</li></ul>';
-            })
-            ->addColumn('followups_list', function ($visit) {
-                if (!isset($visit->followups) || count($visit->followups) === 0) {
-                    return '<span>None</span>';
-                }
-                $items = [];
-                foreach ($visit->followups as $f) {
-                    $type = ucfirst($f->type ?? 'Followup');
-                    $status = !empty($f->status) ? ucfirst($f->status) : '';
-                    $items[] = trim($type . ($status ? ' - ' . $status : ''));
-                }
-                return '<ul><li>' . implode('</li><li>', array_map('e', $items)) . '</li></ul>';
-            })
-            ->addColumn('feedbacks_list', function ($visit) {
-                if (!isset($visit->feedbacks) || count($visit->feedbacks) === 0) {
-                    return '<span>None</span>';
-                }
-                $items = [];
-                foreach ($visit->feedbacks as $fb) {
-                    $items[] = $fb->feedback ?? '';
-                }
-                return '<ul><li>' . implode('</li><li>', array_map('e', $items)) . '</li></ul>';
-            })
-            ->rawColumns(['date', 'time', 'sales_list', 'followups_list', 'feedbacks_list'])
+            // ->addColumn('sales_list', function ($visit) {
+            //     if (!isset($visit->sales) || count($visit->sales) === 0) {
+            //         return '<span>None</span>';
+            //     }
+            //     $items = [];
+            //     foreach ($visit->sales as $sale) {
+            //         if (isset($sale->saleitems) && count($sale->saleitems) > 0) {
+            //             foreach ($sale->saleitems as $item) {
+            //                 $productName = $item->product->name ?? 'Product';
+            //                 $pieces = $item->pieces ?? 0;
+            //                 $price = number_format((float)($item->price ?? 0));
+            //                 $value = number_format((float)($item->value ?? 0));
+            //                 $items[] = "$productName - {$pieces} pcs @ KSh {$price} = KSh {$value}";
+            //             }
+            //         } else {
+            //             $items[] = 'Sale recorded (no items)';
+            //         }
+            //     }
+            //     return '<ul><li>' . implode('</li><li>', array_map('e', $items)) . '</li></ul>';
+            // })
+            // ->addColumn('followups_list', function ($visit) {
+            //     if (!isset($visit->followups) || count($visit->followups) === 0) {
+            //         return '<span>None</span>';
+            //     }
+            //     $items = [];
+            //     foreach ($visit->followups as $f) {
+            //         $type = ucfirst($f->type ?? 'Followup');
+            //         $status = !empty($f->status) ? ucfirst($f->status) : '';
+            //         $items[] = trim($type . ($status ? ' - ' . $status : ''));
+            //     }
+            //     return '<ul><li>' . implode('</li><li>', array_map('e', $items)) . '</li></ul>';
+            // })
+            // ->addColumn('feedbacks_list', function ($visit) {
+            //     if (!isset($visit->feedbacks) || count($visit->feedbacks) === 0) {
+            //         return '<span>None</span>';
+            //     }
+            //     $items = [];
+            //     foreach ($visit->feedbacks as $fb) {
+            //         $items[] = $fb->feedback ?? '';
+            //     }
+            //     return '<ul><li>' . implode('</li><li>', array_map('e', $items)) . '</li></ul>';
+            // })
+            ->rawColumns(['date', 'time',
+            //  'sales_list', 'followups_list', 'feedbacks_list'
+             ])
             ->make(true);
 
 
