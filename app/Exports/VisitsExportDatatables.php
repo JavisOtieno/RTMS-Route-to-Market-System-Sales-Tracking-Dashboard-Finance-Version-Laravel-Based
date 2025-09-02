@@ -145,9 +145,56 @@ class VisitsExportDatatables implements FromQuery, WithHeadings, WithChunkReadin
 
     public function map($visit): array
     {
+
+        // Format sales
+        $salesString = 'None';
+        if ($visit->sales && $visit->sales->count() > 0) {
+            $salesItems = [];
+            foreach ($visit->sales as $sale) {
+                if ($sale->saleitems && $sale->saleitems->count() > 0) {
+                    foreach ($sale->saleitems as $item) {
+                        $productName = $item->product->name ?? 'Product';
+                        $pieces = $item->pieces ?? 0;
+                        $price = number_format($item->price ?? 0);
+                        $value = number_format($item->value ?? 0);
+                        $salesItems[] = "{$productName} - {$pieces} pcs @ KSh {$price} = KSh {$value}";
+                    }
+                } else {
+                    $salesItems[] = 'Sale recorded (no items)';
+                }
+            }
+            $salesString = implode("\n", $salesItems);
+        }
+
+        // Format followups
+        $followupsString = 'None';
+        if ($visit->followups && $visit->followups->count() > 0) {
+            $followupsItems = [];
+            foreach ($visit->followups as $followup) {
+                $type = ucfirst($followup->type ?? 'Followup');
+                $description = $followup->description ?? '';
+                $status = !empty($followup->status) ? ucfirst($followup->status) : '';
+                $followupsItems[] = "{$type}: {$description} {$status}";
+            }
+            $followupsString = implode("\n", $followupsItems);
+        }
+
+        // Format feedbacks
+        $feedbacksString = 'None';
+        if ($visit->feedbacks && $visit->feedbacks->count() > 0) {
+            $feedbacksItems = [];
+            foreach ($visit->feedbacks as $feedback) {
+                $feedbacksItems[] = $feedback->feedback ?? '';
+            }
+            $feedbacksString = implode("\n", $feedbacksItems);
+        }
+
         return [
             'id' => $visit->id,
             'user_name' => $visit->user->name ?? 'No User',
+            'customer_name' => $visit->outlet->name ?? 'N/A',
+            'contact_name' => $visit->outlet->contact_person_name ?? 'N/A',
+            'phone' => $visit->outlet->phone ?? 'N/A',
             'team_name' => $visit->user->team->name ?? 'None',
             'region_name' => $visit->user->region->name ?? 'None',
             'territory_name' => $visit->user->territory->name ?? 'None',
@@ -155,6 +202,11 @@ class VisitsExportDatatables implements FromQuery, WithHeadings, WithChunkReadin
             'long' => $visit->outlet->long ?? null,
             'date' => date('d-M-Y', strtotime($visit->created_at)),
             'time' => date('H:i', strtotime($visit->created_at)),
+            'checkouttime' => date('H:i', strtotime($visit->checkouttimeexact)),
+            'duration' => date('H:i', strtotime($visit->duration)),
+            'sales' => $salesString,
+            'followups' => $followupsString,
+            'feedbacks' => $feedbacksString,
         ];
     }
 
@@ -163,13 +215,21 @@ class VisitsExportDatatables implements FromQuery, WithHeadings, WithChunkReadin
         return [
             'ID',
             'User Name',
+            'Customer Name',
+            'Contact Name',
+            'Phone',
             'Team',
             'Region',
             'Territory',
             'Latitude',
             'Longitude',
             'Date',
-            'Time'
+            'Checkin Time',
+            'Checkout Time',
+            'Duration',
+            'Sales',
+            'Followups',
+            'Feedback',
         ];
     }
 
