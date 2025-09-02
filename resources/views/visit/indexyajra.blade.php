@@ -86,8 +86,8 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>View</th>
-                                        <th>Customer Name</th>
                                         <th>Seller Name</th>
+                                        <th>Customer Name</th>
                                         <th>Contact Name</th>
                                         <th>Phone</th>
                                         <th>Team</th>
@@ -432,12 +432,12 @@
                         searchable: false,
                         exportable: false
                     },
-                    {
+                    { data: 'user_name', 
+                    name: 'user_name', defaultContent: 'No User' }, // Add this,
+                        {
                         data: 'outlet_name',
                         name: 'outlet_name'
                     },
-                    { data: 'user_name', 
-                    name: 'user_name', defaultContent: 'No User' }, // Add this,
                     {
                         data: 'contactpersonname',
                         name: 'contactpersonname'
