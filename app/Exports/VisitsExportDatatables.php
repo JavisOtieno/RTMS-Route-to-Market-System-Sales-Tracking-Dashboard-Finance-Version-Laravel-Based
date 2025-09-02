@@ -22,7 +22,7 @@ class VisitsExportDatatables implements FromQuery, WithHeadings, WithChunkReadin
 
     public function query()
     {
-        $query = Visit::with(['user', 'user.team', 'user.region', 'user.territory'])
+        $query = Visit::with(['user', 'user.team', 'user.region', 'user.territory', 'outlet'])
             ->select('visits.*')
             ->whereNull('visits.deleted_at'); // Handle soft deletes
 
@@ -43,8 +43,10 @@ class VisitsExportDatatables implements FromQuery, WithHeadings, WithChunkReadin
                                 $q->where('name', 'like', "%{$search}%");
                             });
                     })
-                    ->orWhere('visits.lat', 'like', "%{$search}%")
-                    ->orWhere('visits.long', 'like', "%{$search}%");
+                    ->orWhereHas('outlet', function ($q) use ($search) {
+                        $q->where('lat', 'like', "%{$search}%")
+                          ->orWhere('long', 'like', "%{$search}%");
+                    });
             });
         }
 
@@ -77,10 +79,14 @@ class VisitsExportDatatables implements FromQuery, WithHeadings, WithChunkReadin
                             });
                             break;
                         case 'lat':
-                            $query->where('visits.lat', 'like', "%{$value}%");
+                            $query->whereHas('outlet', function ($q) use ($value) {
+                                $q->where('lat', 'like', "%{$value}%");
+                            });
                             break;
                         case 'long':
-                            $query->where('visits.long', 'like', "%{$value}%");
+                            $query->whereHas('outlet', function ($q) use ($value) {
+                                $q->where('long', 'like', "%{$value}%");
+                            });
                             break;
                     }
                 }
@@ -145,8 +151,8 @@ class VisitsExportDatatables implements FromQuery, WithHeadings, WithChunkReadin
             'team_name' => $visit->user->team->name ?? 'None',
             'region_name' => $visit->user->region->name ?? 'None',
             'territory_name' => $visit->user->territory->name ?? 'None',
-            'lat' => $visit->lat,
-            'long' => $visit->long,
+            'lat' => $visit->outlet->lat ?? null,
+            'long' => $visit->outlet->long ?? null,
             'date' => date('d-M-Y', strtotime($visit->created_at)),
             'time' => date('H:i', strtotime($visit->created_at)),
         ];

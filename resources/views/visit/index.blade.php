@@ -96,7 +96,7 @@
                                         @foreach($visits as $visit)
                                         <tr>
                                         <td>{{$visit['id']}}</td>
-                                        <td><a type="buttdon" href="/visit/{{$visit['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View</a>
+                                        <td><a type="button" href="/visit/{{$visit['id']}}" class="btn btn-info" style="margin-left: auto;color:white;">View</a>
                                         </td>
                                         <td>{{ $visit['user'] ? $visit['user']['name']  . ($visit['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}</td>
                                         
