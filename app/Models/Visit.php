@@ -21,6 +21,7 @@ class Visit extends Model
         'checkin_latitude',
         'checkin_longitude',
         'checkout_time',
+        'checkouttimeexact',
         'checkout_latitude',
         'checkout_longitude',
         'duration',
