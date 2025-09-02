@@ -22,7 +22,7 @@ class VisitsExportDatatables implements FromQuery, WithHeadings, WithChunkReadin
 
     public function query()
     {
-        $query = Visit::with(['user', 'user.team', 'user.region', 'user.territory', 'user.cluster'])
+        $query = Visit::with(['user', 'user.team', 'user.region', 'user.territory'])
             ->select('visits.*')
             ->whereNull('visits.deleted_at'); // Handle soft deletes
 
@@ -40,9 +40,6 @@ class VisitsExportDatatables implements FromQuery, WithHeadings, WithChunkReadin
                                 $q->where('name', 'like', "%{$search}%");
                             })
                             ->orWhereHas('territory', function ($q) use ($search) {
-                                $q->where('name', 'like', "%{$search}%");
-                            })
-                            ->orWhereHas('cluster', function ($q) use ($search) {
                                 $q->where('name', 'like', "%{$search}%");
                             });
                     })
@@ -76,11 +73,6 @@ class VisitsExportDatatables implements FromQuery, WithHeadings, WithChunkReadin
                             break;
                         case 'territory_name':
                             $query->whereHas('user.territory', function ($q) use ($value) {
-                                $q->where('name', 'like', "%{$value}%");
-                            });
-                            break;
-                        case 'cluster_name':
-                            $query->whereHas('user.cluster', function ($q) use ($value) {
                                 $q->where('name', 'like', "%{$value}%");
                             });
                             break;
