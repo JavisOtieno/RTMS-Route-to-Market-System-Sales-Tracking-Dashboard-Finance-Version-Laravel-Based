@@ -199,7 +199,7 @@ class VisitController extends Controller
                 }
                 return '<ul><li>' . implode('</li><li>', array_map('e', $items)) . '</li></ul>';
             })
-        ->rawColumns(['date','time'])
+        ->rawColumns(['date','time','sales_list', 'followups_list', 'feedbacks_list'])
         ->make(true);
 
 
