@@ -8,8 +8,10 @@ use App\Models\Visit;
 use App\Models\Outlet;
 use App\Models\Clockin;
 use Illuminate\Http\Request;
-use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\VisitsExportDatatables;
+use Yajra\DataTables\Facades\DataTables;
 
 class VisitController extends Controller
 {
@@ -146,6 +148,49 @@ class VisitController extends Controller
 
 
         }
+
+public function export(Request $request)
+{
+    $filters = [
+        'search' => $request->input('search.value'),
+        'columns' => [],
+        'dateFrom' => $request->input('dateFrom'),
+        'dateTo' => $request->input('dateTo'),
+        'timeFrom' => $request->input('timeFrom'),
+        'timeTo' => $request->input('timeTo'),
+    ];
+
+    // Build a dynamic column map from the DataTables payload
+    $columnMap = [];
+    foreach ($request->input('columns', []) as $index => $col) {
+        $key = $col['data'] ?? $col['name'] ?? null;
+        if (!$key) continue;
+
+        // sanitize key: allow letters, numbers, dot, underscore only
+        // prevents injection like "users.name; DROP TABLE..."
+        if (!preg_match('/^[a-z0-9_.]+$/i', $key)) continue;
+
+        $columnMap[$index] = $key;
+    }
+
+    // Collect any per-column searches (ignore action-like columns by name)
+    foreach ($request->input('columns', []) as $index => $col) {
+        $searchVal = $col['search']['value'] ?? null;
+        if (trim((string)$searchVal) === '') continue;
+
+        $mapped = $columnMap[$index] ?? null;
+        if (!$mapped) continue;
+
+        // optional: ignore UI columns named "actions"
+        if (stripos($mapped, 'action') !== false) continue;
+
+        // Save as-is — later exported class should use bindings when applying filters
+        $filters['columns'][$mapped] = $searchVal;
+    }
+
+    return Excel::download(new VisitsExportDatatables($filters), 'visits.xlsx');
+}
+
 
         public function showVisitsById($objectId,$object) {
             //$visits = Visit::all();

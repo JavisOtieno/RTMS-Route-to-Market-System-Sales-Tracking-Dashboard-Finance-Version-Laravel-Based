@@ -178,6 +178,8 @@ Route::get('/visitsnew', [VisitController::class,'indexYajra']);
 Route::get('/visitsyajra',[VisitController::class,'visitsYajra'])
 ->name('visitsyajra');
 Route::get('/checkout/{id}', [VisitController::class,'checkout']);
+Route::get('/visits/export', [VisitController::class, 'export'])->name('visits.export');
+
 
 Route::get('/ordernote/{id}',[OrderNoteController::class,'index']);
 Route::get('/download-pdf/{id}', [OrderNoteController::class, 'downloadPdf']);
