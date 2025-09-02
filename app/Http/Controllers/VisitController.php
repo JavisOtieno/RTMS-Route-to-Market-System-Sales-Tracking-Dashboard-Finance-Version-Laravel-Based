@@ -191,6 +191,14 @@ public function export(Request $request)
     }
 
     return Excel::download(new VisitsExportDatatables($filters), 'visits.xlsx');
+    $export = new VisitsExportDatatables($filters);
+
+        // store in local disk (storage/app/exports) via queue
+    Excel::queue($export, 'exports/visits_' . now()->format('Ymd_His') . '.xlsx', 'local');
+
+    return back()->with('success', 'Export started. The file will be available when the queue job finishes.');
+
+
 }
 
 
