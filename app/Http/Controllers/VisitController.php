@@ -92,15 +92,15 @@ class VisitController extends Controller
                 $query->whereDate('visits.created_at', '<=', $request->to_date);
             }
 
-            $visits = $query->get();
+            // $visits = $query->get();
 
-            return DataTables::of($visits)
-            ->addColumn('date', function ($visit) {
-                return $visit->created_at->format('d-M-Y');
-            })
-            ->addColumn('time', function ($visit) {
-                return $visit->created_at->format('H:i:s');
-            })
+            // return DataTables::of($visits)
+            // ->addColumn('date', function ($visit) {
+            //     return $visit->created_at->format('d-M-Y');
+            // })
+            // ->addColumn('time', function ($visit) {
+            //     return $visit->created_at->format('H:i:s');
+            // })
             // ->addColumn('sales_list', function ($visit) {
             //     if (!isset($visit->sales) || count($visit->sales) === 0) {
             //         return '<span>None</span>';
@@ -143,10 +143,21 @@ class VisitController extends Controller
             //     }
             //     return '<ul><li>' . implode('</li><li>', array_map('e', $items)) . '</li></ul>';
             // })
-            ->rawColumns(['date', 'time',
-            //  'sales_list', 'followups_list', 'feedbacks_list'
-             ])
-            ->make(true);
+            // ->rawColumns(['date', 'time',
+            // //  'sales_list', 'followups_list', 'feedbacks_list'
+            //  ])
+            // ->make(true);
+
+
+                return DataTables::eloquent($query)
+        ->addColumn('date', function ($visit) {
+            return $visit->created_at->format('d-M-Y');
+        })
+        ->addColumn('time', function ($visit) {
+            return $visit->created_at->format('H:i:s');
+        })
+        ->rawColumns(['date','time'])
+        ->make(true);
 
 
         }
