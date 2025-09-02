@@ -113,8 +113,8 @@
                                     </tr>
                                     <tr>
                                         
-                                        <th><input class="form-control" style="width: auto;max-width: 90px;" type="text" placeholder="Search ID" /></th>
-                                        <th></th>
+                                        <th><input class="form-control" style="width: auto;max-width: 90px;" type="text" placeholder="Search ID" /><span style="display: none">ID</span></th>
+                                        <th><span style="display: none">View</span></th>
                                         <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Seller Name" /><span style="display: none">Seller Name</span></th>
                                         <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Seller Customer Name" /><span style="display: none">Customer Name</span></th>
                                         <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Contact Name" /><span style="display: none">Contact Name</span></th>
@@ -130,11 +130,11 @@
                                         <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Checkin Time" /><span style="display: none">Checkin Time</span></th>
                                         <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Checkout Time" /><span style="display: none">Checkout Time</span></th>
                                         <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Duration" /><span style="display: none">Duration</span></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
+                                        <th><span style="display: none">Map</span></th>
+                                        <th><span style="display: none">Check Out</span></th>
+                                        <th><span style="display: none">Sales</span></th>
+                                        <th><span style="display: none">Followups</span></th>
+                                        <th><span style="display: none">Feedback</span></th>
                                         {{-- <th></th> <!-- No search input for actions --> --}}
                                     </tr>
                                 </thead>
