@@ -658,8 +658,8 @@
                     // }
                 ],
                 lengthMenu: [
-                    [10, 25, 50, 100],
-                    [10, 25, 50, 100]
+                    [10, 25, 50, 100, 1000],
+                    [10, 25, 50, 100, 1000]
                 ], // Page length options
                 pageLength: 10, // Default page length
                 order: [
