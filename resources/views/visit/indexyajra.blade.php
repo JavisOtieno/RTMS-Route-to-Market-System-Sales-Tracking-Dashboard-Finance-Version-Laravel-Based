@@ -115,21 +115,21 @@
                                         
                                         <th><input class="form-control" style="width: auto;max-width: 90px;" type="text" placeholder="Search ID" /></th>
                                         <th></th>
-                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Name" /></th>
-                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Seller Seller Name" /></th>
-                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Contact Name" /></th>
-                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Phone" /></th>
-                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Team" /></th>
+                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Seller Name" /><span style="display: none">Seller Name</span></th>
+                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Seller Customer Name" /><span style="display: none">Customer Name</span></th>
+                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Contact Name" /><span style="display: none">Contact Name</span></th>
+                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Phone" /><span style="display: none">Phone</span></th>
+                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Team" /><span style="display: none">Team</span></th>
 
                                         
-                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Region" /></th>
-                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Territory" /></th>
+                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Region" /><span style="display: none">Region</span></th>
+                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Territory" /><span style="display: none">Territory</span></th>
                                         {{-- <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Cluster" /></th> --}}
                                         {{-- <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Channel Type" /></th> --}}
-                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="date" placeholder="Search Date" /></th>
-                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Checkin Time" /></th>
-                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Checkout Time" /></th>
-                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Duration" /></th>
+                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="date" placeholder="Search Date" /><span style="display: none">Date</span></th>
+                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Checkin Time" /><span style="display: none">Checkin Time</span></th>
+                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Checkout Time" /><span style="display: none">Checkout Time</span></th>
+                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Duration" /><span style="display: none">Duration</span></th>
                                         <th></th>
                                         <th></th>
                                         <th></th>
