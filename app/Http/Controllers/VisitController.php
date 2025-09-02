@@ -9,6 +9,7 @@ use App\Models\Outlet;
 use App\Models\Clockin;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\DB;
 
 class VisitController extends Controller
 {
@@ -37,167 +38,110 @@ class VisitController extends Controller
         public function visitsYajra(Request $request)
         {
 
-            $visits = Visit::with(['user' => function ($query) {
+            // Keep a hydrated Visit collection with relationships for rendering nested details
+            $withRelations = ['user' => function ($query) {
+                $query->withTrashed()->with('region','territory');
+            }, 'outlet' => function ($query) {
                 $query->withTrashed();
-            }],'user.region','user.territory')->get();
-            // return DataTables::of($visits)->make(true);
-            $query = Visit::select(
+            }, 'team', 'followups', 'sales.saleitems.product', 'feedbacks'];
+
+            // Base select with join aliases (for flat columns the table expects)
+            $query = Visit::with($withRelations)
+            ->select(
                 'visits.*',
-                // DB::raw("DATE_FORMAT(visits.created_at, '%d-%b-%Y') as date"),
-                // DB::raw("DATE_FORMAT(visits.created_at, '%H:%i:%s') as time"),
-                // DB::raw("DATE_FORMAT(FROM_UNIXTIME(visits.checkout_time), '%H:%i:%s') as checkout_time"),
                 'regions.name as region_name',
                 'territories.name as territory_name',
-                // 'clusters.name as cluster_name',
-                // 'channel_types.name as channel_type_name',
                 'outlets.long as outlet_long',
                 'outlets.lat as outlet_lat',
                 'teams.name as team_name',
                 'users.name as user_name',
                 'outlets.name as outlet_name',
                 'outlets.contact_person_name as contactpersonname',
-                'outlets.phone as phone',
-
+                'outlets.phone as phone'
             )
             ->leftJoin('outlets', 'outlets.id', '=', 'visits.outlet_id')
-            // ->leftJoin('channel_types', 'channel_types.id', '=', 'outlets.channel_type_id')
             ->leftJoin('users', 'users.id', '=', 'visits.user_id')
-            // skjdjkjfjhsjkhdfks
             ->leftJoin('teams', 'teams.id', '=', 'visits.team_id')
             ->leftJoin('regions', 'regions.id', '=', 'users.region_id')
             ->leftJoin('territories', 'territories.id', '=', 'users.territory_id');
-            // ->leftJoin('clusters', 'clusters.id', '=', 'users.cluster_id');
 
-            $toDate = \Carbon\Carbon::parse($request->to_date)->endOfDay();
-
-            // if ($request->has('from_date') && $request->has('to_date')) {
-            //     if(!empty($request->from_date) && !empty($request->to_date)){
-            //         $query->whereBetween('outlets.created_at', [$request->from_date, $toDate]);
-            //     }else if(!empty($request->from_date)){
-            //         $query->where('outlets.created_at', '>=', $request->from_date);
-            //     }
-            //     else if(!empty($request->to_date)){
-            //         $query->where('outlets.created_at', '<=', $toDate);
-            //     }
-
-            // }
             if (!empty($request->from_checkouttime)) {
                 $query->whereRaw("visits.checkouttimeexact >= ?", [$request->from_checkouttime]);
-                }
-                if (!empty($request->to_checkouttime)) {
-                    $query->whereRaw("visits.checkouttimeexact <= ?", [$request->to_checkouttime]);
-                }
+            }
+            if (!empty($request->to_checkouttime)) {
+                $query->whereRaw("visits.checkouttimeexact <= ?", [$request->to_checkouttime]);
+            }
             if (!empty($request->from_time)) {
                 $query->whereRaw("TIME(visits.created_at) >= ?", [$request->from_time]);
-                }
-                if (!empty($request->to_time)) {
-                    $query->whereRaw("TIME(visits.created_at) <= ?", [$request->to_time]);
-                }
+            }
+            if (!empty($request->to_time)) {
+                $query->whereRaw("TIME(visits.created_at) <= ?", [$request->to_time]);
+            }
             if (!empty($request->from_duration)) {
                 $query->whereRaw("TIME(visits.duration) >= ?", [$request->from_duration]);
-                }
-                if (!empty($request->to_duration)) {
-                    $query->whereRaw("TIME(visits.duration) <= ?", [$request->to_duration]);
-                }
+            }
+            if (!empty($request->to_duration)) {
+                $query->whereRaw("TIME(visits.duration) <= ?", [$request->to_duration]);
+            }
+            if (!empty($request->from_date)) {
+                $query->whereDate('visits.created_at', '>=', $request->from_date);
+            }
+            if (!empty($request->to_date)) {
+                $query->whereDate('visits.created_at', '<=', $request->to_date);
+            }
 
-                if (!empty($request->from_date)) {
-                    $query->whereDate('visits.created_at', '>=', $request->from_date);
-                }
-
-                if (!empty($request->to_date)) {
-                    $query->whereDate('visits.created_at', '<=', $request->to_date);
-                }
             $visits = $query->get();
 
-            // ->join('outlets', 'outlets.id', '=', 'visits.outlet_id')
-            // ->get();
             return DataTables::of($visits)
             ->addColumn('date', function ($visit) {
-                return $visit->created_at->format('d-M-Y'); // Extract Date
+                return $visit->created_at->format('d-M-Y');
             })
-            // ->addColumn('checkout_time', function ($visit) {
-            //     // return $visit->checkout_time->format('d-M-Y'); // Extract Date
-            //     if($visit['checkout_time']=="")
-            //         return 'Not Checked Out';
-            //     else
-            //         return date('H:i:s',$visit['checkout_time']);
-            // })
-            // ->addColumn('duration', function ($visit) {
-            //     // return $visit->checkout_time->format('d-M-Y'); // Extract Date
-            //     if($visit['checkout_time']=="")
-            //         return gmdate("H:i:s", strtotime(0));
-            //     else
-            //         return gmdate("H:i:s", ($visit['checkout_time']-strtotime($visit['created_at'])));
-            // })
             ->addColumn('time', function ($visit) {
-                return $visit->created_at->format('H:i:s'); // Extract Time
+                return $visit->created_at->format('H:i:s');
             })
-
-            //  ->addColumn('outlet_lat', function ($row) {
-            //     return $row->outlet ? $row->outlet->lat : 'N/A';
-            // })
-            // ->addColumn('outletname', function ($row) {
-            //     return $row->outlet ? $row->outlet->name : 'N/A';
-            // })
-
-            // ->addColumn('sellername', function ($row) {
-            //     return $row->user ? $row->user->name : 'N/A';
-            // })
-            // ->addColumn('contactpersonname', function ($row) {
-            //     return $row->outlet ? $row->outlet->contact_person_name : 'N/A';
-            // })
-            // ->addColumn('phone', function ($row) {
-            //     return $row->outlet ? $row->outlet->phone : 'N/A';
-            // })
-            // ->addColumn('teamname', function ($row) {
-            //     return $row->team ? $row->team->name : 'N/A';
-            // })
-            // ->addColumn('regionname', function ($row) {
-            //     return $row->user? ($row->user->cluster!=null ? $row->user->cluster->name : 'N/A') : 'N/A';
-            // //     return 'N/A';
-            // })
-            // ->addColumn('territoryname', function ($row) {
-            //     // return $row->user->territory ? $row->user->territory->name : 'N/A';
-            //     return 'N/A';
-            // })
-            // ->addColumn('clustername', function ($row) {
-            //     // return $row->user? ($row->user->cluster!=null ? $row->user->cluster->name : 'N/A') : 'N/A';
-            //     // $cluster_id=$row->user->cluster_id;
-            //     // $cluster = Cluster::find($cluster_id);
-            //     // return $cluster ? $cluster->name : 'N/A';
-
-
-            // })
-            // ->addColumn('regionname', function ($row) {
-            //     // return $row->user? ($row->user->region!=null ? $row->user->region->name : 'N/A') : 'N/A';
-            //     return 'N/A';
-            //     // $region_id=$row->user->region_id;
-            //     // $region = Region::find($region_id);
-            //     // return $region ? $region->name : 'N/A';
-            // })
-            // ->addColumn('territoryname', function ($row) {
-
-            //     // return $row->user? ($row->user->region!=null ? $row->user->region->name : 'N/A') : 'N/A';
-            //     return 'N/A';
-            //     // $territory_id=$row->user->territory_id;
-            //     // $territory = Territory::find($territory_id);
-            //     // return $territory ? $territory->name : 'N/A';
-
-            // })
-            // ->addColumn('channeltypename', function ($row) {
-            //     // return $row->outlet ? $row->outlet->phone : 'N/A';
-            //     return 'N/A';
-            //     // $channeltype_id=$row->outlet->channeltype_id;
-            //     // $channeltype = ChannelType::find($channeltype_id);
-            //     // return $channeltype ? $channeltype->name : 'N/A';
-            // })
-
-            // ->addColumn('channeltypename', function ($row) {
-            //     // return $row->outlet->channeltype ? $row->outlet->channeltype->name : 'N/A';
-            //     return 'NA';
-            // })
-
-            ->rawColumns(['date', 'time']) // Ensure columns are not escaped
+            ->addColumn('sales_list', function ($visit) {
+                if (!isset($visit->sales) || count($visit->sales) === 0) {
+                    return '<span>None</span>';
+                }
+                $items = [];
+                foreach ($visit->sales as $sale) {
+                    if (isset($sale->saleitems) && count($sale->saleitems) > 0) {
+                        foreach ($sale->saleitems as $item) {
+                            $productName = $item->product->name ?? 'Product';
+                            $pieces = $item->pieces ?? 0;
+                            $price = number_format((float)($item->price ?? 0));
+                            $value = number_format((float)($item->value ?? 0));
+                            $items[] = "$productName - {$pieces} pcs @ KSh {$price} = KSh {$value}";
+                        }
+                    } else {
+                        $items[] = 'Sale recorded (no items)';
+                    }
+                }
+                return '<ul><li>' . implode('</li><li>', array_map('e', $items)) . '</li></ul>';
+            })
+            ->addColumn('followups_list', function ($visit) {
+                if (!isset($visit->followups) || count($visit->followups) === 0) {
+                    return '<span>None</span>';
+                }
+                $items = [];
+                foreach ($visit->followups as $f) {
+                    $type = ucfirst($f->type ?? 'Followup');
+                    $status = !empty($f->status) ? ucfirst($f->status) : '';
+                    $items[] = trim($type . ($status ? ' - ' . $status : ''));
+                }
+                return '<ul><li>' . implode('</li><li>', array_map('e', $items)) . '</li></ul>';
+            })
+            ->addColumn('feedbacks_list', function ($visit) {
+                if (!isset($visit->feedbacks) || count($visit->feedbacks) === 0) {
+                    return '<span>None</span>';
+                }
+                $items = [];
+                foreach ($visit->feedbacks as $fb) {
+                    $items[] = $fb->feedback ?? '';
+                }
+                return '<ul><li>' . implode('</li><li>', array_map('e', $items)) . '</li></ul>';
+            })
+            ->rawColumns(['date', 'time', 'sales_list', 'followups_list', 'feedbacks_list'])
             ->make(true);
 
 

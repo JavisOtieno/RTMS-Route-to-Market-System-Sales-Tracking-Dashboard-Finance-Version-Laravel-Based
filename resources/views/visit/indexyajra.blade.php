@@ -103,12 +103,16 @@
                                         <th>Duration</th>
                                         <th class="no-export">Map</th>
                                         <th id="delete-column">Check Out</th>
+                                        <th>Sales</th>
+                                        <th>Followups</th>
+                                        <th>Feedback</th>
 
                                         {{-- <th id="map-column">Map</th> --}}
 
                                         {{-- <th id="delete-column">Delete</th> --}}
                                     </tr>
                                     <tr>
+                                        
                                         <th><input class="form-control" style="width: auto;max-width: 90px;" type="text" placeholder="Search ID" /></th>
                                         <th></th>
                                         <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Name" /></th>
@@ -126,6 +130,9 @@
                                         <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Checkin Time" /></th>
                                         <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Checkout Time" /></th>
                                         <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Duration" /></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
                                         <th></th>
                                         <th></th>
                                         {{-- <th></th> <!-- No search input for actions --> --}}
@@ -569,7 +576,24 @@
                         searchable: false,
                         exportable: false
                     },
-
+                    {
+                        data: 'sales_list',
+                        name: 'sales_list',
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
+                        data: 'followups_list',
+                        name: 'followups_list',
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
+                        data: 'feedbacks_list',
+                        name: 'feedbacks_list',
+                        orderable: false,
+                        searchable: false
+                    },
 
 
                 ],
