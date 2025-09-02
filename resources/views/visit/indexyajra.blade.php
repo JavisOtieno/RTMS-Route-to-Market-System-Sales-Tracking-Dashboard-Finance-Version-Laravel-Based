@@ -600,7 +600,7 @@
                 dom: 'lBfrtip', // This defines the layout of the table controls, including buttons
                 buttons: [{
                         extend: 'excelHtml5',
-                        text: 'Excel',
+                        text: 'Excel (Page)',
                         // "text": '<button class="btn"><i class="fa fa-file-excel-o" style="color: green;"></i>  Excel</button>',
                         "titleAttr": 'Excel',
                         // "action": newexportaction,
@@ -635,22 +635,22 @@
                     },
                     {
                         extend: 'copy',
-                        text: 'Copy',
+                        text: 'Copy (Page)',
                         title: 'RTMSExport',
                         // "action": newexportaction
                     },
                     {
                         extend: 'pdf',
-                        text: 'PDF',
+                        text: 'PDF (Page)',
                         title: 'RTMS Visits Data', // Optional: Set the title for the exported file
                         // "action": newexportaction
                     },
-                    {
-                        extend: 'print',
-                        text: 'Print',
-                        title: 'RTMS Visits Data', // Optional: Set the title for the printed document
-                        // "action": newexportaction
-                    },
+                    // {
+                    //     extend: 'print',
+                    //     text: 'Print',
+                    //     title: 'RTMS Visits Data', // Optional: Set the title for the printed document
+                    //     // "action": newexportaction
+                    // },
                     // {
                     //     extend: 'colvis',
                         
