@@ -620,19 +620,19 @@
                         // modifier: 'page' // This line exports all data
                         
                     },
-                    {
-                        text: 'Export All to Excel',
-                        action: function(e, dt, button, config) {
-                            var params = dt.ajax.params();
-                            params.dateFrom = $('#dateFromInput').val();
-                            params.dateTo = $('#dateToInput').val();
-                            params.timeFrom = $('#timeFromInput').val();
-                            params.timeTo = $('#timeToInput').val();
-                            console.log('DataTable Filters:', params);
-                            var url = '{{ route("visits.export") }}?' + $.param(params);
-                            window.location.href = url;
-                        }
-                    },
+                    // {
+                    //     text: 'Export All to Excel',
+                    //     action: function(e, dt, button, config) {
+                    //         var params = dt.ajax.params();
+                    //         params.dateFrom = $('#dateFromInput').val();
+                    //         params.dateTo = $('#dateToInput').val();
+                    //         params.timeFrom = $('#timeFromInput').val();
+                    //         params.timeTo = $('#timeToInput').val();
+                    //         console.log('DataTable Filters:', params);
+                    //         var url = '{{ route("visits.export") }}?' + $.param(params);
+                    //         window.location.href = url;
+                    //     }
+                    // },
                     {
                         extend: 'copy',
                         text: 'Copy (Page)',
