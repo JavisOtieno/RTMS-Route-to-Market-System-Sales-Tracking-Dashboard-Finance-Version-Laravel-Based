@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\VisitsExportDatatables;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class VisitController extends Controller
@@ -201,11 +202,21 @@ public function export(Request $request)
         $filters['columns'][$mapped] = $searchVal;
     }
 
-    return Excel::download(new VisitsExportDatatables($filters), 'visits.xlsx');
+    // return Excel::download(new VisitsExportDatatables($filters), 'visits.xlsx');
     $export = new VisitsExportDatatables($filters);
 
         // store in local disk (storage/app/exports) via queue
-    Excel::queue($export, 'exports/visits_' . now()->format('Ymd_His') . '.xlsx', 'local');
+    // $filename = 'exports/visits_' . now()->format('Ymd_His') . '.xlsx';
+    // Excel::queue($export, $filename, 'local');
+
+    $filename = 'exports/visits_' . now()->format('Ymd_His') . '.xlsx';
+    Excel::queue($export, $filename, 'public');
+
+    // Build the public URL (will work after the job finishes)
+// $publicUrl = Storage::disk('public')->$request->url($filename);
+
+// return back()->with('success', "Export started. The file will be available here: <a href='{$publicUrl}' target='_blank'>{$publicUrl}</a>");
+
 
     return back()->with('success', 'Export started. The file will be available when the queue job finishes.');
 
