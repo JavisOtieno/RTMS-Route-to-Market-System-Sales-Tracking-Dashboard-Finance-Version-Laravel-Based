@@ -58,6 +58,21 @@ class VisitsExportDatatables implements FromQuery, WithHeadings, WithChunkReadin
                         case 'id':
                             $query->where('visits.id', 'like', "%{$value}%");
                             break;
+                        case 'outlet_name':
+                            $query->whereHas('outlet', function ($q) use ($value) {
+                                $q->where('name', 'like', "%{$value}%");
+                            });
+                            break;
+                        case 'contactpersonname':
+                            $query->whereHas('outlet', function ($q) use ($value) {
+                                $q->where('contact_person_name', 'like', "%{$value}%");
+                            });
+                            break;
+                        case 'phone':
+                            $query->whereHas('outlet', function ($q) use ($value) {
+                                $q->where('phone', 'like', "%{$value}%");
+                            });
+                            break;
                         case 'user_name':
                             $query->whereHas('user', function ($q) use ($value) {
                                 $q->where('name', 'like', "%{$value}%");

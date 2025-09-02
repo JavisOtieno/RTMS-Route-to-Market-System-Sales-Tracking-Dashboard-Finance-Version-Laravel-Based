@@ -136,6 +136,7 @@ Route::get('/outlets/filter', [OutletController::class,'filterOutlets']);
 Route::get('/ajaxoutletsyajra',[OutletController::class,'ajaxoutletsYajraTest'])
 ->name('yajratestoutlets');
 Route::get('/customersnew',[OutletController::class,'viewoutletsYajraTest']);
+Route::get('/customers/export', [OutletController::class, 'export'])->name('customers.export');
 
 Route::get('/routeplans', [RouteplanController::class,'index']);
 Route::get('/createrouteplan', [RouteplanController::class,'createRoutePlan']);
