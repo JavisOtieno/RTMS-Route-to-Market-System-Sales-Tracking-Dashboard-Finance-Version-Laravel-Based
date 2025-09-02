@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\api;
 
+use Carbon\Carbon;
 use App\Models\Visit;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\RouteplanItem;
+use App\Http\Controllers\Controller;
 
 class VisitController extends Controller
 {
@@ -75,6 +76,35 @@ class VisitController extends Controller
 
 
 }
+// public function checkout($id,Request $request){
+
+//     $visit=Visit::find($id);
+    
+//     $request->validate([
+//         //     'userId'=>'required',
+//         //     'time'=>'required',
+//         //     'lat'=>'required',
+//         //     'long'=>'required'
+//         'checkout_time'=>'required|string|max:255',
+//         'checkout_latitude'=>'required|between:-90.000000000,90.000000000',
+//         'checkout_longitude'=>'required|between:-180.000000000,180.000000000',
+//         ]);
+    
+    
+//     $incomingFields['checkout_time']=strip_tags($request['checkout_time']);
+//     $incomingFields['checkout_time']=time();
+//     $incomingFields['checkout_latitude']=strip_tags($request['checkout_latitude']);
+//     $incomingFields['checkout_longitude']=strip_tags($request['checkout_longitude']);
+    
+//     $visit->update($incomingFields);
+    
+//     $checkoutStatus=array(
+//         "message" => "Checkout Successful",
+//         "status" => "success");
+
+//     return response()->json($checkoutStatus);
+
+// }
 public function checkout($id,Request $request){
 
     $visit=Visit::find($id);
@@ -94,6 +124,21 @@ public function checkout($id,Request $request){
     $incomingFields['checkout_time']=time();
     $incomingFields['checkout_latitude']=strip_tags($request['checkout_latitude']);
     $incomingFields['checkout_longitude']=strip_tags($request['checkout_longitude']);
+
+    $timestamp2 = (int)$visit->checkin_time;
+    // Calculate the time difference in seconds
+    $timeDifferenceInSeconds = $incomingFields['checkout_time'] - $timestamp2;
+    // Convert to H:i:s format
+    $timeDifference = gmdate('H:i:s', $timeDifferenceInSeconds);
+    $incomingFields['duration'] = $timeDifference;
+
+    $createdAt = Carbon::parse($visit->created_at);
+    $modifiedTime = $createdAt->copy()->addSeconds($timeDifferenceInSeconds);
+
+    // Get only the time in HH:MM:SS format
+    $timeOnly = $modifiedTime->format('H:i:s');
+
+    $incomingFields['checkouttimeexact'] = $timeOnly;
     
     $visit->update($incomingFields);
     
