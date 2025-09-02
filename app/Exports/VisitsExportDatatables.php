@@ -203,7 +203,7 @@ class VisitsExportDatatables implements FromQuery, WithHeadings, WithChunkReadin
             'date' => date('d-M-Y', strtotime($visit->created_at)),
             'time' => date('H:i', strtotime($visit->created_at)),
             'checkouttime' => date('H:i', strtotime($visit->checkouttimeexact)),
-            'duration' => date('H:i', strtotime($visit->duration)),
+            'duration' => date('H:i:s', strtotime($visit->duration)),
             'sales' => $salesString,
             'followups' => $followupsString,
             'feedbacks' => $feedbacksString,
