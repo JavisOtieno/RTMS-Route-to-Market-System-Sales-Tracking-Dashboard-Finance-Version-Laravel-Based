@@ -18,7 +18,10 @@ class OrganizationScope implements Scope
             
             }else{
                 
-                $builder->where('organization_id', Auth::user()->organization_id);
+                // $builder->where('organization_id', Auth::user()->organization_id);
+
+                $table = $builder->getModel()->getTable(); // Get model's table dynamically
+                $builder->where("{$table}.organization_id", Auth::user()->organization_id);
             }
         }
 
