@@ -356,7 +356,7 @@
                 content: `
                     <div>
                         <h3>Seller: ${visit.user_name}</h3>
-                        <p><strong>Outlet Name:</strong> ${visit.outlet_name}</p>
+                        <p><strong>Customer Name:</strong> ${visit.outlet_name}</p>
                         <p><strong>Contact Person:</strong> ${visit.contactpersonname}</p>
                         <p><strong>Phone:</strong> ${visit.phone}</p>
                         <p><strong>Latitude:</strong> ${visit.outlet_lat}</p>
@@ -598,12 +598,20 @@
 
                 ],
                 dom: 'lBfrtip', // This defines the layout of the table controls, including buttons
-                buttons: [{
+                buttons: [
+                  
+                    {
                         extend: 'excelHtml5',
                         text: 'Excel (Page)',
+                        title: 'RTMSExport',
+                        // "action": newexportaction
+                    },
+                      {
+                        extend: 'excelHtml5',
+                        text: 'Excel (All)',
                         // "text": '<button class="btn"><i class="fa fa-file-excel-o" style="color: green;"></i>  Excel</button>',
                         "titleAttr": 'Excel',
-                        // "action": newexportaction,
+                        "action": newexportaction,
                         // exportOptions: {
                         // columns: function (idx, data, node) {
                         //     return !$(node).hasClass('no-export'); // Still excludes based on class
@@ -612,9 +620,9 @@
                         // exportOptions = {
                         //     columns: [0, 1, 3] // Only export columns 0, 1, 3, and 4 (zero-based index)
                         // }
-                        exportOptions: {
-                            columns: ':not(:nth-child(1)), :not(:nth-child(4))' // Exclude first (index 0) and fourth column (index 3)
-                        }
+                        // exportOptions: {
+                        //     columns: ':not(:nth-child(1)), :not(:nth-child(4))' // Exclude first (index 0) and fourth column (index 3)
+                        // }
                         // title: 'Visits Data', // Optional: Set the title for the exported file
                         // exportOptions: {
                         // modifier: 'page' // This line exports all data
@@ -645,6 +653,7 @@
                         title: 'RTMS Visits Data', // Optional: Set the title for the exported file
                         // "action": newexportaction
                     },
+
                     // {
                     //     extend: 'print',
                     //     text: 'Print',
@@ -716,57 +725,57 @@
     });
 
 
-    // function newexportaction(e, dt, button, config) {
-    //      var self = this;
-    //      var oldStart = dt.settings()[0]._iDisplayStart;
-    //      var currentDate = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
-    //      var exportTitle = `RTMS Visits Data - ${currentDate}`;
+    function newexportaction(e, dt, button, config) {
+         var self = this;
+         var oldStart = dt.settings()[0]._iDisplayStart;
+         var currentDate = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
+         var exportTitle = `RTMS Visits Data - ${currentDate}`;
          
-    //      dt.one('preXhr', function (e, s, data) {
-    //          // Just this once, load all data from the server...
-    //          data.start = 0;
-    //          data.length = 2147483647;
-    //          dt.one('preDraw', function (e, settings) {
-    //             // var exportOptions = {
-    //             //     columns: ':not(.no-export)' // Exclude columns with class 'no-export'
-    //             // };
-    //             config.exportOptions = {
-    //                 columns: ':not(.no-export)',
-    //                 title: exportTitle, // Add title
-    //             };
-    //              // Call the original action function
-    //              if (button[0].className.indexOf('buttons-copy') >= 0) {
-    //                  $.fn.dataTable.ext.buttons.copyHtml5.action.call(self, e, dt, button, config);
-    //              } else if (button[0].className.indexOf('buttons-excel') >= 0) {
-    //                  $.fn.dataTable.ext.buttons.excelHtml5.available(dt, config) ?
-    //                      $.fn.dataTable.ext.buttons.excelHtml5.action.call(self, e, dt, button, config) :
-    //                      $.fn.dataTable.ext.buttons.excelFlash.action.call(self, e, dt, button, config);
-    //              } else if (button[0].className.indexOf('buttons-csv') >= 0) {
-    //                  $.fn.dataTable.ext.buttons.csvHtml5.available(dt, config) ?
-    //                      $.fn.dataTable.ext.buttons.csvHtml5.action.call(self, e, dt, button, config) :
-    //                      $.fn.dataTable.ext.buttons.csvFlash.action.call(self, e, dt, button, config);
-    //              } else if (button[0].className.indexOf('buttons-pdf') >= 0) {
-    //                  $.fn.dataTable.ext.buttons.pdfHtml5.available(dt, config) ?
-    //                      $.fn.dataTable.ext.buttons.pdfHtml5.action.call(self, e, dt, button, config) :
-    //                      $.fn.dataTable.ext.buttons.pdfFlash.action.call(self, e, dt, button, config);
-    //              } else if (button[0].className.indexOf('buttons-print') >= 0) {
-    //                  $.fn.dataTable.ext.buttons.print.action(e, dt, button, config);
-    //              }
-    //              dt.one('preXhr', function (e, s, data) {
-    //                  // DataTables thinks the first item displayed is index 0, but we're not drawing that.
-    //                  // Set the property to what it was before exporting.
-    //                  settings._iDisplayStart = oldStart;
-    //                  data.start = oldStart;
-    //              });
-    //              // Reload the grid with the original page. Otherwise, API functions like table.cell(this) don't work properly.
-    //              setTimeout(dt.ajax.reload, 0);
-    //              // Prevent rendering of the full data to the DOM
-    //              return false;
-    //          });
-    //      });
-    //      // Requery the server with the new one-time export settings
-    //      dt.ajax.reload();
-    //  }
+         dt.one('preXhr', function (e, s, data) {
+             // Just this once, load all data from the server...
+             data.start = 0;
+             data.length = 2147483647;
+             dt.one('preDraw', function (e, settings) {
+                // var exportOptions = {
+                //     columns: ':not(.no-export)' // Exclude columns with class 'no-export'
+                // };
+                config.exportOptions = {
+                    columns: ':not(.no-export)',
+                    title: exportTitle, // Add title
+                };
+                 // Call the original action function
+                 if (button[0].className.indexOf('buttons-copy') >= 0) {
+                     $.fn.dataTable.ext.buttons.copyHtml5.action.call(self, e, dt, button, config);
+                 } else if (button[0].className.indexOf('buttons-excel') >= 0) {
+                     $.fn.dataTable.ext.buttons.excelHtml5.available(dt, config) ?
+                         $.fn.dataTable.ext.buttons.excelHtml5.action.call(self, e, dt, button, config) :
+                         $.fn.dataTable.ext.buttons.excelFlash.action.call(self, e, dt, button, config);
+                 } else if (button[0].className.indexOf('buttons-csv') >= 0) {
+                     $.fn.dataTable.ext.buttons.csvHtml5.available(dt, config) ?
+                         $.fn.dataTable.ext.buttons.csvHtml5.action.call(self, e, dt, button, config) :
+                         $.fn.dataTable.ext.buttons.csvFlash.action.call(self, e, dt, button, config);
+                 } else if (button[0].className.indexOf('buttons-pdf') >= 0) {
+                     $.fn.dataTable.ext.buttons.pdfHtml5.available(dt, config) ?
+                         $.fn.dataTable.ext.buttons.pdfHtml5.action.call(self, e, dt, button, config) :
+                         $.fn.dataTable.ext.buttons.pdfFlash.action.call(self, e, dt, button, config);
+                 } else if (button[0].className.indexOf('buttons-print') >= 0) {
+                     $.fn.dataTable.ext.buttons.print.action(e, dt, button, config);
+                 }
+                 dt.one('preXhr', function (e, s, data) {
+                     // DataTables thinks the first item displayed is index 0, but we're not drawing that.
+                     // Set the property to what it was before exporting.
+                     settings._iDisplayStart = oldStart;
+                     data.start = oldStart;
+                 });
+                 // Reload the grid with the original page. Otherwise, API functions like table.cell(this) don't work properly.
+                 setTimeout(dt.ajax.reload, 0);
+                 // Prevent rendering of the full data to the DOM
+                 return false;
+             });
+         });
+         // Requery the server with the new one-time export settings
+         dt.ajax.reload();
+     }
 
 
 
