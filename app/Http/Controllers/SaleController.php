@@ -269,8 +269,20 @@ class SaleController extends Controller
 
         return view('sale.targets', compact('users', 'usersproducts', 'products', 'months', 'selectedMonth'));
     }
-    public function showSalesTargets()
+    public function showSalesTargets(Request $request)
     {
+        $selectedMonth = $request->input('month', date('Y-m'));
+        
+        // Parse the selected month
+        if($selectedMonth){
+            $selectedDate = Carbon::parse($selectedMonth);
+        } else {
+            $selectedDate = Carbon::now();
+            $selectedMonth = $selectedDate->format('Y-m');
+        }
+        // $selectedDate = Carbon::parse($selectedMonth);
+        $startDate = $selectedDate->copy()->startOfMonth();
+        $endDate = $selectedDate->copy()->endOfMonth();
         // $lastmonth = Carbon::now()->subMonth()->month;
         $months = [];
         for ($i = 0; $i < 12; $i++) {
@@ -289,8 +301,15 @@ class SaleController extends Controller
         $products = Product::all();
 
         // Eager load ONLY current month & year COMPLETE sales and sale items for all users
-        $sales = Sale::whereMonth('created_at', now()->month)
+        $sales = Sale::
+            whereMonth('created_at', now()->month)
             ->whereYear('created_at', now()->year)
+            ->where('status', 'complete')
+            ->whereIn('user_id', $users->pluck('id'))
+            ->with('saleitems')
+            ->get();
+
+        $sales = Sale::whereBetween('created_at', [$startDate, $endDate])
             ->where('status', 'complete')
             ->whereIn('user_id', $users->pluck('id'))
             ->with('saleitems')
