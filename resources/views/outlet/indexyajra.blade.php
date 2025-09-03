@@ -433,29 +433,29 @@
                         // "action": newexportaction
                     },
                     
-                    {
-                        extend: 'excelHtml5',
-                        text: 'Excel (All)',
-                        // text: 'Excel (10000 Max)',
-                        // "text": '<button class="btn"><i class="fa fa-file-excel-o" style="color: green;"></i>  Excel</button>',
-                        "titleAttr": 'RTMSExport',
-                        "action": newexportaction,
-                        // exportOptions: {
-                        // columns: function (idx, data, node) {
-                        //     return !$(node).hasClass('no-export'); // Still excludes based on class
-                        //     }
-                        // }
-                        // exportOptions = {
-                        //     columns: [0, 1, 3] // Only export columns 0, 1, 3, and 4 (zero-based index)
-                        // }
-                        // exportOptions: {
-                        //     columns: ':not(:nth-child(1)), :not(:nth-child(4))' // Exclude first (index 0) and fourth column (index 3)
-                        // }
-                        // title: 'Outlets Data', // Optional: Set the title for the exported file
-                        // exportOptions: {
-                        // modifier: 'page' // This line exports all data
+                    // {
+                    //     extend: 'excelHtml5',
+                    //     text: 'Excel (All)',
+                    //     // text: 'Excel (10000 Max)',
+                    //     // "text": '<button class="btn"><i class="fa fa-file-excel-o" style="color: green;"></i>  Excel</button>',
+                    //     "titleAttr": 'RTMSExport',
+                    //     "action": newexportaction,
+                    //     // exportOptions: {
+                    //     // columns: function (idx, data, node) {
+                    //     //     return !$(node).hasClass('no-export'); // Still excludes based on class
+                    //     //     }
+                    //     // }
+                    //     // exportOptions = {
+                    //     //     columns: [0, 1, 3] // Only export columns 0, 1, 3, and 4 (zero-based index)
+                    //     // }
+                    //     // exportOptions: {
+                    //     //     columns: ':not(:nth-child(1)), :not(:nth-child(4))' // Exclude first (index 0) and fourth column (index 3)
+                    //     // }
+                    //     // title: 'Outlets Data', // Optional: Set the title for the exported file
+                    //     // exportOptions: {
+                    //     // modifier: 'page' // This line exports all data
                         
-                    },
+                    // },
                     {
                         extend: 'copy',
                         text: 'Copy (Page)',
