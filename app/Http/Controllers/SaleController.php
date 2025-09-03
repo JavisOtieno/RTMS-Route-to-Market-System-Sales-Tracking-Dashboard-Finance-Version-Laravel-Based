@@ -200,23 +200,30 @@ class SaleController extends Controller
 
         return redirect('/sales');
     }
-    public function showSalesTargets()
+    public function showSalesTargets(Request $request)
     {
-        // $lastmonth = Carbon::now()->subMonth()->month;
+        $selectedMonth = $request->input('month', date('Y-m'));
+        
+        // Parse the selected month
+        $selectedDate = Carbon::parse($selectedMonth);
+        $startDate = $selectedDate->copy()->startOfMonth();
+        $endDate = $selectedDate->copy()->endOfMonth();
+        
+        // Generate list of last 12 months for the dropdown
+        $months = [];
+        for ($i = 0; $i < 12; $i++) {
+            $date = Carbon::now()->subMonths($i);
+            $months[$date->format('Y-m')] = $date->format('F Y');
+        }
 
         $users = User::inOrganization()
             ->with('targetgroup')
-            // ->withSum(['sales as total_sales_this_month' => function ($query) {
-            //     $query->whereMonth('created_at', Carbon::now()->subMonth()->month)
-            //         ->whereYear('created_at', now()->year);
-            // }], 'value')
             ->get();
 
         $products = Product::all();
 
-        // Eager load ONLY current month & year COMPLETE sales and sale items for all users
-        $sales = Sale::whereMonth('created_at', now()->month)
-            ->whereYear('created_at', now()->year)
+        // Eager load sales for the selected month & year for all users
+        $sales = Sale::whereBetween('created_at', [$startDate, $endDate])
             ->where('status', 'complete')
             ->whereIn('user_id', $users->pluck('id'))
             ->with('saleitems')
@@ -259,7 +266,7 @@ class SaleController extends Controller
             $usersproducts[$user->id] = $product_array;
         }
 
-        return view('sale.targets', compact('users','usersproducts','products'));
+        return view('sale.targets', compact('users', 'usersproducts', 'products', 'months', 'selectedMonth'));
     }
 
     public function showSalesMap()

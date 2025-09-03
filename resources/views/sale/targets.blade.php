@@ -20,6 +20,26 @@
 </div>
 <!-- PAGE-HEADER END -->
 
+<!-- Month Filter -->
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <form method="GET" action="{{ route('dealstargets') }}" class="row g-3">
+                    <div class="col-md-6">
+                        <label for="month" class="form-label">Select Month</label>
+                        <select name="month" id="month" class="form-control" onchange="this.form.submit()">
+                            @foreach($months as $value => $label)
+                                <option value="{{ $value }}" {{ $selectedMonth == $value ? 'selected' : '' }}>{{ $label }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Month Filter -->
 
         <!-- Row -->
         
@@ -27,7 +47,7 @@
                 <div class="card">
                     <div class="card-header">
                     
-                        <h3 class="card-title">Deals Targets</h3>
+                        <h3 class="card-title">Deals Targets - {{ \Carbon\Carbon::parse($selectedMonth)->format('F Y') }}</h3>
                     
                         
                     </div>
@@ -257,8 +277,3 @@
     //     alert('You clicked on ' + data[0] + "'s row");
     // });
                 </script>
-
-
-
-
-
