@@ -272,6 +272,11 @@ class SaleController extends Controller
     public function showSalesTargets()
     {
         // $lastmonth = Carbon::now()->subMonth()->month;
+        $months = [];
+        for ($i = 0; $i < 12; $i++) {
+            $date = Carbon::now()->subMonths($i);
+            $months[$date->format('Y-m')] = $date->format('F Y');
+        }
 
         $users = User::inOrganization()
             ->with('targetgroup')
@@ -328,7 +333,7 @@ class SaleController extends Controller
             $usersproducts[$user->id] = $product_array;
         }
 
-        return view('sale.targets', compact('users','usersproducts','products'));
+        return view('sale.targets', compact('users','usersproducts','products','months'));
     }
 
     public function showSalesMap()
