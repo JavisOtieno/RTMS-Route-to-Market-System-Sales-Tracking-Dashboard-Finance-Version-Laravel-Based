@@ -25,7 +25,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <form method="GET" action="{{ route('dealstargetswind') }}" class="row g-3">
+                <!-- <form method="GET" action="{{ route('dealstargetswind') }}" class="row g-3">
                     <div class="col-md-6">
                         <label for="month" class="form-label">Select Month</label>
                         <select name="month" id="month" class="form-control" onchange="this.form.submit()">
@@ -34,7 +34,7 @@
                             @endforeach
                         </select>
                     </div>
-                </form>
+                </form> -->
             </div>
         </div>
     </div>
