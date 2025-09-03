@@ -250,20 +250,17 @@ class UserController extends CommonController
     //    $selectedUsers = $request->input('users', []);
                 
         $selectedUsers = $request->input('usercheckboxes', []);
-
-        User::inOrganization()
-        ->whereIn('id', $selectedUsers)
-        ->update($incomingFields);
+        
         
 
-        // // Process the selected items
-        // foreach ($selectedUsers as $selectedUserId) {
-        //     $user = User::inOrganization()->find($selectedUserId);
-        //     $user->update($incomingFields);
+        // Process the selected items
+        foreach ($selectedUsers as $selectedUserId) {
+            $user = User::inOrganization()->find($selectedUserId);
+            $user->update($incomingFields);
            
-        //     // Perform your processing here
-        //     // For example, you can mark the item as processed, delete it, etc.
-        // }
+            // Perform your processing here
+            // For example, you can mark the item as processed, delete it, etc.
+        }
         
         return redirect('/adduserstoteam');
         //dd($sales);
