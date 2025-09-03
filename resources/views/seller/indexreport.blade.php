@@ -34,15 +34,15 @@
                     </div>
                     <div class="row" style="margin: 0 10px;">
                         <input type="hidden" id="tableLoaded" value="usersreport"/>
-                        <h3 class="card-title" style="margin-top:20px;margin-block-end: 0rem;">Search by :</h3>
-                        <div class="col-md-3 mb-3">
+                        <h3 class="card-title" style="margin-top:20px;margin-block-end: 0rem;">Search Sellers by :</h3>
+                        {{-- <div class="col-md-3 mb-3">
                             <label for="name" class="form-label">Name</label>
                             <input type="text" class="form-control" id="nameInput" placeholder="Name">
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="phone" class="form-label">Phone</label>
                             <input type="text" class="form-control" id="phoneInput" placeholder="Phone">
-                        </div>
+                        </div> --}}
                         <div class="col-md-3 mb-3">
                             <label for="date" class="form-label">From</label>
                             <input type="date" class="form-control" id="dateFromInput" placeholder="Min Date">
@@ -70,6 +70,7 @@
                     </div>
                     <div class="row" style="margin: 0 10px 10px 10px;">
                         <form method="GET" action="{{ url('/sellersreport') }}" class="row g-3 align-items-end">
+                            <h3 class="card-title" style="margin-top:20px;margin-block-end: 0rem;">Group Counts by :</h3>
                             <div class="col-md-3">
                                 <label for="from" class="form-label">Counts From</label>
                                 <input type="date" id="from" name="from" class="form-control" value="{{ request('from') }}">

@@ -704,6 +704,7 @@
                                     <li><a href="/dealsmap" class="slide-item">Sales Map</a></li>
                                     <li><a href="/dealsanalytics" class="slide-item">Sales Analytics</a></li>
                                     <li><a href="/dealstargets" class="slide-item">Sales Targets</a></li>
+                                    <li><a href="/sellersreport" class="slide-item">Sales Period Reports</a></li>
                                 </ul>
                             </div>
                         </div>
