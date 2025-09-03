@@ -47,7 +47,7 @@
                 <div class="card">
                     <div class="card-header">
                     
-                        <h3 class="card-title">Deals Targets - {{ \Carbon\Carbon::parse($selectedMonth)->format('F Y') }}</h3>
+                        <h3 class="card-title">Deals Targets - {{ isset($selectedMonth)? \Carbon\Carbon::parse($selectedMonth)->format('F Y') : 'This month' }}</h3>
                     
                         
                     </div>
