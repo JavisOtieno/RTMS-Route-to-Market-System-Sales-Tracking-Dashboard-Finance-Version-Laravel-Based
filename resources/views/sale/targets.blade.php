@@ -21,7 +21,7 @@
 <!-- PAGE-HEADER END -->
 
 <!-- Month Filter -->
-<div class="row mb-4">
+{{-- <div class="row mb-4">
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
@@ -39,7 +39,7 @@
         </div>
     </div>
 </div>
-<!-- End Month Filter -->
+<!-- End Month Filter --> --}}
 
         <!-- Row -->
         
@@ -84,6 +84,27 @@
                             </select>
 
                         </div> --}}
+                    </div>
+                    <div class="row" style="margin: 0 10px 10px 10px;">
+                        <form method="GET" action="{{ url('/dealstargets') }}" class="row g-3 align-items-end">
+                            <h3 class="card-title" style="margin-top:20px;margin-block-end: 0rem;">Show Targets by :</h3>
+                            
+                            <div class="col-md-3">
+                                <label for="month" class="form-label">Select Month</label>
+                        <select name="month" id="month" class="form-control" onchange="this.form.submit()">
+                            @foreach($months as $value => $label)
+                                <option value="{{ $value }}" {{ isset($selectedMonth) ? ($selectedMonth == $value ? 'selected' : '') : '' }}>{{ $label }}</option>
+                            @endforeach
+                        </select></div>
+                            {{-- <div class="col-md-3">
+                                <label for="to" class="form-label">Month</label>
+                                <input type="date" id="to" name="to" class="form-control" value="{{ request('to') }}">
+                            </div> --}}
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-primary" style="margin-top: 6px;">Apply</button>
+                                <a href="{{ url('/dealstargets') }}" class="btn btn-light" style="margin-top: 6px;">Reset</a>
+                            </div>
+                        </form>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
