@@ -123,7 +123,7 @@ Route::get('/editfollowup/{id}',[FollowupController::class,'showEditFollowup']);
 Route::put('/saveeditfollowup/{id}',[FollowupController::class,'saveEditFollowup']);
 Route::get('/followup/{id}/{object}',[FollowupController::class,'showFollowupById']);
 
-Route::get('/customers', [OutletController::class,'index']);
+Route::get('/customersold', [OutletController::class,'index']);
 Route::get('/outlets/{id}/{object}', [OutletController::class,'showOutletsById']);
 Route::get('/deletecustomer/{id}', [OutletController::class,'deleteOutlet']);
 Route::get('/add-customer', [OutletController::class,'addOutlet']);
@@ -136,7 +136,7 @@ Route::get('/outlets/filter', [OutletController::class,'filterOutlets']);
 
 Route::get('/ajaxoutletsyajra',[OutletController::class,'ajaxoutletsYajraTest'])
 ->name('yajratestoutlets');
-Route::get('/customersnew',[OutletController::class,'viewoutletsYajraTest']);
+Route::get('/customers',[OutletController::class,'viewoutletsYajraTest']);
 Route::get('/customers/export', [OutletController::class, 'export'])->name('customers.export');
 
 Route::get('/routeplans', [RouteplanController::class,'index']);
