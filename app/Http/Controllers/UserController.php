@@ -250,17 +250,28 @@ class UserController extends CommonController
     //    $selectedUsers = $request->input('users', []);
                 
         $selectedUsers = $request->input('usercheckboxes', []);
+
+        // Only include fields that exist in the users table
+        $updateData = [
+            'team_id' => $incomingFields['team_id'],
+        ];
+
+        $affectedRows = DB::transaction(function () use ($selectedUsers, $updateData) {
+            User::inOrganization()
+                ->whereIn('id', $selectedUsers)
+                ->update($updateData);
+        });
         
         
 
-        // Process the selected items
-        foreach ($selectedUsers as $selectedUserId) {
-            $user = User::inOrganization()->find($selectedUserId);
-            $user->update($incomingFields);
+        // // Process the selected items
+        // foreach ($selectedUsers as $selectedUserId) {
+        //     $user = User::inOrganization()->find($selectedUserId);
+        //     $user->update($incomingFields);
            
-            // Perform your processing here
-            // For example, you can mark the item as processed, delete it, etc.
-        }
+        //     // Perform your processing here
+        //     // For example, you can mark the item as processed, delete it, etc.
+        // }
         
         return redirect('/adduserstoteam');
         //dd($sales);
