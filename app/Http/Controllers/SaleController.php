@@ -201,7 +201,7 @@ class SaleController extends Controller
         return redirect('/sales');
     }
     // {{ ... }}
-    public function showSalesTargets(Request $request)
+    public function showSalesTargetsWind(Request $request)
     {
         $selectedMonth = $request->input('month', date('Y-m'));
         
