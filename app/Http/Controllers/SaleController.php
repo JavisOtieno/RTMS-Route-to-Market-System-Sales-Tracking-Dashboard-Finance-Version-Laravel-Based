@@ -352,7 +352,7 @@ class SaleController extends Controller
             $usersproducts[$user->id] = $product_array;
         }
 
-        return view('sale.targets', compact('users','usersproducts','products','months'));
+        return view('sale.targets', compact('users','usersproducts','products','months','selectedMonth'));
     }
 
     public function showSalesMap()
