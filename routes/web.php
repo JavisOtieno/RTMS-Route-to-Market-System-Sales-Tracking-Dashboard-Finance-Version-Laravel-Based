@@ -61,7 +61,7 @@ Route::get('/dashboard', [DashboardController::class,'index']);
 Route::get('/deals', [SaleController::class,'index']);
 Route::get('/dealsmap', [SaleController::class,'showSalesMap']);
 Route::get('/sales/filter', [SaleController::class,'filterSales']);
-Route::get('/dealstargets', [SaleController::class,'showSalesTargets']);
+Route::get('/dealstargets', [SaleController::class,'showSalesTargets'])->name('dealstargets');
 Route::get('/add-sale', [SaleController::class,'addSale']);
 Route::get('/dealsanalytics', [SaleController::class,'showSalesAnalytics']);
 Route::get('/sales/{id}/{object}',[SaleController::class,'showSalesById']);
