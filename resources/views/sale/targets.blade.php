@@ -91,7 +91,8 @@
                             
                             <div class="col-md-3">
                                 <label for="month" class="form-label">Select Month</label>
-                        <select name="month" id="month" class="form-control" onchange="this.form.submit()">
+                        <select name="month" id="month" class="form-control" >
+                        {{-- onchange="this.form.submit()"> --}}
                             @foreach($months as $value => $label)
                                 <option value="{{ $value }}" {{ isset($selectedMonth) ? ($selectedMonth == $value ? 'selected' : '') : '' }}>{{ $label }}</option>
                             @endforeach
