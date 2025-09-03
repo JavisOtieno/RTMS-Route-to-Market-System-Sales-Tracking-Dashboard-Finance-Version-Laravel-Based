@@ -150,7 +150,7 @@ class VisitController extends Controller
             // ->make(true);
 
 
-                return DataTables::eloquent($query)
+        return DataTables::eloquent($query)
         ->addColumn('date', function ($visit) {
             return $visit->created_at->format('d-M-Y');
         })

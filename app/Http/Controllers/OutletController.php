@@ -62,9 +62,10 @@ class OutletController extends CommonController
                 $query->whereDate('outlets.created_at', '<=', $request->to_date);
             }
 
-        $outlets = $query->get();
+        // $outlets = $query->get();
         // return DataTables::of($outlets)->make(true);
-        return DataTables::of($outlets)
+        // return DataTables::of($outlets)
+        return DataTables::eloquent($query)
         ->addColumn('date', function ($outlet) {
             return $outlet->created_at->format('d-M-Y'); // Extract Date
         })
@@ -104,47 +105,47 @@ class OutletController extends CommonController
         
     }
 
-    public function export(Request $request)
-{
-    $filters = [
-        'search' => $request->input('search.value'),
-        'columns' => [],
-        'dateFrom' => $request->input('dateFrom'),
-        'dateTo' => $request->input('dateTo'),
-        'timeFrom' => $request->input('timeFrom'),
-        'timeTo' => $request->input('timeTo'),
-    ];
+//     public function export(Request $request)
+// {
+//     $filters = [
+//         'search' => $request->input('search.value'),
+//         'columns' => [],
+//         'dateFrom' => $request->input('dateFrom'),
+//         'dateTo' => $request->input('dateTo'),
+//         'timeFrom' => $request->input('timeFrom'),
+//         'timeTo' => $request->input('timeTo'),
+//     ];
 
-    // Build a dynamic column map from the DataTables payload
-    $columnMap = [];
-    foreach ($request->input('columns', []) as $index => $col) {
-        $key = $col['data'] ?? $col['name'] ?? null;
-        if (!$key) continue;
+//     // Build a dynamic column map from the DataTables payload
+//     $columnMap = [];
+//     foreach ($request->input('columns', []) as $index => $col) {
+//         $key = $col['data'] ?? $col['name'] ?? null;
+//         if (!$key) continue;
 
-        // sanitize key: allow letters, numbers, dot, underscore only
-        // prevents injection like "users.name; DROP TABLE..."
-        if (!preg_match('/^[a-z0-9_.]+$/i', $key)) continue;
+//         // sanitize key: allow letters, numbers, dot, underscore only
+//         // prevents injection like "users.name; DROP TABLE..."
+//         if (!preg_match('/^[a-z0-9_.]+$/i', $key)) continue;
 
-        $columnMap[$index] = $key;
-    }
+//         $columnMap[$index] = $key;
+//     }
 
-    // Collect any per-column searches (ignore action-like columns by name)
-    foreach ($request->input('columns', []) as $index => $col) {
-        $searchVal = $col['search']['value'] ?? null;
-        if (trim((string)$searchVal) === '') continue;
+//     // Collect any per-column searches (ignore action-like columns by name)
+//     foreach ($request->input('columns', []) as $index => $col) {
+//         $searchVal = $col['search']['value'] ?? null;
+//         if (trim((string)$searchVal) === '') continue;
 
-        $mapped = $columnMap[$index] ?? null;
-        if (!$mapped) continue;
+//         $mapped = $columnMap[$index] ?? null;
+//         if (!$mapped) continue;
 
-        // optional: ignore UI columns named "actions"
-        if (stripos($mapped, 'action') !== false) continue;
+//         // optional: ignore UI columns named "actions"
+//         if (stripos($mapped, 'action') !== false) continue;
 
-        // Save as-is — later exported class should use bindings when applying filters
-        $filters['columns'][$mapped] = $searchVal;
-    }
+//         // Save as-is — later exported class should use bindings when applying filters
+//         $filters['columns'][$mapped] = $searchVal;
+//     }
 
-    return Excel::download(new OutletsExportDatatables($filters), 'customers.xlsx');
-}
+//     return Excel::download(new OutletsExportDatatables($filters), 'customers.xlsx');
+// }
 
     public function showOutletsById($objectId,$object) {
         // $outlets = Outlet::all();
