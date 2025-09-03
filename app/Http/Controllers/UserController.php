@@ -256,11 +256,11 @@ class UserController extends CommonController
             'team_id' => $incomingFields['team_id'],
         ];
 
-        $affectedRows = DB::transaction(function () use ($selectedUsers, $updateData) {
+        // $affectedRows = DB::transaction(function () use ($selectedUsers, $updateData) {
             User::inOrganization()
                 ->whereIn('id', $selectedUsers)
                 ->update($updateData);
-        });
+        // });
         
         
 
