@@ -192,6 +192,7 @@ Route::get('/deletetargetgroup/{id}', [TargetGroupController::class,'deleteTarge
 Route::post('/savetargetgroup', [TargetGroupController::class,'saveTargetGroup']);
 Route::get('/edittargetgroup/{id}', [TargetGroupController::class,'showEditTargetGroup']);
 Route::put('/saveedittargetgroup/{id}',[TargetGroupController::class,'saveEditTargetGroup']);
+//test
 
 Route::get('/territories', [TerritoryController::class,'index']);
 Route::get('/add-territory', [TerritoryController::class,'addTerritory']);
