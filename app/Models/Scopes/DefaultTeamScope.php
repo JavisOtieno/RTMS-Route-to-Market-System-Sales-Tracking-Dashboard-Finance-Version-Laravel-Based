@@ -32,7 +32,7 @@ class DefaultTeamScope implements Scope
             // $builder->where('team_id', $teamId)->whereNotNull('team_id');
 
             $table = $builder->getModel()->getTable(); // Get model's table dynamically
-            $builder->where("{$table}.team_id", Auth::user()->team_id)->orWhereNull('team_id');
+            $builder->where("{$table}.team_id", Auth::user()->team_id)->orWhereNull("{$table}.team_id");
             // ->whereNotNull('team_id');
 
         }
