@@ -42,11 +42,11 @@ class VisitController extends Controller
         {
 
             // Keep a hydrated Visit collection with relationships for rendering nested details
-            $withRelations = ['user' => function ($query) {
+            $withRelations = ['team','user' => function ($query) {
                 $query->withTrashed()->with('region','territory');
             }, 'outlet' => function ($query) {
                 $query->withTrashed();
-            }, 'team', 'followups', 'sales.saleitems.product', 'feedbacks'];
+            }, 'followups', 'sales.saleitems.product', 'feedbacks'];
 
             // Base select with join aliases (for flat columns the table expects)
             $query = Visit::with($withRelations)
