@@ -56,7 +56,7 @@ class VisitController extends Controller
                 'territories.name as territory_name',
                 'outlets.long as outlet_long',
                 'outlets.lat as outlet_lat',
-                'teams.name as team_name',
+                // 'teams.name as team_name',
                 'users.name as user_name',
                 'outlets.name as outlet_name',
                 'outlets.contact_person_name as contactpersonname',
@@ -67,12 +67,13 @@ class VisitController extends Controller
             // ->leftJoin('teams', 'teams.id', '=', 'visits.team_id')
             ->leftJoin('regions', 'regions.id', '=', 'users.region_id')
             ->leftJoin('territories', 'territories.id', '=', 'users.territory_id')
-            ->leftJoin('teams', 'teams.id', '=', 'visits.team_id')
-            ->where(function ($query) use ($request) {
-                if (!empty($request->team_name)) {
-                    $query->where('teams.name', 'like', '%' . strtolower($request->team_name) . '%');
-                }
-            });
+            // ->leftJoin('teams', 'teams.id', '=', 'visits.team_id')
+            // ->where(function ($query) use ($request) {
+            //     if (!empty($request->team_name)) {
+            //         $query->where('teams.name', 'like', '%' . strtolower($request->team_name) . '%');
+            //     }
+            // })
+            ;
 
             if (!empty($request->from_checkouttime)) {
                 $query->whereRaw("visits.checkouttimeexact >= ?", [$request->from_checkouttime]);
@@ -159,6 +160,9 @@ class VisitController extends Controller
         return DataTables::eloquent($query)
         ->addColumn('date', function ($visit) {
             return $visit->created_at->format('d-M-Y');
+        })
+        ->addColumn('team_name', function ($visit) {
+            return $visit->team ? $visit->team->name : '';
         })
         ->addColumn('time', function ($visit) {
             return $visit->created_at->format('H:i:s');
