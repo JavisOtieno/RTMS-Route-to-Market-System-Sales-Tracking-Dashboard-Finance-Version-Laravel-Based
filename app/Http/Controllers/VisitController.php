@@ -162,7 +162,7 @@ class VisitController extends Controller
             return $visit->created_at->format('d-M-Y');
         })
         ->addColumn('team_name', function ($visit) {
-            return  $visit->team->name ;
+            return $visit->team ? $visit->team->name : 'None';
         })
         ->addColumn('time', function ($visit) {
             return $visit->created_at->format('H:i:s');
