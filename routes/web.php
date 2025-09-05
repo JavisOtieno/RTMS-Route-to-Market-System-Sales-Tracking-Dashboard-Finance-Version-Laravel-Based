@@ -71,6 +71,8 @@ Route::get('/deletesale/{id}', [SaleController::class,'deleteSale']);
 Route::get('/editsale/{id}',[SaleController::class,'showEditSale']);
 Route::get('/sale/{id}',[SaleController::class,'showEditSale']);
 Route::put('/saveeditsale/{id}',[SaleController::class,'saveEditSale']);
+Route::get('/dealsyajra',[SaleController::class,'salesYajra'])->name('salesyajra');
+Route::get('/dealsnew',[SaleController::class,'indexSalesYajra'])->name('indexsalesyajra');
 
 $user = Auth::user();
 Route::middleware(['ensureViewOnlyForTeamLeads'])->group(function () {
