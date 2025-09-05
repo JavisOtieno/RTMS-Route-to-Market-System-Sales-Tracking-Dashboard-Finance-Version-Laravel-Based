@@ -67,7 +67,7 @@ class VisitController extends Controller
             // ->leftJoin('teams', 'teams.id', '=', 'visits.team_id')
             ->leftJoin('regions', 'regions.id', '=', 'users.region_id')
             ->leftJoin('territories', 'territories.id', '=', 'users.territory_id');
-            $query->leftJoin('teams', 'teams.id', '=', 'visits.team_id')
+            ->leftJoin('teams', 'teams.id', '=', 'visits.team_id')
             ->where(function ($query) use ($request) {
                 if (!empty($request->team_name)) {
                     $query->where('teams.name', 'like', '%' . strtolower($request->team_name) . '%');
