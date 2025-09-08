@@ -164,26 +164,26 @@ class VisitController extends Controller
         // ->addColumn('team_name', function ($visit) {
         //     return $visit->team ? $visit->team->name : 'None';
         // })
-        ->orderColumn('region_name', 'regions.name $1')
-        ->orderColumn('territory_name', 'territories.name $1')
-        ->orderColumn('team_name', 'teams.name $1')
-        ->orderColumn('user_name', 'users.name $1')
+        // ->orderColumn('region_name', 'regions.name $1')
+        // ->orderColumn('territory_name', 'territories.name $1')
+        // ->orderColumn('team_name', 'teams.name $1')
+        // ->orderColumn('user_name', 'users.name $1')
         // ->orderColumn('outlet_name', 'outlets.name $1')
         // ->orderColumn('contactpersonname', 'outlets.contact_person_name $1')
         // ->orderColumn('phone', 'outlets.phone $1')
         // allow searching on region_name
-        ->filterColumn('region_name', function($query, $keyword) {
-            $query->whereRaw("regions.name like ?", ["%{$keyword}%"]);
-        })
-        ->filterColumn('territory_name', function($query, $keyword) {
-            $query->whereRaw("territories.name like ?", ["%{$keyword}%"]);
-        })
-        ->filterColumn('team_name', function($query, $keyword) {
-            $query->whereRaw("teams.name like ?", ["%{$keyword}%"]);
-        })
-        ->filterColumn('user_name', function($query, $keyword) {
-            $query->whereRaw("users.name like ?", ["%{$keyword}%"]);
-        })
+        // ->filterColumn('region_name', function($query, $keyword) {
+        //     $query->whereRaw("regions.name like ?", ["%{$keyword}%"]);
+        // })
+        // ->filterColumn('territory_name', function($query, $keyword) {
+        //     $query->whereRaw("territories.name like ?", ["%{$keyword}%"]);
+        // })
+        // ->filterColumn('team_name', function($query, $keyword) {
+        //     $query->whereRaw("teams.name like ?", ["%{$keyword}%"]);
+        // })
+        // ->filterColumn('user_name', function($query, $keyword) {
+        //     $query->whereRaw("users.name like ?", ["%{$keyword}%"]);
+        // })
         // ->filterColumn('outlet_name', function($query, $keyword) {
         //     $query->whereRaw("outlets.name like ?", ["%{$keyword}%"]);
         // })

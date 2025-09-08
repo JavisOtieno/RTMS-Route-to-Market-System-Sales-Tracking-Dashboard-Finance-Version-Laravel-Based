@@ -440,7 +440,7 @@
                         exportable: false
                     },
                     { data: 'user_name', 
-                    name: 'user_name', defaultContent: 'No User' }, // Add this,
+                    name: 'users.name', defaultContent: 'No User' }, // Add this,
                         {
                         data: 'outlet_name',
                         // name: 'outlet_name',
@@ -456,15 +456,15 @@
                     },
                     {
                         data: 'team_name',
-                        name: 'team_name',defaultContent: 'None' 
+                        name: 'teams.name',defaultContent: 'None' 
                     },
                     {
                         data: 'region_name',
-                        name: 'region_name',defaultContent: 'None'
+                        name: 'regions.name',defaultContent: 'None'
                     },
                     {
                         data: 'territory_name',
-                        name: 'territory_name',defaultContent: 'None'
+                        name: 'territories.name',defaultContent: 'None'
                     },
                     // {
                     //     data: 'cluster_name',
