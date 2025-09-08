@@ -101,7 +101,8 @@
                                         <th>Check in Time</th>
                                         <th>Check out Time</th>
                                         <th>Duration</th>
-                                        <th class="no-export">Map</th>
+                                        {{-- class="no-export" --}}
+                                        <th >Map</th>
                                         <th id="delete-column">Check Out</th>
                                         <th>Sales</th>
                                         <th>Followups</th>
