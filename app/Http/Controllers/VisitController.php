@@ -169,7 +169,7 @@ class VisitController extends Controller
         ->orderColumn('team_name', 'team.name $1')
         ->orderColumn('user_name', 'users.name $1')
         ->orderColumn('outlet_name', 'outlets.name $1')
-        ->orderColumn('contactpersonname', 'outlets.contactpersonname $1')
+        ->orderColumn('contactpersonname', 'outlets.contact_person_name $1')
         ->orderColumn('phone', 'outlets.phone $1')
         // allow searching on region_name
         ->filterColumn('region_name', function($query, $keyword) {
@@ -188,7 +188,7 @@ class VisitController extends Controller
             $query->whereRaw("outlets.name like ?", ["%{$keyword}%"]);
         })
         ->filterColumn('contactpersonname', function($query, $keyword) {
-            $query->whereRaw("outlets.contactpersonname like ?", ["%{$keyword}%"]);
+            $query->whereRaw("outlets.contact_person_name like ?", ["%{$keyword}%"]);
         })
         ->filterColumn('phone', function($query, $keyword) {
             $query->whereRaw("outlets.phone like ?", ["%{$keyword}%"]);
