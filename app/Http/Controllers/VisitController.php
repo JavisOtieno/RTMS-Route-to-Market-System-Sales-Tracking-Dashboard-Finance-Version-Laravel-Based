@@ -164,6 +164,15 @@ class VisitController extends Controller
         ->addColumn('team_name', function ($visit) {
             return $visit->team ? $visit->team->name : 'None';
         })
+        ->orderColumn('region_name', 'regions.name $1')
+        ->orderColumn('territory_name', 'territories.name $1')
+        // allow searching on region_name
+        ->filterColumn('region_name', function($query, $keyword) {
+            $query->whereRaw("regions.name like ?", ["%{$keyword}%"]);
+        })
+        ->filterColumn('territory_name', function($query, $keyword) {
+            $query->whereRaw("territories.name like ?", ["%{$keyword}%"]);
+        })
         ->addColumn('time', function ($visit) {
             return $visit->created_at->format('H:i:s');
         })
