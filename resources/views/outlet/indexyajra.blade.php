@@ -428,7 +428,7 @@
                 buttons: [
                     {
                         extend: 'excelHtml5',
-                        text: 'Excel (Page)',
+                        text: 'Excel',
                         title: 'RTMSExport',
                         // "action": newexportaction
                     },
@@ -459,27 +459,30 @@
                     //
                     {
                         extend: 'copy',
-                        text: 'Copy (Page)',
+                        text: 'Copy',
                         title: 'RTMSExport',
                         // "action": newexportaction
                     },
                     {
                         extend: 'pdf',
-                        text: 'PDF (Page)',
+                        text: 'PDF',
                         title: 'RTMS Customers Data', // Optional: Set the title for the exported file
                         // "action": newexportaction
                     },
                     {
                         extend: 'print',
-                        text: 'Print (Page)',
+                        text: 'Print',
                         title: 'RTMS Customers Data', // Optional: Set the title for the printed document
                         // "action": newexportaction
                     },
-                    // {
-                    //     extend: 'colvis',
-                        
-                    //     title: 'RTMSExport',
-                    // }
+                    {
+                        extend: 'colvis',
+                        text: 'Columns',
+                        columnText: function (dt, idx, title) {
+                            // force label to come from first row <th>
+                            return $('#responsive-datatable-yajra thead tr').first().find('th').eq(idx).text().trim();
+                        }
+                    }
                 ],
                 lengthMenu: [
                     [10, 25, 50, 100,1000],
