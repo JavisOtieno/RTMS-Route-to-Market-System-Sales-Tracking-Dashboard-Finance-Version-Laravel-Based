@@ -605,6 +605,15 @@
                         extend: 'excelHtml5',
                         text: 'Excel',
                         title: 'RTMSExport',
+                        exportOptions: {
+                            columns: ':visible:not(.no-export)',
+                            format: {
+                            header: function (data, columnIdx) {
+                                // read the first thead <tr> (index 0) and take the th at columnIdx
+                                return $('#responsive-datatable-yajra thead tr').first().find('th').eq(columnIdx).text().trim();
+                            }
+                            }
+                        }
                         // "action": newexportaction
                     }
                     ,
@@ -647,6 +656,15 @@
                         extend: 'copy',
                         text: 'Copy',
                         title: 'RTMSExport',
+                        exportOptions: {
+                            columns: ':visible:not(.no-export)',
+                            format: {
+                            header: function (data, columnIdx) {
+                                // read the first thead <tr> (index 0) and take the th at columnIdx
+                                return $('#responsive-datatable-yajra thead tr').first().find('th').eq(columnIdx).text().trim();
+                            }
+                            }
+                        }
                         // "action": newexportaction
                     },
                     {
@@ -654,6 +672,15 @@
                         text: 'PDF',
                         title: 'RTMS Visits Data', // Optional: Set the title for the exported file
                         // "action": newexportaction
+                        exportOptions: {
+                            columns: ':visible:not(.no-export)',
+                            format: {
+                            header: function (data, columnIdx) {
+                                // read the first thead <tr> (index 0) and take the th at columnIdx
+                                return $('#responsive-datatable-yajra thead tr').first().find('th').eq(columnIdx).text().trim();
+                            }
+                            }
+                        }
                     },
 
                     {
@@ -661,6 +688,15 @@
                         text: 'Print',
                         title: 'RTMS Visits Data', // Optional: Set the title for the printed document
                         // "action": newexportaction
+                        exportOptions: {
+                            columns: ':visible:not(.no-export)',
+                            format: {
+                            header: function (data, columnIdx) {
+                                // read the first thead <tr> (index 0) and take the th at columnIdx
+                                return $('#responsive-datatable-yajra thead tr').first().find('th').eq(columnIdx).text().trim();
+                            }
+                            }
+                        }
                     },
                          {
                         extend: 'colvis',

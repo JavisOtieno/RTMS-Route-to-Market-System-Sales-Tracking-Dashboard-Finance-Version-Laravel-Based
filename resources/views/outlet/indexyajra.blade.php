@@ -89,15 +89,15 @@
                                     <tr>
                                         <th><input class="form-control" style="width: auto;max-width: 90px;" type="text" placeholder="Search ID" /><span style="display: none">ID</span></th>
                                         <th></th>
-                                        <th><input  class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Customer Name" /></th>
-                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Seller Name" /></th>
-                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Contact Name" /></th>
-                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Phone" /></th>
-                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Team" /></th>
+                                        <th><input  class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Customer Name" /><span style="display: none">Customer Name</span></th>
+                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Seller Name" /><span style="display: none">Seller Name</span></th>
+                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Contact Name" /><span style="display: none">Contact Name</span></th>
+                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Phone" /><span style="display: none">Phone</span></th>
+                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Team" /><span style="display: none">Team</span></th>
                                         {{-- <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Route" /></th> --}}
                                         {{-- <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Channel Type" /></th> --}}
-                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="date" placeholder="Search Date" /></th>
-                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="time" placeholder="Search Time" /></th>
+                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="date" placeholder="Search Date" /><span style="display: none">Date</span></th>
+                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="time" placeholder="Search Time" /><span style="display: none">Time</span></th>
                                         <th></th>
                                         {{-- <th></th> <!-- No search input for actions --> --}}
                                     </tr>
