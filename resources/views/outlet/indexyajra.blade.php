@@ -89,15 +89,15 @@
                                     <tr>
                                         <th><input class="form-control" style="width: auto;max-width: 90px;" type="text" placeholder="Search ID" /><span style="display: none">ID</span></th>
                                         <th></th>
-                                        <th><input  class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Customer Name" /><span style="display: none">Customer Name</span></th>
-                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Seller Name" /><span style="display: none">Seller Name</span></th>
-                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Contact Name" /><span style="display: none">Contact Name</span></th>
-                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Phone" /><span style="display: none">Phone</span></th>
-                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Team" /><span style="display: none">Team</span></th>
+                                        <th><input  class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Customer Name" /></th>
+                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Seller Name" /></th>
+                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Contact Name" /></th>
+                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Phone" /></th>
+                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Team" /></th>
                                         {{-- <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Route" /></th> --}}
                                         {{-- <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Channel Type" /></th> --}}
-                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="date" placeholder="Search Date" /><span style="display: none">Date</span></th>
-                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="time" placeholder="Search Time" /><span style="display: none">Time</span></th>
+                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="date" placeholder="Search Date" /></th>
+                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="time" placeholder="Search Time" /></th>
                                         <th></th>
                                         {{-- <th></th> <!-- No search input for actions --> --}}
                                     </tr>
@@ -430,6 +430,15 @@
                         extend: 'excelHtml5',
                         text: 'Excel',
                         title: 'RTMSExport',
+                        exportOptions: {
+                            columns: ':visible:not(.no-export)',
+                            format: {
+                            header: function (data, columnIdx) {
+                                // read the first thead <tr> (index 0) and take the th at columnIdx
+                                return $('#responsive-datatable-yajra thead tr').first().find('th').eq(columnIdx).text().trim();
+                            }
+                            }
+                        }
                         // "action": newexportaction
                     },
                     
@@ -461,6 +470,15 @@
                         extend: 'copy',
                         text: 'Copy',
                         title: 'RTMSExport',
+                        exportOptions: {
+                            columns: ':visible:not(.no-export)',
+                            format: {
+                            header: function (data, columnIdx) {
+                                // read the first thead <tr> (index 0) and take the th at columnIdx
+                                return $('#responsive-datatable-yajra thead tr').first().find('th').eq(columnIdx).text().trim();
+                            }
+                            }
+                        }
                         // "action": newexportaction
                     },
                     {
@@ -468,12 +486,30 @@
                         text: 'PDF',
                         title: 'RTMS Customers Data', // Optional: Set the title for the exported file
                         // "action": newexportaction
+                        exportOptions: {
+                            columns: ':visible:not(.no-export)',
+                            format: {
+                            header: function (data, columnIdx) {
+                                // read the first thead <tr> (index 0) and take the th at columnIdx
+                                return $('#responsive-datatable-yajra thead tr').first().find('th').eq(columnIdx).text().trim();
+                            }
+                            }
+                        }
                     },
                     {
                         extend: 'print',
                         text: 'Print',
                         title: 'RTMS Customers Data', // Optional: Set the title for the printed document
                         // "action": newexportaction
+                        exportOptions: {
+                            columns: ':visible:not(.no-export)',
+                            format: {
+                            header: function (data, columnIdx) {
+                                // read the first thead <tr> (index 0) and take the th at columnIdx
+                                return $('#responsive-datatable-yajra thead tr').first().find('th').eq(columnIdx).text().trim();
+                            }
+                            }
+                        }
                     },
                     {
                         extend: 'colvis',
