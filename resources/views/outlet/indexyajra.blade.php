@@ -362,7 +362,7 @@
                         name: 'name'
                     },
                     { data: 'user_name', 
-                    name: 'user_name', defaultContent: 'No User' }, // Add this,
+                    name: 'users.name', defaultContent: 'No User' }, // Add this,
                     {
                         data: 'contact_person_name',
                         name: 'contact_person_name'
@@ -373,7 +373,7 @@
                     },
                     {
                         data: 'teamname',
-                        name: 'teamname',defaultContent: 'None' 
+                        name: 'teams.name',defaultContent: 'None' 
                     },
                     // {
                     //     data: 'routename',
