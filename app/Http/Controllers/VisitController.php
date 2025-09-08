@@ -64,7 +64,7 @@ class VisitController extends Controller
             )
             ->leftJoin('outlets', 'outlets.id', '=', 'visits.outlet_id')
             ->leftJoin('users', 'users.id', '=', 'visits.user_id')
-            // ->leftJoin('teams', 'teams.id', '=', 'visits.team_id')
+            ->leftJoin('teams', 'teams.id', '=', 'visits.team_id')
             ->leftJoin('regions', 'regions.id', '=', 'users.region_id')
             ->leftJoin('territories', 'territories.id', '=', 'users.territory_id')
             // ->leftJoin('teams', 'teams.id', '=', 'visits.team_id')
@@ -161,9 +161,9 @@ class VisitController extends Controller
         ->addColumn('date', function ($visit) {
             return $visit->created_at->format('d-M-Y');
         })
-        ->addColumn('team_name', function ($visit) {
-            return $visit->team ? $visit->team->name : 'None';
-        })
+        // ->addColumn('team_name', function ($visit) {
+        //     return $visit->team ? $visit->team->name : 'None';
+        // })
         ->orderColumn('region_name', 'regions.name $1')
         ->orderColumn('territory_name', 'territories.name $1')
         ->orderColumn('team_name', 'teams.name $1')
