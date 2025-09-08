@@ -478,7 +478,7 @@
                     // { data: 'created_at', name: 'date' },
                     {
                         data: 'date',
-                        name: 'date',
+                        name: 'created_at',
                         // render: function(data, type, row) {
                         //     // Format the date using JavaScript
                         //     var date = new Date(data);
@@ -493,7 +493,7 @@
                     },
                     {
                         data: 'time',
-                        name: 'time',
+                        name: 'created_at',
                     },
                     { 
                         data: 'checkouttimeexact',
