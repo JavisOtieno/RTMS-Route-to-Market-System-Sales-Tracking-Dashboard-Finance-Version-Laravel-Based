@@ -443,7 +443,8 @@
                     name: 'user_name', defaultContent: 'No User' }, // Add this,
                         {
                         data: 'outlet_name',
-                        name: 'outlet_name'
+                        // name: 'outlet_name',
+                        name: 'outlets.name'
                     },
                     {
                         data: 'contactpersonname',
