@@ -448,7 +448,7 @@
                     },
                     {
                         data: 'contactpersonname',
-                        name: 'outlets.contactpersonname'
+                        name: 'outlets.contact_person_name'
                     },
                     {
                         data: 'phone',
