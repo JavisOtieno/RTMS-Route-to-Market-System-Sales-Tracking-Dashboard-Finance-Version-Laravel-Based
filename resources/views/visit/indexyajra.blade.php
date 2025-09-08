@@ -448,11 +448,11 @@
                     },
                     {
                         data: 'contactpersonname',
-                        name: 'contactpersonname'
+                        name: 'outlets.contactpersonname'
                     },
                     {
                         data: 'phone',
-                        name: 'phone'
+                        name: 'outlets.phone'
                     },
                     {
                         data: 'team_name',
