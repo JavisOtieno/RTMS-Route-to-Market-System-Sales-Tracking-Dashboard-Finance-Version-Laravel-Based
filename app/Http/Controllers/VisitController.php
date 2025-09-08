@@ -167,6 +167,7 @@ class VisitController extends Controller
         ->orderColumn('region_name', 'regions.name $1')
         ->orderColumn('territory_name', 'territories.name $1')
         ->orderColumn('team_name', 'team.name $1')
+        ->orderColumn('user_name', 'user.name $1')
         // allow searching on region_name
         ->filterColumn('region_name', function($query, $keyword) {
             $query->whereRaw("regions.name like ?", ["%{$keyword}%"]);
@@ -176,6 +177,9 @@ class VisitController extends Controller
         })
         ->filterColumn('team_name', function($query, $keyword) {
             $query->whereRaw("team.name like ?", ["%{$keyword}%"]);
+        })
+        ->filterColumn('user_name', function($query, $keyword) {
+            $query->whereRaw("user.name like ?", ["%{$keyword}%"]);
         })
         ->addColumn('time', function ($visit) {
             return $visit->created_at->format('H:i:s');
