@@ -106,6 +106,7 @@
                                         <th><input  class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Value" /></th>
                                         {{-- <th><input type="text" placeholder="Search Contact Name" /></th>
                                         <th><input type="text" placeholder="Search Phone" /></th> --}}
+                                        {{-- test --}}
                                         <th><input  class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Team" /></th>
 
                                         
