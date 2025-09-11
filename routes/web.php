@@ -171,7 +171,7 @@ Route::get('/deleteclockout/{id}', [ClockoutController::class,'deleteClockout'])
 //Test
 //Test
 // web.php
-Route::get('/dayroutesyajra', [VisitController::class,'indexVisitsYajra']);
+Route::get('/dayroutesyajra', [ClockinController::class,'indexVisitsYajra']);
 Route::get('/clockins/yajra', [ClockinController::class, 'clockinsVisitsYajra'])->name('clockins.yajra');
 
 Route::get('/visitsold', [VisitController::class,'index']);
