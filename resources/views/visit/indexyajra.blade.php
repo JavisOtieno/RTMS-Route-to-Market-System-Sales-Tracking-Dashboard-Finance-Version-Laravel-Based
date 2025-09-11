@@ -107,6 +107,7 @@
                                         <th>Sales</th>
                                         <th>Followups</th>
                                         <th>Feedback</th>
+                                        <th>Add Feedback</th>
 
                                         {{-- <th id="map-column">Map</th> --}}
 
@@ -136,6 +137,7 @@
                                         <th><span style="display: none">Sales</span></th>
                                         <th><span style="display: none">Followups</span></th>
                                         <th><span style="display: none">Feedback</span></th>
+                                        <th><span style="display: none">Add Feedback</span></th>
                                         {{-- <th></th> <!-- No search input for actions --> --}}
                                     </tr>
                                 </thead>
@@ -596,6 +598,17 @@
                         orderable: false,
                         searchable: false
                     },
+                    {
+                        data: null,
+                        name: 'addfeedback',
+                        render: function(data, type, row) {
+                            return `
+                        <a class="btn btn-info edit-btn" href="/addfeedback/${data.id}" 
+                            data-id="${data.id}">Add Feedback</a>
+
+                    `;
+                        },
+                    }
 
 
                 ],
