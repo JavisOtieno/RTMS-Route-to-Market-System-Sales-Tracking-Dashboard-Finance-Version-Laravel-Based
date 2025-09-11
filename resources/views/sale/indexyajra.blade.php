@@ -502,7 +502,7 @@
                     {
                         data: 'status',
                         name: 'status',
-                    }
+                    },
                     {
                         data: 'date',
                         name: 'date',
