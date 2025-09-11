@@ -83,9 +83,9 @@
             <th id="map-column">Map</th>
         </tr>
             <tr>
-             <th><input class="form-control" style="width: auto;max-width: 90px;" type="text" placeholder="Search ID" /><span style="display: none">ID</span></th>
-            <th></th>
+            <th><input class="form-control" style="width: auto;max-width: 90px;" type="text" placeholder="Search ID" /><span style="display: none">ID</span></th>
             <th><input  class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Seller Name" /><span style="display: none">Seller Name</span></th>
+            <th></th>
             <th></th>
             <th id="map-column"></th>
         </tr>
