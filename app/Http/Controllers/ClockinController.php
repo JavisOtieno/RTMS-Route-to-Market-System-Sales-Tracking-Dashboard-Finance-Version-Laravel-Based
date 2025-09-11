@@ -37,65 +37,31 @@ class ClockinController extends Controller
     }
         public function clockinsVisitsYajra(Request $request)
 {
-    // Eager relationships used for rendering details
-    $withRelations = [
-        'user' => function ($q) { $q->withTrashed(); },
-        'clockout' => function ($q) { $q->withTrashed(); },
-        // 'visits'
-        'visits.outlet'
-    ];
+        $withRelations = ['user' => function($q){ $q->withTrashed(); }, 'clockout' => function($q){ $q->withTrashed(); }, 'visits.outlet'];
 
-    // Base query (eager load + flat columns via joins for searching/sorting)
     $query = Clockin::with($withRelations)
-        ->select(
-            'clockins.*',
-            'users.name as user_name',
-            // 'outlets.name as outlet_name',
-            // 'outlets.contact_person_name as contactpersonname',
-            // 'outlets.phone as outlet_phone'
-        )
+        ->select('clockins.*', 'users.name as user_name', 'outlets.name as outlet_name', 'outlets.contact_person_name as contactpersonname', 'outlets.phone as phone')
         ->leftJoin('users', 'users.id', '=', 'clockins.user_id')
         ->leftJoin('visits', 'visits.clockin_id', '=', 'clockins.id')
         ->leftJoin('outlets', 'outlets.id', '=', 'visits.outlet_id')
-        ;
+        ->groupBy('clockins.id'); // avoid duplicate rows when joins produce multiple visits
 
-    // Filters from request (same names as your form inputs)
-    if (!empty($request->from_date)) {
-        $query->whereDate('clockins.created_at', '>=', $request->from_date);
-    }
-    if (!empty($request->to_date)) {
-        $query->whereDate('clockins.created_at', '<=', $request->to_date);
-    }
-    if (!empty($request->from_time)) {
-        $query->whereRaw("TIME(clockins.created_at) >= ?", [$request->from_time]);
-    }
-    if (!empty($request->to_time)) {
-        $query->whereRaw("TIME(clockins.created_at) <= ?", [$request->to_time]);
-    }
+    // apply same filters you had (date/time)
+    if (!empty($request->from_date)) $query->whereDate('clockins.created_at', '>=', $request->from_date);
+    if (!empty($request->to_date)) $query->whereDate('clockins.created_at', '<=', $request->to_date);
+    if (!empty($request->from_time)) $query->whereRaw("TIME(clockins.created_at) >= ?", [$request->from_time]);
+    if (!empty($request->to_time)) $query->whereRaw("TIME(clockins.created_at) <= ?", [$request->to_time]);
 
     return DataTables::eloquent($query)
-        ->addColumn('date', function ($row) {
-            return optional($row->created_at)->format('d-M-Y') ?: '';
+        ->addColumn('date', fn($row) => optional($row->created_at)->format('d-M-Y'))
+        ->addColumn('time', fn($row) => optional($row->created_at)->format('H:i'))
+        ->addColumn('name', function($row){
+            return $row->user ? $row->user->name . ($row->user->trashed() ? ' (Deleted User)' : '') : 'Deleted User';
         })
-        ->addColumn('time', function ($row) {
-            return optional($row->created_at)->format('H:i') ?: '';
-        })
-        ->addColumn('name', function ($row) {
-            // Mirror your blade: show deleted note if trashed
-            if ($row->user) {
-                return $row->user->name . ($row->user->trashed() ? ' (Deleted User)' : '');
-            }
-            return 'Deleted User';
-        })
-        ->addColumn('map', function ($row) {
-            // We'll send whole row to frontend; render button (JS will pass row JSON)
-            return '<a class="btn btn-success" data-bs-toggle="modal" href="#largemodal" '
-                . 'onclick="rewriteMap(JSON.parse(decodeURIComponent(\'' . rawurlencode(json_encode($row->toArray())) . '\')))">Map</a>';
-        })
-        // allow ordering/searching on user_name via join
-        ->orderColumn('user_name', 'users.name $1')
-        ->filterColumn('user_name', function ($q, $keyword) {
-            $q->whereRaw("users.name like ?", ["%{$keyword}%"]);
+        ->addColumn('map', function($row){
+            // encode the whole row array safely into data-row attribute
+            $json = rawurlencode(json_encode($row->toArray()));
+            return '<button class="btn btn-success open-map-btn" data-row="'.$json.'" type="button">Map</button>';
         })
         ->rawColumns(['map'])
         ->make(true);
