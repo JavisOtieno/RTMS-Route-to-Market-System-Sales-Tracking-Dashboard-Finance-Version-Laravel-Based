@@ -88,16 +88,19 @@ class FeedbackController extends Controller
         
     }
 
-    public function saveFeedback($id, Request $request){
+    public function saveFeedback(Request $request){
 
         // $organization_id=auth()->user()->organization_id;
         $incomingFields=$request->validate([
+            'user_id'=>'required|numeric|digits_between:1,20|exists:users,id',
+            'visit_id'=>'required|numeric|digits_between:1,20|exists:visits,id',
+            'outlet_id'=>'required|numeric|digits_between:1,20|exists:outlets,id',
             'feedback' => 'required',
         ]);
 
         $incomingFields['feedback']=strip_tags($incomingFields['feedback']);
         // $visit_id = strip_tags($incomingFields['visit_id']);
-        $visit = Visit::find($id);
+        $visit = Visit::find($incomingFields['visit_id']);
         // $incomingFields['organization_id']=$organization_id;
 
         $incomingFields['organization_id']=$visit->organization_id;
