@@ -29,7 +29,7 @@
             <!--<p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p>-->
             
                 
-                    <form action="/savefeedback/{{$visit['id']}}" method="POST">
+                    <form action="/savefeedback" method="POST">
                         @csrf
                         @method('POST')
                         <div class="">
