@@ -41,6 +41,7 @@ class ClockinController extends Controller
     $withRelations = [
         'user' => function ($q) { $q->withTrashed(); },
         'clockout' => function ($q) { $q->withTrashed(); },
+        'visits'
         // 'visits.outlet'
     ];
 
@@ -54,7 +55,7 @@ class ClockinController extends Controller
             // 'outlets.phone as outlet_phone'
         )
         ->leftJoin('users', 'users.id', '=', 'clockins.user_id')
-        // ->leftJoin('visits', 'visits.clockin_id', '=', 'clockins.id')
+        ->leftJoin('visits', 'visits.clockin_id', '=', 'clockins.id')
         // ->leftJoin('outlets', 'outlets.id', '=', 'visits.outlet_id')
         ;
 
