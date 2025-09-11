@@ -533,6 +533,26 @@ function rewriteMap(clockin) {
         travelMode: 'DRIVING'
     };
 
+     if (typeof google === 'undefined' || typeof google.maps === 'undefined') {
+        console.warn('Google Maps API not loaded yet.');
+        return false;
+    }
+    if (!map) {
+        // create map if missing using a default center
+        initClockinsMap(); // make sure this function exists and creates `map`
+        if (!map) {
+            console.warn('Map still not initialized after initClockinsMap() call.');
+            return false;
+        }
+    }
+    if (typeof directionsService === 'undefined' || !directionsService) {
+        directionsService = new google.maps.DirectionsService();
+    }
+    if (typeof directionsRenderer === 'undefined' || !directionsRenderer) {
+        directionsRenderer = new google.maps.DirectionsRenderer({ suppressMarkers: true });
+        directionsRenderer.setMap(map);
+    }
+
     directionsService.route(request, function(result, status) {
         if (status === 'OK' && result && result.routes && result.routes.length) {
             var route = result.routes[0];
