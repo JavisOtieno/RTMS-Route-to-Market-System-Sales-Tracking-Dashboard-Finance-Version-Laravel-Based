@@ -57,15 +57,15 @@
                                 value="{{ $visit['user'] ? $visit['user']['name']  . ($visit['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User'}}" 
                                  autocomplete="sellerName">
                             </div>
-                            <input name="visit_id" class="form-control" id="visitId" placeholder="Visit ID" 
+                            <input readonly hidden name="visit_id" class="form-control" id="visitId" placeholder="Visit ID" 
                                 {{-- value="{{$feedback['user']['name']}}" --}}
                                 value="{{ $visit['id'] }}" 
                                  autocomplete="visitId">
-                            <input name="user_id" class="form-control" id="userId" placeholder="User ID" 
+                            <input readonly hidden name="user_id" class="form-control" id="userId" placeholder="User ID" 
                                 {{-- value="{{$feedback['user']['name']}}" --}}
                                 value="{{ $visit['user']['id'] }}" 
                                  autocomplete="userId">
-                            <input name="outlet_id" class="form-control"  id="outletId" placeholder="Customer ID" 
+                            <input readonly hidden name="outlet_id" class="form-control"  id="outletId" placeholder="Customer ID" 
                                 {{-- value="{{$feedback['user']['name']}}" --}}
                                 value="{{ $visit['outlet']['id'] }}" 
                                  autocomplete="outletId">
