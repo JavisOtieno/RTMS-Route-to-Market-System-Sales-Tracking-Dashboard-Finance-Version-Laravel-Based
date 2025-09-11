@@ -8,6 +8,7 @@ use App\Models\Clockin;
 use Illuminate\Http\Request;
 use App\Mail\ReportSenderTest;
 use Illuminate\Support\Facades\Mail;
+use Yajra\DataTables\Facades\DataTables;
 
 class ClockinController extends Controller
 
@@ -31,6 +32,72 @@ class ClockinController extends Controller
 
         return view('clockin.index', ['clockins'=>$clockins]);
     }
+    public function indexYajra() {
+            return view('clockin.indexyajravisits');
+    }
+        public function clockinsVisitsYajra(Request $request)
+{
+    // Eager relationships used for rendering details
+    $withRelations = [
+        'user' => function ($q) { $q->withTrashed(); },
+        'clockout' => function ($q) { $q->withTrashed(); },
+        'visits.outlet'
+    ];
+
+    // Base query (eager load + flat columns via joins for searching/sorting)
+    $query = Clockin::with($withRelations)
+        ->select(
+            'clockins.*',
+            'users.name as user_name',
+            'outlets.name as outlet_name',
+            'outlets.contact_person_name as contactpersonname',
+            'outlets.phone as outlet_phone'
+        )
+        ->leftJoin('users', 'users.id', '=', 'clockins.user_id')
+        ->leftJoin('visits', 'visits.clockin_id', '=', 'clockins.id')
+        ->leftJoin('outlets', 'outlets.id', '=', 'visits.outlet_id');
+
+    // Filters from request (same names as your form inputs)
+    if (!empty($request->from_date)) {
+        $query->whereDate('clockins.created_at', '>=', $request->from_date);
+    }
+    if (!empty($request->to_date)) {
+        $query->whereDate('clockins.created_at', '<=', $request->to_date);
+    }
+    if (!empty($request->from_time)) {
+        $query->whereRaw("TIME(clockins.created_at) >= ?", [$request->from_time]);
+    }
+    if (!empty($request->to_time)) {
+        $query->whereRaw("TIME(clockins.created_at) <= ?", [$request->to_time]);
+    }
+
+    return DataTables::eloquent($query)
+        ->addColumn('date', function ($row) {
+            return optional($row->created_at)->format('d-M-Y') ?: '';
+        })
+        ->addColumn('time', function ($row) {
+            return optional($row->created_at)->format('H:i') ?: '';
+        })
+        ->addColumn('name', function ($row) {
+            // Mirror your blade: show deleted note if trashed
+            if ($row->user) {
+                return $row->user->name . ($row->user->trashed() ? ' (Deleted User)' : '');
+            }
+            return 'Deleted User';
+        })
+        ->addColumn('map', function ($row) {
+            // We'll send whole row to frontend; render button (JS will pass row JSON)
+            return '<a class="btn btn-success" data-bs-toggle="modal" href="#largemodal" '
+                . 'onclick="rewriteMap(JSON.parse(decodeURIComponent(\'' . rawurlencode(json_encode($row->toArray())) . '\')))">Map</a>';
+        })
+        // allow ordering/searching on user_name via join
+        ->orderColumn('user_name', 'users.name $1')
+        ->filterColumn('user_name', function ($q, $keyword) {
+            $q->whereRaw("users.name like ?", ["%{$keyword}%"]);
+        })
+        ->rawColumns(['map'])
+        ->make(true);
+}
     public function showClockinsById($objectId,$object) {
         //$clockins = Clockin::all();
         $clockins = Clockin::with(['user' => function ($query) {

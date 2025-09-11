@@ -170,6 +170,8 @@ Route::get('/deleteclockout/{id}', [ClockoutController::class,'deleteClockout'])
 
 //Test
 //Test
+// web.php
+Route::get('/clockins/yajra', [ClockinController::class, 'clockinsVisitsYajra'])->name('clockins.yajra');
 
 Route::get('/visitsold', [VisitController::class,'index']);
 Route::get('/visit/{id}',[VisitController::class,'showEditVisit']);
