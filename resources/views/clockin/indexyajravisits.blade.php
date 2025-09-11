@@ -26,7 +26,7 @@
                         <h3 class="card-title">Visits</h3>
                         
                     </div>
-                    <div class="row" style="margin: 0 10px;">
+                    {{-- <div class="row" style="margin: 0 10px;">
                         <input type="hidden" id="tableLoaded" value="outlets"/>
                         <h3 class="card-title" style="margin-top:20px;margin-block-end: 0rem;">Date Filter :</h3>
                         <div class="row">
@@ -67,17 +67,9 @@
                             </div>
                         </div>
             
-                        {{-- <div class="col-md-3 mb-3">
-                            <label for="nameInput" class="form-label">Outlet Name</label>
-                            <input type="text" class="form-control" id="nameInput" placeholder="Name">
-                        </div>
-                        
-                        <div class="col-md-3 mb-3">
-                            <label for="contactNameInput" class="form-label">Contact Name</label>
-                            <input type="text" class="form-control" id="contactNameInput" placeholder="Contact Name">
-                        </div> --}}
+                
                                 
-                    </div>
+                    </div> --}}
 
                     <div class="card-body">
                         <div class="table-responsive">
@@ -85,10 +77,17 @@
     <thead>
         <tr>
             <th>ID</th>
-            <th>Name</th>
+            <th>Seller Name</th>
             <th>Date</th>
             <th>Start Time</th>
             <th id="map-column">Map</th>
+        </tr>
+            <tr>
+             <th><input class="form-control" style="width: auto;max-width: 90px;" type="text" placeholder="Search ID" /><span style="display: none">ID</span></th>
+            <th></th>
+            <th><input  class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Seller Name" /><span style="display: none">Seller Name</span></th>
+            <th></th>
+            <th id="map-column"></th>
         </tr>
     </thead>
     <tbody></tbody> <!-- Leave empty for Yajra -->
@@ -492,10 +491,10 @@ function rewriteMap(clockin) {
     }
 
     // visits -> outlets
-    alert('visits count: ' + (clockin.visits ? clockin.visits.length : 0));
+    // alert('visits count: ' + (clockin.visits ? clockin.visits.length : 0));
     clockin.visits.forEach(function(v) {
         if (v && v.outlet && v.outlet.lat && v.outlet.long) {
-            alert('adding waypoint for outlet id ' + v.outlet.id+', lat ' + v.outlet.lat + ', long ' + v.outlet.long);
+            // alert('adding waypoint for outlet id ' + v.outlet.id+', lat ' + v.outlet.lat + ', long ' + v.outlet.long);
             waypoints.push({ location: { lat: Number(v.outlet.lat), lng: Number(v.outlet.long) }, stopover: true });
         }
     });
