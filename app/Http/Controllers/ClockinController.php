@@ -41,7 +41,7 @@ class ClockinController extends Controller
     $withRelations = [
         'user' => function ($q) { $q->withTrashed(); },
         'clockout' => function ($q) { $q->withTrashed(); },
-        'visits.outlet'
+        // 'visits.outlet'
     ];
 
     // Base query (eager load + flat columns via joins for searching/sorting)
@@ -49,13 +49,14 @@ class ClockinController extends Controller
         ->select(
             'clockins.*',
             'users.name as user_name',
-            'outlets.name as outlet_name',
-            'outlets.contact_person_name as contactpersonname',
-            'outlets.phone as outlet_phone'
+            // 'outlets.name as outlet_name',
+            // 'outlets.contact_person_name as contactpersonname',
+            // 'outlets.phone as outlet_phone'
         )
         ->leftJoin('users', 'users.id', '=', 'clockins.user_id')
-        ->leftJoin('visits', 'visits.clockin_id', '=', 'clockins.id')
-        ->leftJoin('outlets', 'outlets.id', '=', 'visits.outlet_id');
+        // ->leftJoin('visits', 'visits.clockin_id', '=', 'clockins.id')
+        // ->leftJoin('outlets', 'outlets.id', '=', 'visits.outlet_id')
+        ;
 
     // Filters from request (same names as your form inputs)
     if (!empty($request->from_date)) {
