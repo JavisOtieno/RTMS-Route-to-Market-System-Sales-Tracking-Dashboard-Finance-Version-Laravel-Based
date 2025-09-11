@@ -495,6 +495,7 @@ function rewriteMap(clockin) {
     alert('visits count: ' + (clockin.visits ? clockin.visits.length : 0));
     clockin.visits.forEach(function(v) {
         if (v && v.outlet && v.outlet.lat && v.outlet.long) {
+            alert('adding waypoint for outlet id ' + v.outlet.id+', lat ' + v.outlet.lat + ', long ' + v.outlet.long);
             waypoints.push({ location: { lat: Number(v.outlet.lat), lng: Number(v.outlet.long) }, stopover: true });
         }
     });
