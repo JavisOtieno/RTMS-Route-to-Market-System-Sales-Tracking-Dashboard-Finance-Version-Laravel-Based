@@ -387,332 +387,273 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 
 <script>
-    var map;
-    // var directionsRenderer;
-    // var directionsService;
-    
-    function myMap2() {
-        var clockins= @json($clockins);
-        console.log("clockin 0");
-        console.log(clockins[0]);
-        console.log("clockin 0");
+/* ---------- Globals ---------- */
+var map;
+var directionsService;
+var directionsRenderer;
+var markers = [];
 
-
-    if (clockins[0] && clockins[0]['visits'] && 
-    clockins[0]['visits'][0] && clockins[0]['visits'][0]['outlet'] != null) {
-
-    var mapProp= {
-      center:new google.maps.LatLng(Number(clockins[0]['visits'][0]['outlet']['lat']),
-      Number(clockins[0]['visits'][0]['outlet']['long'])),
-      zoom:10,
+/* Initialize map with a safe default center.
+   Call this as the callback from the Google Maps script: callback=initClockinsMap
+*/
+function initClockinsMap() {
+    var defaultCenter = { lat: -1.286389, lng: 36.817223 }; // Nairobi default
+    var mapProp = {
+        center: new google.maps.LatLng(defaultCenter.lat, defaultCenter.lng),
+        zoom: 10
     };
-    // alert("working well");
-    }else{
-        var mapProp= {
-      center:new google.maps.LatLng(-1.286389,
-      36.817223),
-      zoom:10,
-    };
-    //alert("we are here");
 
+    var googleMapsDiv = document.getElementById("googleMapClockins") || document.getElementById("googleMapVisit");
+    if (!googleMapsDiv) {
+        // no map container on page (safe exit)
+        return;
     }
-    document.addEventListener("DOMContentLoaded", function() {
-        // alert("we get here");
-      
-   var googleMapsDiv= document.getElementById("googleMapClockins");
-    
-    map = new google.maps.Map(googleMapsDiv,mapProp);
-   
+
+    map = new google.maps.Map(googleMapsDiv, mapProp);
+
     directionsService = new google.maps.DirectionsService();
-    directionsRenderer = new google.maps.DirectionsRenderer();
+    directionsRenderer = new google.maps.DirectionsRenderer({
+        suppressMarkers: true // we add custom markers
+    });
     directionsRenderer.setMap(map);
+}
+
+/* Helper: clear existing markers and directions */
+function clearMapState() {
+    // clear markers
+    if (Array.isArray(markers)) {
+        markers.forEach(m => { try { m.setMap(null); } catch(e) {} });
+    }
+    markers = [];
+    // clear directions
+    if (typeof directionsRenderer !== 'undefined' && directionsRenderer !== null) {
+        try {
+            directionsRenderer.set('directions', null);
+        } catch(e) {}
+    }
+}
+
+/* Called when Map button created by DataTable is clicked.
+   The button has data-row attribute with rawurlencoded JSON.
+   Use: <button class="open-map-btn" data-row="...">Map</button>
+*/
+function openMapFromElement(el) {
+    if (!el) return;
+    try {
+        var rowJson = decodeURIComponent(el.getAttribute('data-row'));
+        var clockin = JSON.parse(rowJson);
+        // if you use Bootstrap 5 modal:
+        var modalEl = document.getElementById('largemodal');
+        if (modalEl) {
+            var modal = new bootstrap.Modal(modalEl);
+            modal.show();
+        }
+        // call your existing rewriteMap (now adapted below expects object)
+        rewriteMap(clockin);
+    } catch (err) {
+        console.error('Failed to open map from element', err);
+    }
+}
+
+/* Attach a delegated click handler for any .open-map-btn (works with dynamically added buttons) */
+document.addEventListener('click', function(e) {
+    var target = e.target;
+    if (target && target.classList && target.classList.contains('open-map-btn')) {
+        openMapFromElement(target);
+    }
+}, true);
+
+/* ---------- rewriteMap (cleaned/robust) ---------- */
+function rewriteMap(clockin) {
+    if (!map) {
+        console.warn('Map not initialized yet.');
+        return;
+    }
+
+    clearMapState();
+
+    // Ensure basic structure
+    clockin = clockin || {};
+    clockin.visits = clockin.visits || [];
+    // Some backends may nest relations differently; support both object and array for clockout/user
+    // clockin.clockout may be null or object
+    // Expect lat/long either on clockin (lat,long) or on clockin.lat/clockin.long
     var waypoints = [];
- 
 
-});
-
-
-    }
-
-    var markers = [];
-
-    function rewriteMap(clockin){
-        
-        //alert('we get here');
-        //alert (routeplan['routeplanitems'][0]['outlet']['lat']);
-        
-        //console.log(routeplan);
-        waypoints=[];
-        if(markers==undefined){
-            // console.log(markers);
-            // alert("undefined");
-        }else{
-            // alert("defined");
-            // console.log(markers);
-            markers.forEach(marker => {
-                marker.setMap(null);
-            });
-            //test
-            
-            // if (directionsRenderer.getMap()) {
-            // directionsRenderer.set('directions', null); // Clear previous route
-            // }
-            // if (directionsRenderer && directionsRenderer.getMap()) {
-            //     directionsRenderer.set('directions', null); // Clear previous route
-            // }
-
-            if (typeof directionsRenderer !== 'undefined' && directionsRenderer.getMap()) {
-                directionsRenderer.set('directions', null); // Clear previous route
-            }
-            
-        }
-
+    // add origin (clockin lat/long) if present
+    if (clockin.lat && clockin.long) {
         waypoints.push({ location: { lat: Number(clockin.lat), lng: Number(clockin.long) }, stopover: true });
-
-
-        clockin.visits.forEach(visit => {
-            // console.log("visit");
-            // console.log(visit);
-            // console.log("visit");
-            // // Accessing outlet details
-            // console.log("visit outlet");
-            // console.log(visit.outlet);
-            // console.log("visit outlet");
-            waypoints.push({ location: { lat: Number(visit.outlet.lat), lng: Number(visit.outlet.long) }, stopover: true });
-        });
-
-        if(clockin && clockin['clockout'] != null){
-            console.log("clockout");
-            console.log(clockin.clockout);
-            console.log("clockout");
-            waypoints.push({ location: { lat: Number(clockin.clockout.lat), 
-                lng: Number(clockin.clockout.long) }, stopover: true });
-
+    } else if (clockin.visits.length > 0 && clockin.visits[0].outlet) {
+        // fallback center to first visit outlet
+        var firstOutlet = clockin.visits[0].outlet;
+        if (firstOutlet.lat && firstOutlet.long) {
+            waypoints.push({ location: { lat: Number(firstOutlet.lat), lng: Number(firstOutlet.long) }, stopover: true });
         }
+    }
 
-        console.log("waypoints");
-        console.log(waypoints);
-        console.log("waypoints");
+    // visits -> outlets
+    clockin.visits.forEach(function(v) {
+        if (v && v.outlet && v.outlet.lat && v.outlet.long) {
+            waypoints.push({ location: { lat: Number(v.outlet.lat), lng: Number(v.outlet.long) }, stopover: true });
+        }
+    });
 
+    // clockout as last point (if present)
+    if (clockin.clockout && clockin.clockout.lat && clockin.clockout.long) {
+        waypoints.push({ location: { lat: Number(clockin.clockout.lat), lng: Number(clockin.clockout.long) }, stopover: true });
+    }
 
-        
-        //waypoints.push({ location: { lat: -1.244, lng: 36.8 }, stopover: true });
-        console.log('Map instance:', map);
-        // const myPosition = { lat: -25.344, lng: 131.031 };
-        // var marker = new google.maps.Marker({position: myPosition});
-        // marker.setMap(map);
+    // If there are no waypoints, abort
+    if (waypoints.length === 0) {
+        console.warn('No coordinates available to show on map.');
+        return;
+    }
 
+    // If only one point (origin only), just put a marker and center
+    if (waypoints.length === 1) {
+        var only = waypoints[0].location;
+        var bounds = new google.maps.LatLngBounds();
+        addMarkers(map, clockin, bounds);
+        map.fitBounds(bounds);
+        return;
+    }
 
+    // For directions: origin = first, destination = last, rest -> waypoints
+    var origin = waypoints.shift().location;
+    var destination = waypoints.length > 0 ? (waypoints.pop().location) : origin;
+    var dsWaypoints = waypoints.map(function(w){ return { location: w.location, stopover: true }; });
 
-        
+    var request = {
+        origin: origin,
+        destination: destination,
+        waypoints: dsWaypoints,
+        optimizeWaypoints: true,
+        travelMode: 'DRIVING'
+    };
 
-        //NO NEED AS CLOCKIN WILL ALWAYS BE THE ORIGIN
-        if(clockin.visits.length==0 && clockin.clockout==null){
-            const origin = waypoints.shift().location;
+    directionsService.route(request, function(result, status) {
+        if (status === 'OK' && result && result.routes && result.routes.length) {
+            var route = result.routes[0];
+            // compute total distance (meters)
+            var totalDistance = 0;
+            route.legs.forEach(function(leg) { totalDistance += (leg.distance ? leg.distance.value || 0 : 0); });
 
-            console.log("origin");
-            console.log(origin);
-            console.log("origin");
-            
-            var bounds = new google.maps.LatLngBounds();
-                addMarkers(map,clockin,bounds);
+            if (totalDistance < 50) {
+                // too short, don't draw route — draw markers only
+                var bounds = new google.maps.LatLngBounds();
+                addMarkers(map, clockin, bounds);
                 map.fitBounds(bounds);
-                //  alert('one');
-
-        }
-
-        else{
-
-            const origin = waypoints.shift().location;
-            // const destination = waypoints.pop().location;
-            const destination = waypoints.length > 0 ? waypoints.pop().location : null;
-
-            const request = {
-                origin: origin,
-                // destination: destination,
-                waypoints: waypoints,
-                optimizeWaypoints: true,
-                travelMode: 'DRIVING'
-            };
-
-            if (destination!=null) {
-                    request.destination = destination;
-                }
-
-
-            directionsService.route(request, function(result, status) {
-            if (status == 'OK') {
-
-                const route = result.routes[0];
-                let totalDistance = 0;
-
-                // Loop through each leg to calculate the total distance
-                route.legs.forEach(leg => {
-                    totalDistance += leg.distance.value; // distance.value is in meters
-                });
-
-                if (totalDistance < 50) {
-                    console.log('Route is less than 50 meters, not drawing directions.');
-                    var bounds = new google.maps.LatLngBounds();
-                    addMarkers(map,clockin,bounds);
-                    map.fitBounds(bounds);
-                } else {
-                    directionsRenderer.setDirections(result);
-                    console.log('Route drawn with result:', result);
-                    addMarkers(map, clockin);
-                }
-
-                // directionsRenderer.setDirections(result);
-                // console.log('Route drawn with result:', result);
-                // addMarkers(map,clockin);
-
             } else {
-                console.error('Directions request failed due to ' + status);
-                 var bounds = new google.maps.LatLngBounds();
-                addMarkers(map,clockin,bounds);
-                map.fitBounds(bounds);
-                // alert('many');
+                directionsRenderer.setDirections(result);
+                addMarkers(map, clockin);
             }
+        } else {
+            console.warn('Directions request failed:', status);
+            var bounds = new google.maps.LatLngBounds();
+            addMarkers(map, clockin, bounds);
+            map.fitBounds(bounds);
+        }
+    });
+}
+
+/* addMarkers: reworked helper that accepts an optional LatLngBounds instance to extend */
+function addMarkers(mapInstance, clockin, bounds) {
+    bounds = bounds || null;
+    var zIndexBase = google.maps.Marker.MAX_ZINDEX || 99999;
+    var itemNumber = 1;
+
+    // clockin marker (IN) if present
+    if (clockin.lat && clockin.long) {
+        var ciPos = { lat: parseFloat(clockin.lat), lng: parseFloat(clockin.long) };
+        var clockinMarker = new google.maps.Marker({
+            position: ciPos,
+            map: mapInstance,
+            label: 'IN',
+            title: 'Clockin',
+            zIndex: zIndexBase + 1
+        });
+        (function(marker, data){
+            var content = '<div><h3>' + (data.user && data.user.name ? data.user.name : 'User') + '</h3>'
+                        + '<p><strong>Clockin Time:</strong> ' + (data.created_at || '') + '</p>'
+                        + '<p><strong>Latitude:</strong> ' + (data.lat || '') + '</p>'
+                        + '<p><strong>Longitude:</strong> ' + (data.long || '') + '</p></div>';
+            var iw = new google.maps.InfoWindow({ content: content });
+            marker.addListener('click', function(){ iw.open(mapInstance, marker); });
+        })(clockinMarker, clockin);
+
+        markers.push(clockinMarker);
+        if (bounds) bounds.extend(ciPos);
+    }
+
+    // outlets
+    var placed = new Set();
+    (clockin.visits || []).forEach(function(item){
+        var outlet = item.outlet || item;
+        if (!outlet || !outlet.lat || !outlet.long) return;
+        if (placed.has(outlet.id)) return;
+        placed.add(outlet.id);
+
+        var pos = { lat: parseFloat(outlet.lat), lng: parseFloat(outlet.long) };
+        var m = new google.maps.Marker({
+            position: pos,
+            map: mapInstance,
+            label: String(itemNumber++),
+            title: outlet.name || 'Outlet',
+            zIndex: zIndexBase + itemNumber
         });
 
-        }
+        (function(marker, outletData){
+            var content = '<div><h3>' + (outletData.name || '') + '</h3>'
+                        + '<p><strong>Contact Person:</strong> ' + (outletData.contact_person_name || '') + '</p>'
+                        + '<p><strong>Phone:</strong> ' + (outletData.phone || '') + '</p>'
+                        + '<p><strong>Latitude:</strong> ' + (outletData.lat || '') + '</p>'
+                        + '<p><strong>Longitude:</strong> ' + (outletData.long || '') + '</p>'
+                        + (outletData.image ? '<img src="' + outletData.image + '" style="width:100px;height:auto;"/>' : '')
+                        + '</div>';
+            var iw = new google.maps.InfoWindow({ content: content });
+            marker.addListener('click', function(){ iw.open(mapInstance, marker); });
+        })(m, outlet);
 
+        markers.push(m);
+        if (bounds) bounds.extend(pos);
+    });
 
-        
+    // clockout marker
+    if (clockin.clockout && clockin.clockout.lat && clockin.clockout.long) {
+        var coPos = { lat: parseFloat(clockin.clockout.lat), lng: parseFloat(clockin.clockout.long) };
+        var outMarker = new google.maps.Marker({
+            position: coPos,
+            map: mapInstance,
+            label: 'OUT',
+            title: 'Clockout',
+            zIndex: zIndexBase + itemNumber + 1
+        });
+        (function(marker, data){
+            var content = '<div><h3>' + (data.user && data.user.name ? data.user.name : 'User') + '</h3>'
+                        + '<p><strong>Clockout Time:</strong> ' + (data.clockout.created_at || '') + '</p>'
+                        + '<p><strong>Latitude:</strong> ' + (data.clockout.lat || '') + '</p>'
+                        + '<p><strong>Longitude:</strong> ' + (data.clockout.long || '') + '</p></div>';
+            var iw = new google.maps.InfoWindow({ content: content });
+            marker.addListener('click', function(){ iw.open(mapInstance, marker); });
+        })(outMarker, clockin);
 
-        function addMarkers(map, clockin,bounds) {
-            var itemNumber = 1;
-            var placedOutlets = [];
-
-            var clockinmarker = new google.maps.Marker({
-                    position: { lat: parseFloat(clockin.lat), lng: parseFloat(clockin.long) },
-                    map: map,
-                    label: 'IN',
-                    title: "Clockin",
-                    zIndex: google.maps.Marker.MAX_ZINDEX + 0.5
-                });
-                if(bounds!=undefined){
-                const clockinPosition = { lat: parseFloat(clockin.lat), lng: parseFloat(clockin.long) };
-                console.log(clockinPosition);
-                bounds.extend(clockinPosition);
-                }
-                var infoWindow = new google.maps.InfoWindow({
-                    content: `
-                        <div>
-                            <h3>${clockin.user.name}</h3>
-                            <p><strong>Clockin Time:</strong> ${clockin.created_at}</p>
-                            <p><strong>Latitude:</strong> ${clockin.lat}</p>
-                            <p><strong>Longitude:</strong> ${clockin.long}</p>
-                        </div>
-                    `
-                });
-
-                clockinmarker.addListener('click', function () {
-                    infoWindow.open(map, clockinmarker);
-                });
-
-                markers.push(clockinmarker);
-
-            
-            clockin.visits.forEach(item => {
-                //alert('adding marker');
-                // alert("Testing this shit"+item.outlet.lat+" "+item.outlet.long);\
-                                
-                //should be google.maps.Marker.MAX_ZINDEX + 1 but we're using google.maps.Marker.MAX_ZINDEX + itemNumber to overlay multiple on the same for now
-                placedOutlets.includes(item.outlet.id);
-                var marker = new google.maps.Marker({
-                    position: { lat: parseFloat(item.outlet.lat), lng: parseFloat(item.outlet.long) },
-                    map: map,
-                    label: String(itemNumber),
-                    title: item.outlet.name,
-                    zIndex: google.maps.Marker.MAX_ZINDEX + itemNumber 
-                });
-                itemNumber++;
-
-                placedOutlets.push(item.outlet.id);
-
-                if(bounds!=undefined){
-                const outletPosition = { lat: parseFloat(item.outlet.lat), lng: parseFloat(item.outlet.long) };
-                console.log(outletPosition);
-                // Extend the bounds to include this marker's position
-                bounds.extend(outletPosition);
-                }
-
-                //marker.setMap(map);
-
-                var infoWindow = new google.maps.InfoWindow({
-                    content: `
-                        <div>
-                            <h3>${item.outlet.name}</h3>
-                            <p><strong>Contact Person:</strong> ${item.outlet.contact_person_name}</p>
-                            <p><strong>Phone:</strong> ${item.outlet.phone}</p>
-                            <p><strong>Latitude:</strong> ${item.outlet.lat}</p>
-                            <p><strong>Longitude:</strong> ${item.outlet.long}</p>
-                            <img src="${item.outlet.image}" alt="${item.outlet.name}" style="width:100px;height:auto;"/>
-                        </div>
-                    `
-                });
-
-                marker.addListener('click', function () {
-                    infoWindow.open(map, marker);
-                });
-
-                markers.push(marker);
-
-               
-            });
-
-            if(clockin && clockin['clockout'] != null){
-            var clockoutmarker = new google.maps.Marker({
-                    position: { lat: parseFloat(clockin.clockout.lat), 
-                        lng: parseFloat(clockin.clockout.long) },
-                    map: map,
-                    label: 'OUT',
-                    title: "Clockout",
-                    zIndex: google.maps.Marker.MAX_ZINDEX + itemNumber
-                });
-                if(bounds!=undefined){
-                const clockoutPosition = { lat: parseFloat(clockin.clockout.lat), 
-                    lng: parseFloat(clockin.clockout.long) };
-                console.log(clockoutPosition);
-                bounds.extend(clockoutPosition);
-                }
-                var infoWindow = new google.maps.InfoWindow({
-                    content: `
-                        <div>
-                            <h3>${clockin.user.name}</h3>
-                            <p><strong>Clockin Time:</strong> ${clockin.clockout.created_at}</p>
-                            <p><strong>Latitude:</strong> ${clockin.clockout.lat}</p>
-                            <p><strong>Longitude:</strong> ${clockin.clockout.long}</p>
-                        </div>
-                    `
-                });
-
-                clockoutmarker.addListener('click', function () {
-                    infoWindow.open(map, clockoutmarker);
-                });
-
-                markers.push(clockoutmarker);    
-        }
-
-
+        markers.push(outMarker);
+        if (bounds) bounds.extend(coPos);
     }
 
-
-        
-
-
-    // document.addEventListener("DOMContentLoaded", function() {
-    //     console.log('Map instance:', map);
-    //     alert('we get here too');
-
-    // // function rewriteMap(){
-        
-    // // }
-    
-    // });
-    
+    // If bounds provided, fit
+    if (bounds) {
+        try { map.fitBounds(bounds); } catch(e) {}
+    } else {
+        // if no bounds, try to center on first marker
+        if (markers.length) {
+            try {
+                map.setCenter(markers[0].getPosition());
+                map.setZoom(12);
+            } catch(e) {}
+        }
     }
-    
-
-    </script>
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=
+    AIzaSyALLsNWwOC09xsRAqrK0S7dINi6BpNc7iw&callback=initClockinsMap"></script>
