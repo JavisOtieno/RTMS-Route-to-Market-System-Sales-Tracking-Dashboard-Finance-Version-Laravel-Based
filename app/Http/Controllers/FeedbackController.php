@@ -96,11 +96,15 @@ class FeedbackController extends Controller
         ]);
 
         $incomingFields['feedback']=strip_tags($incomingFields['feedback']);
+        // $visit_id = strip_tags($incomingFields['visit_id']);
+        $visit = Visit::find($id);
         // $incomingFields['organization_id']=$organization_id;
-        
-        $feedback=Feedback::find($id);
 
-        $feedback->update($incomingFields);
+        $incomingFields['organization_id']=$visit->organization_id;
+        $incomingFields['team_id']=$visit->team_id;
+
+
+        Feedback::create($incomingFields);
 
         return redirect('/feedback');
         
