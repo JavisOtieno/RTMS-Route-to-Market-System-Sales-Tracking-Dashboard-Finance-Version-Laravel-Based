@@ -171,13 +171,13 @@ Route::get('/deleteclockout/{id}', [ClockoutController::class,'deleteClockout'])
 //Test
 //Test
 // web.php
-Route::get('/dayroutesyajra', [ClockinController::class,'indexVisitsYajra']);
+Route::get('/dayroutes', [ClockinController::class,'indexVisitsYajra']);
 Route::get('/clockins/yajra', [ClockinController::class, 'clockinsVisitsYajra'])->name('clockins.yajra');
 
 Route::get('/visitsold', [VisitController::class,'index']);
 Route::get('/visit/{id}',[VisitController::class,'showEditVisit']);
 Route::get('/visitsmap', [VisitController::class,'showVisitsMap']);
-Route::get('/dayroutes', [VisitController::class,'showRoutes']);
+Route::get('/dayroutesold', [VisitController::class,'showRoutes']);
 Route::get('/dayroutes/{id}', [VisitController::class,'showRoutesById']);
 Route::get('/visitsanalytics', [VisitController::class,'showVisitsAnalytics']);
 Route::get('/visits/{id}/{object}',[VisitController::class,'showVisitsById']);
