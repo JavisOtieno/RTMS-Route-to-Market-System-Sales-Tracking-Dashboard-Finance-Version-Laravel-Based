@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Visit;
 use App\Models\Feedback;
 use Illuminate\Http\Request;
 
@@ -60,7 +61,34 @@ class FeedbackController extends Controller
         return view('edit-feedback',['feedback'=>$feedback]);
     }
 
+    public function showAddFeedback($id){
+        //$feedback = Feedback::find($id);
+        $visit = Visit::with(['outlet','user' => function ($query) {
+            $query->withTrashed();
+        }])->get()->find($id);
+        return view('feedback.add',['visit'=>$visit]);
+    }
+
+
     public function saveEditFeedback($id, Request $request){
+
+        // $organization_id=auth()->user()->organization_id;
+        $incomingFields=$request->validate([
+            'feedback' => 'required',
+        ]);
+
+        $incomingFields['feedback']=strip_tags($incomingFields['feedback']);
+        // $incomingFields['organization_id']=$organization_id;
+        
+        $feedback=Feedback::find($id);
+
+        $feedback->update($incomingFields);
+
+        return redirect('/feedback');
+        
+    }
+
+    public function saveFeedback($id, Request $request){
 
         // $organization_id=auth()->user()->organization_id;
         $incomingFields=$request->validate([

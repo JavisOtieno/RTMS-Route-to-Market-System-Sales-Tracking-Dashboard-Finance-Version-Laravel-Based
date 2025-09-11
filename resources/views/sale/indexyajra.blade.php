@@ -72,9 +72,10 @@
                                         <th>ID</th>
                                         <th>View/Edit</th>
                                         <th id="delete-column">Delete</th>
+                                        <th>Seller Name</th>
                                         <th>Customer Name</th>
                                         <th>Customer Phone</th>
-                                        <th>Seller Name</th>
+                                        
                                         {{-- <th>Contact Name</th>
                                         <th>Phone</th> --}}
                                         <th>Products Sold</th>
@@ -100,9 +101,9 @@
                                         <th><input class="form-control" style="width: auto;max-width: 90px;" type="text" placeholder="Search ID" /></th>
                                         <th></th>
                                         <th></th>
+                                        <th><input  class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Seller Name" /></th>
                                         <th><input  class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Customer Name" /></th>
                                          <th><input  class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Customer Phone" /></th>
-                                        <th><input  class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Seller Name" /></th>
                                         <th><input  class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Products Sold" /></th>
                                         <th><input  class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Quantity" /></th>
                                         <th><input  class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Value" /></th>
@@ -442,6 +443,8 @@
                 exportable: false
             }
                     ,
+                      { data: 'user_name', 
+                    name: 'user_name', defaultContent: 'No User' }, // Add this,
                     {
                         data: 'outlet_name',
                         name: 'outlet_name'
@@ -450,8 +453,6 @@
                         data: 'outlet_phone',
                         name: 'outlet_phone'
                     },
-                    { data: 'user_name', 
-                    name: 'user_name', defaultContent: 'No User' }, // Add this,
                     {
                         data: 'productinfo',
                         name: 'productinfo',
