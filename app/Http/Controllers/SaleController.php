@@ -60,7 +60,7 @@ class SaleController extends Controller
 
         $sales = Sale::with(['user' => function ($query) {
             $query->withTrashed();
-        }],'channeltype','user.region','user.territory','user.cluster')->get();
+        }],'user.region','user.territory')->get();
         // return DataTables::of($sales)->make(true);
         $query = Sale::select(
             'sales.*',
@@ -70,7 +70,7 @@ class SaleController extends Controller
             'regions.name as region_name',
             'territories.name as territory_name',
             // 'clusters.name as cluster_name',
-            'channel_types.name as channel_type_name',
+            // 'channel_types.name as channel_type_name',
             'teams.name as team_name',
             'users.name as user_name',
             'outlets.name as outlet_name',
@@ -85,7 +85,7 @@ class SaleController extends Controller
 
         )
         ->leftJoin('outlets', 'outlets.id', '=', 'sales.outlet_id')
-        ->leftJoin('channel_types', 'channel_types.id', '=', 'outlets.channel_type_id')
+        // ->leftJoin('channel_types', 'channel_types.id', '=', 'outlets.channel_type_id')
         ->leftJoin('users', 'users.id', '=', 'sales.user_id')
 
         // skjdjkjfjhsjkhdfks
