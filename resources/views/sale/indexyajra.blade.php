@@ -81,11 +81,11 @@
                                         <th>Value</th>
                                         <th>Team</th>
 
-                                        {{-- <th>Region</th>
+                                        <th>Region</th>
                                         <th>Territory</th>
-                                        <th>Cluster</th>
+                                        {{-- <th>Cluster</th>
                                         <th>Channel Type</th> --}}
-
+                                        <th>Status</th>
                                         <th>Date</th>
                                         <th>Time</th>
                                         {{-- <th>Check out Time</th>
@@ -110,10 +110,11 @@
                                         <th><input  class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Team" /></th>
 
                                         
-                                        {{-- <th><input type="text" placeholder="Search Region" /></th>
+                                        <th><input type="text" placeholder="Search Region" /></th>
                                         <th><input type="text" placeholder="Search Territory" /></th>
-                                        <th><input type="text" placeholder="Search Cluster" /></th>
+                                        {{-- <th><input type="text" placeholder="Search Cluster" /></th>
                                         <th><input type="text" placeholder="Search Channel Type" /></th> --}}
+                                        <th><input  class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Status" /></th>
                                         <th><input  class="form-control" style="width: auto;min-width: max-content;" type="date" placeholder="Search Date" /></th>
                                         <th><input  class="form-control" style="width: auto;min-width: max-content;" type="time" placeholder="Search Time" /></th>
                                         {{-- <th><input type="text" placeholder="Search Checkout Time" /></th>
@@ -480,14 +481,14 @@
                         data: 'team_name',
                         name: 'team_name',defaultContent: 'None' 
                     },
-                    // {
-                    //     data: 'region_name',
-                    //     name: 'region_name',defaultContent: 'None'
-                    // },
-                    // {
-                    //     data: 'territory_name',
-                    //     name: 'territory_name',defaultContent: 'None'
-                    // },
+                    {
+                        data: 'region_name',
+                        name: 'region_name',defaultContent: 'None'
+                    },
+                    {
+                        data: 'territory_name',
+                        name: 'territory_name',defaultContent: 'None'
+                    },
                     // {
                     //     data: 'cluster_name',
                     //     name: 'cluster_name',defaultContent: 'None'
@@ -498,6 +499,10 @@
                     // },
 
                     // { data: 'created_at', name: 'date' },
+                    {
+                        data: 'status',
+                        name: 'status',
+                    }
                     {
                         data: 'date',
                         name: 'date',
