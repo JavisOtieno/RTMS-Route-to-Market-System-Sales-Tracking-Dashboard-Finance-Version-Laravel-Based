@@ -32,7 +32,7 @@ class ClockinController extends Controller
 
         return view('clockin.index', ['clockins'=>$clockins]);
     }
-    public function indexYajra() {
+    public function indexVisitsYajra() {
             return view('clockin.indexyajravisits');
     }
         public function clockinsVisitsYajra(Request $request)
