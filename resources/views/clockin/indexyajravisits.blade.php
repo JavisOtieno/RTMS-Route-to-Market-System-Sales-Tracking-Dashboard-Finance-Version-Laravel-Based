@@ -492,6 +492,7 @@ function rewriteMap(clockin) {
     }
 
     // visits -> outlets
+    alert('visits count: ' + (clockin.visits ? clockin.visits.length : 0));
     clockin.visits.forEach(function(v) {
         if (v && v.outlet && v.outlet.lat && v.outlet.long) {
             waypoints.push({ location: { lat: Number(v.outlet.lat), lng: Number(v.outlet.long) }, stopover: true });
