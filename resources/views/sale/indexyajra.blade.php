@@ -110,8 +110,9 @@
                                         <th><input  class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Team" /></th>
 
                                         
-                                        <th><input type="text" placeholder="Search Region" /></th>
-                                        <th><input type="text" placeholder="Search Territory" /></th>
+                                        {{-- <th><input type="text" placeholder="Search Region" /></th> --}}
+                                         <th><input  class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Regioin" /></th>
+                                          <th><input  class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Territory" /></th>
                                         {{-- <th><input type="text" placeholder="Search Cluster" /></th>
                                         <th><input type="text" placeholder="Search Channel Type" /></th> --}}
                                         <th><input  class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Status" /></th>
