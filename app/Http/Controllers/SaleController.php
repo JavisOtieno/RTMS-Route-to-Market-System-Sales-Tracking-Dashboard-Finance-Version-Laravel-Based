@@ -73,6 +73,7 @@ class SaleController extends Controller
             // 'channel_types.name as channel_type_name',
             'teams.name as team_name',
             'users.name as user_name',
+            'outlets.phone as outlet_phone',
             'outlets.name as outlet_name',
             'outlets.contact_person_name as contactpersonname',
             'outlets.phone as phone',

@@ -8,11 +8,11 @@
 
             <!-- PAGE-HEADER -->
             <div class="page-header">
-                <h1 class="page-title">Sales</h1>
+                <h1 class="page-title">Deals</h1>
                 <div>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">RTMS</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Sales</li>
+                        <li class="breadcrumb-item active" aria-current="page">Deals</li>
                     </ol>
                 </div>
             </div>
@@ -23,7 +23,7 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Sales</h3>
+                        <h3 class="card-title">Deals</h3>
                         {{-- <a type="button" href="/add-sale" class="btn btn-danger col-md-3"
                             style="margin-left: auto;margin-right:20px;margin-top:10px;margin-bottom:10px;color:white;">Add
                             Sale</a> --}}
@@ -72,7 +72,8 @@
                                         <th>ID</th>
                                         <th>View/Edit</th>
                                         <th id="delete-column">Delete</th>
-                                        <th>Outlet Name</th>
+                                        <th>Customer Name</th>
+                                        <th>Customer Phone</th>
                                         <th>Seller Name</th>
                                         {{-- <th>Contact Name</th>
                                         <th>Phone</th> --}}
@@ -99,7 +100,8 @@
                                         <th><input class="form-control" style="width: auto;max-width: 90px;" type="text" placeholder="Search ID" /></th>
                                         <th></th>
                                         <th></th>
-                                        <th><input  class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Outlet Name" /></th>
+                                        <th><input  class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Customer Name" /></th>
+                                         <th><input  class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Customer Phone" /></th>
                                         <th><input  class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Seller Name" /></th>
                                         <th><input  class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Products Sold" /></th>
                                         <th><input  class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Quantity" /></th>
@@ -443,6 +445,10 @@
                     {
                         data: 'outlet_name',
                         name: 'outlet_name'
+                    },
+                    {
+                        data: 'outlet_phone',
+                        name: 'outlet_phone'
                     },
                     { data: 'user_name', 
                     name: 'user_name', defaultContent: 'No User' }, // Add this,
