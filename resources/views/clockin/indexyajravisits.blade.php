@@ -378,9 +378,10 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 
         // Redraw on filter change
-        $(' #dateFromInput, #dateToInput, #timeFromInput, #timeToInput').on('change keyup', function() {
+        $('#nameInput, #dateFromInput, #dateToInput, #timeFromInput, #timeToInput').on('change keyup', function() {
             table.draw();
         });
+
 
                     // Apply the search
             $('#responsive-datatable-yajra thead tr:eq(1) th').each(function(i) {
@@ -397,7 +398,10 @@ document.addEventListener("DOMContentLoaded", function() {
                     }
                     // Apply descending order based on id after search
                     table.order([0, 'desc']).draw();
-                
+                });
+            });
+
+        
     });
 });
 </script>
