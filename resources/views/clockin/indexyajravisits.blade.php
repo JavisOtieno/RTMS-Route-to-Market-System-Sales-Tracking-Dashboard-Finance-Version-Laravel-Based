@@ -378,9 +378,26 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 
         // Redraw on filter change
-        $('#nameInput, #dateFromInput, #dateToInput, #timeFromInput, #timeToInput').on('change keyup', function() {
+        $(' #dateFromInput, #dateToInput, #timeFromInput, #timeToInput').on('change keyup', function() {
             table.draw();
         });
+
+                    // Apply the search
+            $('#responsive-datatable-yajra thead tr:eq(1) th').each(function(i) {
+                var title = $(this).text();
+                // alert('hello');
+                $('input', this).on('keyup change', function() {
+                    // alert(this.value+' '+i);
+                    if (table.column(i).search() !== this.value) {
+                        // alert('hello');
+                        table
+                            .column(i)
+                            .search(this.value)
+                            .draw();
+                    }
+                    // Apply descending order based on id after search
+                    table.order([0, 'desc']).draw();
+                
     });
 });
 </script>
