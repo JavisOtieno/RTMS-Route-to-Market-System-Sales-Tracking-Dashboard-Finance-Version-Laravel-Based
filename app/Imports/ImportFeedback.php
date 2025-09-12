@@ -82,6 +82,9 @@ class ImportFeedback implements ToModel
         $updatedat = $visit->created_at->copy()->addSeconds($randSeconds);
 
         // dd($row);
+        if($feedback=="None" || $feedback=="" || $feedback==null){
+            return null;
+        }
              
             return new Feedback([
                 'outlet_id' => $outlet_id,
