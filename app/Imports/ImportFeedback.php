@@ -31,7 +31,7 @@ class ImportFeedback implements ToModel
         //     ['name' => $row[0]]
         // );
         // $region = Region::where('name', $row[0])->first(); 
-        dd('Row Data: ', $row[0]);
+        // dd('Row Data: ', $row[0]);
         // $region = Region::where(DB::raw('LOWER(name)'), '=', strtolower('TestTest'))->first();
         // $region = Region::find(3);
         // $region = Region::where(DB::raw('LOWER(name)'),strtolower($row[0]))->first();
@@ -39,7 +39,7 @@ class ImportFeedback implements ToModel
         // $territory = Territory::where(DB::raw('LOWER(name)'), '=', strtolower(trim($row[1])))->first();
         // $cluster = Cluster::where(DB::raw('LOWER(name)'), '=', strtolower(trim($row[2])))->first();
         $visitid = strtolower(trim($row[0]));
-        $visit = Visit::where('id', $visitid);
+        $visit = Visit::find($visitid);
         $outlet_id = $visit->value('outlet_id');
         $user_id = $visit->value('user_id');
         $organization_id = $visit->value('organization_id');
