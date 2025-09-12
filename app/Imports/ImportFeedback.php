@@ -39,12 +39,14 @@ class ImportFeedback implements ToModel
         // $territory = Territory::where(DB::raw('LOWER(name)'), '=', strtolower(trim($row[1])))->first();
         // $cluster = Cluster::where(DB::raw('LOWER(name)'), '=', strtolower(trim($row[2])))->first();
         $visitid = strtolower(trim($row[0]));
-        $visit = Visit::find($visitid);
-        $outlet_id = $visit->value('outlet_id');
-        $user_id = $visit->value('user_id');
-        $organization_id = $visit->value('organization_id');
-        $team_id = $visit->value('team_id');
+        $visit   = Visit::find($visitid);
 
+        if ($visit) {
+            $outlet_id       = $visit->outlet_id;
+            $user_id         = $visit->user_id;
+            $organization_id = $visit->organization_id;
+            $team_id         = $visit->team_id;
+        }
         $feedback = $row[1];
 
         function durationToSeconds(?string $duration): int
