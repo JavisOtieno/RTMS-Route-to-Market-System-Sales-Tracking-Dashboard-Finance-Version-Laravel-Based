@@ -31,7 +31,7 @@ class ImportFeedback implements ToModel
         //     ['name' => $row[0]]
         // );
         // $region = Region::where('name', $row[0])->first(); 
-        dd('Row Data: ', $row);
+        dd('Row Data: ', $row[0]);
         // $region = Region::where(DB::raw('LOWER(name)'), '=', strtolower('TestTest'))->first();
         // $region = Region::find(3);
         // $region = Region::where(DB::raw('LOWER(name)'),strtolower($row[0]))->first();
