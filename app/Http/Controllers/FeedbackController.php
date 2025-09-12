@@ -135,11 +135,15 @@ class FeedbackController extends Controller
             $randSeconds = random_int(1, $durationSeconds);
         }
 
-        $incomingFields['created_at'] = $visit->created_at->copy()->addSeconds($randSeconds);
-        $incomingFields['updated_at'] = $visit->created_at->copy()->addSeconds($randSeconds);
+        // $incomingFields['created_at'] = $visit->created_at->copy()->addSeconds($randSeconds);
+        // $incomingFields['updated_at'] = $visit->created_at->copy()->addSeconds($randSeconds);
 
 
-        Feedback::create($incomingFields);
+        $feedback = Feedback::create($incomingFields);
+
+        $incomingFields2['created_at'] = $visit->created_at->copy()->addSeconds($randSeconds);
+        $incomingFields2['updated_at'] = $visit->created_at->copy()->addSeconds($randSeconds);
+        $feedback->update($incomingFields2);
 
         return redirect('/feedback');
         
