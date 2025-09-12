@@ -88,6 +88,9 @@ class FeedbackController extends Controller
         return redirect('/feedback');
         
     }
+    public function importView(Request $request){
+        return view('importFile');
+    }
 
     public function import(Request $request){
 
