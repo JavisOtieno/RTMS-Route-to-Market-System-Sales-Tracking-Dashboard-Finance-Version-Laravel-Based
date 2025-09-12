@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Visit;
 use App\Models\Feedback;
 use Illuminate\Http\Request;
+use App\Imports\ImportFeedback;
 
 class FeedbackController extends Controller
 {
@@ -86,6 +87,25 @@ class FeedbackController extends Controller
 
         return redirect('/feedback');
         
+    }
+
+    public function import(Request $request){
+
+        Excel::import(new ImportFeedback, 
+                      $request->file('file')->store('files'));
+        return redirect()->back();
+
+        // Store the file and get the relative path
+        // $path = $request->file('file')->store('files');
+
+        // // Get the full path of the file from storage
+        // $fullPath = storage_path('app/' . $path);
+
+        // // Import the file
+        // Excel::import(new ImportRoute, $fullPath);
+
+        // return redirect()->back();
+    
     }
 
     public function saveFeedback(Request $request){

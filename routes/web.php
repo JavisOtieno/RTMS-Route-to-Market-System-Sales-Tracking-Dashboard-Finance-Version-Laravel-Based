@@ -295,6 +295,15 @@ Route::put('/savechangepassword/{id}',[UserController::class,'saveChangePassword
 
 Route::get('/showimage/{folder}/{image}', [ImageController::class,'showImage']);
 
+// Route::get('/test',[FeedbackController::class,'import']);
+Route::get('/file-import',[FeedbackController::class,
+'importView'])->name('import-view'); 
+Route::post('/import',[FeedbackController::class,
+'import'])->name('import'); 
+// Route::get('/export-feedback',[FeedbackController::class,
+// 'exportFeedback'])->name('export-feedback');
+
+
 Route::get('/run-artisan-link', function () {
     $exitCode =Artisan::call('storage:link');
     return $exitCode;
