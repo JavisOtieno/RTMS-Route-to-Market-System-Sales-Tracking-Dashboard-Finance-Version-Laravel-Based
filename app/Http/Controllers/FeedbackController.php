@@ -6,6 +6,7 @@ use App\Models\Visit;
 use App\Models\Feedback;
 use Illuminate\Http\Request;
 use App\Imports\ImportFeedback;
+use Maatwebsite\Excel\Facades\Excel;
 
 class FeedbackController extends Controller
 {
