@@ -49,23 +49,8 @@ class ImportFeedback implements ToModel
         }
         $feedback = $row[1];
 
-        function durationToSeconds(?string $duration): int
-        {
-            if (empty($duration)) {
-                return -1; // signal "null/empty"
-            }
 
-            $parts = array_reverse(explode(':', trim($duration)));
-            $seconds = 0;
-
-            if (isset($parts[0])) $seconds += (int) $parts[0];          // seconds
-            if (isset($parts[1])) $seconds += (int) $parts[1] * 60;     // minutes
-            if (isset($parts[2])) $seconds += (int) $parts[2] * 3600;   // hours
-
-            return $seconds;
-        }
-
-        $durationSeconds = durationToSeconds($visit->duration);
+        $durationSeconds = $this->durationToSeconds($visit->duration);
 
         if ($durationSeconds === -1) {
             // null or empty → use max = 2 minutes
@@ -98,8 +83,24 @@ class ImportFeedback implements ToModel
             ]);
         
     }
+            private function durationToSeconds(?string $duration): int
+        {
+            if (empty($duration)) {
+                return -1; // signal "null/empty"
+            }
+
+            $parts = array_reverse(explode(':', trim($duration)));
+            $seconds = 0;
+
+            if (isset($parts[0])) $seconds += (int) $parts[0];          // seconds
+            if (isset($parts[1])) $seconds += (int) $parts[1] * 60;     // minutes
+            if (isset($parts[2])) $seconds += (int) $parts[2] * 3600;   // hours
+
+            return $seconds;
+        }
 
 }
+
 
 
 // namespace App\Imports;
