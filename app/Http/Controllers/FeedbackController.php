@@ -105,7 +105,9 @@ class FeedbackController extends Controller
 
         $incomingFields['organization_id']=$visit->organization_id;
         $incomingFields['team_id']=$visit->team_id;
-
+        // $incomingFields['created_at']=$visit->created_at;
+        $incomingFields['created_at'] = $visit->created_at->copy()->addSeconds(2);
+        $incomingFields['updated_at'] = $visit->created_at->copy()->addSeconds(2);
 
         Feedback::create($incomingFields);
 
