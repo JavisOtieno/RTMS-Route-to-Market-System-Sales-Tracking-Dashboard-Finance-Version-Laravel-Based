@@ -50,7 +50,7 @@ class ImportFeedback implements ToModel
         $feedback = $row[1];
 
 
-        $durationSeconds = $this->durationToSeconds($visit->duration);
+        $durationSeconds = $this->durationToSeconds($visit->duration?? "");
 
         if ($durationSeconds === -1) {
             // null or empty → use max = 2 minutes
