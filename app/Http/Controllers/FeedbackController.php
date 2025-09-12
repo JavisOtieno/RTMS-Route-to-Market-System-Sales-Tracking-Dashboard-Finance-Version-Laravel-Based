@@ -106,8 +106,38 @@ class FeedbackController extends Controller
         $incomingFields['organization_id']=$visit->organization_id;
         $incomingFields['team_id']=$visit->team_id;
         // $incomingFields['created_at']=$visit->created_at;
-        $incomingFields['created_at'] = $visit->created_at->copy()->addSeconds(2);
-        $incomingFields['updated_at'] = $visit->created_at->copy()->addSeconds(2);
+        function durationToSeconds(?string $duration): int
+        {
+            if (empty($duration)) {
+                return -1; // signal "null/empty"
+            }
+
+            $parts = array_reverse(explode(':', trim($duration)));
+            $seconds = 0;
+
+            if (isset($parts[0])) $seconds += (int) $parts[0];          // seconds
+            if (isset($parts[1])) $seconds += (int) $parts[1] * 60;     // minutes
+            if (isset($parts[2])) $seconds += (int) $parts[2] * 3600;   // hours
+
+            return $seconds;
+        }
+
+        $durationSeconds = durationToSeconds($visit->duration);
+
+        if ($durationSeconds === -1) {
+            // null or empty → use max = 2 minutes
+            $randSeconds = random_int(1, 120);
+        } elseif ($durationSeconds === 0) {
+            // duration = zero → add 0 seconds
+            $randSeconds = 0;
+        } else {
+            // duration > 0 → pick between 1 and that duration
+            $randSeconds = random_int(1, $durationSeconds);
+        }
+
+        $incomingFields['created_at'] = $visit->created_at->copy()->addSeconds($randSeconds);
+        $incomingFields['updated_at'] = $visit->created_at->copy()->addSeconds($randSeconds);
+
 
         Feedback::create($incomingFields);
 
