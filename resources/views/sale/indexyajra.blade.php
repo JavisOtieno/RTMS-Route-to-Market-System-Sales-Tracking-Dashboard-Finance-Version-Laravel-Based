@@ -119,8 +119,8 @@
                                         {{-- <th><input type="text" placeholder="Search Cluster" /></th>
                                         <th><input type="text" placeholder="Search Channel Type" /></th> --}}
                                         <th><input  class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Status" /></th>
-                                        <th><input  class="form-control" style="width: auto;min-width: max-content;" type="date" placeholder="Search Date" /></th>
-                                        <th><input  class="form-control" style="width: auto;min-width: max-content;" type="time" placeholder="Search Time" /></th>
+                                        {{-- <th><input  class="form-control" style="width: auto;min-width: max-content;" type="date" placeholder="Search Date" /></th> --}}
+                                        {{-- <th><input  class="form-control" style="width: auto;min-width: max-content;" type="time" placeholder="Search Time" /></th> --}}
                                         {{-- <th><input type="text" placeholder="Search Checkout Time" /></th>
                                         <th><input type="text" placeholder="Search Duration" /></th> --}}
                                         
