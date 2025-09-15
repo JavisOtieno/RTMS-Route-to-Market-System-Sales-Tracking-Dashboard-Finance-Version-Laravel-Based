@@ -56,7 +56,7 @@ class VisitController extends Controller
                 'territories.name as territory_name',
                 'outlets.long as outlet_long',
                 'outlets.lat as outlet_lat',
-                // 'teams.name as team_name',
+                'teams.name as team_name',
                 'users.name as user_name',
                 'outlets.name as outlet_name',
                 'outlets.contact_person_name as contactpersonname',
