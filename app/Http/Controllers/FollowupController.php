@@ -83,12 +83,12 @@ class FollowupController extends Controller
         $followups = Followup::with(['user' => function ($query) {
             $query->withTrashed();
         }])->get();
-        // return DataTables::of($feedback)->make(true);
+        // return DataTables::of($followups)->make(true);
         $query = Followup::select(
             'followups.*',
-            // DB::raw("DATE_FORMAT(feedback.created_at, '%d-%b-%Y') as date"),
-            // DB::raw("DATE_FORMAT(feedback.created_at, '%H:%i:%s') as time"),
-            // DB::raw("DATE_FORMAT(FROM_UNIXTIME(feedback.checkout_time), '%H:%i:%s') as checkout_time"),
+            // DB::raw("DATE_FORMAT(followups.created_at, '%d-%b-%Y') as date"),
+            // DB::raw("DATE_FORMAT(followups.created_at, '%H:%i:%s') as time"),
+            // DB::raw("DATE_FORMAT(FROM_UNIXTIME(followups.checkout_time), '%H:%i:%s') as checkout_time"),
             // 'regions.name as region_name',
             // 'territories.name as territory_name',
             // 'clusters.name as cluster_name',
@@ -104,18 +104,18 @@ class FollowupController extends Controller
 
             
         )
-        ->leftJoin('outlets', 'outlets.id', '=', 'feedback.outlet_id')
+        ->leftJoin('outlets', 'outlets.id', '=', 'followups.outlet_id')
         // ->leftJoin('channel_types', 'channel_types.id', '=', 'outlets.channel_type_id')
-        ->leftJoin('users', 'users.id', '=', 'feedback.user_id')
+        ->leftJoin('users', 'users.id', '=', 'followups.user_id')
 
         // skjdjkjfjhsjkhdfks
-        ->leftJoin('teams', 'teams.id', '=', 'feedback.team_id')
+        ->leftJoin('teams', 'teams.id', '=', 'followups.team_id')
         // ->leftJoin('regions', 'regions.id', '=', 'users.region_id')
         // ->leftJoin('territories', 'territories.id', '=', 'users.territory_id')
         // ->leftJoin('clusters', 'clusters.id', '=', 'users.cluster_id')
-        // ->leftJoin('sale_items', 'sale_items.sale_id', '=', 'feedback.id')
+        // ->leftJoin('sale_items', 'sale_items.sale_id', '=', 'followups.id')
         // ->leftJoin('products', 'products.id', '=', 'sale_items.product_id')
-        // ->groupBy('feedback.id')
+        // ->groupBy('followups.id')
         ;
 
         $toDate = \Carbon\Carbon::parse($request->to_date)->endOfDay();
@@ -132,24 +132,24 @@ class FollowupController extends Controller
 
         // }
         if (!empty($request->from_time)) {
-            $query->whereRaw("TIME(feedback.created_at) >= ?", [$request->from_time]);
+            $query->whereRaw("TIME(followups.created_at) >= ?", [$request->from_time]);
             }
             if (!empty($request->to_time)) {
-                $query->whereRaw("TIME(feedback.created_at) <= ?", [$request->to_time]);
+                $query->whereRaw("TIME(followups.created_at) <= ?", [$request->to_time]);
             }
         
             if (!empty($request->from_date)) {
-                $query->whereDate('feedback.created_at', '>=', $request->from_date);
+                $query->whereDate('followups.created_at', '>=', $request->from_date);
             }
         
             if (!empty($request->to_date)) {
-                $query->whereDate('feedback.created_at', '<=', $request->to_date);
+                $query->whereDate('followups.created_at', '<=', $request->to_date);
             }
-        // $feedback = $query->get();
+        // $followups = $query->get();
         
-        // ->join('outlets', 'outlets.id', '=', 'feedback.outlet_id')
+        // ->join('outlets', 'outlets.id', '=', 'followups.outlet_id')
         // ->get();
-        // return DataTables::of($feedback)
+        // return DataTables::of($followups)
         return DataTables::eloquent($query)
         ->addColumn('date', function ($followups) {
             return $followups->created_at->format('d-M-Y'); // Extract Date
