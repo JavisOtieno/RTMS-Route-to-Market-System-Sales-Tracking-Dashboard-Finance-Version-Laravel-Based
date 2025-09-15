@@ -129,6 +129,9 @@ Route::get('/deletefollowup/{id}', [FollowupController::class,'deleteFollowup'])
 Route::get('/editfollowup/{id}',[FollowupController::class,'showEditFollowup']);
 Route::put('/saveeditfollowup/{id}',[FollowupController::class,'saveEditFollowup']);
 Route::get('/followup/{id}/{object}',[FollowupController::class,'showFollowupById']);
+Route::get('/followupsyajra',[FollowupController::class,'followupsYajra'])->name('followupsyajra');
+Route::get('/followups',[FollowupController::class,'indexFollowupsYajra'])->name('indexfollowupsyajra');
+
 
 Route::get('/customersold', [OutletController::class,'index']);
 Route::get('/outlets/{id}/{object}', [OutletController::class,'showOutletsById']);
