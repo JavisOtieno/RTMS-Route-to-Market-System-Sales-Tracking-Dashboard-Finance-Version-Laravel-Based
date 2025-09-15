@@ -262,7 +262,7 @@
             var table = $('#responsive-datatable-yajra').DataTable({
                 processing: true,
                 serverSide: true,
-                // ajax: '{!! route('followupyajra') !!}',
+                // ajax: '{!! route('followupsyajra') !!}',
                 ajax: {
                     url: '{!! route('followupsyajra') !!}',
                     type: "GET",  // Ensure it's a GET request
