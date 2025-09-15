@@ -327,10 +327,10 @@
                     {
                         data: 'type',
                         name: 'type',
-                        render: function (data) {
-                            if (!data) return '';
-                            return data.charAt(0).toUpperCase() + data.slice(1);
-                        }
+                        // render: function (data) {
+                        //     if (!data) return '';
+                        //     return data.charAt(0).toUpperCase() + data.slice(1);
+                        // }
                     },
                     {data: 'description',
                     name: 'description',
