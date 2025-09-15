@@ -112,7 +112,7 @@ Route::get('/competitiveanalysis/{id}',[CompetitorController::class,'showEditCom
 Route::put('/saveeditcompetitiveanalysis/{id}',[CompetitorController::class,'saveEditCompetitiveAnalysis']);
 Route::get('/competitiveanalysis/{id}/{object}',[CompetitorController::class,'showCompetitiveAnalysisById']);
 
-Route::get('/feedback', [FeedbackController::class,'index']);
+Route::get('/feedbackold', [FeedbackController::class,'index']);
 Route::get('/addfeedback/{id}', [FeedbackController::class,'showAddFeedback']);
 Route::post('/savefeedback', [FeedbackController::class,'saveFeedback']);
 Route::get('/deletefeedback/{id}', [FeedbackController::class,'deleteFeedback']);
@@ -120,7 +120,7 @@ Route::get('/feedback/{id}',[FeedbackController::class,'showEditFeedback']);
 Route::put('/saveeditfeedback/{id}',[FeedbackController::class,'saveEditFeedback']);
 Route::get('/feedback/{id}/{object}',[FeedbackController::class,'showFeedbackById']);
 Route::get('/feedbackyajra',[FeedbackController::class,'feedbackYajra'])->name('feedbackyajra');
-Route::get('/feedbacknew',[FeedbackController::class,'indexFeedbackYajra'])->name('indexfeedbackyajra');
+Route::get('/feedback',[FeedbackController::class,'indexFeedbackYajra'])->name('indexfeedbackyajra');
 
 
 
