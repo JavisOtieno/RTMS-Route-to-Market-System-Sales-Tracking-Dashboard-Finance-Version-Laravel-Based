@@ -70,7 +70,7 @@
                                         <th>ID</th>
                                         <th>View/Edit</th>
                                         <th id="delete-column">Delete</th>
-                                        <th>Outlet Name</th>
+                                        <th>Customer Name</th>
                                         <th>Seller Name</th>
                                         {{-- <th>Contact Name</th>
                                         <th>Phone</th> --}}
@@ -97,7 +97,7 @@
                                         <th><input class="form-control" style="width: auto;max-width: 90px;" type="text" placeholder="Search ID" /></th>
                                         <th></th>
                                         <th></th>
-                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Outlet Name" /></th>
+                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Customer Name" /></th>
                                         <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Seller Name" /></th>
                                         <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Type" /></th>
                                         <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Description" /></th>
