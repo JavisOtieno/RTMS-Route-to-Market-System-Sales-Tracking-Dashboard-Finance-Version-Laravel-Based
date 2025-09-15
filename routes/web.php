@@ -119,6 +119,9 @@ Route::get('/deletefeedback/{id}', [FeedbackController::class,'deleteFeedback'])
 Route::get('/feedback/{id}',[FeedbackController::class,'showEditFeedback']);
 Route::put('/saveeditfeedback/{id}',[FeedbackController::class,'saveEditFeedback']);
 Route::get('/feedback/{id}/{object}',[FeedbackController::class,'showFeedbackById']);
+Route::get('/feedbackyajra',[FeedbackController::class,'feedbackYajra'])->name('feedbackyajra');
+Route::get('/feedback',[FeedbackController::class,'indexFeedbackYajra'])->name('indexfeedbackyajra');
+
 
 
 Route::get('/followups', [FollowupController::class,'index']);
