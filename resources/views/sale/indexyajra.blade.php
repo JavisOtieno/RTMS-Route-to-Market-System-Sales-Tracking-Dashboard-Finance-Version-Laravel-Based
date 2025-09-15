@@ -119,10 +119,10 @@
                                         {{-- <th><input type="text" placeholder="Search Cluster" /></th>
                                         <th><input type="text" placeholder="Search Channel Type" /></th> --}}
                                         <th><input  class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Status" /></th>
-                                          <th></th>
-                                        <th></th>
-                                        {{-- <th><input  class="form-control" style="width: auto;min-width: max-content;" type="date" placeholder="Search Date" /></th> --}}
-                                        {{-- <th><input  class="form-control" style="width: auto;min-width: max-content;" type="time" placeholder="Search Time" /></th> --}}
+                                          {{-- <th></th>
+                                        <th></th> --}}
+                                        <th><input  class="form-control" style="width: auto;min-width: max-content;" type="date" placeholder="Search Date" /></th>
+                                        <th><input  class="form-control" style="width: auto;min-width: max-content;" type="time" placeholder="Search Time" /></th>
                                         {{-- <th><input type="text" placeholder="Search Checkout Time" /></th>
                                         <th><input type="text" placeholder="Search Duration" /></th> --}}
                                         
@@ -515,7 +515,7 @@
                     },
                     {
                         data: 'date',
-                        name: 'date',
+                        name: 'created_at',
                         // render: function(data, type, row) {
                         //     // Format the date using JavaScript
                         //     var date = new Date(data);
@@ -530,7 +530,7 @@
                     },
                     {
                         data: 'time',
-                        name: 'time',
+                        name: 'created_at',
                     }
 
 
