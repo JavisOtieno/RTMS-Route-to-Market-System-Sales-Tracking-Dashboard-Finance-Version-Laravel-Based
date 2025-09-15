@@ -58,7 +58,7 @@ Route::get('/', [DashboardController::class,'index']);
 
 Route::get('/dashboard', [DashboardController::class,'index']);
 
-Route::get('/deals', [SaleController::class,'index']);
+Route::get('/dealsold', [SaleController::class,'index']);
 Route::get('/dealsmap', [SaleController::class,'showSalesMap']);
 Route::get('/sales/filter', [SaleController::class,'filterSales']);
 Route::get('/dealstargets', [SaleController::class,'showSalesTargets']);
@@ -72,7 +72,7 @@ Route::get('/editsale/{id}',[SaleController::class,'showEditSale']);
 Route::get('/sale/{id}',[SaleController::class,'showEditSale']);
 Route::put('/saveeditsale/{id}',[SaleController::class,'saveEditSale']);
 Route::get('/dealsyajra',[SaleController::class,'salesYajra'])->name('salesyajra');
-Route::get('/dealsnew',[SaleController::class,'indexSalesYajra'])->name('indexsalesyajra');
+Route::get('/deals',[SaleController::class,'indexSalesYajra'])->name('indexsalesyajra');
 
 $user = Auth::user();
 Route::middleware(['ensureViewOnlyForTeamLeads'])->group(function () {
