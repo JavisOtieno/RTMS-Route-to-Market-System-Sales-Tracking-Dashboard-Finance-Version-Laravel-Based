@@ -76,7 +76,7 @@ class User extends Authenticatable
     }
     public function visits()
     {
-        return $this->hasMany(Clockin::class);
+        return $this->hasMany(Visit::class);
     }
     public function territory(){
         return $this->belongsTo(Territory::class,'territory_id');
