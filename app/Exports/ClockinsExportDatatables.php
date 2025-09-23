@@ -21,7 +21,9 @@ class ClockinsExportDatatables implements FromQuery, WithHeadings, WithChunkRead
 
     public function query()
     {
-        $query = Clockin::with(['user', 'user.team', 'user.region', 'user.territory', 'user.cluster'])
+        $query = Clockin::with(['user', 'user.team', 'user.region', 'user.territory', 
+        // 'user.cluster'
+        ])
             ->select('clockins.*')
             ->whereNull('clockins.deleted_at'); // Handle soft deletes
 
