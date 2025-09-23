@@ -100,6 +100,115 @@ class ClockinController extends Controller
         ->rawColumns(['map'])
         ->make(true);
 }
+    public function clockinsYajra(Request $request)
+    {
+       
+        $clockins = Clockin::with(['user' => function ($query) {
+            $query->withTrashed();
+        }],'user.region','user.territory')->get();
+        // return DataTables::of($clockins)->make(true);
+        $query = Clockin::select(
+            'clockins.*',
+            // DB::raw("DATE_FORMAT(clockins.created_at, '%d-%b-%Y') as date"),
+            // DB::raw("DATE_FORMAT(clockins.created_at, '%H:%i:%s') as time"),
+            // DB::raw("DATE_FORMAT(FROM_UNIXTIME(clockins.checkout_time), '%H:%i:%s') as checkout_time"),
+            'regions.name as region_name',
+            'territories.name as territory_name',
+            // 'clusters.name as cluster_name',
+            // 'channel_types.name as channel_type_name',
+            // 'outlets.long as outlet_long',
+            // 'outlets.lat as outlet_lat',
+            'teams.name as team_name',
+            'users.name as user_name',
+            // 'outlets.name as outlet_name',
+            // 'outlets.contact_person_name as contactpersonname',
+            // 'outlets.phone as phone',
+            
+    )
+        // ->leftJoin('outlets', 'outlets.id', '=', 'clockins.outlet_id')
+        // ->leftJoin('channel_types', 'channel_types.id', '=', 'outlets.channel_type_id')
+        ->leftJoin('users', 'users.id', '=', 'clockins.user_id')
+        // // skjdjkjfjhsjkhdfks
+        ->leftJoin('teams', 'teams.id', '=', 'clockins.team_id')
+        ->leftJoin('regions', 'regions.id', '=', 'users.region_id')
+        ->leftJoin('territories', 'territories.id', '=', 'users.territory_id')
+        // ->leftJoin('clusters', 'clusters.id', '=', 'users.cluster_id');
+
+        // $toDate = \Carbon\Carbon::parse($request->to_date)->endOfDay();
+        // $fromDate = \Carbon\Carbon::parse($request->from_date)->startOfDay();
+
+        // if ($request->has('from_date') && $request->has('to_date')) {
+        //     if(!empty($request->from_date) && !empty($request->to_date)){
+        //         $query->whereBetween('clockins.created_at', [$fromDate, $toDate]);
+        //     }else if(!empty($request->from_date)){
+        //         $query->where('clockins.created_at', '>=', $fromDate);
+        //     }
+        //     else if(!empty($request->to_date)){
+        //         $query->where('clockins.created_at', '<=', $toDate);
+        //     }
+
+        // }
+
+        // if (!empty($request->from_time)) {
+        // $query->whereRaw("TIME(clockins.created_at) >= ?", [$request->from_time]);
+        // }
+        // if (!empty($request->to_time)) {
+        //     $query->whereRaw("TIME(clockins.created_at) <= ?", [$request->to_time]);
+        // }
+        if (!empty($request->from_time)) {
+            $query->whereRaw("TIME(clockins.created_at) >= ?", [$request->from_time]);
+            }
+            if (!empty($request->to_time)) {
+                $query->whereRaw("TIME(clockins.created_at) <= ?", [$request->to_time]);
+            }
+        
+            if (!empty($request->from_date)) {
+                $query->whereDate('clockins.created_at', '>=', $request->from_date);
+            }
+        
+            if (!empty($request->to_date)) {
+                $query->whereDate('clockins.created_at', '<=', $request->to_date);
+            }
+
+        // $clockins = $query->get();
+        
+        // ->join('outlets', 'outlets.id', '=', 'clockins.outlet_id')
+        // ->get();
+        // return DataTables::of($clockins)
+        return DataTables::eloquent($query)
+        ->addColumn('date', function ($clockin) {
+            return $clockin->created_at->format('d-M-Y'); // Extract Date
+        })     
+        // ->addColumn('checkout_time', function ($clockin) {
+        //     // return $clockin->checkout_time->format('d-M-Y'); // Extract Date
+        //     if($clockin['checkout_time']=="")
+        //         return 'Not Checked Out';
+        //     else
+        //         return date('H:i:s',$clockin['checkout_time']);
+        // })
+        // ->addColumn('duration', function ($clockin) {
+        //     // return $clockin->checkout_time->format('d-M-Y'); // Extract Date
+        //     if($clockin['checkout_time']=="")
+        //         return gmdate("H:i:s", strtotime(0));
+        //     else
+        //         return gmdate("H:i:s", ($clockin['checkout_time']-strtotime($clockin['created_at'])));
+        // })
+        ->addColumn('time', function ($clockin) {
+            return $clockin->created_at->format('H:i:s'); // Extract Time
+        })
+        
+
+
+        ->rawColumns(['date', 'time']) // Ensure columns are not escaped
+        ->make(true);
+
+
+    }
+
+    public function indexClockinsYajra() {
+        return view('clockin.indexyajra');
+    }
+
     public function showClockinsById($objectId,$object) {
         //$clockins = Clockin::all();
         $clockins = Clockin::with(['user' => function ($query) {

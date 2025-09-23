@@ -167,6 +167,8 @@ Route::get('/clockinsmap', [ClockinController::class,'showClockinsMap']);
 Route::get('/clockinsanalytics', [ClockinController::class,'showClockinsAnalytics']);
 Route::get('/clockins/filter', [ClockinController::class,'filterClockins']);
 Route::get('/fetchclockinanalytics', [ClockinController::class,'filterClockinsAnalytics']);
+Route::get('/clockinsyajra',[ClockinController::class,'clockinsYajra'])->name('clockinsyajra');
+Route::get('/clockinsnew', [ClockinController::class,'indexClockinsYajra']);
 
 
 Route::get('/clockouts', [ClockoutController::class,'index']);
