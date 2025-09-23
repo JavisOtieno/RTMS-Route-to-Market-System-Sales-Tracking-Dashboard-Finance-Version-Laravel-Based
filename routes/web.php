@@ -124,13 +124,13 @@ Route::get('/feedback',[FeedbackController::class,'indexFeedbackYajra'])->name('
 
 
 
-Route::get('/followups', [FollowupController::class,'index']);
+Route::get('/followupsold', [FollowupController::class,'index']);
 Route::get('/deletefollowup/{id}', [FollowupController::class,'deleteFollowup']);
 Route::get('/editfollowup/{id}',[FollowupController::class,'showEditFollowup']);
 Route::put('/saveeditfollowup/{id}',[FollowupController::class,'saveEditFollowup']);
 Route::get('/followup/{id}/{object}',[FollowupController::class,'showFollowupById']);
 Route::get('/followupsyajra',[FollowupController::class,'followupsYajra'])->name('followupsyajra');
-Route::get('/followupsnew',[FollowupController::class,'indexFollowupsYajra'])->name('indexfollowupsyajra');
+Route::get('/followups',[FollowupController::class,'indexFollowupsYajra'])->name('indexfollowupsyajra');
 
 
 Route::get('/customersold', [OutletController::class,'index']);
