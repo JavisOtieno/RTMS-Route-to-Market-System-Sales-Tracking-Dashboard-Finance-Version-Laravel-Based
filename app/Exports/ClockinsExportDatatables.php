@@ -41,9 +41,10 @@ class ClockinsExportDatatables implements FromQuery, WithHeadings, WithChunkRead
                             ->orWhereHas('territory', function ($q) use ($search) {
                                 $q->where('name', 'like', "%{$search}%");
                             })
-                            ->orWhereHas('cluster', function ($q) use ($search) {
-                                $q->where('name', 'like', "%{$search}%");
-                            });
+                            // ->orWhereHas('cluster', function ($q) use ($search) {
+                            //     $q->where('name', 'like', "%{$search}%");
+                            // })
+                            ;
                     })
                     ->orWhere('clockins.lat', 'like', "%{$search}%")
                     ->orWhere('clockins.long', 'like', "%{$search}%");
