@@ -169,7 +169,7 @@ Route::get('/clockins/filter', [ClockinController::class,'filterClockins']);
 Route::get('/fetchclockinanalytics', [ClockinController::class,'filterClockinsAnalytics']);
 Route::get('/clockinsyajra',[ClockinController::class,'clockinsYajra'])->name('clockinsyajra');
 Route::get('/clockinsnew', [ClockinController::class,'indexClockinsYajra']);
-
+Route::get('/clockins/export', [ClockinController::class, 'export'])->name('clockins.export');
 
 Route::get('/clockouts', [ClockoutController::class,'index']);
 Route::get('/clockouts/{id}/{object}',[ClockoutController::class,'showClockoutsById']);

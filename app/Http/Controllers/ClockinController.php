@@ -204,6 +204,42 @@ class ClockinController extends Controller
 
 
     }
+    public function export(Request $request)
+    {
+        Log::info('Export Request Parameters:', $request->all());
+
+        $filters = [
+            'search' => $request->input('search.value'),
+            'columns' => [],
+            'dateFrom' => $request->input('dateFrom'),
+            'dateTo' => $request->input('dateTo'),
+            'timeFrom' => $request->input('timeFrom'),
+            'timeTo' => $request->input('timeTo'),
+        ];
+
+        $columnMap = [
+            0 => 'id',
+            1 => 'actions',
+            2 => 'user_name',
+            3 => 'team_name',
+            4 => 'region_name',
+            5 => 'territory_name',
+            // 6 => 'cluster_name',
+            7 => 'date',
+            8 => 'time',
+            9 => 'lat',
+            10 => 'long',
+            11 => 'actions',
+        ];
+
+        foreach ($request->input('columns', []) as $index => $column) {
+            if (!empty($column['search']['value']) && $columnMap[$index] !== 'actions') {
+                $filters['columns'][$columnMap[$index]] = $column['search']['value'];
+            }
+        }
+
+        return Excel::download(new ClockinsExportDatatables($filters), 'clockins.xlsx');
+    }
 
     public function indexClockinsYajra() {
         return view('clockin.indexyajra');
