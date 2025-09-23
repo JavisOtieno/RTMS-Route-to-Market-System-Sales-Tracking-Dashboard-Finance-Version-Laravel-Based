@@ -131,7 +131,7 @@ class ClockinController extends Controller
         // // skjdjkjfjhsjkhdfks
         ->leftJoin('teams', 'teams.id', '=', 'clockins.team_id')
         ->leftJoin('regions', 'regions.id', '=', 'users.region_id')
-        ->leftJoin('territories', 'territories.id', '=', 'users.territory_id')
+        ->leftJoin('territories', 'territories.id', '=', 'users.territory_id');
         // ->leftJoin('clusters', 'clusters.id', '=', 'users.cluster_id');
 
         // $toDate = \Carbon\Carbon::parse($request->to_date)->endOfDay();
