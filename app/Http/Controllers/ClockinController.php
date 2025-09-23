@@ -7,6 +7,7 @@ use App\Models\Outlet;
 use App\Models\Clockin;
 use Illuminate\Http\Request;
 use App\Mail\ReportSenderTest;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Yajra\DataTables\Facades\DataTables;
 
