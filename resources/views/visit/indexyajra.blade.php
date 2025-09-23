@@ -601,6 +601,8 @@
                     {
                         data: null,
                         name: 'addfeedback',
+                        orderable: false,
+                        searchable: false
                         render: function(data, type, row) {
                             return `
                         <a class="btn btn-info edit-btn" href="/addfeedback/${data.id}" 
