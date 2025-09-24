@@ -28,7 +28,7 @@ class ClockoutController extends Controller
            
             $clockouts = Clockout::with(['user' => function ($query) {
                 $query->withTrashed();
-            }],'channeltype','user.region','user.territory','user.cluster')->get();
+            }],'channeltype','user.region','user.territory')->get();
             // return DataTables::of($clockouts)->make(true);
             $query = Clockout::select(
                 'clockouts.*',
@@ -37,7 +37,7 @@ class ClockoutController extends Controller
                 // DB::raw("DATE_FORMAT(FROM_UNIXTIME(clockouts.checkout_time), '%H:%i:%s') as checkout_time"),
                 'regions.name as region_name',
                 'territories.name as territory_name',
-                'clusters.name as cluster_name',
+                // 'clusters.name as cluster_name',
                 // 'channel_types.name as channel_type_name',
                 // 'outlets.long as outlet_long',
                 // 'outlets.lat as outlet_lat',
@@ -55,7 +55,8 @@ class ClockoutController extends Controller
             ->leftJoin('teams', 'teams.id', '=', 'clockouts.team_id')
             ->leftJoin('regions', 'regions.id', '=', 'users.region_id')
             ->leftJoin('territories', 'territories.id', '=', 'users.territory_id')
-            ->leftJoin('clusters', 'clusters.id', '=', 'users.cluster_id');
+            // ->leftJoin('clusters', 'clusters.id', '=', 'users.cluster_id')
+            ;
     
 
             if (!empty($request->from_time)) {

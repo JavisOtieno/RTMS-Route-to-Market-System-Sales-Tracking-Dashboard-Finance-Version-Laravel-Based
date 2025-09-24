@@ -77,7 +77,7 @@
 
                                         <th>Region</th>
                                         <th>Territory</th>
-                                        <th>Cluster</th>
+                                        {{-- <th>Cluster</th> --}}
 
                                         <th>Date</th>
                                         <th>Time</th>
@@ -96,7 +96,7 @@
                                         
                                         <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Region" /></th>
                                         <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Territory" /></th>
-                                        <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Cluster" /></th>
+                                        {{-- <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Cluster" /></th> --}}
                                         <th><input class="form-control" style="width: auto;min-width: max-content;" type="date" placeholder="Search Date" /></th>
                                         <th><input class="form-control" style="width: auto;min-width: max-content;" type="time" placeholder="Search Time" /></th>
                                         <th><input class="form-control" style="width: auto;min-width: max-content;" type="text" placeholder="Search Lat" /></th>
@@ -406,10 +406,10 @@
                         data: 'territory_name',
                         name: 'territories.name',defaultContent: 'None'
                     },
-                    {
-                        data: 'cluster_name',
-                        name: 'clusters.name',defaultContent: 'None'
-                    },
+                    // {
+                    //     data: 'cluster_name',
+                    //     name: 'clusters.name',defaultContent: 'None'
+                    // },
                     // {
                     //     data: 'channel_type_name',
                     //     name: 'channel_type_name',defaultContent: 'None'
