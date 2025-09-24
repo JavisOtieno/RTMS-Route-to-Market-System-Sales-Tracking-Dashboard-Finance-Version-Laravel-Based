@@ -542,9 +542,13 @@ public function export(Request $request)
             }, 'outlet'])->get();
 
             $users = User::inOrganization()->get();
-            $outlets = Outlet::all();
+            // $outlets = Outlet::all();
 
-            $visitsCount = Visit::all()->count();
+            // $visitsCount = Visit::all()->count();
+
+            $outlets = Outlet::take(5)->get();
+
+            $visitsCount = Visit::count();
 
             $visitsPerMonth= array();
             for ($i=0; $i<=11; $i++){
