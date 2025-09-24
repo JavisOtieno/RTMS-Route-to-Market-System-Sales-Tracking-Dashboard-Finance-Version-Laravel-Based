@@ -562,7 +562,8 @@
                                     <li class="side-menu-label1"><a href="javascript:void(0)">Customers</a></li>
                                     <li><a href="/customers" class="slide-item">Customers List</a></li>
                                     <li><a href="/showcustomersmap" class="slide-item">Customers Map</a></li>
-                                    
+                                    <li><a href="/customersanalytics" class="slide-item">Customers Analytics</a></li>
+
                                 </ul>
 
                             </div>
