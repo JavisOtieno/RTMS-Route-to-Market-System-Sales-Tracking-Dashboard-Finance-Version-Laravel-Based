@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Sale;
 use App\Models\User;
 use App\Models\Visit;
 use App\Models\Outlet;
