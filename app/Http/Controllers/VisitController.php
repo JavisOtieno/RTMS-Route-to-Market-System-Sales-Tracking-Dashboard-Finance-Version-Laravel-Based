@@ -395,6 +395,145 @@ public function export(Request $request)
             return view('visit.map', compact('visits','users','outlets') );
         }
 
+        public function filterVisitsAnalytics(Request $request) {
+            //$visits = Visit::all();
+            $query = Visit::with(['user' => function ($query) {
+                $query->withTrashed();
+            }, 'outlet']);
+
+            if ($request->user) {
+                $query->whereHas('user', function ($q) use ($request) {
+                    $q->where('name', 'like', '%' . $request->user . '%');
+                });
+            }
+            if ($request->from_time) {
+            $query->whereRaw("TIME(created_at) >= ?", [$request->from_time]);
+            }
+            if ($request->to_time) {
+                $query->whereRaw("TIME(created_at) <= ?", [$request->to_time]);
+            }
+
+            if ($request->from_date) {
+                $query->whereDate('created_at', '>=', $request->from_date);
+            }
+
+            if ($request->to_date) {
+                $query->whereDate('created_at', '<=', $request->to_date);
+            }
+            $baseQuery = $query;
+                // Retrieve the current page from the request, defaulting to 1 if not set.
+            // $currentPage = $request->input('page', 1);
+
+            // Explicitly pass the current page to the paginate() method.
+
+            $visitcount = (clone $query)->count();
+
+            $querysales = Sale::with(['visit']);
+
+            if ($request->from_time) {
+                $querysales->whereRaw("TIME(created_at) >= ?", [$request->from_time]);
+                }
+                if ($request->to_time) {
+                    $querysales->whereRaw("TIME(created_at) <= ?", [$request->to_time]);
+                }
+
+                if ($request->from_date) {
+                    $querysales->whereDate('created_at', '>=', $request->from_date);
+                }
+
+                if ($request->to_date) {
+                    $querysales->whereDate('created_at', '<=', $request->to_date);
+                }
+
+            $salescount = (clone $querysales)->count();
+
+            $salespervisit = $visitcount > 0 ? round(($salescount / $visitcount), 2) : 0;
+            $salespervisit = $salespervisit;
+
+            $visitsWithSales = (clone $querysales)
+            ->distinct('visit_id')->count('visit_id');
+
+            $salesconversionrate = $visitcount > 0 ? round(($visitsWithSales / $visitcount) * 100) : 0;
+            $salesconversionrate = $salesconversionrate.' %';
+
+
+            $visitcounttill8 = (clone $query)
+            ->whereTime('created_at', '>=', '00:00:00')
+            ->whereTime('created_at', '<', '08:00:00')
+            ->count();
+            $visitcounttill16 = (clone $query)
+            ->whereTime('created_at', '>=', '08:00:00')
+            ->whereTime('created_at', '<', '16:00:00')
+            ->count();
+            $visitcounttill24 = (clone $query)
+            ->whereTime('created_at', '>=', '16:00:00')
+            ->whereTime('created_at', '<', '24:00:00')
+            ->count();
+            $visitwithoutcheckout = (clone $query)
+            ->where('checkout_time', '=', '')
+            ->count();
+            $visitbeyond5min = (clone $query)
+            //(checkout_time-checkin time)/60
+            ->where('duration', '>=', '00:05:00')
+            ->count();
+            $visitbelow5min = (clone $query)
+            //(checkout_time-checkin time)/60
+            ->where('duration', '<=', '00:05:00')
+            ->count();
+            $visitfirst = (clone $query)->first();
+            $visitfirst =$visitfirst ? (date('H:i', strtotime($visitfirst['created_at']))) :'N/A';
+            $visitlast =  (clone $query)->orderBy('created_at', 'desc')->first();
+            $visitlast =$visitlast ? (date('H:i', strtotime($visitlast['created_at']))) :'N/A';
+
+            if ($request->from_date) {
+                $fromDate = Carbon::parse($request->from_date); // Assuming $request->from_date is a valid date string
+            }else{
+                $fromDate = Carbon::now()->startOfMonth(); // Defaults to the first day of the current month
+            }
+
+            if ($request->to_date) {
+                $toDate = Carbon::parse($request->to_date);
+            }else{
+                $toDate = Carbon::now(); // Get current date and time
+            }
+
+            $diffInDays = $fromDate->diffInDays($toDate)+1;
+
+            $datesFiltered = [];
+            $dayNamesFiltered = [];
+            $visitsPerDayFiltered = array();
+            // Loop through each day in the date range
+            for ($i = 0; $i < $diffInDays; $i++) {
+                // Create a copy of $toDate for each iteration, so the original $toDate is not modified
+                $currentDate = $toDate->copy()->subDays($i);
+
+                // Get the date string and day name
+                $dateStringFiltered = $currentDate->toDateString();
+                $dayNameFiltered = $currentDate->format('l'); // Get the day name (e.g., 'Monday')
+
+                // Store the date, day name, and clock-in count
+                $datesFiltered[] = $dateStringFiltered;
+                $dayNamesFiltered[] = $dayNameFiltered;
+
+                // Get the count of clock-ins for the specific date
+                $visitsPerDayFiltered[$dateStringFiltered] = Visit::whereDate('created_at', $dateStringFiltered)->count();
+            }
+
+            $visitsPerDayFiltered = array_reverse($visitsPerDayFiltered);
+            $datesFiltered = array_reverse($datesFiltered);
+            $dayNamesFiltered = array_reverse($dayNamesFiltered);
+
+
+            //$users = User::inOrganization()->where('usertype','seller')->get();
+            return response()->json(compact(
+            'visitcount','visitcounttill8','visitcounttill16','visitcounttill24','salespervisit',
+            'salesconversionrate',
+            'visitwithoutcheckout','visitbeyond5min','visitbelow5min','visitfirst','visitlast',
+            'visitsPerDayFiltered','datesFiltered','dayNamesFiltered'
+            ) );
+        }
+
+
         public function showVisitsAnalytics(){
 
             $visits = Visit::with(['user' => function ($query) {
@@ -420,12 +559,12 @@ public function export(Request $request)
                 $date = now()->subDays($i);
                 $dateString = $date->toDateString();
                 $dayName = $date->format('l'); // Get the day name (e.g., 'Monday')
-                
+
                 $dates[] = $dateString;
                 $dayNames[] = $dayName;
 
                 $date = now()->subDays($i)->toDateString();
- 
+
 
                 $visitsPerDay[$date] = Visit::whereDate('created_at', $date)->count();
             }
@@ -433,7 +572,43 @@ public function export(Request $request)
             $dates = array_reverse($dates);
             $dayNames = array_reverse($dayNames);
 
-            
+            $datesFiltered = [];
+            $dayNamesFiltered = [];
+            $visitsPerDayFiltered = array();
+            for ($i = 1; $i <= 1; $i++) {
+
+                // ->subDays($i)
+                $dateFiltered = now();
+                $dateStringFiltered = $dateFiltered->toDateString();
+                $dayNameFiltered = $dateFiltered->format('l'); // Get the day name (e.g., 'Monday')
+
+                $datesFiltered[] = $dateStringFiltered;
+                $dayNamesFiltered[] = $dayNameFiltered;
+
+                // ->subDays($i)
+                $dateFiltered = now()->toDateString();
+
+
+                $visitsPerDayFiltered[$dateFiltered] = Visit::whereDate('created_at', $dateFiltered)->count();
+            }
+            $visitsPerDayFiltered = array_reverse($visitsPerDayFiltered);
+            $datesFiltered = array_reverse($datesFiltered);
+            $dayNamesFiltered = array_reverse($dayNamesFiltered);
+
+
+            $visitsData = Visit::join('users', 'visits.user_id', '=', 'users.id')
+            ->join('regions', 'users.region_id', '=', 'regions.id')
+            // ->select(DB::raw('COALESCE(regions.name, "Unknown Region") as region_name'), DB::raw('COUNT(sales.id) as total_sales_count'))
+            ->select(DB::raw('COALESCE(regions.name, "Region not assigned") as region_name'), DB::raw('COUNT(visits.id) as total_visits_count'))
+            ->groupBy('regions.name')
+            ->get();
+
+            // Extracting two separate arrays
+            $regionNames = $visitsData->pluck('region_name')->toArray();
+            $totalVisits = $visitsData->pluck('total_visits_count')->toArray();
+
+
+
 
 
             $startOfMonth = date('Y-m-01 00:00:00'); // 1st day of the current month
@@ -458,10 +633,68 @@ public function export(Request $request)
                         //print_r($months);
                         //echo "After";
             $months=array_reverse($months);
-           
+
+
+            $visitcount = Visit::whereDate('created_at', Carbon::today())->count();
+            $salescount = Sale::whereDate('created_at', Carbon::today())->count();
+
+            $salespervisit = $visitcount > 0 ? round(($salescount / $visitcount), 2) : 0;
+            $salespervisit = $salespervisit;
+
+
+
+            $visitsWithSales = \App\Models\Sale::whereDate('created_at', Carbon::today())
+            ->distinct('visit_id')->count('visit_id');
+
+            $salesconversionrate = $visitcount > 0 ? round(($visitsWithSales / $visitcount) * 100) : 0;
+            $salesconversionrate = $salesconversionrate.' %';
+
+            $visitcounttill8 = Visit::whereDate('created_at', Carbon::today())
+            ->whereTime('created_at', '>=', '00:00:00')
+            ->whereTime('created_at', '<', '08:00:00')
+            ->count();
+            $visitcounttill16 = Visit::whereDate('created_at', Carbon::today())
+            ->whereTime('created_at', '>=', '08:00:00')
+            ->whereTime('created_at', '<', '16:00:00')
+            ->count();
+            $visitcounttill24 = Visit::whereDate('created_at', Carbon::today())
+            ->whereTime('created_at', '>=', '16:00:00')
+            ->whereTime('created_at', '<', '24:00:00')
+            ->count();
+            $visitwithoutcheckout = Visit::whereDate('created_at', Carbon::today())
+            ->where('checkout_time', '=', '')
+            ->count();
+            $visitbeyond5min = Visit::whereDate('created_at', Carbon::today())
+            //(checkout_time-checkin time)/60
+            ->where('duration', '>=', '00:05:00')
+            ->count();
+            $visitbelow5min = Visit::whereDate('created_at', Carbon::today())
+            //(checkout_time-checkin time)/60
+            ->where('duration', '<=', '00:05:00')
+            ->count();
+            $visitfirst = Visit::whereDate('created_at', Carbon::today())->first();
+            $visitfirst =$visitfirst ? (date('H:i', strtotime($visitfirst['created_at']))) :'N/A';
+            $visitlast =  Visit::whereDate('created_at', Carbon::today())->orderBy('created_at', 'desc')->first();
+            $visitlast =$visitlast ? (date('H:i', strtotime($visitlast['created_at']))) :'N/A';
+
+
+            $topSellersGraph = Visit::join('users', 'users.id', '=', 'visits.user_id')
+            ->select('visits.user_id', 'users.name', DB::raw('COUNT(visits.user_id) as count'))
+            ->groupBy('visits.user_id', 'users.name')
+            ->orderBy('count', 'desc')
+            ->take(10)
+            ->get();
+
+            $topSellerUserNames = $topSellersGraph->pluck('name')->toArray();
+            $topSellerVisitsCount = $topSellersGraph->pluck('count')->toArray();
+
             //$users = User::inOrganization()->where('usertype','seller')->get();
             return view('visit.analytics', compact('visitsPerMonth','visits','users','outlets','months','visitsCount',
-            'visitsThisMonth', 'visitsThisWeek','visitsToday','visitsPerDay','dates','dayNames') );
+            'visitsThisMonth', 'visitsThisWeek','visitsToday','visitsPerDay','dates','dayNames',
+            'visitcount','visitcounttill8','visitcounttill16','visitcounttill24','visitfirst','visitlast',
+            'visitbeyond5min','visitwithoutcheckout','visitbelow5min','salespervisit','salesconversionrate',
+            'visitsPerDayFiltered','datesFiltered','dayNamesFiltered','regionNames','totalVisits','topSellerUserNames',
+            'topSellerVisitsCount') );
         }
 
         public function showRoutes() {
