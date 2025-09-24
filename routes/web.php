@@ -143,6 +143,9 @@ Route::get('/editcustomer/{id}',[OutletController::class,'showEditOutlet']);
 Route::put('/saveeditoutlet/{id}',[OutletController::class,'saveEditOutlet']);
 Route::get('/showcustomersmap',[OutletController::class,'showOutletsMap']);
 Route::get('/outlets/filter', [OutletController::class,'filterOutlets']);
+Route::get('/customersanalytics', [OutletController::class,'showOutletsAnalytics']);
+Route::get('/fetchoutletsanalytics', [OutletController::class,'filterOutletsAnalytics']);
+
 
 
 Route::get('/ajaxoutletsyajra',[OutletController::class,'ajaxoutletsYajraTest'])

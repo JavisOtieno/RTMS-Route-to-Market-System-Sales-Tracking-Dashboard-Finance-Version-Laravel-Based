@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Team;
 use App\Models\User;
 use App\Models\Visit;
 use App\Models\Outlet;
 use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\VisitsExportDatatables;
@@ -103,6 +105,299 @@ class OutletController extends CommonController
         }])->get();
         return view('outlet.index', ['outlets'=>$outlets]);
         
+    }
+
+        public function showOutletsAnalytics(){
+
+
+
+        // $visits = Outlet::with(['user' => function ($query) {
+        //     $query->withTrashed();
+        // }, 'outlet'])->get();
+
+        $users = User::inOrganization()->get();
+        // $outlets = Outlet::all();
+
+        $outletsCount = Outlet::count();
+
+        $outletsPerMonth= array();
+        for ($i=0; $i<=11; $i++){
+            $outletsPerMonth[$i] = Outlet::whereMonth('created_at', date('m',strtotime('-'.$i.' month')))->count();
+        }
+        $outletsPerMonth =array_reverse($outletsPerMonth);
+
+        $dates = [];
+        $dayNames = [];
+        $outletsPerDay = array();
+        for ($i = 0; $i <= 6; $i++) {
+
+            $date = now()->subDays($i);
+            $dateString = $date->toDateString();
+            $dayName = $date->format('l'); // Get the day name (e.g., 'Monday')
+
+            $dates[] = $dateString;
+            $dayNames[] = $dayName;
+
+            $date = now()->subDays($i)->toDateString();
+
+
+            $outletsPerDay[$date] = Outlet::whereDate('created_at', $date)->count();
+        }
+        $outletsPerDay = array_reverse($outletsPerDay);
+        $dates = array_reverse($dates);
+        $dayNames = array_reverse($dayNames);
+
+
+        $startOfMonth = date('Y-m-01 00:00:00'); // 1st day of the current month
+        $today = date('Y-m-d 23:59:59'); // Current day
+        $outletsThisMonth =Outlet::whereBetween('created_at', [$startOfMonth, $today])->count();
+
+        $startOfWeek = Carbon::now()->startOfWeek(); // Start of the week (Monday)
+        $today = Carbon::now()->endOfDay(); // Current day
+        $outletsThisWeek = Outlet::whereBetween('created_at', [$startOfWeek, $today])->count();
+
+        // Visits Today
+        $startOfDay = Carbon::now()->startOfDay();
+        $endOfDay = Carbon::now()->endOfDay();
+        $outletsToday = Outlet::whereBetween('created_at', [$startOfDay, $endOfDay])->count();
+
+        $dates = [];
+        $dayNames = [];
+        $outletsPerDay = array();
+        for ($i = 0; $i <= 6; $i++) {
+
+            $date = now()->subDays($i);
+            $dateString = $date->toDateString();
+            $dayName = $date->format('l'); // Get the day name (e.g., 'Monday')
+
+            $dates[] = $dateString;
+            $dayNames[] = $dayName;
+
+            $date = now()->subDays($i)->toDateString();
+
+
+            $outletsPerDay[$date] = Outlet::whereDate('created_at', $date)->count();
+        }
+        $outletsPerDay = array_reverse($outletsPerDay);
+        $dates = array_reverse($dates);
+        $dayNames = array_reverse($dayNames);
+
+
+        $datesFiltered = [];
+        $dayNamesFiltered = [];
+        $outletsPerDayFiltered = array();
+        for ($i = 1; $i <= 1; $i++) {
+
+            // ->subDays($i)
+            $dateFiltered = now();
+            $dateStringFiltered = $dateFiltered->toDateString();
+            $dayNameFiltered = $dateFiltered->format('l'); // Get the day name (e.g., 'Monday')
+
+            $datesFiltered[] = $dateStringFiltered;
+            $dayNamesFiltered[] = $dayNameFiltered;
+
+            // ->subDays($i)
+            $dateFiltered = now()->toDateString();
+
+
+            $outletsPerDayFiltered[$dateFiltered] = Outlet::whereDate('created_at', $dateFiltered)->count();
+        }
+        $outletsPerDayFiltered = array_reverse($outletsPerDayFiltered);
+        $datesFiltered = array_reverse($datesFiltered);
+        $dayNamesFiltered = array_reverse($dayNamesFiltered);
+
+
+                //get months Jan Feb Mar...Dec
+        for ($i = 0; $i <= 11; $i++) {
+                    $months[] = date("M", strtotime( date( 'Y-m-01' )." -$i months"));
+                    }
+                    //echo "Before";
+                    //print_r($months);
+                    //echo "After";
+        $months=array_reverse($months);
+
+
+        $sellersByRegionCount = array();
+        $sellersByRegionNames = array();
+        $sellersByRegion=User::inOrganization()->with(['region' => function ($query) {
+            $query->withTrashed();
+        }])->select('region_id', DB::raw('COUNT(region_id) as count'))
+        ->groupBy('region_id')
+        ->orderBy('count', 'desc')
+        ->take(5)->get();
+
+        $unassignedCount = 0;
+
+        //return $sellersByRegion;
+        foreach ($sellersByRegion as $seller) {
+            # code...
+            array_push($sellersByRegionCount,$seller['count']);
+            if($seller['region']==null){
+                array_push($sellersByRegionNames,"Unassigned");
+            }else{
+                array_push($sellersByRegionNames,$seller['region']['name']);
+            }
+
+
+
+        }
+
+
+            $outletsData = Outlet::join('users', 'outlets.user_id', '=', 'users.id')
+            ->join('regions', 'users.region_id', '=', 'regions.id')
+            // ->select(DB::raw('COALESCE(regions.name, "Unknown Region") as region_name'), DB::raw('COUNT(sales.id) as total_sales_count'))
+            ->select(DB::raw('COALESCE(regions.name, "Region not assigned") as region_name'), DB::raw('COUNT(outlets.id) as total_outlets_count'))
+            ->groupBy('regions.name')
+            ->get();
+
+            // Extracting two separate arrays
+            $regionNames = $outletsData->pluck('region_name')->toArray();
+            $totalOutlets = $outletsData->pluck('total_outlets_count')->toArray();
+
+
+
+        $outletcount = Outlet::whereDate('created_at', Carbon::today())->count();
+        $outletcounttill8 = Outlet::whereDate('created_at', Carbon::today())
+        ->whereTime('created_at', '>=', '00:00:00')
+        ->whereTime('created_at', '<', '08:00:00')
+        ->count();
+        $outletcounttill16 = Outlet::whereDate('created_at', Carbon::today())
+        ->whereTime('created_at', '>=', '08:00:00')
+        ->whereTime('created_at', '<', '16:00:00')
+        ->count();
+        $outletcounttill24 = Outlet::whereDate('created_at', Carbon::today())
+        ->whereTime('created_at', '>=', '16:00:00')
+        ->whereTime('created_at', '<', '24:00:00')
+        ->count();
+        $outletfirst = Outlet::whereDate('created_at', Carbon::today())->first();
+        $outletfirst =$outletfirst ? (date('H:i', strtotime($outletfirst['created_at']))) :'N/A';
+        $outletlast =  Outlet::whereDate('created_at', Carbon::today())->orderBy('created_at', 'desc')->first();
+        $outletlast =$outletlast ? (date('H:i', strtotime($outletlast['created_at']))) :'N/A';
+
+
+
+
+        //$users = User::inOrganization()->where('usertype','seller')->get();
+        return view('outlet.analytics', compact('outletsPerMonth','months','outletsCount',
+        'outletsThisMonth', 'outletsThisWeek','outletsToday','dates','outletsPerDay'
+        ,'outletcount','outletcounttill8','outletcounttill16','outletcounttill24',
+        'outletfirst','outletlast','outletsPerDayFiltered','datesFiltered','dayNamesFiltered',
+        'regionNames','totalOutlets'
+        ) );
+    }
+
+    public function filterOutletsAnalytics(Request $request) {
+        //$visits = Visit::all();
+        $query = Outlet::with(['user' => function ($query) {
+            $query->withTrashed();
+        }]); // Eager load relationships for efficiency
+
+        if ($request->user) {
+            $query->whereHas('user', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->user . '%');
+            });
+        }
+        if ($request->from_time) {
+        $query->whereRaw("TIME(created_at) >= ?", [$request->from_time]);
+        }
+        if ($request->to_time) {
+            $query->whereRaw("TIME(created_at) <= ?", [$request->to_time]);
+        }
+
+        if ($request->from_date) {
+            $query->whereDate('created_at', '>=', $request->from_date);
+        }
+
+        if ($request->to_date) {
+            $query->whereDate('created_at', '<=', $request->to_date);
+        }
+        $baseQuery = $query;
+            // Retrieve the current page from the request, defaulting to 1 if not set.
+        // $currentPage = $request->input('page', 1);
+
+        // Explicitly pass the current page to the paginate() method.
+
+        $outletcount = $query->count();
+        $outletcounttill16 = (clone $query)
+        ->whereTime('created_at', '>=', '08:00:00')
+        ->whereTime('created_at', '<', '16:00:00')
+        ->count();
+
+        $outletcounttill8 = (clone $query)
+        ->whereTime('created_at', '>=', '00:00:00')
+        ->whereTime('created_at', '<', '08:00:00')
+        ->count();
+
+        // $outletcounttill16 = $query
+        // ->whereTime('created_at', '>=', '08:00:00')
+        // ->whereTime('created_at', '<', '16:00:00')
+        // ->count();
+
+        $outletcounttill24 = (clone $query)
+        ->whereTime('created_at', '>=', '16:00:00')
+        ->whereTime('created_at', '<', '24:00:00')
+        ->count();
+        // $outletfirst = (clone $query)->first();
+        // $outletfirst =$outletfirst ? (date('H:i', strtotime($outletfirst['created_at']))) :'N/A';
+        // $outletlast = (clone $query)->orderBy('created_at', 'desc')->first();
+        // $outletlast =$outletlast ? (date('H:i', strtotime($outletlast['created_at']))) :'N/A';
+
+        $outletfirst = (clone $query)
+            ->orderByRaw("TIME(created_at) ASC")
+            ->first();
+        $outletfirst = $outletfirst ? date('H:i', strtotime($outletfirst['created_at'])) : 'N/A';
+
+        $outletlast = (clone $query)
+            ->orderByRaw("TIME(created_at) DESC")
+            ->first();
+        $outletlast = $outletlast ? date('H:i', strtotime($outletlast['created_at'])) : 'N/A';
+                // $outletfirst = date('H:i', strtotime($outletfirst['created_at']));
+
+                if ($request->from_date) {
+                    $fromDate = Carbon::parse($request->from_date); // Assuming $request->from_date is a valid date string
+                }else{
+                    $fromDate = Carbon::now()->startOfMonth(); // Defaults to the first day of the current month
+                }
+
+                if ($request->to_date) {
+                    $toDate = Carbon::parse($request->to_date);
+                }else{
+                    $toDate = Carbon::now(); // Get current date and time
+                }
+
+                $diffInDays = $fromDate->diffInDays($toDate)+1;
+
+                $datesFiltered = [];
+                $dayNamesFiltered = [];
+                $outletsPerDayFiltered = array();
+                // Loop through each day in the date range
+                for ($i = 0; $i < $diffInDays; $i++) {
+                    // Create a copy of $toDate for each iteration, so the original $toDate is not modified
+                    $currentDate = $toDate->copy()->subDays($i);
+
+                    // Get the date string and day name
+                    $dateStringFiltered = $currentDate->toDateString();
+                    $dayNameFiltered = $currentDate->format('l'); // Get the day name (e.g., 'Monday')
+
+                    // Store the date, day name, and clock-in count
+                    $datesFiltered[] = $dateStringFiltered;
+                    $dayNamesFiltered[] = $dayNameFiltered;
+
+                    // Get the count of clock-ins for the specific date
+                    $outletsPerDayFiltered[$dateStringFiltered] = Outlet::whereDate('created_at', $dateStringFiltered)->count();
+                }
+
+                $outletsPerDayFiltered = array_reverse($outletsPerDayFiltered);
+                $datesFiltered = array_reverse($datesFiltered);
+                $dayNamesFiltered = array_reverse($dayNamesFiltered);
+
+
+        // $visits = $query->orderBy('id', 'DESC')->paginate(500);
+        return response()->json(compact('outletcount','outletcounttill8',
+        'outletcounttill16','outletcounttill24','outletfirst','outletlast',
+        'outletsPerDayFiltered','datesFiltered','dayNamesFiltered',
+        
+    ));
     }
 
 //     public function export(Request $request)
