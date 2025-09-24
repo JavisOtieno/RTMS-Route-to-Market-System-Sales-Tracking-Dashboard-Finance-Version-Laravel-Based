@@ -599,6 +599,8 @@
                                     <li class="side-menu-label1"><a href="javascript:void(0)">Clockins</a></li>
                                     <li><a href="/clockins" class="slide-item">Clockins List</a></li>
                                     <li><a href="/clockinsmap" class="slide-item">Clockins Map</a></li>
+                                    <li><a href="/clockinsanalytics" class="slide-item">Clockins Analytics</a></li>
+
                                 </ul>
                             </div>
                         </div>
@@ -630,6 +632,7 @@
                                     <li class="side-menu-label1"><a href="javascript:void(0)">Clockouts</a></li>
                                     <li><a href="/clockouts" class="slide-item">Clockouts List</a></li>
                                     <li><a href="/clockoutsmap" class="slide-item">Clockouts Map</a></li>
+                                    <li><a href="/clockoutsanalytics" class="slide-item">Clockouts Analytics</a></li>
                                 </ul>
                             </div>
                         </div>
