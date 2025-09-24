@@ -183,6 +183,8 @@ Route::get('/clockouts/filter', [ClockoutController::class,'filterClockouts']);
 Route::get('/deleteclockout/{id}', [ClockoutController::class,'deleteClockout']);
 Route::get('/clockoutsyajra',[ClockoutController::class,'clockoutsYajra'])->name('clockoutsyajra');
 Route::get('/clockouts',[ClockoutController::class,'indexClockoutsYajra'])->name('indexclockoutsyajra');
+Route::get('/clockoutsanalytics', [ClockoutController::class,'showClockoutsAnalytics']);
+Route::get('/fetchclockoutanalytics', [ClockoutController::class,'filterClockoutsAnalytics']);
 
 
 //Test
