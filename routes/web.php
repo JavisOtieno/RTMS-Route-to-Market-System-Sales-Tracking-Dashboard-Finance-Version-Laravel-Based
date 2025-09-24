@@ -177,6 +177,9 @@ Route::get('/clockout/{id}',[ClockoutController::class,'showEditClockout']);
 Route::get('/clockoutsmap', [ClockoutController::class,'showClockoutsMap']);
 Route::get('/clockouts/filter', [ClockoutController::class,'filterClockouts']);
 Route::get('/deleteclockout/{id}', [ClockoutController::class,'deleteClockout']);
+Route::get('/clockoutsyajra',[ClockoutController::class,'clockoutsYajra'])->name('clockoutsyajra');
+Route::get('/clockoutsnew',[ClockoutController::class,'indexClockoutsYajra'])->name('indexclockoutsyajra');
+
 
 //Test
 //Test
