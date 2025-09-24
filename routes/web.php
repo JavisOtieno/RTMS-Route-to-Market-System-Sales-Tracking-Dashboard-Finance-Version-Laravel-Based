@@ -171,14 +171,14 @@ Route::get('/clockinsyajra',[ClockinController::class,'clockinsYajra'])->name('c
 Route::get('/clockinsnew', [ClockinController::class,'indexClockinsYajra']);
 Route::get('/clockins/export', [ClockinController::class, 'export'])->name('clockins.export');
 
-Route::get('/clockouts', [ClockoutController::class,'index']);
+Route::get('/clockoutsold', [ClockoutController::class,'index']);
 Route::get('/clockouts/{id}/{object}',[ClockoutController::class,'showClockoutsById']);
 Route::get('/clockout/{id}',[ClockoutController::class,'showEditClockout']);
 Route::get('/clockoutsmap', [ClockoutController::class,'showClockoutsMap']);
 Route::get('/clockouts/filter', [ClockoutController::class,'filterClockouts']);
 Route::get('/deleteclockout/{id}', [ClockoutController::class,'deleteClockout']);
 Route::get('/clockoutsyajra',[ClockoutController::class,'clockoutsYajra'])->name('clockoutsyajra');
-Route::get('/clockoutsnew',[ClockoutController::class,'indexClockoutsYajra'])->name('indexclockoutsyajra');
+Route::get('/clockouts',[ClockoutController::class,'indexClockoutsYajra'])->name('indexclockoutsyajra');
 
 
 //Test
