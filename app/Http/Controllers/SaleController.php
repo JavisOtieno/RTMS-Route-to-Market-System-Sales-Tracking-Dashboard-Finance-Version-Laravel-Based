@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Sale;
 use App\Models\User;
+use App\Models\Visit;
 use App\Models\Outlet;
 use App\Models\Product;
 use App\Models\SaleItem;
@@ -535,23 +536,24 @@ class SaleController extends Controller
         return view('sale.map', compact('sales', 'users', 'outlets'));
     }
 
-    public function showSalesAnalytics()
-    {
+    public function showSalesAnalytics(){
 
-        $visits = Sale::with(['user' => function ($query) {
-            $query->withTrashed();
-        }, 'outlet'])->get();
+
+
+        // $visits = Sale::with(['user' => function ($query) {
+        //     $query->withTrashed();
+        // }, 'outlet'])->get();
 
         $users = User::inOrganization()->get();
         $outlets = Outlet::all();
 
         $salesCount = Sale::all()->count();
 
-        $visitsPerMonth = array();
-        for ($i = 0; $i <= 11; $i++) {
-            $salesPerMonth[$i] = Sale::whereMonth('created_at', date('m', strtotime('-' . $i . ' month')))->count();
+        $salesPerMonth= array();
+        for ($i=0; $i<=11; $i++){
+            $salesPerMonth[$i] = Sale::whereMonth('created_at', date('m',strtotime('-'.$i.' month')))->count();
         }
-        $salesPerMonth = array_reverse($salesPerMonth);
+        $salesPerMonth =array_reverse($salesPerMonth);
 
         $dates = [];
         $dayNames = [];
@@ -577,7 +579,7 @@ class SaleController extends Controller
 
         $startOfMonth = date('Y-m-01 00:00:00'); // 1st day of the current month
         $today = date('Y-m-d 23:59:59'); // Current day
-        $salesThisMonth = Sale::whereBetween('created_at', [$startOfMonth, $today])->count();
+        $salesThisMonth =Sale::whereBetween('created_at', [$startOfMonth, $today])->count();
 
         $startOfWeek = Carbon::now()->startOfWeek(); // Start of the week (Monday)
         $today = Carbon::now()->endOfDay(); // Current day
@@ -589,81 +591,312 @@ class SaleController extends Controller
         $salesToday = Sale::whereBetween('created_at', [$startOfDay, $endOfDay])->count();
 
 
-        //get months Jan Feb Mar...Dec
+                //get months Jan Feb Mar...Dec
         for ($i = 0; $i <= 11; $i++) {
-            $months[] = date("M", strtotime(date('Y-m-01') . " -$i months"));
-        }
-        //echo "Before";
-        //print_r($months);
-        //echo "After";
-        $months = array_reverse($months);
+                    $months[] = date("M", strtotime( date( 'Y-m-01' )." -$i months"));
+                    }
+                    //echo "Before";
+                    //print_r($months);
+                    //echo "After";
+        $months=array_reverse($months);
+
+        // $regions = Region::with(['users.sales'])->get()->map(function ($region) {
+        //     return [
+        //         'region_id' => $region->id,
+        //         'region_name' => $region->name,
+        //         'total_sales' => $region->users->flatMap->sales->sum('amount'),
+        //     ];
+        // });
 
 
         $sellersByRegionCount = array();
         $sellersByRegionNames = array();
-        $sellersByRegion = User::inOrganization()->with(['region' => function ($query) {
+        $sellersByRegion=User::inOrganization()->with(['region' => function ($query) {
             $query->withTrashed();
         }])->select('region_id', DB::raw('COUNT(region_id) as count'))
-            ->groupBy('region_id')
-            ->orderBy('count', 'desc')
-            ->take(5)->get();
+        ->groupBy('region_id')
+        ->orderBy('count', 'desc')
+        ->take(5)->get();
 
         $unassignedCount = 0;
 
         //return $sellersByRegion;
         foreach ($sellersByRegion as $seller) {
             # code...
-            array_push($sellersByRegionCount, $seller['count']);
-            if ($seller['region'] == null) {
-                array_push($sellersByRegionNames, "Unassigned");
-            } else {
-                array_push($sellersByRegionNames, $seller['region']['name']);
+            array_push($sellersByRegionCount,$seller['count']);
+            if($seller['region']==null){
+                array_push($sellersByRegionNames,"Unassigned");
+            }else{
+                array_push($sellersByRegionNames,$seller['region']['name']);
             }
+
+
+
         }
 
-        $topSellerUserNames = [];
-        $topSellerSalesCount = [];
+        // $topSellerUserNames=[];
+        // $topSellerSalesCount=[];
 
-        $topSellersGraph = Sale::with(['user' => function ($query) {
-            $query->withTrashed();
-        }])->select('user_id', DB::raw('COUNT(user_id) as count'))
-            ->groupBy('user_id')
+        // $topSellersGraph=Sale::with(['user' => function ($query) {
+        //     $query->withTrashed();
+        // }])->select('user_id', DB::raw('COUNT(user_id) as count'))
+        // ->groupBy('user_id')
+        // ->orderBy('count', 'desc')
+        // ->take(10)->get();
+
+        // foreach($topSellersGraph as $topSeller){
+
+
+        //     // $sellerName=$topSeller['user']['name'];
+        //     $sellerName=$topSeller['user'] ? $topSeller['user']['name']  . ($topSeller['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User';
+        //     $sellerNames=explode(' ',$sellerName);
+        //     if(count($sellerNames)==1){
+        //         array_push($topSellerUserNames,$sellerNames[0]);
+        //     }else{
+        //         array_push($topSellerUserNames,$sellerNames[0]."\n".$sellerNames[1]);
+        //     }
+
+        //     $sellerSalesCount=$topSeller['count'];
+        //     array_push($topSellerSalesCount,$sellerSalesCount);
+
+        // }
+
+        $topSellersGraph = Sale::join('users', 'users.id', '=', 'sales.user_id')
+            ->select('sales.user_id', 'users.name', DB::raw('COUNT(sales.user_id) as count'))
+            ->groupBy('sales.user_id', 'users.name')
             ->orderBy('count', 'desc')
-            ->take(10)->get();
+            ->take(10)
+            ->get();
 
-        foreach ($topSellersGraph as $topSeller) {
+        $topSellerUserNames = $topSellersGraph->pluck('name')->toArray();
+        $topSellerSalesCount = $topSellersGraph->pluck('count')->toArray();
+
+        $visitcount = Visit::whereDate('created_at', Carbon::today())->count();
+        $salescount = Sale::whereDate('created_at', Carbon::today())->count();
+
+        $salespervisit = $visitcount > 0 ? round(($salescount / $visitcount), 2) : 0;
+        $salespervisit = $salespervisit;
 
 
-            // $sellerName=$topSeller['user']['name'];
-            $sellerName = $topSeller['user'] ? $topSeller['user']['name']  . ($topSeller['user']->trashed() ? ' (Deleted User)' : '') : 'Deleted User';
-            $sellerNames = explode(' ', $sellerName);
-            if (count($sellerNames) == 1) {
-                array_push($topSellerUserNames, $sellerNames[0]);
-            } else {
-                array_push($topSellerUserNames, $sellerNames[0] . "\n" . $sellerNames[1]);
-            }
+        $salecount = Sale::whereDate('created_at', Carbon::today())->count();
+        $salecounttill8 = Sale::whereDate('created_at', Carbon::today())
+        ->whereTime('created_at', '>=', '00:00:00')
+        ->whereTime('created_at', '<', '08:00:00')
+        ->count();
+        $salecounttill16 = Sale::whereDate('created_at', Carbon::today())
+        ->whereTime('created_at', '>=', '08:00:00')
+        ->whereTime('created_at', '<', '16:00:00')
+        ->count();
+        $salecounttill24 = Sale::whereDate('created_at', Carbon::today())
+        ->whereTime('created_at', '>=', '16:00:00')
+        ->whereTime('created_at', '<', '24:00:00')
+        ->count();
+        $salefirst = Sale::whereDate('created_at', Carbon::today())->first();
+        $salefirst =$salefirst ? (date('H:i', strtotime($salefirst['created_at']))) :'N/A';
+        $salelast =  Sale::whereDate('created_at', Carbon::today())->orderBy('created_at', 'desc')->first();
+        $salelast =$salelast ? (date('H:i', strtotime($salelast['created_at']))) :'N/A';
 
-            $sellerSalesCount = $topSeller['count'];
-            array_push($topSellerSalesCount, $sellerSalesCount);
+        $datesFiltered = [];
+        $dayNamesFiltered = [];
+        $salesPerDayFiltered = array();
+        for ($i = 1; $i <= 1; $i++) {
+
+            // ->subDays($i)
+            $dateFiltered = now();
+            $dateStringFiltered = $dateFiltered->toDateString();
+            $dayNameFiltered = $dateFiltered->format('l'); // Get the day name (e.g., 'Monday')
+
+            $datesFiltered[] = $dateStringFiltered;
+            $dayNamesFiltered[] = $dayNameFiltered;
+
+            // ->subDays($i)
+            $dateFiltered = now()->toDateString();
+
+
+            $salesPerDayFiltered[$dateFiltered] = Sale::whereDate('created_at', $dateFiltered)->count();
         }
+        $salesPerDayFiltered = array_reverse($salesPerDayFiltered);
+        $datesFiltered = array_reverse($datesFiltered);
+        $dayNamesFiltered = array_reverse($dayNamesFiltered);
+
+        $salesperday = $salecount;
+
+        $salesData = Sale::join('users', 'sales.user_id', '=', 'users.id')
+        ->join('regions', 'users.region_id', '=', 'regions.id')
+        // ->select(DB::raw('COALESCE(regions.name, "Unknown Region") as region_name'), DB::raw('COUNT(sales.id) as total_sales_count'))
+        ->select(DB::raw('COALESCE(regions.name, "Region not assigned") as region_name'), DB::raw('COUNT(sales.id) as total_sales_count'))
+        ->groupBy('regions.name')
+        ->get();
+
+        // Extracting two separate arrays
+        $regionNames = $salesData->pluck('region_name')->toArray();
+        $totalSales = $salesData->pluck('total_sales_count')->toArray();
+
+        $allProducts = Product::with('saleitems')
+        ->select('products.id', 'products.name', DB::raw('SUM(sale_items.pieces) as total_quantity'))
+        ->join('sale_items', 'products.id', '=', 'sale_items.product_id')
+        ->groupBy('products.id', 'products.name')
+        ->orderByDesc('total_quantity')
+        ->get();
+
+        // Pluck product names and quantities
+        $productNames = $allProducts->pluck('name')->toArray();
+        $productSales = $allProducts->pluck('total_quantity')->toArray();
+
+        // Output the arrays
+        // return [
+        //     'regions' => $regionNames,
+        //     'sales' => $totalSales
+        // ];
+
+        // Extract two separate arrays
+        // $regionNames = $regionsData->pluck('region_name')->toArray();
+        // $totalSales = $regionsData->pluck('total_sales')->toArray();
+
 
 
 
         //$users = User::inOrganization()->where('usertype','seller')->get();
-        return view('sale.analytics', compact(
-            'salesPerMonth',
-            'months',
-            'salesCount',
-            'salesThisMonth',
-            'salesThisWeek',
-            'salesToday',
-            'dates',
-            'salesPerDay',
-            'sellersByRegionCount',
-            'sellersByRegionNames',
-            'topSellerSalesCount',
-            'topSellerUserNames'
-        ));
+        return view('sale.analytics', compact('salesPerMonth','months','salesCount',
+        'salesThisMonth', 'salesThisWeek','salesToday','dates','salesPerDay','sellersByRegionCount','sellersByRegionNames',
+        'topSellerSalesCount','topSellerUserNames'
+        ,'salecount','salecounttill8','salecounttill16','salecounttill24',
+        'salefirst','salelast','salespervisit','totalSales',
+        'salesPerDayFiltered','datesFiltered','dayNamesFiltered', 'salesperday',
+        'regionNames','totalSales','productNames','productSales'
+        ) );
+    }
+
+    public function filterSalesAnalytics(Request $request) {
+        //$visits = Visit::all();
+        $query = Sale::with(['user' => function ($query) {
+            $query->withTrashed();
+        }]); // Eager load relationships for efficiency
+
+        if ($request->user) {
+            $query->whereHas('user', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->user . '%');
+            });
+        }
+        if ($request->from_time) {
+        $query->whereRaw("TIME(created_at) >= ?", [$request->from_time]);
+        }
+        if ($request->to_time) {
+            $query->whereRaw("TIME(created_at) <= ?", [$request->to_time]);
+        }
+
+        if ($request->from_date) {
+            $query->whereDate('created_at', '>=', $request->from_date);
+        }
+
+        if ($request->to_date) {
+            $query->whereDate('created_at', '<=', $request->to_date);
+        }
+        $baseQuery = $query;
+            // Retrieve the current page from the request, defaulting to 1 if not set.
+        // $currentPage = $request->input('page', 1);
+
+        // Explicitly pass the current page to the paginate() method.
+
+        $salecount = $query->count();
+        $salecounttill16 = (clone $query)
+        ->whereTime('created_at', '>=', '08:00:00')
+        ->whereTime('created_at', '<', '16:00:00')
+        ->count();
+
+        $salecounttill8 = (clone $query)
+        ->whereTime('created_at', '>=', '00:00:00')
+        ->whereTime('created_at', '<', '08:00:00')
+        ->count();
+
+        // $salecounttill16 = $query
+        // ->whereTime('created_at', '>=', '08:00:00')
+        // ->whereTime('created_at', '<', '16:00:00')
+        // ->count();
+
+        $salecounttill24 = (clone $query)
+        ->whereTime('created_at', '>=', '16:00:00')
+        ->whereTime('created_at', '<', '24:00:00')
+        ->count();
+
+
+        $queryvisits = Visit::with(['outlet' => function ($query) {
+            $query->withTrashed();
+        }]);
+
+        if ($request->from_date) {
+            $queryvisits->whereDate('created_at', '>=', $request->from_date);
+        }
+
+        if ($request->to_date) {
+            $queryvisits->whereDate('created_at', '<=', $request->to_date);
+        }
+        $visitcount = $queryvisits->count();
+
+
+        $salespervisit = $visitcount > 0 ? round(($salecount / $visitcount), 2) : 0;
+        $salespervisit = $salespervisit;
+        // $salefirst = (clone $query)->first();
+        // $salefirst =$salefirst ? (date('H:i', strtotime($salefirst['created_at']))) :'N/A';
+        // $salelast = (clone $query)->orderBy('created_at', 'desc')->first();
+        // $salelast =$salelast ? (date('H:i', strtotime($salelast['created_at']))) :'N/A';
+
+        $salefirst = (clone $query)
+            ->orderByRaw("TIME(created_at) ASC")
+            ->first();
+        $salefirst = $salefirst ? date('H:i', strtotime($salefirst['created_at'])) : 'N/A';
+
+        $salelast = (clone $query)
+            ->orderByRaw("TIME(created_at) DESC")
+            ->first();
+        $salelast = $salelast ? date('H:i', strtotime($salelast['created_at'])) : 'N/A';
+                // $salefirst = date('H:i', strtotime($salefirst['created_at']));
+
+                if ($request->from_date) {
+                    $fromDate = Carbon::parse($request->from_date); // Assuming $request->from_date is a valid date string
+                }else{
+                    $fromDate = Carbon::now()->startOfMonth(); // Defaults to the first day of the current month
+                }
+
+                if ($request->to_date) {
+                    $toDate = Carbon::parse($request->to_date);
+                }else{
+                    $toDate = Carbon::now(); // Get current date and time
+                }
+
+                $diffInDays = $fromDate->diffInDays($toDate)+1;
+
+                $salesperday =  round(($salecount/$diffInDays),2);
+
+                $datesFiltered = [];
+                $dayNamesFiltered = [];
+                $salesPerDayFiltered = array();
+                // Loop through each day in the date range
+                for ($i = 0; $i < $diffInDays; $i++) {
+                    // Create a copy of $toDate for each iteration, so the original $toDate is not modified
+                    $currentDate = $toDate->copy()->subDays($i);
+
+                    // Get the date string and day name
+                    $dateStringFiltered = $currentDate->toDateString();
+                    $dayNameFiltered = $currentDate->format('l'); // Get the day name (e.g., 'Monday')
+
+                    // Store the date, day name, and clock-in count
+                    $datesFiltered[] = $dateStringFiltered;
+                    $dayNamesFiltered[] = $dayNameFiltered;
+
+                    // Get the count of clock-ins for the specific date
+                    $salesPerDayFiltered[$dateStringFiltered] = Sale::whereDate('created_at', $dateStringFiltered)->count();
+                }
+
+                $salesPerDayFiltered = array_reverse($salesPerDayFiltered);
+                $datesFiltered = array_reverse($datesFiltered);
+                $dayNamesFiltered = array_reverse($dayNamesFiltered);
+
+
+        // $visits = $query->orderBy('id', 'DESC')->paginate(500);
+        return response()->json(compact('salecount','salecounttill8',
+        'salecounttill16','salecounttill24','salefirst','salelast',
+        'salesPerDayFiltered','datesFiltered','dayNamesFiltered','salesperday','salespervisit'));
     }
 
 
