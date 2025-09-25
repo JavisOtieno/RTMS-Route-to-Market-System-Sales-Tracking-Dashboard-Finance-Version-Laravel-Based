@@ -151,7 +151,8 @@ class UserController extends CommonController
 
         $products = Product::all();
 
-        return view('seller.indexreport', ['users'=>$users, 'products'=>$products, 'userProductMetrics'=>$userProductMetrics]);
+        return view('seller.indexreport', ['users'=>$users, 
+        'products'=>$products, 'userProductMetrics'=>$userProductMetrics]);
     }
 
     public function showSellersById($objectId,$object) {

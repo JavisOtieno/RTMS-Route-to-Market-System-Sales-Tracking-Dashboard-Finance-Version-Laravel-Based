@@ -380,11 +380,28 @@ class ClockinController extends Controller
             ->get()
             ->keyBy(fn($r) => $r->year . '-' . str_pad($r->month, 2, '0', STR_PAD_LEFT));
         $clockinsPerMonth = [];
-        for ($i = 11; $i >= 0; $i--) {
-            $dt = now()->subMonths($i);
-            $key = $dt->format('Y-m');
-            $clockinsPerMonth[] = isset($clockinsRows[$key]) ? (int)$clockinsRows[$key]->total : 0;
+        // for ($i = 11; $i >= 0; $i--) {
+        //     $dt = now()->subMonths($i);
+        //     $key = $dt->format('Y-m');
+        //     $clockinsPerMonth[] = isset($clockinsRows[$key]) ? (int)$clockinsRows[$key]->total : 0;
+        // }
+        $start = now()->subMonths(11)->startOfMonth();
+        $end   = now()->endOfMonth();
+
+        // single grouped query, pluck by "YYYY-MM"
+        $counts = Clockin::selectRaw("DATE_FORMAT(created_at, '%Y-%m') as ym, COUNT(*) as cnt")
+            ->whereBetween('created_at', [$start, $end])
+            ->groupBy('ym')
+            ->pluck('cnt', 'ym')
+            ->toArray();
+
+        // build visitsPerMonth with numeric indices (0 = this month)
+        $clockinsPerMonth = [];
+        for ($i = 0; $i <= 11; $i++) {
+            $key = now()->subMonths($i)->format('Y-m');
+            $clockinsPerMonth[$i] = $counts[$key] ?? 0;
         }
+        $clockinsPerMonth =array_reverse($clockinsPerMonth);
         // Daily clockins (last 7 days, excluding today)
         $periodStart = now()->subDays(7)->startOfDay();
         $periodEnd   = now()->subDays(1)->endOfDay(); // up to yesterday

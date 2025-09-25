@@ -120,10 +120,27 @@ class OutletController extends CommonController
 
         $outletsCount = Outlet::count();
 
-        $outletsPerMonth= array();
-        for ($i=0; $i<=11; $i++){
-            $outletsPerMonth[$i] = Outlet::whereMonth('created_at', date('m',strtotime('-'.$i.' month')))->count();
+        // $outletsPerMonth= array();
+        // for ($i=0; $i<=11; $i++){
+        //     $outletsPerMonth[$i] = Outlet::whereMonth('created_at', date('m',strtotime('-'.$i.' month')))->count();
+        // }
+        $start = now()->subMonths(11)->startOfMonth();
+        $end   = now()->endOfMonth();
+
+        // single grouped query, pluck by "YYYY-MM"
+        $counts = Outlet::selectRaw("DATE_FORMAT(created_at, '%Y-%m') as ym, COUNT(*) as cnt")
+            ->whereBetween('created_at', [$start, $end])
+            ->groupBy('ym')
+            ->pluck('cnt', 'ym')
+            ->toArray();
+
+        // build visitsPerMonth with numeric indices (0 = this month)
+        $outletsPerMonth = [];
+        for ($i = 0; $i <= 11; $i++) {
+            $key = now()->subMonths($i)->format('Y-m');
+            $outletsPerMonth[$i] = $counts[$key] ?? 0;
         }
+        $outletsPerMonth =array_reverse($outletsPerMonth);
         $outletsPerMonth =array_reverse($outletsPerMonth);
 
         $dates = [];

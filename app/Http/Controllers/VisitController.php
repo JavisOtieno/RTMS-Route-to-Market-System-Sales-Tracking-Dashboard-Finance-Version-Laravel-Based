@@ -551,8 +551,25 @@ public function export(Request $request)
             $visitsCount = Visit::count();
 
             $visitsPerMonth= array();
-            for ($i=0; $i<=11; $i++){
-                $visitsPerMonth[$i] = Visit::whereMonth('created_at', date('m',strtotime('-'.$i.' month')))->count();
+            // for ($i=0; $i<=11; $i++){
+            //     $visitsPerMonth[$i] = Visit::whereMonth('created_at', date('m',strtotime('-'.$i.' month')))->count();
+            // }
+            // $visitsPerMonth =array_reverse($visitsPerMonth);
+            $start = now()->subMonths(11)->startOfMonth();
+            $end   = now()->endOfMonth();
+
+            // single grouped query, pluck by "YYYY-MM"
+            $counts = Visit::selectRaw("DATE_FORMAT(created_at, '%Y-%m') as ym, COUNT(*) as cnt")
+                ->whereBetween('created_at', [$start, $end])
+                ->groupBy('ym')
+                ->pluck('cnt', 'ym')
+                ->toArray();
+
+            // build visitsPerMonth with numeric indices (0 = this month)
+            $visitsPerMonth = [];
+            for ($i = 0; $i <= 11; $i++) {
+                $key = now()->subMonths($i)->format('Y-m');
+                $visitsPerMonth[$i] = $counts[$key] ?? 0;
             }
             $visitsPerMonth =array_reverse($visitsPerMonth);
 
@@ -569,7 +586,6 @@ public function export(Request $request)
                 $dayNames[] = $dayName;
 
                 $date = now()->subDays($i)->toDateString();
-
 
                 $visitsPerDay[$date] = Visit::whereDate('created_at', $date)->count();
             }

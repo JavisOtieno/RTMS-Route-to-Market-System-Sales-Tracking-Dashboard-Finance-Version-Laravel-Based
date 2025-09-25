@@ -305,9 +305,26 @@ class ClockoutController extends Controller
     
             $clockoutsCount = Clockout::all()->count();
     
-            $clockoutsPerMonth= array();
-            for ($i=0; $i<=11; $i++){
-                $clockoutsPerMonth[$i] = Clockout::whereMonth('created_at', date('m',strtotime('-'.$i.' month')))->count();
+            // $clockoutsPerMonth= array();
+            // for ($i=0; $i<=11; $i++){
+            //     $clockoutsPerMonth[$i] = Clockout::whereMonth('created_at', date('m',strtotime('-'.$i.' month')))->count();
+            // }
+            // $clockoutsPerMonth =array_reverse($clockoutsPerMonth);
+            $start = now()->subMonths(11)->startOfMonth();
+            $end   = now()->endOfMonth();
+
+            // single grouped query, pluck by "YYYY-MM"
+            $counts = Clockout::selectRaw("DATE_FORMAT(created_at, '%Y-%m') as ym, COUNT(*) as cnt")
+                ->whereBetween('created_at', [$start, $end])
+                ->groupBy('ym')
+                ->pluck('cnt', 'ym')
+                ->toArray();
+
+            // build visitsPerMonth with numeric indices (0 = this month)
+            $clockoutsPerMonth = [];
+            for ($i = 0; $i <= 11; $i++) {
+                $key = now()->subMonths($i)->format('Y-m');
+                $clockoutsPerMonth[$i] = $counts[$key] ?? 0;
             }
             $clockoutsPerMonth =array_reverse($clockoutsPerMonth);
     
