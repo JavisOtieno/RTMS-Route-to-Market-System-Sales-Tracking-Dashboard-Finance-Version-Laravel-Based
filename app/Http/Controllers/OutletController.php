@@ -141,7 +141,7 @@ class OutletController extends CommonController
             $outletsPerMonth[$i] = $counts[$key] ?? 0;
         }
         $outletsPerMonth =array_reverse($outletsPerMonth);
-        $outletsPerMonth =array_reverse($outletsPerMonth);
+        // $outletsPerMonth =array_reverse($outletsPerMonth);
 
         $dates = [];
         $dayNames = [];
