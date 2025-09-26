@@ -77,6 +77,7 @@ $(function(e) {
     var table2=$('#responsive-datatable').DataTable({
         "order": [0, 'desc'],
         'ordering': true,
+        lengthMenu: [[10, 25, 50, 100, 1000], [10, 25, 50, 100, 1000]],
         language: {
             searchPlaceholder: 'Search...',
             scrollX: "100%",
