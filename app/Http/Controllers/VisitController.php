@@ -539,7 +539,7 @@ public function export(Request $request)
 
             $visits = Visit::with(['user' => function ($query) {
                 $query->withTrashed();
-            }, 'outlet'])->get();
+            }, 'outlet'])->take(5)->get();
 
             $users = User::inOrganization()->get();
             // $outlets = Outlet::all();
