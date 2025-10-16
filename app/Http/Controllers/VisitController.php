@@ -537,9 +537,9 @@ public function export(Request $request)
 
         public function showVisitsAnalytics(){
 
-            $visits = Visit::with(['user' => function ($query) {
-                $query->withTrashed();
-            }, 'outlet'])->take(5)->get();
+            // $visits = Visit::with(['user' => function ($query) {
+            //     $query->withTrashed();
+            // }, 'outlet'])->get();
 
             $users = User::inOrganization()->get();
             // $outlets = Outlet::all();
@@ -710,7 +710,7 @@ public function export(Request $request)
             $topSellerVisitsCount = $topSellersGraph->pluck('count')->toArray();
 
             //$users = User::inOrganization()->where('usertype','seller')->get();
-            return view('visit.analytics', compact('visitsPerMonth','visits','users','months','visitsCount',
+            return view('visit.analytics', compact('visitsPerMonth','users','months','visitsCount',
             'visitsThisMonth', 'visitsThisWeek','visitsToday','visitsPerDay','dates','dayNames',
             'visitcount','visitcounttill8','visitcounttill16','visitcounttill24','visitfirst','visitlast',
             'visitbeyond5min','visitwithoutcheckout','visitbelow5min','salespervisit','salesconversionrate',
