@@ -1,67 +1,114 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# RTMS – Route-to-Market System  
+**Sales Tracking Dashboard (Finance Version) – Laravel**
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A full-featured web dashboard and API for managing field sales operations, route planning, outlet visits, and sales tracking. Built for multi-organization environments with team-based access control. Works with the companion Android mobile apps.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Overview
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+**RTMS (Route-to-Market System)** helps sales teams and managers track field activities in real time:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Sales representatives clock in/out and check in/out at outlets with GPS
+- Managers monitor visits, sales (deals), route compliance, and performance
+- Finance-focused version with strong sales tracking, analytics, targets, and reporting
 
-## Learning Laravel
+Supports multiple organizations and teams, with role-based visibility (including view-only restrictions for team leads).
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Key Features
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Dashboard & Analytics
+- Real-time overview of sales, visits, outlets, products, POS audits, competitors, and feedback
+- Charts for sales trends (monthly & weekly)
+- Top sellers, top products, and top outlets
+- Recent activity feeds and maps
 
-## Laravel Sponsors
+### Sales Management
+- Record and track sales (deals) linked to visits and outlets
+- Sale items with quantities and values
+- Status workflow: Pending → Complete / Cancel
+- Sales analytics, targets, and filtering
+- PDF order notes (DomPDF)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Field Operations
+- Clock-in / Clock-out with GPS coordinates
+- Outlet (Customer) management with location, contact details, and maps
+- Visits – check-in / check-out tracking
+- Route plans – create and manage daily routes
+- Off-plan requests for deviations from planned routes
 
-### Premium Partners
+### Market Intelligence
+- POS audits (point-of-sale audits with items)
+- Competitor analysis (brand visibility & pricing)
+- Customer feedback and follow-ups
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### Organization & Team Management
+- Multi-organization support
+- Teams, territories, regions, and target groups
+- User management with role-based access
+- Soft deletes and organization-level data scoping
 
-## Contributing
+### Mobile API
+- Full REST API protected by Laravel Sanctum
+- Endpoints for clock-in/out, visits, sales, outlets, feedback, POS audits, route plans, etc.
+- Designed to work with the companion Android apps
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## Tech Stack
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+| Layer          | Technology                          |
+|----------------|-------------------------------------|
+| Backend        | PHP 8.1+ · Laravel 10               |
+| Authentication | Laravel Sanctum                     |
+| Database       | MySQL / MariaDB                     |
+| Frontend       | Blade · Vite · Yajra DataTables     |
+| PDF            | DomPDF                              |
+| Monitoring     | Sentry                              |
+| Other          | Google API Client, League Glide     |
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Installation
 
-## License
+### Prerequisites
+- PHP ≥ 8.1
+- Composer
+- MySQL / MariaDB
+- Node.js & npm (for frontend assets)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# RTMS-Route-to-Market-System-Sales-Tracking-Dashboard-Finance-Version-Laravel-Based
+### Setup Steps
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/JavisOtieno/RTMS-Route-to-Market-System-Sales-Tracking-Dashboard-Finance-Version-Laravel-Based.git
+cd RTMS-Route-to-Market-System-Sales-Tracking-Dashboard-Finance-Version-Laravel-Based
+
+# 2. Install PHP dependencies
+composer install
+
+# 3. Copy environment file
+cp .env.example .env
+
+# 4. Generate application key
+php artisan key:generate
+
+# 5. Configure your database in .env
+# DB_DATABASE=rtmis
+# DB_USERNAME=root
+# DB_PASSWORD=
+
+# 6. Import the database (optional – includes sample data)
+mysql -u root -p rtmis < rtmis_db1.sql
+
+# OR run migrations (if you prefer a clean install)
+# php artisan migrate
+
+# 7. Install frontend dependencies and build assets
+npm install
+npm run build
+
+# 8. Start the development server
+php artisan serve
